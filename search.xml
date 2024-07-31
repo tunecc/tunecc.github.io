@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>第一篇文章你感觉怎么样呀</title>
+    <url>/2024/06/24/%E7%AC%AC%E4%B8%80/</url>
+    <content><![CDATA[<p>敲两次空格测试真真地换行<br><em>连续两次空格是换段</em> #斜体用一个*星号就行<br><strong><em>三个星号又斜体又加粗</em></strong>  </p>
+<span id="more"></span>
+<p>~~两个波浪号就是删除线~~</p>
+<hr>
+<h1 id="我是第一次写作一个-️⃣，记得空一格"><a href="#我是第一次写作一个-️⃣，记得空一格" class="headerlink" title="我是第一次写作一个#️⃣，记得空一格"></a>我是第一次写作一个#️⃣，记得空一格</h1><p>lkgnfdglkndgkl</p>
+<h2 id="二级标题用两个-️⃣"><a href="#二级标题用两个-️⃣" class="headerlink" title="二级标题用两个#️⃣"></a>二级标题用两个#️⃣</h2><p>lkgnfdglkndgkl</p>
+<h3 id="住的模块撒大最多六个-️⃣"><a href="#住的模块撒大最多六个-️⃣" class="headerlink" title="住的模块撒大最多六个#️⃣"></a>住的模块撒大最多六个#️⃣</h3><p>爱埃森掉 alkgnfdglkndgklghnjkss 懂 fknslkskfdnmkl 赛的分赛 231asd 赛搭森发</p>
+<ul>
+<li>第一项任务</li>
+<li>赛赛 asdas 搭 d d</li>
+</ul>
+<p>连换两行才是另起一段</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 发 fbg</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">x=a</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+
+<p>可以先更新软件源<code>sudo updata</code><br>前往我的 alist[网站][1]查看更加多的内容[^1]<br>[^1]: 我是牛<br>![a][image-1]</p>
+<p>你觉得爱多年阿pious</p>
+<p>sd</p>
+<p>[1]:	<a href="https://aith.love/">https://aith.love</a></p>
+<p>[image-1]:	<a href="https://pic.macked.app/static/f3c2f4717879d0648bb3796cbcf4c21d-1695357164.webp">https://pic.macked.app/static/f3c2f4717879d0648bb3796cbcf4c21d-1695357164.webp</a></p>
+]]></content>
+      <categories>
+        <category>No.1</category>
+      </categories>
+      <tags>
+        <tag>2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac使用spoof修改mac地址</title>
     <url>/2024/04/21/Mac%E4%BF%AE%E6%94%B9mac%E5%9C%B0%E5%9D%80/</url>
     <content><![CDATA[<p>使用brew安装spoof：</p>
