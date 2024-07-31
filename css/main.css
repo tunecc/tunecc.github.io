@@ -1141,7 +1141,7 @@ pre code {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: Noto Serif SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Fira Code, Noto Serif SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1.375em;
   font-weight: normal;
   line-height: 1.5;
@@ -1282,7 +1282,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #edcc5e;
+  background: #70ff71;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -1495,6 +1495,7 @@ pre code {
 }
 .sidebar-toggle {
   bottom: 61px;
+  border-radius: 7px;
   height: 16px;
   padding: 5px;
   width: 16px;
@@ -1700,6 +1701,7 @@ pre code {
 }
 .back-to-top {
   font-size: 12px;
+  border-radius: 7px;
   align-items: center;
   bottom: -100px;
   color: #fff;
@@ -1773,12 +1775,13 @@ pre code {
   text-align: left;
 }
 .use-motion .post-block {
+  visibility: hidden;
   margin-top: 60px;
   margin-bottom: 0px;
   border-radius: 20px;
   padding: 25px;
-  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.65);
-  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.65);
+  -webkit-box-shadow: 0 0 3px rgba(128,128,128,0.65);
+  -moz-box-shadow: 0 0 3px rgba(128,128,128,0.65);
 }
 .use-motion .pagination,
 .use-motion .comments {
