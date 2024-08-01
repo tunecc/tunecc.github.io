@@ -14,14 +14,14 @@ document.addEventListener('visibilitychange', function () {
         for (var i = 0; i < icons.length; i++) {
             icons[i].href = crashedIcon;
         }
-        document.title = '╭(°A°`)╮ 页面崩溃啦~';
+        document.title = '(°A°`) 不要走!再看看嘛!';
         clearTimeout(titleTime);
     } else {
         var icons = document.querySelectorAll("link[rel='icon']");
         for (var i = 0; i < icons.length; i++) {
             icons[i].href = "/images/rainbow.ico";
         }
-        document.title = '(ฅ>ω<*ฅ) 诶嘿，又好了~ ' + OriginTitle;
+        document.title = '◝(⁰▿⁰)◜ 欢迎回来!' + OriginTitle;
         titleTime = setTimeout(function () {
             document.title = OriginTitle;
         }, 2000);
