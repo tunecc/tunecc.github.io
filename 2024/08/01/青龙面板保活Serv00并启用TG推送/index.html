@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.aith.love","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="前言网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。">
+    <meta name="description" content="网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="青龙面板为Serv00保号，并用 Telegram Bot 推送通知。">
-<meta property="og:url" content="https://www.aith.love/2024/08/01/%E5%9C%A8%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%B8%8A%E5%AE%9A%E6%9C%9F%E9%80%9A%E8%BF%87%20SSH%20%E7%99%BB%E5%BD%95%20Serv00%EF%BC%8C%E5%B9%B6%E7%94%A8%20Telegram%20Bot%20%E6%8E%A8%E9%80%81%E9%80%9A%E7%9F%A5/index.html">
+<meta property="og:title" content="青龙面板保活Serv00并启用TG推送">
+<meta property="og:url" content="https://www.aith.love/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/index.html">
 <meta property="og:site_name" content="Tune">
-<meta property="og:description" content="前言网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。">
+<meta property="og:description" content="网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tcer.rr.nu/i/2024/08/05/66b044e5d99fb.png">
 <meta property="article:published_time" content="2024-08-01T04:33:00.000Z">
@@ -39,14 +39,14 @@
 <meta name="twitter:image" content="https://tcer.rr.nu/i/2024/08/05/66b044e5d99fb.png">
 
 
-<link rel="canonical" href="https://www.aith.love/2024/08/01/%E5%9C%A8%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%B8%8A%E5%AE%9A%E6%9C%9F%E9%80%9A%E8%BF%87%20SSH%20%E7%99%BB%E5%BD%95%20Serv00%EF%BC%8C%E5%B9%B6%E7%94%A8%20Telegram%20Bot%20%E6%8E%A8%E9%80%81%E9%80%9A%E7%9F%A5/">
+<link rel="canonical" href="https://www.aith.love/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.aith.love/2024/08/01/%E5%9C%A8%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%B8%8A%E5%AE%9A%E6%9C%9F%E9%80%9A%E8%BF%87%20SSH%20%E7%99%BB%E5%BD%95%20Serv00%EF%BC%8C%E5%B9%B6%E7%94%A8%20Telegram%20Bot%20%E6%8E%A8%E9%80%81%E9%80%9A%E7%9F%A5/","path":"2024/08/01/在青龙面板上定期通过 SSH 登录 Serv00，并用 Telegram Bot 推送通知/","title":"青龙面板为Serv00保号，并用 Telegram Bot 推送通知。"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.aith.love/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/","path":"2024/08/01/青龙面板保活Serv00并启用TG推送/","title":"青龙面板保活Serv00并启用TG推送"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>青龙面板为Serv00保号，并用 Telegram Bot 推送通知。 | Tune</title>
+<title>青龙面板保活Serv00并启用TG推送 | Tune</title>
   
 
 
@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85sshpass%E4%BE%9D%E8%B5%96%E5%92%8Cjq"><span class="nav-number">2.</span> <span class="nav-text">安装sshpass依赖和jq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%84%9A%E6%9C%AC-24-8-3-%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">添加脚本 24.8.3 更新脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC"><span class="nav-number">4.</span> <span class="nav-text">更新脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">以上代码一些参数的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">添加定时任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">7.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85sshpass%E4%BE%9D%E8%B5%96%E5%92%8Cjq"><span class="nav-number">1.</span> <span class="nav-text">安装sshpass依赖和jq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%84%9A%E6%9C%AC-24-8-3-%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">添加脚本 24.8.3 更新脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">更新脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">以上代码一些参数的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.</span> <span class="nav-text">添加定时任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">6.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -158,13 +158,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -199,7 +199,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.aith.love/2024/08/01/%E5%9C%A8%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%B8%8A%E5%AE%9A%E6%9C%9F%E9%80%9A%E8%BF%87%20SSH%20%E7%99%BB%E5%BD%95%20Serv00%EF%BC%8C%E5%B9%B6%E7%94%A8%20Telegram%20Bot%20%E6%8E%A8%E9%80%81%E9%80%9A%E7%9F%A5/">
+    <link itemprop="mainEntityOfPage" href="https://www.aith.love/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -212,12 +212,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="青龙面板为Serv00保号，并用 Telegram Bot 推送通知。 | Tune">
+      <meta itemprop="name" content="青龙面板保活Serv00并启用TG推送 | Tune">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          青龙面板为Serv00保号，并用 Telegram Bot 推送通知。
+          青龙面板保活Serv00并启用TG推送
         </h1>
 
         <div class="post-meta-container">
@@ -269,7 +269,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
+    <div class="post-body" itemprop="articleBody"><p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
 <h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a target="_blank" rel="noopener" href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
 <h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
@@ -283,7 +283,7 @@
 <p>如有连接不上可以检查是否在 <a target="_blank" rel="noopener" href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 
-<p>附telegram的通知截图<br><img src="https://tcer.rr.nu/i/2024/08/05/66b044e5d99fb.png" alt="iShot_2024-08-05_11.19.01.png"></p>
+<p>附telegram的通知截图<br><img src="https://tcer.rr.nu/i/2024/08/05/66b044e5d99fb.png" width=50% height=50% /></p>
 <h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
 <p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
 <p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
@@ -312,7 +312,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://www.aith.love/2024/08/01/%E5%9C%A8%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%B8%8A%E5%AE%9A%E6%9C%9F%E9%80%9A%E8%BF%87%20SSH%20%E7%99%BB%E5%BD%95%20Serv00%EF%BC%8C%E5%B9%B6%E7%94%A8%20Telegram%20Bot%20%E6%8E%A8%E9%80%81%E9%80%9A%E7%9F%A5/" title="青龙面板为Serv00保号，并用 Telegram Bot 推送通知。">https://www.aith.love/2024/08/01/在青龙面板上定期通过 SSH 登录 Serv00，并用 Telegram Bot 推送通知/</a>
+      <a href="https://www.aith.love/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/" title="青龙面板保活Serv00并启用TG推送">https://www.aith.love/2024/08/01/青龙面板保活Serv00并启用TG推送/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -329,8 +329,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/07/17/Mac%20OS%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/" rel="prev" title="Mac OS 查询 NAT 类型">
-                  <i class="fa fa-angle-left"></i> Mac OS 查询 NAT 类型
+                <a href="/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/" rel="prev" title="Mac 查询 NAT 类型">
+                  <i class="fa fa-angle-left"></i> Mac 查询 NAT 类型
                 </a>
             </div>
             <div class="post-nav-item">
@@ -370,14 +370,14 @@
         <i class="fa fa-chart-line"></i>
       </span>
         <span>站点总字数：</span>
-      <span title="站点总字数">7k</span>
+      <span title="站点总字数">9k</span>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="fa fa-coffee"></i>
       </span>
         <span>站点阅读时长 &asymp;</span>
-      <span title="站点阅读时长">9 分钟</span>
+      <span title="站点阅读时长">12 分钟</span>
     </span>
   </div>
   <div class="busuanzi-count">
