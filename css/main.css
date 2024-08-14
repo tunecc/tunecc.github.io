@@ -1447,7 +1447,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ffbd28;
+  background: #b9ffc1;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -1828,7 +1828,6 @@ pre code {
   color: #f00;
   display: inline-block;
   margin: 0 5px;
-  animation: icon-animate 1.33s ease-in-out infinite;
 }
 .busuanzi-count #busuanzi_container_site_uv {
   display: none;
