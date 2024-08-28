@@ -24,6 +24,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo+Next v8.2.0的搭建与优化</title>
     <url>/2024/08/09/Hexo-Next%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很早就想弄一个博客,在大一的暑假终于开始着手搭建,在经过一番研究和比较，我最终决定采用 Hexo 系统来构建我的个人博客。主题选择了比较简洁的Next。<span id="more"></span><br>本次搭建环境：</p>
@@ -291,27 +315,45 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+    <title>PVE优化</title>
+    <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
 <span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
 
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+<h1 id="PVE优化工具"><a href="#PVE优化工具" class="headerlink" title="PVE优化工具"></a>PVE优化工具</h1><h2 id="x86派老虎大神"><a href="#x86派老虎大神" class="headerlink" title="x86派老虎大神"></a><a href="https://bbs.x86pi.cn/thread?topicId=20">x86派老虎大神</a></h2><img src="https://tcer.rr.nu/i/2024/08/05/66b055f209acb.png" width=50% height=50% />
+我这次优化就只使用了一这款,因为能显示CPU的实时频率,还有网卡名称使用原始命名
+
+<h2 id="pvetools"><a href="#pvetools" class="headerlink" title="pvetools"></a><a href="https://github.com/ivanhao/pvetools">pvetools</a></h2><p>PVE上star有4.1k(2024.8.5)<br><img src="https://tcer.rr.nu/i/2024/08/05/66b08fef1b584.webp" width=60% height=60% /></p>
+<h2 id="恩山大佬shell脚本"><a href="#恩山大佬shell脚本" class="headerlink" title="恩山大佬shell脚本"></a><a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">恩山大佬shell脚本</a></h2><p>开源地址<a href="https://github.com/a904055262/PVE-manager-status">https://github.com/a904055262/PVE-manager-status</a><br>这一款的功能比上面少一些了<br><img src="https://tcer.rr.nu/i/2024/08/05/66b05882259b3.jpg" width=75% height=75% /></p>
+<h1 id="移除local-lvm存储空间"><a href="#移除local-lvm存储空间" class="headerlink" title="移除local-lvm存储空间"></a>移除local-lvm存储空间</h1><p>注意:<br>1、移除 local-lvm 后会导致虚拟机及 CT 容器的快照功能失效<br>2、移除前需自行关闭并备份各虚拟机、CT 容器等, 谨防移除造成数据丢失 </p>
+<p>因为我用不上快照功能,所以把他移除了,移除后能更好利用硬盘资源<br>备份是备份在llocal里面的,可以放心删除local-lvm</p>
+<p>恩山上的<a href="https://www.right.com.cn/forum/thread-3513183-1-1.html">帖子</a><br>1、备份虚拟机<br>2、删除虚拟机<br>3、删除local-lvm<br>命令：<code>lvremove pve/data</code><br>4、把local-lvm空间分配给Local<br>命令：<code>lvextend -l +100%FREE -r pve/root</code><br>5、删除local-lvm<br>数据中心-存储-删除local-lvm<br>6、编辑local，内容里添加 磁盘映像和容器<br>7、恢复虚拟机</p>
+<p>懒得输命令就用老虎的脚本吧</p>
+<p>虚拟机的安装以及还原,可以看看这两个视频<br><a href="https://www.bilibili.com/video/BV1aM4m1U7Fy/">https://www.bilibili.com/video/BV1aM4m1U7Fy/</a><br><a href="https://www.bilibili.com/video/BV1Gi421U78K/">https://www.bilibili.com/video/BV1Gi421U78K/</a></p>
+<h1 id="开启iommu"><a href="#开启iommu" class="headerlink" title="开启iommu"></a>开启iommu</h1><h2 id="修改-etc-default-grub"><a href="#修改-etc-default-grub" class="headerlink" title="修改/etc/default/grub"></a>修改<code>/etc/default/grub</code></h2><p>在里面找到：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet”<br>Intel cpu改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet intel_iommu&#x3D;on”<br>AMD cpu请改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet amd_iommu&#x3D;on”</p>
+<p>我的文件里面是这些</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet intel_iommu=on iommu=pt&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br></pre></td></tr></table></figure>
+<p>##修改完成之后，直接更新grub<br><code>update-grub</code></p>
+<h2 id="加载相应的内核模块"><a href="#加载相应的内核模块" class="headerlink" title="加载相应的内核模块"></a>加载相应的内核模块</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo vfio &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_iommu_type1 &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_pci &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_virqfd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
+<p>也可以去<code>/etc/modules</code>直接添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vfio</span><br><span class="line">vfio_iommu_type1</span><br><span class="line">vfio_pci</span><br><span class="line">vfio_virqfd</span><br><span class="line">coretemp</span><br></pre></td></tr></table></figure>
+<h2 id="重启主机"><a href="#重启主机" class="headerlink" title="重启主机"></a>重启主机</h2><h2 id="验证是否开启iommu"><a href="#验证是否开启iommu" class="headerlink" title="验证是否开启iommu"></a>验证是否开启iommu</h2><p>终端输入<br><code>dmesg | grep iommu</code><br>出现如下例子。则代表成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ 1.341100] pci 0000:00:00.0: Adding to iommu group 0</span><br><span class="line">[ 1.341116] pci 0000:00:01.0: Adding to iommu group 1</span><br><span class="line">[ 1.341126] pci 0000:00:02.0: Adding to iommu group 2</span><br><span class="line">[ 1.341137] pci 0000:00:14.0: Adding to iommu group 3</span><br><span class="line">[ 1.341146] pci 0000:00:17.0: Adding to iommu group 4</span><br></pre></td></tr></table></figure>
+<p>或者输入<br><code>dmesg | grep &#39;remapping&#39;</code><br>出现如下例子。则代表成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AMD-Vi: Interrupt remapping enabled</span><br><span class="line">#或者</span><br><span class="line">DMAR-IR: Enabled IRQ remapping in x2apic mode</span><br></pre></td></tr></table></figure>
+
+<p>此时输入命令<br><code>find /sys/kernel/iommu_groups/ -type l </code><br>#出现很多直通组，就代表成功了。如果没有任何东西，就是没有开启</p>
+<h1 id="其他的一些优化"><a href="#其他的一些优化" class="headerlink" title="其他的一些优化"></a>其他的一些优化</h1><p>换源、移除订阅、修改概要信息、重命名网口用老虎大佬的一键脚本就行了</p>
+<p>下面这个帖子对PVE系统的讲解很全,有需要的可以去看看<br><a href="https://www.chiphell.com/thread-2496541-1-1.html">https://www.chiphell.com/thread-2496541-1-1.html</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://www.xh86.me/?p=724">https://www.xh86.me/?p=724</a></li>
+<li><a href="https://foxi.buduanwang.vip/virtualization/pve/561.html/">https://foxi.buduanwang.vip/virtualization/pve/561.html/</a></li>
+<li><a href="https://xxand.cc/84.html">https://xxand.cc/84.html</a></li>
+<li><a href="https://bricawa.com/posts/56512/">https://bricawa.com/posts/56512/</a></li>
+</ol>
 ]]></content>
       <tags>
-        <tag>Mac</tag>
+        <tag>PVE</tag>
       </tags>
   </entry>
   <entry>
@@ -393,45 +435,271 @@
       </tags>
   </entry>
   <entry>
-    <title>PVE优化</title>
-    <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
-<span id="more"></span>
-
-<h1 id="PVE优化工具"><a href="#PVE优化工具" class="headerlink" title="PVE优化工具"></a>PVE优化工具</h1><h2 id="x86派老虎大神"><a href="#x86派老虎大神" class="headerlink" title="x86派老虎大神"></a><a href="https://bbs.x86pi.cn/thread?topicId=20">x86派老虎大神</a></h2><img src="https://tcer.rr.nu/i/2024/08/05/66b055f209acb.png" width=50% height=50% />
-我这次优化就只使用了一这款,因为能显示CPU的实时频率,还有网卡名称使用原始命名
-
-<h2 id="pvetools"><a href="#pvetools" class="headerlink" title="pvetools"></a><a href="https://github.com/ivanhao/pvetools">pvetools</a></h2><p>PVE上star有4.1k(2024.8.5)<br><img src="https://tcer.rr.nu/i/2024/08/05/66b08fef1b584.webp" width=60% height=60% /></p>
-<h2 id="恩山大佬shell脚本"><a href="#恩山大佬shell脚本" class="headerlink" title="恩山大佬shell脚本"></a><a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">恩山大佬shell脚本</a></h2><p>开源地址<a href="https://github.com/a904055262/PVE-manager-status">https://github.com/a904055262/PVE-manager-status</a><br>这一款的功能比上面少一些了<br><img src="https://tcer.rr.nu/i/2024/08/05/66b05882259b3.jpg" width=75% height=75% /></p>
-<h1 id="移除local-lvm存储空间"><a href="#移除local-lvm存储空间" class="headerlink" title="移除local-lvm存储空间"></a>移除local-lvm存储空间</h1><p>注意:<br>1、移除 local-lvm 后会导致虚拟机及 CT 容器的快照功能失效<br>2、移除前需自行关闭并备份各虚拟机、CT 容器等, 谨防移除造成数据丢失 </p>
-<p>因为我用不上快照功能,所以把他移除了,移除后能更好利用硬盘资源<br>备份是备份在llocal里面的,可以放心删除local-lvm</p>
-<p>恩山上的<a href="https://www.right.com.cn/forum/thread-3513183-1-1.html">帖子</a><br>1、备份虚拟机<br>2、删除虚拟机<br>3、删除local-lvm<br>命令：<code>lvremove pve/data</code><br>4、把local-lvm空间分配给Local<br>命令：<code>lvextend -l +100%FREE -r pve/root</code><br>5、删除local-lvm<br>数据中心-存储-删除local-lvm<br>6、编辑local，内容里添加 磁盘映像和容器<br>7、恢复虚拟机</p>
-<p>懒得输命令就用老虎的脚本吧</p>
-<p>虚拟机的安装以及还原,可以看看这两个视频<br><a href="https://www.bilibili.com/video/BV1aM4m1U7Fy/">https://www.bilibili.com/video/BV1aM4m1U7Fy/</a><br><a href="https://www.bilibili.com/video/BV1Gi421U78K/">https://www.bilibili.com/video/BV1Gi421U78K/</a></p>
-<h1 id="开启iommu"><a href="#开启iommu" class="headerlink" title="开启iommu"></a>开启iommu</h1><h2 id="修改-etc-default-grub"><a href="#修改-etc-default-grub" class="headerlink" title="修改/etc/default/grub"></a>修改<code>/etc/default/grub</code></h2><p>在里面找到：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet”<br>Intel cpu改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet intel_iommu&#x3D;on”<br>AMD cpu请改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet amd_iommu&#x3D;on”</p>
-<p>我的文件里面是这些</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet intel_iommu=on iommu=pt&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br></pre></td></tr></table></figure>
-<p>##修改完成之后，直接更新grub<br><code>update-grub</code></p>
-<h2 id="加载相应的内核模块"><a href="#加载相应的内核模块" class="headerlink" title="加载相应的内核模块"></a>加载相应的内核模块</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo vfio &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_iommu_type1 &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_pci &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_virqfd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
-<p>也可以去<code>/etc/modules</code>直接添加</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vfio</span><br><span class="line">vfio_iommu_type1</span><br><span class="line">vfio_pci</span><br><span class="line">vfio_virqfd</span><br><span class="line">coretemp</span><br></pre></td></tr></table></figure>
-<h2 id="重启主机"><a href="#重启主机" class="headerlink" title="重启主机"></a>重启主机</h2><h2 id="验证是否开启iommu"><a href="#验证是否开启iommu" class="headerlink" title="验证是否开启iommu"></a>验证是否开启iommu</h2><p>终端输入<br><code>dmesg | grep iommu</code><br>出现如下例子。则代表成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ 1.341100] pci 0000:00:00.0: Adding to iommu group 0</span><br><span class="line">[ 1.341116] pci 0000:00:01.0: Adding to iommu group 1</span><br><span class="line">[ 1.341126] pci 0000:00:02.0: Adding to iommu group 2</span><br><span class="line">[ 1.341137] pci 0000:00:14.0: Adding to iommu group 3</span><br><span class="line">[ 1.341146] pci 0000:00:17.0: Adding to iommu group 4</span><br></pre></td></tr></table></figure>
-<p>或者输入<br><code>dmesg | grep &#39;remapping&#39;</code><br>出现如下例子。则代表成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AMD-Vi: Interrupt remapping enabled</span><br><span class="line">#或者</span><br><span class="line">DMAR-IR: Enabled IRQ remapping in x2apic mode</span><br></pre></td></tr></table></figure>
-
-<p>此时输入命令<br><code>find /sys/kernel/iommu_groups/ -type l </code><br>#出现很多直通组，就代表成功了。如果没有任何东西，就是没有开启</p>
-<h1 id="其他的一些优化"><a href="#其他的一些优化" class="headerlink" title="其他的一些优化"></a>其他的一些优化</h1><p>换源、移除订阅、修改概要信息、重命名网口用老虎大佬的一键脚本就行了</p>
-<p>下面这个帖子对PVE系统的讲解很全,有需要的可以去看看<br><a href="https://www.chiphell.com/thread-2496541-1-1.html">https://www.chiphell.com/thread-2496541-1-1.html</a></p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://www.xh86.me/?p=724">https://www.xh86.me/?p=724</a></li>
-<li><a href="https://foxi.buduanwang.vip/virtualization/pve/561.html/">https://foxi.buduanwang.vip/virtualization/pve/561.html/</a></li>
-<li><a href="https://xxand.cc/84.html">https://xxand.cc/84.html</a></li>
-<li><a href="https://bricawa.com/posts/56512/">https://bricawa.com/posts/56512/</a></li>
+    <title>iOS越狱及插件推荐</title>
+    <url>/2024/08/27/iOS%E8%B6%8A%E7%8B%B1%E5%8F%8A%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/</url>
+    <content><![CDATA[<h1 id="为什么要越狱？"><a href="#为什么要越狱？" class="headerlink" title="为什么要越狱？"></a>为什么要越狱？</h1><p>获得更高的权限，安装大佬们开发的各种提升手机使用体验的插件，如：通话录音、左滑返回、Crane多开应用、分屏等。<span id="more"></span></p>
+<p>如今的iOS更新似乎日渐乏味，许多新功能在越狱社区中早已被大佬们通过插件率先实现，有一些甚至做得比官方更好。将来，手机能否越狱，将成为我换机时考虑的最重要因素。（我对手机的依赖不高）</p>
+<h1 id="越狱的种类（来自wiki）"><a href="#越狱的种类（来自wiki）" class="headerlink" title="越狱的种类（来自wiki）"></a>越狱的种类（来自<a href="https://zh.wikipedia.org/wiki/%E8%B6%8A%E7%8D%84_(iOS)#%E7%A7%8D%E7%B1%BB">wiki</a>）</h1><ul>
+<li>不完美越狱（Tethered Jailbreak），指的是，当处于此状态的iOS设备开机重启后，之前进行的越狱程序就会失效，用户将失去Root权限，需要将设备连接电脑来使用（如特定版本下的红雪（redsn0w））等越狱软件进行引导开机以后，才可再次使用越狱程序。否则设备将无法正常开机。</li>
+<li>完美越狱（Untethered Jailbreak），指设备在进行重启后，越狱状态仍被完整保留。iOS 9.0-9.0.2是最后一个可以完美越狱的版本。从iOS 10系统改变之后，再无完美越狱，简单分辨：重启、关机iOS设备之后，越狱环境依然还在。</li>
+<li>半不完美越狱（Semi-tethered Jailbreak），指设备在重启后，将丢失越狱状态，并恢复成未越狱状态。如果想要恢复越狱环境，必须连接电脑并在越狱工具的引导下启动来恢复越狱状态。代表工具有checkra1n。</li>
+<li>半完美越狱（Semi-untethered Jailbreak），指设备在重启后，将丢失越狱状态；而若想要再恢复越狱环境，只需使用越狱软件即可重新越狱。</li>
+</ul>
+<p>目前上述越狱级别中，完美越狱只能在iOS&#x2F;iPadOS 14或更低版本的iOS&#x2F;iPadOS中实现，而在iOS&#x2F;iPadOS 15中由于苹果公司加入了签署系统卷宗(SSV)的安全系统，使得已更新至iOS&#x2F;iPadOS 15的iOS设备越狱是无法获取部分目录(如&#x2F;system)的写入权限(称为无根越狱)，由于部分插件需要写入system分区，造成以往的插件都必须更新才能适配，好处是可以逃避部分软件对越狱的检测。A8-A11设备可以通过palera1n进行有根越狱，但是会占用16G的存储空间，空间不足会导致越狱失败。</p>
+<h1 id="支持的设备及iOS版本"><a href="#支持的设备及iOS版本" class="headerlink" title="支持的设备及iOS版本"></a>支持的设备及iOS版本</h1><p>以下信息来自<a href="https://baike.iosfans.club/archives/yueyu">一些事一些情</a></p>
+<ul>
+<li><p>iOS 17.1  ~  17.4 + ：<br>A12  ~ A17处理器：无法越狱、无法巨魔商店、无法半越狱。俗称三无产品<br>A10X处理器：可以Palera1n越狱，目前最高支持iOS 17.3.1 （无根越狱）：<br>palera1n越狱工具</p>
+</li>
+<li><p>iOS 17.0、17.0 Beta1、17.0 Beta2、17.0 Beta3、17.0 Beta4：<br>A12  ~ A15 处理器：支持巨魔商店、支持半越狱，但是不支持直接安装，而是通过已安装巨魔的机器OTA升级到17.0，操作极其复杂，容易白苹果（这个方法现在已经失效）。这个版本不支持越狱！<br>巨魔商店安装、Serotonin半越狱<br>A10X处理器：可以Palera1n越狱、可以安装巨魔：<br>Palera1n越狱</p>
+</li>
+<li><p>iOS 16.7.8  ~  16.7：<br>A9X、A10X、A11处理器：专用版本，可以Palera1n越狱，可以越狱安装巨魔，但是重启失效：<br>Palera1n越狱</p>
+</li>
+<li><p>iOS 16.6  ~  16.6.1：<br>A12  ~ A15 处理器、M1、M2处理器：无法越狱，可以安装巨魔商店、半越狱：<br>巨魔商店安装、 Serotonin半越狱<br>A9X、A10X、A11处理器：可以安装巨魔、多巴胺2越狱、Palera1n越狱：<br>巨魔商店安装、多巴胺2越狱、Palera1n越狱，三有好青年，基本上都能玩！</p>
+</li>
+<li><p>iOS 16.0   ~  16.5.1：<br>A15 ~ A16处理器和M2处理器：可以安装巨魔、多巴胺2越狱、半越狱，只有16.5不可以多巴胺2越狱：<br>多巴胺2越狱、Serotonin半越狱、巨魔商店安装、<br>A12 ~ A14处理器和M1处理器：可以安装巨魔、多巴胺2越狱、半越狱：<br>多巴胺2越狱、Serotonin半越狱、巨魔商店安装、三有好青年，基本上都能玩！<br>A9X、A10X、A11处理器：可以安装巨魔、多巴胺2越狱、Palera1n越狱：<br>多巴胺2越狱、Palera1n越狱、巨魔商店安装、三有好青年，基本上都能玩！</p>
+</li>
+<li><p>iOS 15.8.1  ~  15.8.2：<br>A9  ~ A11处理器：可以安装巨魔、多巴胺2越狱、Palera1n越狱、Meowbrek2越狱：<br>多巴胺2越狱、Palera1n越狱、Meowbreak2越狱、巨魔商店安装、</p>
+</li>
+<li><p>iOS 15.0  ~  15.8：<br>A12  ~  A15处理器和M1处理器：在15.7+只可以巨魔商店，不支持越狱，在15.0  ~  15.6.1可以多巴胺2越狱：多巴胺2越狱、巨魔商店安装、<br>A9  ~ A11处理器：可以多巴胺2越狱、Palera1n越狱、Meowbrek2越狱、nekoJB越狱、SaiGon越狱：<br>多巴胺2越狱、Palera1n越狱、Meowbreak2越狱 、nekoJB越狱、SaiGon越狱</p>
+</li>
+<li><p>iOS 14.0  ~  14.8：<br>A12  ~  A14处理器：可以Taurine牛磺酸越狱、unc0ver越狱、巨魔商店：<br>牛磺酸越狱、unc0ver越狱<br>A9 ~ A11处理器：可以Taurine牛磺酸越狱、checkra1n越狱、巨魔商店：<br>牛磺酸越狱、checkra1n越狱、WinRa1n越狱</p>
+</li>
+<li><p>iOS 13.0  ~  13.7 ：<br>A12 ~ A13处理器：可以Odyssey奥德赛越狱、unc0ver越狱：<br>奥德赛越狱、unc0ver越狱<br>A9 ~ A11处理器：可以checkra1n越狱、Odyssey奥德赛越狱：<br>奥德赛越狱、checkra1n越狱</p>
+</li>
+<li><p>iOS 12.0  ~  12.5.7：<br>A12处理器：可以Chimera奇美拉越狱、unc0ver越狱：<br>奇美拉越狱、unc0ver越狱<br>A7 ~ A11处理器：可以Chimera奇美拉越狱：<br>奇美拉越狱、checkra1n越狱<br>奇美拉越狱仅对A7 ~ A11处理器支持12.1.3 ~ 12.5.7，iOS 12.0-12.1.2支持所有设备</p>
+</li>
+<li><p>iOS 11.0  ~  11.4：<br>A7 ~ A12处理器：可以unc0ver越狱（不支持A11以下）、可以 Electra 越狱：<br>Electra 越狱、unc0ver越狱</p>
+</li>
+<li><p>iOS 10. 0  ~  10.3.4：<br>A7  ~ A10处理器：可以doubleH3lix越狱、可以Meridian越狱、可以h3lix越狱、可以kok3shiX越狱：<br>kok3shiX越狱、h3lix越狱、Meridian越狱、doubleH3lix越狱<br>Meridian越狱是在线越狱，无需下载文件，使用Safari浏览器即可完成</p>
+</li>
+</ul>
+<p>wiki上有更早的<a href="https://zh.wikipedia.org/wiki/%E8%B6%8A%E7%8D%84_(iOS)#%E5%81%9C%E6%AD%A2%E6%94%AF%E6%8C%81%E7%9A%84%E8%AE%BE%E5%A4%87">型号记录</a></p>
+<h1 id="Dopamine2-安装"><a href="#Dopamine2-安装" class="headerlink" title="Dopamine2 安装"></a>Dopamine2 安装</h1><p>我的设备都是使用 Dopamine2 越狱，下面以 Dopamine2 为准</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ul>
+<li><a href="https://ellekit.space/dopamine/">Dopamine2官网</a></li>
+<li><a href="https://github.com/opa334/Dopamine">Dopamine2官方 GitHub</a></li>
+<li><a href="https://github.com/w2599/Dopamine">Dopamine2 真皮修改版</a>（推荐）</li>
+<li><a href="https://github.com/wwg135/Dopamine">Dopamine2 M哥修改版</a></li>
+</ul>
+<p>下载后使用巨魔安装好，打开Dopamine2，点击越狱，选择插件包管理器（越狱插件商店），建议用Sileo，等待越狱处理，弹窗提示Set Password设置密码，这个是root密码，就是sudo需要的密码<br>等待越狱完成，黑屏后，手机是在软重启。桌面出现Sileo包管理器图标，越狱成功！现在打开Sileo，就可以开始安装插件了！</p>
+<p>PS:这里如果点越狱 卡死或者重启可点击设置-内核漏洞-三个漏洞切换 试试哪一个可以成功</p>
+<h2 id="更新-Dopamine"><a href="#更新-Dopamine" class="headerlink" title="更新 Dopamine"></a>更新 Dopamine</h2><ol>
+<li>清除越狱后再用新版重新越狱是最好的，但是我插件比较多、人懒，以后试一试</li>
+<li>越狱状态下打开Dopamine 2，会提示更新，点击更新然后软重启就好了</li>
+<li>直接重启手机，卸载掉老版本的Dopamine 2，再去安装新版，重新越狱（我主用）</li>
 </ol>
+<h1 id="插件源的选择"><a href="#插件源的选择" class="headerlink" title="插件源的选择"></a>插件源的选择</h1><p>越狱安装到不安全的插件是很容易白的，split-view-pro那时候见过一张聊天截图，找不到图片了。大概意思就是 “插件作者要白一个设备是很简单的”，所以我们不能乱安装来路不明的插件<br>我对插件源的选择（仅是个人使用习惯）</p>
+<p> “正版” 源（Havoc、Chariz、作者官方等）&gt; 刀刀源等（有自编译的插件，提供很多汉化包）TG大频道主维护的源 &gt; 搬运工源和M哥源（看插件版本选择）</p>
+<p>在用破解插件的时候，版本一致时，有中文需求可以选择搬运工源，搬运工会把中文包整合在一起</p>
+<p>多米诺骨源、Cydiakk中文源、雷锋源（三个都是老牌源）等等，用的不多</p>
+<p>从这个网站 <a href="https://www.ios-repo-updates.com/">https://www.ios-repo-updates.com/</a> 搜索插件名，然后出来的大部分都是官方源</p>
+<h1 id="添加越狱源"><a href="#添加越狱源" class="headerlink" title="添加越狱源"></a>添加越狱源</h1><p>复制以下的软件源，打开Sileo会提示你是否导入，选择“是”就好了</p>
+<p>下面有几个源提示风险，有风险的软件源里面大部分都能在别的软件源找到，找不到的大概率也用不上，所以自行考虑是否添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://repo.cypwn.xyz/</span><br><span class="line">https://rootless.002599.xyz/</span><br><span class="line">https://lans233.github.io/</span><br><span class="line">https://byg.iosios.net/</span><br><span class="line">https://wwg135.github.io/</span><br><span class="line">https://0xkuj.yourepo.com/</span><br><span class="line">https://lenglengyu.com/</span><br><span class="line">https://repo.abox.plus/</span><br><span class="line">https://repo.cydiabc.top/</span><br><span class="line">http://akusio.github.io/</span><br><span class="line">https://alias20.gitlab.io/apt/</span><br><span class="line">https://repo.anamy.gay/</span><br><span class="line">https://repo.anthopak.dev/</span><br><span class="line">https://0xash.yourepo.com/</span><br><span class="line">http://apt.thebigboss.org/repofiles/cydia/</span><br><span class="line">https://brendonjkding.github.io/</span><br><span class="line">https://repo.chariz.com/</span><br><span class="line">https://creaturecoding.com/repo/</span><br><span class="line">https://cydiageek.yourepo.com/</span><br><span class="line">https://apt.cydiakk.com/</span><br><span class="line">http://dcsyhi1998.github.io/</span><br><span class="line">https://dhinakg.github.io/repo/</span><br><span class="line">https://ellekit.space/</span><br><span class="line">https://nahtedetihw.github.io/</span><br><span class="line">https://apt.geometricsoftware.se/</span><br><span class="line">https://ginsu.dev/repo/</span><br><span class="line">https://havoc.app/</span><br><span class="line">https://cydia.ichitaso.com/</span><br><span class="line">https://repo.icrazeios.com/</span><br><span class="line">http://aquawu.github.io/igg/</span><br><span class="line">https://repo.ikghd.me/</span><br><span class="line">https://iosgods.com/repo/</span><br><span class="line">https://ios.jjolano.me/</span><br><span class="line">https://julio.hackyouriphone.org/</span><br><span class="line">https://khanhduytran0.github.io/repo/</span><br><span class="line">https://level3tjg.me/repo/</span><br><span class="line">https://liam.page/oldabi/</span><br><span class="line">http://limneos.net/repo/</span><br><span class="line">https://34306.github.io/</span><br><span class="line">https://lizynz.github.io/</span><br><span class="line">https://luki120.github.io/</span><br><span class="line">https://miro92.com/repo/</span><br><span class="line">https://jailrepo.initnil.com/</span><br><span class="line">https://invalidunit.github.io/netskao-archive/</span><br><span class="line">https://repo.niceios.com/</span><br><span class="line">https://cydia.nixuge.me/</span><br><span class="line">https://opa334.github.io/</span><br><span class="line">https://p2kdev.github.io/repo/</span><br><span class="line">https://repo.palera.in/</span><br><span class="line">http://apt.curtin.top/</span><br><span class="line">https://poomsmart.github.io/repo/</span><br><span class="line">https://apt.procurs.us/</span><br><span class="line">https://cydia.rob311.com/repo/</span><br><span class="line">https://roothide.github.io/</span><br><span class="line">https://iosjb.top/</span><br><span class="line">https://skypain.github.io/repo/</span><br><span class="line">https://0xilis.github.io/rootless/</span><br><span class="line">https://sparkdev.me/</span><br><span class="line">https://ugly-soul.github.io/repo/</span><br><span class="line">https://apt.sutuplus.com/</span><br><span class="line">https://themepro.yourepo.com/</span><br><span class="line">http://tigisoftware.com/repo/</span><br><span class="line">http://tigisoftware.com/cydia/</span><br><span class="line">https://www.yourepo.com/</span><br><span class="line">https://invalidunit.github.io/repo/</span><br><span class="line">https://invalidunit.github.io/repo2/</span><br><span class="line">https://zerui18.github.io/zx02/</span><br><span class="line">https://lclrc.github.io/repo/</span><br><span class="line">https://xiangfeidexiaohuo.github.io/</span><br><span class="line">https://apt.wxhbts.pro/</span><br><span class="line">https://ios.iosyyds.com/</span><br><span class="line">https://laileld.github.io/repo/</span><br><span class="line">http://apt.htv123.com/</span><br><span class="line">https://apt.25mao.com/</span><br><span class="line">https://repo.snailovet.com/</span><br><span class="line">https://cydia.dumpapp.com/</span><br></pre></td></tr></table></figure>
+
+<h1 id="推荐插件"><a href="#推荐插件" class="headerlink" title="推荐插件"></a>推荐插件</h1><h2 id="免费插件"><a href="#免费插件" class="headerlink" title="免费插件"></a>免费插件</h2><ul>
+<li><p>SettingsRevamp（刀刀源，官方源停了<a href="https://sopppra.mooo.com)/">https://sopppra.mooo.com）</a><br>自定义设置，和Shuffle一样都是收纳插件,推荐用SettingsRevamp</p>
+</li>
+<li><p>Atria（Chariz）<br>桌面布局修改</p>
+</li>
+<li><p>iCleaner Pro（刀刀源）<br>垃圾清理，禁用插件启动</p>
+</li>
+<li><p>AppDate（Netskao）<br>快捷降级AppStore应用版本<br>快捷清理缓存<br>快捷打开应用安装和数据目录</p>
+</li>
+<li><p>左滑返回（来了老弟）<br>右手党神器</p>
+</li>
+<li><p>Hammer It （Havoc）<br>分词大爆炸，快速翻译插件，配合 Snapper 3很好用</p>
+</li>
+<li><p>CCBorder16（刀刀源）<br>类iOS18样式的控制中心，添加音量，亮度的百分比，用了就回不去了</p>
+</li>
+<li><p>CCless++（刀刀源）<br>控制中心模块集合，安装好去控制中心添加自己需要的吧</p>
+</li>
+<li><p>语音转文字免跳转（刀刀源）<br>App内调用输入法的“语音转文字”功能时，免去跳转的过程</p>
+</li>
+<li><p>Axon（刀刀源）<br>锁屏通知聚合</p>
+</li>
+<li><p>PassByCC（冷冷雨）<br>控制中心添加绕过密码的模块，推荐1.0.2版本，无设置选项</p>
+</li>
+<li><p>BackgrounderAction15 CCSupport（Akusio）<br>控制中心添加真后台模块</p>
+</li>
+<li><p>BetterCCBrightness（level3tjg）<br>为控制中心亮度模块界面拓展出很多功能，插件无设置项</p>
+</li>
+<li><p>强制第三方输入法（来了老弟）<br>在任意密码框可允许第三方输入法输入（银行等特制键盘除外）</p>
+</li>
+<li><p>去除键盘延迟（来了老弟）<br>去除键盘的延迟(主用作于第三方,若没有延迟,则不用装)</p>
+</li>
+<li><p>双击锁屏（来了老弟）<br>双击桌面空白处锁屏</p>
+</li>
+<li><p>System Info（来了老弟）<br>显示 iOS 所有系统信息</p>
+</li>
+<li><p>禁用拍照声音（搬运工）</p>
+</li>
+<li><p>Kayoko<br>剪切板软件，iOS16推荐安装CyPwn源的1.4.2-4版本</p>
+</li>
+<li><p>OLED Dark Mode（YouReo）<br>让深色模式的灰色变成纯黑</p>
+</li>
+<li><p>Dock X（乌贼）<br>键盘底部（地球键和听写键中间）添加功能按键</p>
+</li>
+<li><p>VPNlndicator（乌贼）<br>启用VPN时自定义状态栏的Wi-Fi或蜂窝信号图标颜色</p>
+</li>
+<li><p>启用 MagSafe充电动画（乌贼）<br>将设备连接到电源时，在锁定屏幕上启用原生MagSafe充电动画</p>
+</li>
+<li><p>NoPassAfterRespring（乌贼）<br>在注销前是解锁状态的情况下，注销后自动跳过人脸或指纹识别到桌面</p>
+</li>
+<li><p>禁用iOS16+粘贴警告弹窗和粘贴提醒（乌贼）<br>禁用iOS16+粘贴警告弹窗，并自动允许</p>
+</li>
+<li><p>NoLowPowerMode30SecAutoLock（Brend0n）<br>可在低功耗模式下调整自动锁定时间间隔</p>
+</li>
+<li><p>SwipeSelection（iCraze）<br>系统自带键盘任意位置滑动移动光标，无需长按空格</p>
+</li>
+<li><p>AutoFaceUnlock（Netskao）<br>面容识别成功自动解锁无需滑动</p>
+</li>
+<li><p>Killapps（Netskao）<br>一键关闭所有后台</p>
+</li>
+<li><p>Cylinder Reborn（Chariz）<br>桌面翻页特效</p>
+</li>
+<li><p>QuickActions（Chariz）<br>修改锁屏手电，相机按钮为其他App</p>
+</li>
+<li><p>FakeSignalBar（alias20）<br>修改运营商、信号强度、蜂窝链接等 </p>
+</li>
+<li><p>DownloadBar13（alias20）<br>App Store下载、更新APP软件显示进度条</p>
+</li>
+<li><p>StoreSwitcher2（YouRepo）<br>快速切换AppStore账号</p>
+</li>
+<li><p>IAPStore（冷冷雨）<br>软件内购破解，仅支持部分小规模App</p>
+</li>
+<li><p>Velvet 2（Havoc）<br>美化多猜通知横幅</p>
+</li>
+<li><p>Speedster（Havoc）<br>加速iOS的各种动画</p>
+</li>
+<li><p>Zaire（Luki120）<br>iPhone Storage 页面中显示已安装的应用程序的数量</p>
+</li>
+<li><p>CustomLPM（BigBoss）<br>自定义低电量模式，锁屏低电量，lans233源有汉化版</p>
+</li>
+<li><p>WeChatNotiAvatar、QQNotiAvatar（Netskao）<br>WeChat、QQ通知显示头像信息</p>
+</li>
+<li><p>DumpDecrypter（Netskao）<br>全权限砸壳</p>
+</li>
+<li><p>HideSerialNumber（ichitaso）<br>修改关于本机页面的信息</p>
+</li>
+<li><p>Hello Area（真皮）<br>控制底栏的高度</p>
+</li>
+<li><p>Hello 3Q（真皮）<br>禁用ios热启动神经网络引擎,别在后台热加载app<br>-优点：节约内存，少杀后台<br>-玄学：减少重启概率</p>
+</li>
+<li><p>Hello App（真皮）<br>屏蔽 AppStore 里面的软件更新</p>
+</li>
+<li><p>ChargeLimiter（GitHub）<br>iOS开发的AlDente替代工具,适用于长时间过充情况下保护电池健康度<br>Havoc源有老版，推荐去作者的GitHub下载<br><a href="https://github.com/lich4/ChargeLimiter">https://github.com/lich4/ChargeLimiter</a></p>
+</li>
+<li><p>PadSwitcher（ABox）<br>在iPhone上启用iPad风格的多任务界面和Dock栏，ABox的比较好用</p>
+</li>
+<li><p>NetworkManagerReborn（Nixuge）<br>控制中心切换2G、3G、4G、5G</p>
+</li>
+<li><p>微信</p>
+</li>
+</ul>
+<p>应用程序的插件，能用TrollFools注入的，我都用注入了</p>
+<p>锤子助手（微信净化）<br>微信助手（密友）<br>黄白助手（可以备份各插件的配置）<br>虚拟视频（我用这个的CallKit）<br>PKC         （消息统计）<br>Misaka    （分组功能，作者退圈了，拿不到授权用不了）<br>斗图助手<br>消息屏蔽 （屏蔽一些群消息）<br>插件管理 （把插件归类在 “我” 的 “插件” 页面）</p>
+<ul>
+<li>QQ</li>
+</ul>
+<p>QQ净化<br>芭比Q<br>图层（我就用了这一个）</p>
+<h2 id="屏蔽越狱插件"><a href="#屏蔽越狱插件" class="headerlink" title="屏蔽越狱插件"></a>屏蔽越狱插件</h2><p>越狱后有一些银行、支付软件会无法使用，这时候我们需要屏蔽掉这些App的越狱检测</p>
+<ul>
+<li>Choicy（BigBoss）</li>
+</ul>
+<p>opa334大佬开发的，可自定义注入插件</p>
+<ul>
+<li>DopamineBlackList （真皮）</li>
+</ul>
+<p>Dopamine 2 加入了真皮底层屏蔽代码（真皮和M哥修改版都有）才可使用该软件<br>也可不安装插件在<code>/var/mobile/zp.unject.plist</code>文件里面自己添加App<br>配合“禁止注入之长按图标-rootless”插件使用更方便</p>
+<ul>
+<li>Hello Joker（真皮）¥22.22</li>
+</ul>
+<p>有一些App会检测越狱APP(Sileo,Filza等)，所以屏蔽插件注入后有一些App能检测到越狱，使用该插件可以关闭被越狱APP识别，来进一步提升屏蔽效果</p>
+<p>安装后可以在控制中心添加一个模块，在需要跳转到Sileo的时候需要让模块亮起，模块亮起就是关闭该插件的功能，使用完记得关闭。在Sileo登录Havoc账号时就需要关闭，不然登不上</p>
+<p>插件是Hello 120Hz、Hello CPU一起的打包，所以要¥22.22，我当时8.88买的，小赚😁</p>
+<ul>
+<li>DismissAlert【屏蔽弹窗】（冷冷雨）</li>
+</ul>
+<p>强制取消系统弹窗，如授权弹窗、app签名到期弹窗等等。</p>
+<p>农业银行App在9.2版本后，越狱检测力度突然变强，刚开始还可以降级用，后面不升级不给用，来了老弟的插件也失效了，大家发现这个插件可以使用，就先用着</p>
+<p>就这农业银行屁事多，要不是学校的卡是这个银行的，限额比较正常，我立马去把户销了</p>
+<ul>
+<li>魔术师（电话助手）<br>和电话助手一起的，听说效果挺好</li>
+</ul>
+<h2 id="分屏插件"><a href="#分屏插件" class="headerlink" title="分屏插件"></a>分屏插件</h2><ul>
+<li><p>split-view-pro（sunshineSong）¥100<br>免费版本足够我的需求了，就没有去付费更新，<a href="https://www.bilibili.com/video/BV11gpQeqE8E/">作者新功能演示</a></p>
+</li>
+<li><p>Zetsu （Chariz）<br>挺好用的分屏插件，总是会把PullOver Pro的侧边图标给弄出来，我又不是经常使用，就卸了</p>
+</li>
+<li><p>PullOver Pro（Netskao’s JailRepo）<br>在split-view-pro出来之前我一直使用的，在不跳转当前页面的情况下，从侧边栏快捷使用自己设置的软件，配合乌贼的<code>HidePullOver 隐藏 PullOver小把手</code>使用</p>
+</li>
+<li><p>o2 Pro<br>听过这个插件要几百，就没有去了解</p>
+</li>
+</ul>
+<h2 id="付费插件"><a href="#付费插件" class="headerlink" title="付费插件"></a>付费插件</h2><ul>
+<li>NiceCaller、电话助手 ¥20</li>
+</ul>
+<p>国人开发的通话录音插件，大家自行去了解哪一个更好吧，我是因为Nice的作者开发了巨魔版的通话录音，后面发现越狱也可以使用，就没有去买电话助手了<br>购买激活码地址：（过年可能有半价活动）<br><a href="https://www.kuaifa¥50et/purchasing?link=BWcmx">NiceCaller</a><br><a href="https://www.kuaifaka.net/purchasing?link=TL0lu2">电话助手</a></p>
+<ul>
+<li>Nice真灵动岛 ¥50</li>
+</ul>
+<p>通知上岛，有几个类似的插件，可以都去试试。<br>Nice的是第一个真岛，当时有团购¥30，我就冲了</p>
+<ul>
+<li>Hello 120Hz、Hello CPU、Hello Joker ¥22.22</li>
+</ul>
+<p>真皮的Hello系列<a href="https://shop.phpwc.info/details/88870F88">购买地址</a></p>
+<p>Hello 120Hz：动态120Hz解锁，苹果在大多数应用程序滚动时将刷新率限制为80Hz。此插件可以动态地解锁系统范围内的120Hz刷新率,使设备在支持的情况下平滑显示内容。</p>
+<p>Hello CPU：解除温控，锁定低电量CPU频率</p>
+<p>Hello Joker ：默认关闭越狱APP(Sileo,Filza等)被识别，<a href="#%E5%B1%8F%E8%94%BD%E8%B6%8A%E7%8B%B1%E6%8F%92%E4%BB%B6">屏蔽越狱插件提到过</a></p>
+<ul>
+<li>Hello Folder ¥11.11</li>
+</ul>
+<p>自定义文件夹显示的行数和列数，透明背景、边框线、图标阴影<br><a href="https://shop.phpwc.info/details/E6C775D0">购买地址</a></p>
+<ul>
+<li>FT Tool、Panel Tools、ST Tool</li>
+</ul>
+<p>来了老弟开发的插件</p>
+<p>FT Tool <a href="https://www.wcfaka.com/details/3514478B">¥21.88</a>：手机上面显示的文本都可以更改替换，微信和QQ修改需要联系作者解锁，不知道是否要花钱，不知是否还有其他需解锁软件，还有很多功能可自行了解</p>
+<p>Panel Tools <a href="https://www.wcfaka.com/details/A6D68F4B">¥15.88</a>：键盘增强工具，在键盘上面加一行工具栏，还有快捷指令设定，能接入各种好玩的API</p>
+<p>ST Tool <a href="https://www.wcfaka.com/details/66D50EB6">¥10.10</a>：对于应用软件的图片，可做到：无水印拿图，直接分享，复制到剪切板，图片分割，文字水印，涂鸦，截图，保存到相册，圆角处理，直接马赛克等功能，非100%应用或场景支持</p>
+<h2 id="有破解的插件"><a href="#有破解的插件" class="headerlink" title="有破解的插件"></a>有破解的插件</h2><ul>
+<li><p>Crane（Havoc）$4.99<br>opa334开发的多开软件，它为App创造多个容器来实现多开，我用来学习通多开，做到一顶六😂<br>opa344是TrollStore和Dopamine的主要开发者，你难道还想白嫖？<br>可以去试用一下 Crane Lite，一次只能用于一个应用程序，试用一下再考虑购买<br>搬运工有1.3.14-6的老版本破解</p>
+</li>
+<li><p>Snapper3 （Havoc）$3.49<br>屏幕截图增强，配合Hammer It来OCR、翻译很棒，只有1.0的破解</p>
+</li>
+<li><p>InstaLauncher2 （Havoc）$3.49<br>侧边栏快捷启动App</p>
+</li>
+<li><p>Senri（Chariz）$1.49<br>Senri会记录设备收到的通知所有通知，在设置–Notifications–Notification Records（最上面），可以查看</p>
+</li>
+<li><p>AirpodsCompanion（Havoc）$1.99<br>美化增强音量滑块，我用来控制AirPods Pro的降噪，用得很少</p>
+</li>
+<li><p>Smartnetwork（Havoc）$1.99<br>自定义Wi-Fi和蜂窝，我就使用“安全Wi-F”（连接指定的Wi-Fi时，不用输入密码），因为PassBy总是忘记关，其他的跳过密码插件又没有适配，就只能用这个了</p>
+</li>
+<li><p>Touch-Viz（Havoc）$1.99<br>显示触摸交互，只有2.8版本的破解</p>
+</li>
+<li><p>Fiona（Havoc）$0.99<br>美化软件的底栏，只有1.0.6的破解</p>
+</li>
+</ul>
+<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><h2 id="更改插件语言"><a href="#更改插件语言" class="headerlink" title="更改插件语言"></a>更改插件语言</h2><p>手机设置的是英文，有一些插件却看不懂，如何切换中文？</p>
+<p>Filza打开下面的路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/private/preboot/**一长串字符**/dopamine-laUZ2Q/procursus/Library/PreferenceBundles</span><br></pre></td></tr></table></figure>
+
+<p>找到需要修改语言的插件的文件夹，<code>*.lproj</code>就是语言包，把中文包里面的文件复制，把英文包的替换就可以了，如有需要，请自行备份英文语言包，或者重新安装插件，不要在语言包里放置无关文件，不然插件可能会出错，替换后，清掉设置App的后台，再打开对应插件就可以看到效果了</p>
+<p>（修改info.plist文件中的<code>CFBundleExecutable</code>可修改在设置中显示的名称）</p>
+<p>有一些在<code>PreferenceBundles</code>找不到的插件可以去上级目录下找<code>Application Support</code>文件夹，同样的替换操作。</p>
+<h2 id="一些路径"><a href="#一些路径" class="headerlink" title="一些路径"></a>一些路径</h2><p>插件配置路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/private/preboot/**一长串字符**/dopamine-laUZ2Q/procursus/var/mobile/Library/Preferences</span><br></pre></td></tr></table></figure>
+
+<p>插件源文件路径（有根）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/private/preboot/**一长串字符**/dopamine-laUZ2Q/procursus/etc/apt/sources.list.d</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h1><p>看到这里，你已经入门越狱了，开始折腾吧！</p>
+<p><del>不要为了越狱放弃升级的乐趣！！！</del></p>
 ]]></content>
       <tags>
-        <tag>PVE</tag>
+        <tag>iOS</tag>
+        <tag>越狱</tag>
       </tags>
   </entry>
 </search>
