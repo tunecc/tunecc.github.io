@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo+Next v8.2.0的搭建与优化</title>
     <url>/2024/08/09/Hexo-Next%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很早就想弄一个博客,在大一的暑假终于开始着手搭建,在经过一番研究和比较，我最终决定采用 Hexo 系统来构建我的个人博客。主题选择了比较简洁的Next。<span id="more"></span><br>本次搭建环境：</p>
@@ -291,6 +268,29 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
+
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac 查询 NAT 类型</title>
     <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
@@ -417,7 +417,7 @@
 <p>从这个网站 <a href="https://www.ios-repo-updates.com/">https://www.ios-repo-updates.com/</a> 搜索插件名，然后出来的大部分都是官方源</p>
 <h1 id="添加越狱源"><a href="#添加越狱源" class="headerlink" title="添加越狱源"></a>添加越狱源</h1><p>复制以下的软件源，打开Sileo会提示你是否导入，选择“是”就好了</p>
 <p>下面有几个源提示风险，有风险的软件源里面大部分都能在别的软件源找到，找不到的大概率也用不上，所以自行考虑是否添加</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://repo.cypwn.xyz/</span><br><span class="line">https://rootless.002599.xyz/</span><br><span class="line">https://lans233.github.io/</span><br><span class="line">https://byg.iosios.net/</span><br><span class="line">https://wwg135.github.io/</span><br><span class="line">https://0xkuj.yourepo.com/</span><br><span class="line">https://lenglengyu.com/</span><br><span class="line">https://repo.abox.plus/</span><br><span class="line">https://repo.cydiabc.top/</span><br><span class="line">http://akusio.github.io/</span><br><span class="line">https://alias20.gitlab.io/apt/</span><br><span class="line">https://repo.anamy.gay/</span><br><span class="line">https://repo.anthopak.dev/</span><br><span class="line">https://0xash.yourepo.com/</span><br><span class="line">http://apt.thebigboss.org/repofiles/cydia/</span><br><span class="line">https://brendonjkding.github.io/</span><br><span class="line">https://repo.chariz.com/</span><br><span class="line">https://creaturecoding.com/repo/</span><br><span class="line">https://cydiageek.yourepo.com/</span><br><span class="line">https://apt.cydiakk.com/</span><br><span class="line">http://dcsyhi1998.github.io/</span><br><span class="line">https://dhinakg.github.io/repo/</span><br><span class="line">https://ellekit.space/</span><br><span class="line">https://nahtedetihw.github.io/</span><br><span class="line">https://apt.geometricsoftware.se/</span><br><span class="line">https://ginsu.dev/repo/</span><br><span class="line">https://havoc.app/</span><br><span class="line">https://cydia.ichitaso.com/</span><br><span class="line">https://repo.icrazeios.com/</span><br><span class="line">http://aquawu.github.io/igg/</span><br><span class="line">https://repo.ikghd.me/</span><br><span class="line">https://iosgods.com/repo/</span><br><span class="line">https://ios.jjolano.me/</span><br><span class="line">https://julio.hackyouriphone.org/</span><br><span class="line">https://khanhduytran0.github.io/repo/</span><br><span class="line">https://level3tjg.me/repo/</span><br><span class="line">https://liam.page/oldabi/</span><br><span class="line">http://limneos.net/repo/</span><br><span class="line">https://34306.github.io/</span><br><span class="line">https://lizynz.github.io/</span><br><span class="line">https://luki120.github.io/</span><br><span class="line">https://miro92.com/repo/</span><br><span class="line">https://jailrepo.initnil.com/</span><br><span class="line">https://invalidunit.github.io/netskao-archive/</span><br><span class="line">https://repo.niceios.com/</span><br><span class="line">https://cydia.nixuge.me/</span><br><span class="line">https://opa334.github.io/</span><br><span class="line">https://p2kdev.github.io/repo/</span><br><span class="line">https://repo.palera.in/</span><br><span class="line">http://apt.curtin.top/</span><br><span class="line">https://poomsmart.github.io/repo/</span><br><span class="line">https://apt.procurs.us/</span><br><span class="line">https://cydia.rob311.com/repo/</span><br><span class="line">https://roothide.github.io/</span><br><span class="line">https://iosjb.top/</span><br><span class="line">https://skypain.github.io/repo/</span><br><span class="line">https://0xilis.github.io/rootless/</span><br><span class="line">https://sparkdev.me/</span><br><span class="line">https://ugly-soul.github.io/repo/</span><br><span class="line">https://apt.sutuplus.com/</span><br><span class="line">https://themepro.yourepo.com/</span><br><span class="line">http://tigisoftware.com/repo/</span><br><span class="line">http://tigisoftware.com/cydia/</span><br><span class="line">https://www.yourepo.com/</span><br><span class="line">https://invalidunit.github.io/repo/</span><br><span class="line">https://invalidunit.github.io/repo2/</span><br><span class="line">https://zerui18.github.io/zx02/</span><br><span class="line">https://lclrc.github.io/repo/</span><br><span class="line">https://xiangfeidexiaohuo.github.io/</span><br><span class="line">https://apt.wxhbts.pro/</span><br><span class="line">https://ios.iosyyds.com/</span><br><span class="line">https://laileld.github.io/repo/</span><br><span class="line">http://apt.htv123.com/</span><br><span class="line">https://apt.25mao.com/</span><br><span class="line">https://repo.snailovet.com/</span><br><span class="line">https://cydia.dumpapp.com/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://repo.cypwn.xyz/</span><br><span class="line">https://rootless.002599.xyz/</span><br><span class="line">https://lans233.github.io/</span><br><span class="line">https://byg.iosios.net/</span><br><span class="line">https://wwg135.github.io/</span><br><span class="line">https://0xkuj.yourepo.com/</span><br><span class="line">https://lenglengyu.com/</span><br><span class="line">https://repo.cydiabc.top/</span><br><span class="line">http://akusio.github.io/</span><br><span class="line">https://alias20.gitlab.io/apt/</span><br><span class="line">https://repo.anamy.gay/</span><br><span class="line">https://repo.anthopak.dev/</span><br><span class="line">https://0xash.yourepo.com/</span><br><span class="line">http://apt.thebigboss.org/repofiles/cydia/</span><br><span class="line">https://brendonjkding.github.io/</span><br><span class="line">https://repo.chariz.com/</span><br><span class="line">https://creaturecoding.com/repo/</span><br><span class="line">https://cydiageek.yourepo.com/</span><br><span class="line">https://apt.cydiakk.com/</span><br><span class="line">http://dcsyhi1998.github.io/</span><br><span class="line">https://dhinakg.github.io/repo/</span><br><span class="line">https://ellekit.space/</span><br><span class="line">https://nahtedetihw.github.io/</span><br><span class="line">https://apt.geometricsoftware.se/</span><br><span class="line">https://ginsu.dev/repo/</span><br><span class="line">https://havoc.app/</span><br><span class="line">https://cydia.ichitaso.com/</span><br><span class="line">https://repo.icrazeios.com/</span><br><span class="line">http://aquawu.github.io/igg/</span><br><span class="line">https://repo.ikghd.me/</span><br><span class="line">https://iosgods.com/repo/</span><br><span class="line">https://ios.jjolano.me/</span><br><span class="line">https://julio.hackyouriphone.org/</span><br><span class="line">https://khanhduytran0.github.io/repo/</span><br><span class="line">https://level3tjg.me/repo/</span><br><span class="line">https://liam.page/oldabi/</span><br><span class="line">http://limneos.net/repo/</span><br><span class="line">https://34306.github.io/</span><br><span class="line">https://lizynz.github.io/</span><br><span class="line">https://luki120.github.io/</span><br><span class="line">https://miro92.com/repo/</span><br><span class="line">https://jailrepo.initnil.com/</span><br><span class="line">https://invalidunit.github.io/netskao-archive/</span><br><span class="line">https://repo.niceios.com/</span><br><span class="line">https://cydia.nixuge.me/</span><br><span class="line">https://opa334.github.io/</span><br><span class="line">https://p2kdev.github.io/repo/</span><br><span class="line">https://repo.palera.in/</span><br><span class="line">http://apt.curtin.top/</span><br><span class="line">https://poomsmart.github.io/repo/</span><br><span class="line">https://apt.procurs.us/</span><br><span class="line">https://cydia.rob311.com/repo/</span><br><span class="line">https://roothide.github.io/</span><br><span class="line">https://iosjb.top/</span><br><span class="line">https://skypain.github.io/repo/</span><br><span class="line">https://0xilis.github.io/rootless/</span><br><span class="line">https://sparkdev.me/</span><br><span class="line">https://ugly-soul.github.io/repo/</span><br><span class="line">https://apt.sutuplus.com/</span><br><span class="line">https://themepro.yourepo.com/</span><br><span class="line">http://tigisoftware.com/repo/</span><br><span class="line">http://tigisoftware.com/cydia/</span><br><span class="line">https://www.yourepo.com/</span><br><span class="line">https://invalidunit.github.io/repo/</span><br><span class="line">https://invalidunit.github.io/repo2/</span><br><span class="line">https://zerui18.github.io/zx02/</span><br><span class="line">https://lclrc.github.io/repo/</span><br><span class="line">https://xiangfeidexiaohuo.github.io/</span><br><span class="line">https://apt.wxhbts.pro/</span><br><span class="line">https://ios.iosyyds.com/</span><br><span class="line">https://laileld.github.io/repo/</span><br><span class="line">http://apt.htv123.com/</span><br><span class="line">https://apt.25mao.com/</span><br><span class="line">https://repo.snailovet.com/</span><br><span class="line">https://cydia.dumpapp.com/</span><br></pre></td></tr></table></figure>
 
 <h1 id="推荐插件"><a href="#推荐插件" class="headerlink" title="推荐插件"></a>推荐插件</h1><h2 id="免费插件"><a href="#免费插件" class="headerlink" title="免费插件"></a>免费插件</h2><ul>
 <li><p>SettingsRevamp（刀刀源，官方源停了<a href="https://sopppra.mooo.com)/">https://sopppra.mooo.com）</a><br>自定义设置，和Shuffle一样都是收纳插件,推荐用SettingsRevamp</p>
@@ -602,9 +602,9 @@
 <li>Colorful Wallpaper X（Havoc）$3.99<br>动态渐变壁纸</li>
 </ul>
 <h2 id="有破解的插件"><a href="#有破解的插件" class="headerlink" title="有破解的插件"></a>有破解的插件</h2><ul>
-<li><p>Crane（Havoc）$4.99<br>opa334开发的多开软件，它为App创造多个容器来实现多开，我用来学习通多开，做到一顶六😂<br>opa344是TrollStore和Dopamine的主要开发者，你难道还想白嫖？<br>可以去试用一下 Crane Lite，一次只能用于一个应用程序，试用一下再考虑购买<br>搬运工有1.3.14-6的老版本破解</p>
+<li><p>Crane（Havoc）$4.99<br>opa334开发的多开软件，它为App创造多个容器来实现多开，我用来学习通多开，做到一顶六😂（学习通6.3.0及能检测到多开了😭）<br>opa344是TrollStore和Dopamine的主要开发者，你难道还想白嫖？<br>可以去试用一下 Crane Lite，一次只能用于一个应用程序，试用一下再考虑购买<br>搬运工有1.3.14-6的老版本破解</p>
 </li>
-<li><p>Snapper3 （Havoc）$3.49<br>屏幕截图增强，配合Hammer It来OCR、翻译很棒，只有1.0的破解</p>
+<li><p>Snapper3 （Havoc）$3.49<br>屏幕截图增强，配合Hammer It来OCR、翻译很棒，安装BigShot会有长截图按钮，只有1.0的破解</p>
 </li>
 <li><p>InstaLauncher2 （Havoc）$3.49<br>侧边栏快捷启动App</p>
 </li>
@@ -629,12 +629,23 @@
 <p>找到需要修改语言的插件的文件夹，<code>*.lproj</code>就是语言包，把中文包里面的文件复制，把英文包的替换就可以了，如有需要，请自行备份英文语言包，或者重新安装插件，不要在语言包里放置无关文件，不然插件可能会出错，替换后，清掉设置App的后台，再打开对应插件就可以看到效果了</p>
 <p>有一些在<code>PreferenceBundles</code>找不到的插件可以去上级目录下找<code>Application Support</code>文件夹，同样的替换操作。</p>
 <h2 id="修改设置的插件名"><a href="#修改设置的插件名" class="headerlink" title="修改设置的插件名"></a>修改设置的插件名</h2><p>Sileo–软件包–选择需要修改的插件–显示软件包内容–找到 <code>**.plist </code> 在Filza打开，修改label的数值即可</p>
-<h2 id="一些路径"><a href="#一些路径" class="headerlink" title="一些路径"></a>一些路径</h2><p>插件配置路径</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/private/preboot/**一长串字符**/dopamine-laUZ2Q/procursus/var/mobile/Library/Preferences</span><br></pre></td></tr></table></figure>
+<h2 id="一些路径"><a href="#一些路径" class="headerlink" title="一些路径"></a>一些路径</h2><p>插件配置文件路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/private/preboot/&#123;manifest_hash&#125;(一长串字符)/dopamine-laUZ2Q/procursus/var/mobile/Library/Preferences</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">/var/jb/var/mobile/Library/Preferences</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>插件源文件路径（有根）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/private/preboot/**一长串字符**/dopamine-laUZ2Q/procursus/etc/apt/sources.list.d</span><br></pre></td></tr></table></figure>
+<p>软件源文件路径（有根）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/private/preboot/&#123;manifest_hash&#125;(一长串字符)/dopamine-laUZ2Q/procursus/etc/apt/sources.list.d</span><br></pre></td></tr></table></figure>
 
+
+<p>插件Bundle路径：<code>/var/jb/Library/PreferenceBundles</code></p>
+<p>插件目录路径：<code>/var/jb/Library/MobileSubstrate/DynamicLibraries</code></p>
+<p>插件设置配置路径：<code>/var/jb/Library/PreferenceLoader/Preferences</code></p>
+<p>插件动态库路径：<code>/var/jb/Library/MobileSubstrate/DynamicLibraries</code></p>
+<p>App安装路径（包括巨魔安装残留）路径：<code>/var/mobile/Containers/Data/Application</code></p>
+<p>Application Support路径：<code>/var/jb/Library/Application Support</code></p>
+<p>原生键盘词库路径：<code>/var/mobile/Library/KeyboardServices</code></p>
+<p>控制中心Bundle路径：<code>/var/jb/Library/ControlCenter/Bundles</code></p>
+<p>Info List路径：<code>/var/jb/var/lib/dpkg/info</code></p>
+<h2 id="清除越狱"><a href="#清除越狱" class="headerlink" title="清除越狱"></a>清除越狱</h2><p> Dopamine 的「清除越狱」功能 <a href="https://www.feng.com/post/13704673">https://www.feng.com/post/13704673</a> </p>
 <h1 id="Ending"><a href="#Ending" class="headerlink" title="Ending"></a>Ending</h1><p>看到这里，你已经入门越狱了，开始折腾吧！</p>
 <p><del>不要为了越狱放弃升级的乐趣！！！</del></p>
 ]]></content>
@@ -684,6 +695,76 @@
       <tags>
         <tag>Systemctl</tag>
         <tag>Rustdesk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建越狱软件源</title>
+    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
+<p>环境：</p>
+<ul>
+<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
+<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
+<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
+</li>
+<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
+</li>
+<li><p>Mac OS X：<code>brew install dpkg</code></p>
+</li>
+<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
+</li>
+</ul>
+<p>插件来源：</p>
+<ol>
+<li><p>Telegram、QQ等社交软件</p>
+</li>
+<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
+<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
+</li>
+<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
+</li>
+</ol>
+<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>可选（可直接略过）：</strong></p>
+<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
+<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
+<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>Terminal</code> 打开所在文件夹</p>
+<p>将位于debs目录的所有deb包扫描并生成Packages</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
+
+<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
+
+<p>为什么需要压缩文件？</p>
+<p>Cydia添加源时大致行为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
+
+<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
+<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
+<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
+<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
+<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
+<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
+<p>步骤：</p>
+<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
+<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
+<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
+<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
+<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
+<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
+<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>越狱</tag>
       </tags>
   </entry>
   <entry>
