@@ -299,19 +299,19 @@
 </li>
 </ol>
 <h1 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h1><p>Ubuntu 全局上网，不要使用 root 用户编译</p>
-<h2 id="更新包索引文件、安装新版本包"><a href="#更新包索引文件、安装新版本包" class="headerlink" title="更新包索引文件、安装新版本包"></a>更新包索引文件、安装新版本包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update -y</span><br><span class="line"><span class="built_in">sudo</span> apt full-upgrade -y</span><br></pre></td></tr></table></figure>
+<h2 id="更新包索引文件、安装新版本包"><a href="#更新包索引文件、安装新版本包" class="headerlink" title="更新包索引文件、安装新版本包"></a>更新包索引文件、安装新版本包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update -y</span><br><span class="line">sudo apt full-upgrade -y</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装依赖："><a href="#安装依赖：" class="headerlink" title="安装依赖："></a>安装依赖：</h2><p>下面的是 ImmortalWrt 的，比LEDE的全</p>
 <p>不要使用 ImmortalWrt 项目里面的一键脚本，会把 Ubuntu 的软件源改成华为的</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \</span><br><span class="line">  bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib \</span><br><span class="line">  g++-multilib git gnutls-dev gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev \</span><br><span class="line">  libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5 \</span><br><span class="line">  libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lld llvm lrzsz mkisofs msmtp \</span><br><span class="line">  nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-ply \</span><br><span class="line">  python3-docutils python3-pyelftools qemu-utils re2c rsync scons squashfs-tools subversion swig \</span><br><span class="line">  texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev zstd</span><br></pre></td></tr></table></figure>
 
-<h2 id="下载源代码"><a href="#下载源代码" class="headerlink" title="下载源代码"></a>下载源代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b &lt;branch&gt; --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
+<h2 id="下载源代码"><a href="#下载源代码" class="headerlink" title="下载源代码"></a>下载源代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b &lt;branch&gt; --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
 
 <p>示例：下载 21.02 版本（iptables 最后一版）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b openwrt-21.02  --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b openwrt-21.02  --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
 
 <p>进入 immortalwrt 文件夹</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> immortalwrt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd immortalwrt</span><br></pre></td></tr></table></figure>
 
 <h2 id="缝合一些其他插件"><a href="#缝合一些其他插件" class="headerlink" title="缝合一些其他插件"></a>缝合一些其他插件</h2><p>按照下面格式添加到根目录 feeds.conf.default 文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src-git &lt;文件夹名，不要重复&gt; https://xx.xx/xxx</span><br></pre></td></tr></table></figure>
@@ -382,7 +382,11 @@
 <p>—&gt; Modules —&gt;Translations记得选简中</p>
 <p>​               luci-compat 选（OpenClash依赖）</p>
 <p>—&gt;Applications —-根据自己的需求来选择，可以看看<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-3682029-1-1.html">恩山的帖子</a></p>
-<pre><code>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这几个比较绕</span><br><span class="line">上网时间控制：luci-app-timecontrol</span><br><span class="line">访问限制：luci-app-control-webrestriction</span><br><span class="line">网址过滤：luci-app-control-weburl</span><br><span class="line">定时唤醒：luci-app-control-timewol</span><br></pre></td></tr></table></figure>
+<pre><code>   这几个比较绕
+   上网时间控制：luci-app-timecontrol
+   访问限制：luci-app-control-webrestriction
+   网址过滤：luci-app-control-weburl
+   定时唤醒：luci-app-control-timewol
 </code></pre>
 <p>—&gt;Themes—&gt;luci-theme-argon 选</p>
 <p>保存并退出到 Terminal</p>
