@@ -155,13 +155,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -331,10 +331,11 @@
 <li><p><strong>更改LAN口的默认IP地址</strong><br> <code>package/base-files/files/bin/config_generate</code> 165 行</p>
 </li>
 <li><p><strong>修改默认主题为 argone（ImmortalWrt不用改）</strong></p>
-<p><code>sed -i &#39;s/luci-theme-bootstrap/luci-theme-argone/g&#39; feeds/luci/collections/luci/Makefile</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/luci-theme-bootstrap/luci-theme-argone/g&#x27; feeds/luci/collections/luci/Makefile</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>更改 固件版本信息</strong></p>
-<p> <code>sed -i &quot;s/OpenWrt /$(date +%Y.%m.%d) 2022/xx/xx /g&quot; package/lean/default-settings/files/zzz-default-settings</code></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &quot;s/OpenWrt /$(date +%Y.%m.%d) 2022/xx/xx /g&quot; package/lean/default-settings/files/zzz-default-settings</span><br></pre></td></tr></table></figure>
+
 </li>
 <li><p><strong>添加自定义插件</strong></p>
 <p>原理是把插件源码放到 package 目录下，编译时会自动遍历</p>
@@ -407,7 +408,7 @@
 <p>进入package下面的luci-app-nft-qos&#x2F;controller,看到nft-qos.lua文件，打开看到：</p>
 <p>entry({“admin”, “services”, “nft-qos”}, cbi(“nft-qos&#x2F;nft-qos”),</p>
 <p>上面的”services”就是“服务”，修改为”network”,这个app就会改变到“网络”菜单里了。</p>
-<p>————–某些比较复杂关系的app只修改这一处会无法运行，是因为多个函数使用了这个路径，需要一一修改。luasrc下面所有文件都要打开查找一遍，凡是存在“services”这个一路径的（或者是admin&#x2F;services&#x2F;xxx这样的路径的），通通需要替换成“network”才算完成。</p>
+<p>———某些比较复杂关系的app只修改这一处会无法运行，是因为多个函数使用了这个路径，需要逐一修改。luasrc下面所有文件都要打开查找一遍，凡是存在“services”这个一路径的（或者是admin&#x2F;services&#x2F;xxx这样的路径的），通通需要替换成“network”才算完成。</p>
 <p>lean的defaultsetting有这些lua重分配命令，但是同样存在上面的问题，所以必须从源码本身去修改。</p>
 <h2 id="MentoHUST（锐捷认证）"><a href="#MentoHUST（锐捷认证）" class="headerlink" title="MentoHUST（锐捷认证）"></a>MentoHUST（锐捷认证）</h2><p><a target="_blank" rel="noopener" href="https://github.com/sbwml/luci-app-mentohust/releases/tag/v0.3.1">用这个GitHub的</a></p>
 <p>文件主体可以用GitHub的，luci用immortalwrt可以完美使用</p>
@@ -536,14 +537,14 @@
         <i class="fa fa-chart-line"></i>
       </span>
         <span>站点总字数：</span>
-      <span title="站点总字数">51k</span>
+      <span title="站点总字数">62k</span>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="fa fa-coffee"></i>
       </span>
         <span>站点阅读时长 &asymp;</span>
-      <span title="站点阅读时长">1:05</span>
+      <span title="站点阅读时长">1:19</span>
     </span>
   </div>
   <div class="busuanzi-count">
