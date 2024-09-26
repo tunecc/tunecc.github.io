@@ -291,30 +291,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
-<span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
-
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PVE优化</title>
     <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
@@ -655,52 +631,9 @@
       </tags>
   </entry>
   <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases%60">https://github.com/rustdesk/rustdesk-server/releases`</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.11-1版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.11-1/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
-<ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
-</ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃会自动重启,之前用着就会失效,所以加了这个</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://tcer.rr.nu/i/2024/08/07/66b3211c1815b.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://tcer.rr.nu/i/2024/08/07/66b31fc133801.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
-]]></content>
-      <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>屏蔽 bilibili 垃圾CDN</title>
     <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20bilibili%20CDN/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 bilibili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://www.txrjy.com/thread-1218482-1-1.html">B站的CDN</a>，<a href="https://www.v2ex.com/t/830394">V2EX的帖子</a></p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 bilibili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://www.v2ex.com/t/830394">V2EX的帖子</a></p>
 <h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
 <li><p><a href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
 <p><a href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
@@ -708,14 +641,15 @@
 <li><p><a href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
 </li>
 </ol>
-<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来了，但是只有 AdGuardHome 的，于是就把它弄成Clash的规则了，<a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的GitHub地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬GitHub地址</a></p>
-<p>由于 Clash 不支持正则表达式，所以，下面的地址没有包括</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/.*pcdn.*biliapi\.net/</span><br><span class="line">/.*pcdn.*youku\.com/</span><br><span class="line">/.*p2p.*douyucdn\.cn/</span><br><span class="line">/.*p2p.*qq\.com/</span><br><span class="line">/.*pcdn.*biliapi.net/</span><br><span class="line">/.*pcdn.*youku.com/</span><br></pre></td></tr></table></figure>
+<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来了，但是只有 AdGuardHome 的，于是就把它弄成Clash的规则了，<a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
+<p>Clash 不支持正则表达式，所以下面的地址没有包括</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/.*pcdn.*biliapi\.net/</span><br><span class="line">/.*pcdn.*youku\.com/</span><br><span class="line">/.*p2p.*douyucdn\.cn/</span><br><span class="line">/.*p2p.*qq\.com/</span><br><span class="line">/.*pcdn.*biliapi.net/</span><br><span class="line">/.*pcdn.*youku.com/</span><br><span class="line">/cn-.*\.bilivideo\.(com|cn)/         #屏蔽这个会导致看不了直播</span><br></pre></td></tr></table></figure>
 
-<h2 id="Mosdns"><a href="#Mosdns" class="headerlink" title="Mosdns"></a>Mosdns</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数，叫 GPT 转换的，不知道对不对</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:stun1.douyucdn.cn</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:/.*pcdn.*biliapi\.net/</span><br><span class="line">regexp:/.*pcdn.*youku\.com/</span><br><span class="line">regexp:/.*p2p.*douyucdn\.cn/</span><br><span class="line">regexp:/.*p2p.*qq\.com/</span><br><span class="line">regexp:/.*pcdn.*biliapi.net/</span><br><span class="line">regexp:/.*pcdn.*youku.com/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Mosdns"><a href="#Mosdns" class="headerlink" title="Mosdns"></a>Mosdns</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:stun1.douyucdn.cn</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:cn-.*\.bilivideo\.com$            #屏蔽这个会导致看不了直播</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><p>Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.我目前使用的是 Clash + Mosdns（正则规则）</p>
+<p>2.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
 <details>
   <summary>点我展开</summary>
   <pre><code>
@@ -915,7 +849,7 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 <p>兼容模式自选；</p>
 <p>稍后安装操作系统（之后用ISO安装）；</p>
 <p>Linux–Ubuntu 64位；</p>
-<p>磁盘100GB，拆分成多个文件；</p>
+<p>磁盘 80~100 GB，拆分成多个文件；</p>
 <p>自定义硬件注意：</p>
 <p>​         网络选桥接，便于 ssh，处理器只要总线程少于自己电脑的线程就可以，看看<a href="https://blog.csdn.net/p1279030826/article/details/103044840">这篇CSDN</a></p>
 <p>在虚拟机设置-CD&#x2F;DVD里面-选择下载好的Ubuntu镜像</p>
@@ -949,7 +883,7 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 <h2 id="下载源代码"><a href="#下载源代码" class="headerlink" title="下载源代码"></a>下载源代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone -b &lt;branch&gt; --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
 
 <p>示例：下载 21.02 版本（iptables 最后一版）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone -b openwrt-21.02  --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone -b openwrt-23.05  --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
 
 <p>进入 immortalwrt 文件夹</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd immortalwrt</span><br></pre></td></tr></table></figure>
@@ -966,9 +900,62 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 
 <p>[.&#x2F;scripts&#x2F;feeds 的用法见此处](# .&#x2F;scripts&#x2F;feeds 的用法)</p>
 <h2 id="添加-Mosdns-源码"><a href="#添加-Mosdns-源码" class="headerlink" title="添加 Mosdns 源码"></a>添加 Mosdns 源码</h2><p><a href="https://github.com/sbwml/luci-app-mosdns">GitHub项目</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    # 需要 golang 1.20.x 或最新版本（需要 openwrt-21.02 及更旧版本）</span><br><span class="line">rm -rf feeds/packages/lang/golang</span><br><span class="line">git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang</span><br><span class="line">    # remove v2ray-geodata package from feeds (openwrt-22.03 &amp; master)</span><br><span class="line">rm -rf feeds/packages/net/v2ray-geodata</span><br><span class="line">git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns</span><br><span class="line">git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    # （OpenWrt-21.02 及更旧版本）更新golang 1.20.x 或最新版本</span><br><span class="line">rm -rf feeds/packages/lang/golang</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang</span><br><span class="line">    </span><br><span class="line">    # (openwrt-22.03 &amp; master)remove v2ray-geodata package from feeds </span><br><span class="line">rm -rf feeds/packages/net/v2ray-geodata</span><br><span class="line">git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns</span><br><span class="line">git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata</span><br></pre></td></tr></table></figure>
 
-<h2 id="一些配置"><a href="#一些配置" class="headerlink" title="一些配置"></a>一些配置</h2><ol>
+
+<h2 id="图形化配置OpenWRT组件：-翻译见此处-编译配置选项翻译"><a href="#图形化配置OpenWRT组件：-翻译见此处-编译配置选项翻译" class="headerlink" title="图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)"></a>图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)</h2><p>[注意] 执行下述命令启动图形化配置界面之前，把“终端”命令行窗口最大化。如果窗口太小可能会导致启动失败！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+
+
+<p>*表示编译进固件里面      M表示只编译但不写到固件里面去         （空） 留空表示不做任何操作</p>
+<p><strong>Target Images（目标系统）</strong></p>
+<p>ext4，efi不要，vmdk 安装到VMware用</p>
+<p>squashfs镜像不支持扩展</p>
+<p>谨慎使用带有rootfs的镜像，没有引导，需要自己折腾</p>
+<p>(16) Kernel partition size (in MB) </p>
+<p>(400) Root filesystem partition size (in MB) </p>
+<p><strong>Base system（基本系统）</strong></p>
+<p>dnsmasq-full—&gt; 选满（HAVE不选）, 取消dnsmasq, dnsmasq-dhcpv6两个选项，否则编译会出差！！！</p>
+<p>下翻选firewall4   不选firewall。</p>
+<p><strong>Extra packages （额外包）</strong></p>
+<p>autocore        选</p>
+<p>automount      不     USB 文件共享</p>
+<p>autoautosamba  不     Samba 多媒体共享</p>
+<p>ipv6helper       IPV6选</p>
+<p><strong>Kernel modules（内核模块）</strong></p>
+<p>Network Devices</p>
+<p>只留了e1000、ifb （虚拟网卡，记得eqos、qos采用的就是这个，方便对同一网口进行上下行限速）、igc(i225) 、macvlan、vmxnet3  (有一些把USB去掉之后可以取消)</p>
+<p>Network Support——kmod-tun 选（openclash依赖，最后确认一下，可能会被自动取消掉）</p>
+<p>SPI &#x2F; Sound &#x2F; USB &#x2F;Video Support &#x2F; Wireless Drivers都可以取消</p>
+<p><strong>Network</strong></p>
+<p>——odhcp6c和odhcpd-ipv6only（这两个应该会自动选上）IPv6选</p>
+<p>—&gt;Firewall —&gt; ip6tables-extra 和 ip6tables-mod-nat   IPv6选</p>
+<p>—&gt;SSH—&gt; openssh-sftp-server   选  我不选这个无法ssh连接，后面也可以加上</p>
+<p><strong>LuCI</strong></p>
+<p>—&gt; Collections—&gt; luci  选</p>
+<p>—&gt; Modules —&gt;Translations记得选简中</p>
+<p>​               luci-compat 选（OpenClash依赖）</p>
+<p>—&gt;Applications —-根据自己的需求来选择（第一次编译少选一些，passwall的配置用动，我这很容易报错），可以看看<a href="https://www.right.com.cn/forum/thread-3682029-1-1.html">恩山的帖子</a></p>
+<pre><code>   这几个比较绕
+   上网时间控制：luci-app-timecontrol
+   访问限制：luci-app-control-webrestriction
+   网址过滤：luci-app-control-weburl
+   定时唤醒：luci-app-control-timewol
+</code></pre>
+<p>—&gt;Themes—&gt;luci-theme-argon 选</p>
+<p>保存并退出到 Terminal</p>
+<h2 id="下载-dl-库，开始编译固件"><a href="#下载-dl-库，开始编译固件" class="headerlink" title="下载 dl 库，开始编译固件"></a>下载 dl 库，开始编译固件</h2><p>-j 后面是线程数，<strong>第一次</strong>编译推荐用<strong>单线程</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make download -j8 V=s</span><br><span class="line"></span><br><span class="line">make V=s -j1</span><br></pre></td></tr></table></figure>
+
+<p>弄完就可以去睡觉了，大概需要六、七个小时</p>
+<p>编译输出路径：<code> /bin/targets</code></p>
+<h2 id="二次编译（适用于不更改配置功能和插件，仅升级）"><a href="#二次编译（适用于不更改配置功能和插件，仅升级）" class="headerlink" title="二次编译（适用于不更改配置功能和插件，仅升级）"></a>二次编译（适用于不更改配置功能和插件，仅升级）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> immortalwrt</span><br><span class="line"></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make defconfig</span><br><span class="line"></span><br><span class="line">make download -j8 V=s</span><br><span class="line"></span><br><span class="line">make V=s -j$(<span class="built_in">nproc</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="杂技巧"><a href="#杂技巧" class="headerlink" title="杂技巧"></a>杂技巧</h1><h2 id="一些配置"><a href="#一些配置" class="headerlink" title="一些配置"></a>一些配置</h2><ol>
 <li><p><strong>更改LAN口的默认IP地址</strong><br> <code>package/base-files/files/bin/config_generate</code> 165 行</p>
 </li>
 <li><p><strong>修改默认主题为 argone（ImmortalWrt不用改）</strong></p>
@@ -993,55 +980,7 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 <p>可以在<a href="http://patorjk.com/software/taag/">此处</a>定制自己的样式</p>
 </li>
 </ol>
-<h2 id="图形化配置OpenWRT组件：-翻译见此处-编译配置选项翻译"><a href="#图形化配置OpenWRT组件：-翻译见此处-编译配置选项翻译" class="headerlink" title="图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)"></a>图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)</h2><p>[注意] 执行下述命令启动图形化配置界面之前，把“终端”命令行窗口最大化。如果窗口太小可能会导致启动失败！</p>
-<p><code>make menuconfig</code></p>
-<p>*表示编译进固件里面      M表示只编译但不写到固件里面去         （空） 留空表示不做任何操作</p>
-<p><strong>Target Images（目标系统）</strong></p>
-<p>ext4，efi不要，vmdk 安装到VMware用</p>
-<p>不要使用带有squashfs的镜像，该镜像不支持扩展</p>
-<p>谨慎使用带有rootfs的镜像，没有引导，需要自己折腾</p>
-<p>(16) Kernel partition size (in MB) </p>
-<p>(400) Root filesystem partition size (in MB) </p>
-<p><strong>Base system（基本系统）</strong></p>
-<p>dnsmasq-full—&gt; 选满（HAVE不选）, 取消dnsmasq, dnsmasq-dhcpv6两个选项，否则编译会出差！！！</p>
-<p>下翻选firewall4   不选firewall。</p>
-<p><strong>Extra packages （额外包）</strong></p>
-<p>autocore        选</p>
-<p>automount      不     USB 文件共享</p>
-<p>autoautosamba  不     Samba 多媒体共享</p>
-<p>ipv6helper       IPV6选</p>
-<p><strong>Kernel modules（内核模块）</strong></p>
-<p>Network Devices</p>
-<p>只留了e1000，ifb，idc(i225) ，macvlan，vmxnet3  (有一些把USB去掉之后可以取消)</p>
-<p>Network Support——kmod-tun 选（openclash依赖，最后确认一下，可能会被自动取消掉）</p>
-<p>SPI &#x2F; Sound &#x2F; USB &#x2F;Video Support &#x2F; Wireless Drivers都可以取消</p>
-<p><strong>Network</strong></p>
-<p>——odhcp6c和odhcpd-ipv6only（这两个应该会自动选上）IPv6选</p>
-<p>—&gt;Firewall —&gt; ip6tables-extra 和 ip6tables-mod-nat   IPv6选</p>
-<p>—&gt;SSH—&gt; openssh-sftp-server   选  我不选这个无法ssh连接，后面也可以加上</p>
-<p><strong>LuCI</strong></p>
-<p>—&gt; Collections—&gt; luci  选</p>
-<p>—&gt; Modules —&gt;Translations记得选简中</p>
-<p>​               luci-compat 选（OpenClash依赖）</p>
-<p>—&gt;Applications —-根据自己的需求来选择，可以看看<a href="https://www.right.com.cn/forum/thread-3682029-1-1.html">恩山的帖子</a></p>
-<pre><code>   这几个比较绕
-   上网时间控制：luci-app-timecontrol
-   访问限制：luci-app-control-webrestriction
-   网址过滤：luci-app-control-weburl
-   定时唤醒：luci-app-control-timewol
-</code></pre>
-<p>—&gt;Themes—&gt;luci-theme-argon 选</p>
-<p>保存并退出到 Terminal</p>
-<h2 id="下载-dl-库，开始编译固件"><a href="#下载-dl-库，开始编译固件" class="headerlink" title="下载 dl 库，开始编译固件"></a>下载 dl 库，开始编译固件</h2><p>-j 后面是线程数，<strong>第一次</strong>编译推荐用<strong>单线程</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make download -j8 V=s</span><br><span class="line"></span><br><span class="line">make V=s -j1</span><br></pre></td></tr></table></figure>
-
-<p>弄完就可以去睡觉了，大概需要六、七个小时</p>
-<h2 id="二次编译（适用于不更改配置功能和插件，仅升级）"><a href="#二次编译（适用于不更改配置功能和插件，仅升级）" class="headerlink" title="二次编译（适用于不更改配置功能和插件，仅升级）"></a>二次编译（适用于不更改配置功能和插件，仅升级）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> immortalwrt</span><br><span class="line"></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make defconfig</span><br><span class="line"></span><br><span class="line">make download -j8 V=s</span><br><span class="line"></span><br><span class="line">make V=s -j$(<span class="built_in">nproc</span>)</span><br></pre></td></tr></table></figure>
-
-<h1 id="杂技巧"><a href="#杂技巧" class="headerlink" title="杂技巧"></a>杂技巧</h1><h2 id="如果编译OpenWrt原版"><a href="#如果编译OpenWrt原版" class="headerlink" title="如果编译OpenWrt原版"></a>如果编译OpenWrt原版</h2><p>切换最新稳定分支：</p>
+<h2 id="如果编译OpenWrt原版"><a href="#如果编译OpenWrt原版" class="headerlink" title="如果编译OpenWrt原版"></a>如果编译OpenWrt原版</h2><p>切换最新稳定分支：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -a</span><br><span class="line"></span><br><span class="line">git tag</span><br><span class="line"></span><br><span class="line">git checkout v22.03</span><br></pre></td></tr></table></figure>
 
 <p>[说明] 这一步很重要，切换稳定分支，编译的版本是经过充分验证的稳定版本，不容易出现莫名其妙的bug, 减少很多白折腾。切身教训，供参考。</p>
@@ -1057,6 +996,12 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 <p><code>make distclean</code>  清除所有生成的文件，连feeds也会干掉，只留下git clone完成时候的初始状态。</p>
 <h2 id="更改openwrt后台web登陆用户名方法"><a href="#更改openwrt后台web登陆用户名方法" class="headerlink" title="更改openwrt后台web登陆用户名方法"></a>更改openwrt后台web登陆用户名方法</h2><p>修改&#x2F;etc&#x2F;passwd</p>
 <p>将<code>root:x:0:0:root:/root:/bin/ash</code>修改为<code>username:x:0:0:root:/root:/bin/ash</code></p>
+<h2 id="限速的配置"><a href="#限速的配置" class="headerlink" title="限速的配置"></a>限速的配置</h2><p>详见<a href="https://www.right.com.cn/forum/thread-8292547-1-1.html">恩山的帖子</a></p>
+<p>最好有以下依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tc-tiny                                      重要</span><br><span class="line">kmod-sched-core                      tc 限速核心</span><br><span class="line">kmod-sched                             tc sfq 随机公平排队 相关 ，查看固件是否支持sfq ，终端命令：opkg files kmod-sched|grep sfq</span><br><span class="line">kmod-sched-cake                     流量智能队列管理（QOS）</span><br><span class="line">kmod-ifb                                 虚拟网卡，记得eqos、qos采用的就是这个，方便对同一网口进行上下行限速</span><br><span class="line">iptables-mod-iprange                对IP段进行筛选(过滤)</span><br><span class="line">iptables-mod-nat-extra              流量智能队列管理（QOS）</span><br><span class="line">kmod-sched-connmark</span><br><span class="line">kmod-sched-ipset</span><br><span class="line">        以前整理过，丢了，有些我也忘记用途了，编译的时候尽量都打上，以后报错的时候原因不好找。</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="编译配置选项翻译"><a href="#编译配置选项翻译" class="headerlink" title="编译配置选项翻译"></a>编译配置选项翻译</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">OpenWrtConfiguration【OpenWrt配置】</span><br><span class="line">TargetSystem () ---&gt; 目标系统（）</span><br><span class="line">Subtarget() ---&gt; 子目标（）</span><br><span class="line">TargetProfile () ---&gt;目标配置文件（通用）</span><br><span class="line">TargetImages ---&gt; 保存目标镜像的格式</span><br><span class="line">Enableexperimental features by default ---&gt; 默认情况下启用实验功能</span><br><span class="line">Globalbuild settings ---&gt; 全局构建设置</span><br><span class="line">Advancedconfiguration options (for developers) ---- 高级配置选项（适用于开发人员）</span><br><span class="line">Buildthe OpenWrt Image Builder 构建OpenWrt图像生成器</span><br><span class="line">Buildthe OpenWrt SDK构建OpenWrt SDK</span><br><span class="line">Packagethe OpenWrt-based Toolchain打包基于OpenWrt的工具链</span><br><span class="line">Imageconfiguration ---&gt;图像配置</span><br><span class="line">Basesystem ---&gt; 基本系统</span><br><span class="line">Administration---&gt; 管理</span><br><span class="line">BootLoaders ---&gt;引导加载程序</span><br><span class="line">Development---&gt; 开发</span><br><span class="line">Extrapackages ---&gt; 额外包</span><br><span class="line">Firmware---&gt;固件</span><br><span class="line">Fonts---&gt;字体</span><br><span class="line">Kernelmodules ---&gt; 内核模块</span><br><span class="line">Languages---&gt;语言</span><br><span class="line">Libraries---&gt; 图书馆</span><br><span class="line">LuCI---&gt; LuCI 软件包</span><br><span class="line">Mail---&gt;邮件</span><br><span class="line">Multimedia---&gt;多媒体</span><br><span class="line">Network---&gt;网络</span><br><span class="line">Sound---&gt; 声音</span><br><span class="line">Utilities---&gt;实用程序</span><br><span class="line">Xorg---&gt;Xorg</span><br></pre></td></tr></table></figure>
 
 <h2 id="scripts-feeds-的用法"><a href="#scripts-feeds-的用法" class="headerlink" title=".&#x2F;scripts&#x2F;feeds 的用法"></a>.&#x2F;scripts&#x2F;feeds 的用法</h2><p>更新包列表：<code>./scripts/feeds update -a</code><br>集成到menuconfig：<code>./scripts/feeds install -a</code></p>
@@ -1116,6 +1061,73 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       <tags>
         <tag>青龙面板</tag>
         <tag>Serv00</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases%60">https://github.com/rustdesk/rustdesk-server/releases`</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.11-1版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.11-1/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃会自动重启,之前用着就会失效,所以加了这个</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://tcer.rr.nu/i/2024/08/07/66b3211c1815b.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://tcer.rr.nu/i/2024/08/07/66b31fc133801.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+]]></content>
+      <tags>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
       </tags>
   </entry>
 </search>
