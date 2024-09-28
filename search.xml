@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
+
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker 搭建 Sub-Store</title>
+    <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
+<h1 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h1><ol>
+<li><p><a href="https://github.com/sub-store-org/Sub-Store">Sub-Store</a>（推荐）</p>
+<p>刚开始使用 Surge 的时候，就接触过，折腾一番后发现这是最适合我的</p>
+</li>
+<li><p><a href="https://github.com/gooaclok819/sublinkX">sublinkX</a></p>
+<p>必须搭配模板使用，我只想整合节点</p>
+</li>
+<li><p><a href="https://github.com/cedar2025/Xboard">Xboard</a></p>
+<p>机场的模板，有流量统计等功能，我用不上</p>
+</li>
+</ol>
+<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><p>GitHub 上面有一个 <a href="https://github.com/SaintWe/Sub-Store-Docker">Sub-Store-Docker</a> 的项目，<a href="https://hub.docker.com/r/saintwe/sub-store">saintwe&#x2F;sub-store</a>，Docker 还没有系统学习过的我，只看 README 还是不会搭建，还好 YouTube 上面有一个 <a href="https://www.youtube.com/watch?v=M4167ErswdE">视频教程</a></p>
+<ol>
+<li><p><code>docker pull xream/sub-store</code></p>
+</li>
+<li><p>打开 portainer –Create stack（创建堆栈）–Web editor–下面添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">version: &quot;3.8&quot;</span><br><span class="line">services:</span><br><span class="line">  sub-store:</span><br><span class="line">    image: xream/sub-store:latest</span><br><span class="line">    container_name: sub-store</span><br><span class="line">    network_mode: host</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - /opt/sub-store-data:/opt/app/data</span><br><span class="line">    environment:</span><br><span class="line">      - SUB_STORE_BACKEND_CRON=0 0 * * *</span><br><span class="line">      - SUB_STORE_FRONTEND_BACKEND_PATH=/1234567890</span><br><span class="line">      - SUB_STORE_FRONTEND_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_FRONTEND_PORT=3001</span><br><span class="line">      - SUB_STORE_DATA_BASE_PATH=/opt/app/data</span><br><span class="line">      - SUB_STORE_BACKEND_API_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_BACKEND_API_PORT=3002</span><br><span class="line">    stdin_open: true</span><br><span class="line">    tty: true</span><br></pre></td></tr></table></figure>
+
+<p>其中的“1234567890”就相当于密钥，请自行修改成复杂的密码，避免被盗</p>
+</li>
+<li><p>在最上面填写好 Name 后，到网页最下面点击 Deploy the stack 即可成功部署</p>
+</li>
+<li><p>打开 Docker 的 IP 加上3001，即可访问 Sub-Store<br><code>http://192.168.xx.xx:3001</code></p>
+</li>
+<li><p>这时候会显示数据加载失败，这是因为还没有改后端的地址，网页底部选择设置–后端设置–添加后端–名称随意–后端地址填写</p>
+<p><code>http://192.168.xx.xx:3001/1234567890</code></p>
+<p>添加成功后记得选择刚刚添加的后端，这样就成功了</p>
+</li>
+<li><p>使用 frp 实现公网访问<br>等我专门写一篇吧😁</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo+Next v8.2.0的搭建与优化</title>
     <url>/2024/08/09/Hexo-Next%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很早就想弄一个博客,在大一的暑假终于开始着手搭建,在经过一番研究和比较，我最终决定采用 Hexo 系统来构建我的个人博客。主题选择了比较简洁的Next。<span id="more"></span><br>本次搭建环境：</p>
@@ -265,29 +352,6 @@
 ]]></content>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -631,7 +695,50 @@
       </tags>
   </entry>
   <entry>
-    <title>屏蔽 bilibili 垃圾CDN</title>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases%60">https://github.com/rustdesk/rustdesk-server/releases`</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.11-1版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.11-1/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃会自动重启,之前用着就会失效,所以加了这个</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://tcer.rr.nu/i/2024/08/07/66b3211c1815b.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://tcer.rr.nu/i/2024/08/07/66b31fc133801.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+]]></content>
+      <tags>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>屏蔽 bilibili PCDN</title>
     <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20bilibili%20CDN/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 bilibili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://www.v2ex.com/t/830394">V2EX的帖子</a></p>
 <h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
@@ -851,7 +958,7 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 <p>Linux–Ubuntu 64位；</p>
 <p>磁盘 80~100 GB，拆分成多个文件；</p>
 <p>自定义硬件注意：</p>
-<p>​         网络选桥接，便于 ssh，处理器只要总线程少于自己电脑的线程就可以，看看<a href="https://blog.csdn.net/p1279030826/article/details/103044840">这篇CSDN</a></p>
+<p>网络选桥接，便于 ssh，处理器只要总线程少于自己电脑的线程就可以，看看<a href="https://blog.csdn.net/p1279030826/article/details/103044840">这篇CSDN</a></p>
 <p>在虚拟机设置-CD&#x2F;DVD里面-选择下载好的Ubuntu镜像</p>
 <p>启动虚拟机开始安装Ubuntu</p>
 <p>时区选上海Shanghai 其他没什么</p>
@@ -900,8 +1007,8 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 
 <p>[.&#x2F;scripts&#x2F;feeds 的用法见此处](# .&#x2F;scripts&#x2F;feeds 的用法)</p>
 <h2 id="添加-Mosdns-源码"><a href="#添加-Mosdns-源码" class="headerlink" title="添加 Mosdns 源码"></a>添加 Mosdns 源码</h2><p><a href="https://github.com/sbwml/luci-app-mosdns">GitHub项目</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    # （OpenWrt-21.02 及更旧版本）更新golang 1.20.x 或最新版本</span><br><span class="line">rm -rf feeds/packages/lang/golang</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang</span><br><span class="line">    </span><br><span class="line">    # (openwrt-22.03 &amp; master)remove v2ray-geodata package from feeds </span><br><span class="line">rm -rf feeds/packages/net/v2ray-geodata</span><br><span class="line">git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns</span><br><span class="line">git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    # （OpenWrt-21.02 及更旧版本）更新golang 1.20.x 或最新版本</span><br><span class="line">rm -rf feeds/packages/lang/golang</span><br><span class="line">git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    # (openwrt-22.03 &amp; master)remove v2ray-geodata package from feeds </span><br><span class="line">rm -rf feeds/packages/net/v2ray-geodata</span><br><span class="line">git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns</span><br><span class="line">git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata</span><br></pre></td></tr></table></figure>
 
 
 <h2 id="图形化配置OpenWRT组件：-翻译见此处-编译配置选项翻译"><a href="#图形化配置OpenWRT组件：-翻译见此处-编译配置选项翻译" class="headerlink" title="图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)"></a>图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)</h2><p>[注意] 执行下述命令启动图形化配置界面之前，把“终端”命令行窗口最大化。如果窗口太小可能会导致启动失败！</p>
@@ -945,8 +1052,11 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 </code></pre>
 <p>—&gt;Themes—&gt;luci-theme-argon 选</p>
 <p>保存并退出到 Terminal</p>
-<h2 id="下载-dl-库，开始编译固件"><a href="#下载-dl-库，开始编译固件" class="headerlink" title="下载 dl 库，开始编译固件"></a>下载 dl 库，开始编译固件</h2><p>-j 后面是线程数，<strong>第一次</strong>编译推荐用<strong>单线程</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make download -j8 V=s</span><br><span class="line"></span><br><span class="line">make V=s -j1</span><br></pre></td></tr></table></figure>
+<h2 id="下载-dl-库"><a href="#下载-dl-库" class="headerlink" title="下载 dl 库"></a>下载 dl 库</h2><p>-j 后面是线程数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make download -j8 V=s</span><br></pre></td></tr></table></figure>
+
+<h2 id="开始编译固件"><a href="#开始编译固件" class="headerlink" title="开始编译固件"></a>开始编译固件</h2><p><strong>第一次</strong>编译推荐用<strong>单线程</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make V=s -j1</span><br></pre></td></tr></table></figure>
 
 <p>弄完就可以去睡觉了，大概需要六、七个小时</p>
 <p>编译输出路径：<code> /bin/targets</code></p>
@@ -998,7 +1108,7 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 <p>将<code>root:x:0:0:root:/root:/bin/ash</code>修改为<code>username:x:0:0:root:/root:/bin/ash</code></p>
 <h2 id="限速的配置"><a href="#限速的配置" class="headerlink" title="限速的配置"></a>限速的配置</h2><p>详见<a href="https://www.right.com.cn/forum/thread-8292547-1-1.html">恩山的帖子</a></p>
 <p>最好有以下依赖</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tc-tiny                                      重要</span><br><span class="line">kmod-sched-core                      tc 限速核心</span><br><span class="line">kmod-sched                             tc sfq 随机公平排队 相关 ，查看固件是否支持sfq ，终端命令：opkg files kmod-sched|grep sfq</span><br><span class="line">kmod-sched-cake                     流量智能队列管理（QOS）</span><br><span class="line">kmod-ifb                                 虚拟网卡，记得eqos、qos采用的就是这个，方便对同一网口进行上下行限速</span><br><span class="line">iptables-mod-iprange                对IP段进行筛选(过滤)</span><br><span class="line">iptables-mod-nat-extra              流量智能队列管理（QOS）</span><br><span class="line">kmod-sched-connmark</span><br><span class="line">kmod-sched-ipset</span><br><span class="line">        以前整理过，丢了，有些我也忘记用途了，编译的时候尽量都打上，以后报错的时候原因不好找。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">        tc-tiny                                      重要</span><br><span class="line">        </span><br><span class="line">Kernel modules---&gt;Network Support：</span><br><span class="line">        kmod-sched                             tc sfq 随机公平排队 相关 ，查看固件是否支持sfq ，终端命令：opkg files kmod-sched|grep sfq</span><br><span class="line">        kmod-sched-cake                     流量智能队列管理（QOS）</span><br><span class="line">        kmod-sched-connmark</span><br><span class="line">        kmod-sched-core                      tc 限速核心</span><br><span class="line">        kmod-sched-ipset</span><br><span class="line">        </span><br><span class="line">Kernel modules---&gt;Network Devices：</span><br><span class="line">        kmod-ifb                                 虚拟网卡，记得eqos、qos采用的就是这个，方便对同一网口进行上下行限速</span><br><span class="line">        </span><br><span class="line">Network---&gt;Firewall：</span><br><span class="line">        iptables-mod-iprange                对IP段进行筛选(过滤)</span><br><span class="line">        iptables-mod-nat-extra              流量智能队列管理（QOS）</span><br></pre></td></tr></table></figure>
 
 
 
@@ -1061,73 +1171,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       <tags>
         <tag>青龙面板</tag>
         <tag>Serv00</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
-<span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
-
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases%60">https://github.com/rustdesk/rustdesk-server/releases`</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.11-1版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.11-1/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
-<ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
-</ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃会自动重启,之前用着就会失效,所以加了这个</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://tcer.rr.nu/i/2024/08/07/66b3211c1815b.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://tcer.rr.nu/i/2024/08/07/66b31fc133801.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
-]]></content>
-      <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
       </tags>
   </entry>
 </search>
