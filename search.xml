@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker 搭建 Sub-Store</title>
     <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
@@ -61,30 +38,6 @@
 ]]></content>
       <tags>
         <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
-<span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
-
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -355,6 +308,53 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
+
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PVE优化</title>
     <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
@@ -394,6 +394,48 @@
 ]]></content>
       <tags>
         <tag>PVE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FRP 内网穿透</title>
+    <url>/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
+<h1 id="安装Frps（服务端）"><a href="#安装Frps（服务端）" class="headerlink" title="安装Frps（服务端）"></a>安装Frps（服务端）</h1><p>有一台带公网 IPv4 的云服务器，然后在VPS上安装好frps</p>
+<p><a href="https://github.com/mvscode/frps-onekey">Frp服务端一键脚本项目地址</a></p>
+<p><a href="https://www.youtube.com/watch?v=D7e6TaWSneg">一瓶奶油视频教程</a></p>
+<h2 id="Install（安装）"><a href="#Install（安装）" class="headerlink" title="Install（安装）"></a>Install（安装）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/mvscode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line"><span class="built_in">chmod</span> 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
+
+<h2 id="Uninstall（卸载）"><a href="#Uninstall（卸载）" class="headerlink" title="Uninstall（卸载）"></a>Uninstall（卸载）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
+
+<h2 id="Update（更新）"><a href="#Update（更新）" class="headerlink" title="Update（更新）"></a>Update（更新）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置后台运行"><a href="#设置后台运行" class="headerlink" title="设置后台运行"></a>设置后台运行</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FRP常用命令"><a href="#FRP常用命令" class="headerlink" title="FRP常用命令"></a>FRP常用命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开启FRP：frps start</span><br><span class="line">停止FRP：frps stop</span><br><span class="line">重启FRP：frps restart</span><br><span class="line">打开配置文件：frps config</span><br><span class="line">查看FRP版本：frps version</span><br><span class="line">检查FRP运行状态：frps status</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装Frpc（客户端）"><a href="#安装Frpc（客户端）" class="headerlink" title="安装Frpc（客户端）"></a>安装Frpc（客户端）</h1><h2 id="OpenWrt-未集成"><a href="#OpenWrt-未集成" class="headerlink" title="OpenWrt 未集成"></a>OpenWrt 未集成</h2><p><a href="https://github.com/kuoruan/openwrt-frp/releases">frpc下载</a></p>
+<p><a href="https://github.com/kuoruan/luci-app-frpc/releases">luci-app-frpc和汉化包下载</a></p>
+<p>设置（ 来自<a href="https://naiyous.com/4482.html">https://naiyous.com/4482.html</a> ）</p>
+<p>建议：Frp 协议类型，选择 tcp，这样可以反代的设备更多</p>
+<div>
+    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1024x532.png" style="width: 100%; height: auto; display: block; margin: 0;" />
+    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1-1024x565.png" style="width: 100%; height: auto; display: block; margin: 0;" />
+</div>
+
+
+<h2 id="OpenWrt集成"><a href="#OpenWrt集成" class="headerlink" title="OpenWrt集成"></a>OpenWrt集成</h2><p>immortalwrt 维护的 frpc 界面与上面的有所不同，软件的启动、停止需要在 <strong>系统—启动项</strong> 中控制，其它的都有对应的设置项</p>
+<h1 id="CF-重定向"><a href="#CF-重定向" class="headerlink" title="CF 重定向"></a>CF 重定向</h1><p>灵感来自于：<a href="https://youtu.be/KfOEabr38WU?t=232&si=ho4f7p8s9uN8XqKm">https://youtu.be/KfOEabr38WU?t=232&amp;si=ho4f7p8s9uN8XqKm</a></p>
+<p>准备一个能套上 CF 的域名</p>
+<p>左侧选项卡 <strong>DNS——记录——添加记录</strong></p>
+<p>类型：A 是 IPv4 ，AAAA 是 IPv6</p>
+<p>首先添加：<br>名称——简短，填你想要的域名前缀<br>IPv4 地址——都填服务器的 IP<br>小黄云可以打开</p>
+<p>左侧选项卡 <strong>规则——Origin Rules——创建规则</strong></p>
+<p>规则名称——随意<br>字段——主机名<br>运算符——等于<br>值——填 “DNS中的名称” . “你的域名”<br>重写到——填你在 Frpc 中设置的远程端口<br>部署</p>
+<p>这样就完成了</p>
+<p>这时候在浏览器输入自己的服务器 IP 加上端口（默认是：6443），再输入账号密码，左侧 Proxies 中选择 TCP 就可以看到已经反代的服务了</p>
+]]></content>
+      <tags>
+        <tag>FRP</tag>
       </tags>
   </entry>
   <entry>
@@ -740,7 +782,11 @@
   <entry>
     <title>屏蔽 bilibili PCDN</title>
     <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20bilibili%20CDN/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 bilibili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://www.v2ex.com/t/830394">V2EX的帖子</a></p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 bilibili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
+<p><a href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
+<p>B 站的 video host 有四种类型：（我将其添加个称呼好标注，非官方称呼）<br><a href="http://upos-sz-mirrorkodo.bilivideo.com/">upos-sz-mirrorkodo.bilivideo.com</a> &#x2F; <a href="http://upos-sz-mirrorcos.bilivideo.com/">upos-sz-mirrorcos.bilivideo.com</a> &#x2F; Mirror 型<br><a href="http://cn-gdgz4-cmcc-v-09.bilivideo.com/">cn-gdgz4-cmcc-v-09.bilivideo.com</a> &#x2F; <a href="http://cn-gdst-cmcc-bcache-02.bilivideo.com/">cn-gdst-cmcc-bcache-02.bilivideo.com</a> &#x2F; Cache 型<br><a href="http://xy112x48x59x98xy.mcdn.bilivideo.cn/">xy112x48x59x98xy.mcdn.bilivideo.cn</a> &#x2F; <a href="http://xy110x85x55x73xy.mcdn.bilivideo.cn/">xy110x85x55x73xy.mcdn.bilivideo.cn</a> &#x2F; MCDN 型<br><a href="http://a93lt21v.v1d.szbdyd.com/">a93lt21v.v1d.szbdyd.com</a> &#x2F; <a href="http://hz6xy5t6.v1d.szbdyd.com/">hz6xy5t6.v1d.szbdyd.com</a> &#x2F; PCDN 型<br>以上几种是在广东移动的场景下测的，其他运营商应该也差不多。</p>
+<p>B 站官方测速地址</p>
+<p><a href="https://www.bilibili.com/blackboard/app-speed-test.html">https://www.bilibili.com/blackboard/app-speed-test.html</a></p>
 <h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
 <li><p><a href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
 <p><a href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
@@ -748,15 +794,14 @@
 <li><p><a href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
 </li>
 </ol>
-<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来了，但是只有 AdGuardHome 的，于是就把它弄成Clash的规则了，<a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
-<p>Clash 不支持正则表达式，所以下面的地址没有包括</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/.*pcdn.*biliapi\.net/</span><br><span class="line">/.*pcdn.*youku\.com/</span><br><span class="line">/.*p2p.*douyucdn\.cn/</span><br><span class="line">/.*p2p.*qq\.com/</span><br><span class="line">/.*pcdn.*biliapi.net/</span><br><span class="line">/.*pcdn.*youku.com/</span><br><span class="line">/cn-.*\.bilivideo\.(com|cn)/         #屏蔽这个会导致看不了直播</span><br></pre></td></tr></table></figure>
+<p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来，那我就直接用了😁</p>
+<h2 id="Mosdns（推荐）"><a href="#Mosdns（推荐）" class="headerlink" title="Mosdns（推荐）"></a>Mosdns（推荐）</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:stun1.douyucdn.cn</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">domain:dyp2p-ali.douyucdn.cn</span><br><span class="line">domain:dyp2p-hw.douyucdn.cn</span><br><span class="line">domain:p2p-ali.douyucdn.cn</span><br><span class="line">domain:p2p.qq.com</span><br><span class="line">domain:p2pchunk-hw.douyucdn.cn</span><br><span class="line">domain:p2pchunk-table.douyucdn.cn</span><br><span class="line">domain:p2pchunk-ws.douyucdn.cn</span><br><span class="line">domain:p2perrorlog.douyucdn.cn</span><br><span class="line">domain:p2plive-ali.douyucdn.cn</span><br><span class="line">domain:p2plive-ws.douyucdn.cn</span><br><span class="line">domain:p2plog.douyucdn.cn</span><br><span class="line">domain:p2ptun.qq.com</span><br><span class="line">domain:p2pupdate.gamedl.qq.com</span><br><span class="line">domain:p2pupgrade.gamedl.qq.com</span><br><span class="line">domain:p2pvod-ws.douyucdn.cn</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:cn-.*\.bilivideo\.com            #屏蔽这个会导致看不了直播</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="Mosdns"><a href="#Mosdns" class="headerlink" title="Mosdns"></a>Mosdns</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:stun1.douyucdn.cn</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:cn-.*\.bilivideo\.com$            #屏蔽这个会导致看不了直播</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.我目前使用的是 Clash + Mosdns（正则规则）</p>
-<p>2.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
+<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>使用 Clash 规则时，需要<strong>添加好对应的端口</strong>，例如：</p>
+<p>xy111x51x181x119xy.mcdn.bilivideo.cn:4483，使用的是京东云，在clash的代理端口上需要把对应的TCP 端口加上 4483 8082，有点麻烦</p>
+<p><a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
 <details>
   <summary>点我展开</summary>
   <pre><code>
