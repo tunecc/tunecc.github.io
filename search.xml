@@ -268,6 +268,7 @@
 <p>底部添加</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.footer-container &#123;</span><br><span class="line">  text-align: center;</span><br><span class="line">  margin: 0px;</span><br><span class="line">  padding: 0px;</span><br><span class="line">  background-color: transparent; /* 可选：页脚背景颜色 */</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.footer-container .beian,</span><br><span class="line">.footer-container .copyright,</span><br><span class="line">.footer-container .wordcount,</span><br><span class="line">.footer-container .busuanzi-count,</span><br><span class="line">.footer-container .powered-by &#123;</span><br><span class="line">  display: block;</span><br><span class="line">  margin: 0px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h2 id="归档页面每页文章数目"><a href="#归档页面每页文章数目" class="headerlink" title="归档页面每页文章数目"></a>归档页面每页文章数目</h2><p>站点配置找到<code>per_page: 10</code>后面的数字就是每一页的文章数</p>
 <h2 id="小插件"><a href="#小插件" class="headerlink" title="小插件"></a>小插件</h2><h3 id="自动添加空格"><a href="#自动添加空格" class="headerlink" title="自动添加空格"></a>自动添加空格</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Automatically insert whitespace between CJK and half-width characters.</span><br><span class="line"># For more information: https://github.com/vinta/pangu.js</span><br><span class="line"># Server-side plugin: https://github.com/next-theme/hexo-pangu</span><br><span class="line">pangu: true</span><br></pre></td></tr></table></figure>
 
 <h3 id="在-hexo-生成后删除不必要的文件"><a href="#在-hexo-生成后删除不必要的文件" class="headerlink" title="在 hexo 生成后删除不必要的文件"></a>在 hexo 生成后删除不必要的文件</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Remove unnecessary files after hexo generate.</span><br><span class="line">minify: true</span><br></pre></td></tr></table></figure>
@@ -1216,6 +1217,26 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       <tags>
         <tag>青龙面板</tag>
         <tag>Serv00</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 折腾</title>
+    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
+<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
+<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
+<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
+<ul>
+<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
+<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
+</ul>
+<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
+<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
+<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
+<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
+]]></content>
+      <tags>
+        <tag>Android</tag>
       </tags>
   </entry>
 </search>
