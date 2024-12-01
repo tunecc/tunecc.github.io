@@ -41,6 +41,29 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
+
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo+Next v8.2.0的搭建与优化</title>
     <url>/2024/08/09/Hexo-Next%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很早就想弄一个博客,在大一的暑假终于开始着手搭建,在经过一番研究和比较，我最终决定采用 Hexo 系统来构建我的个人博客。主题选择了比较简洁的Next。<span id="more"></span><br>本次搭建环境：</p>
@@ -309,29 +332,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac 查询 NAT 类型</title>
     <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
@@ -437,49 +437,6 @@
 ]]></content>
       <tags>
         <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases%60">https://github.com/rustdesk/rustdesk-server/releases`</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.11-1版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.11-1/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
-<ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
-</ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃会自动重启,之前用着就会失效,所以加了这个</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://tcer.rr.nu/i/2024/08/07/66b3211c1815b.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://tcer.rr.nu/i/2024/08/07/66b31fc133801.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
-]]></content>
-      <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
       </tags>
   </entry>
   <entry>
@@ -781,6 +738,49 @@
       </tags>
   </entry>
   <entry>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases%60">https://github.com/rustdesk/rustdesk-server/releases`</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.11-1版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.11-1/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃会自动重启,之前用着就会失效,所以加了这个</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://tcer.rr.nu/i/2024/08/07/66b3211c1815b.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://tcer.rr.nu/i/2024/08/07/66b31fc133801.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+]]></content>
+      <tags>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Android 折腾</title>
     <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
@@ -1012,6 +1012,41 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
+    <title>青龙面板保活Serv00并启用TG推送</title>
+    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
+    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
+<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
+<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
+<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
+<ol>
+<li>多账号添加更方便;</li>
+<li>设置了ssh超时,避免了脚本卡死;</li>
+<li>电报消息可以提示哪些账号出错。</li>
+</ol>
+<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>附telegram的通知截图<br><img src="https://tcer.rr.nu/i/2024/08/05/66b044e5d99fb.png" width=50% height=50% /></p>
+<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
+<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
+<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
+<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
+<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
+<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
+<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
+<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>青龙面板</tag>
+        <tag>Serv00</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>编译OpenWrt</title>
     <url>/2024/06/22/%E7%BC%96%E8%AF%91OpenWrt/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>网上有大量的OpenWrt固件供用户下载使用。这类固件旨在满足广泛用户群体的需求，因此可能包含了一些并非所有用户都会用到的功能或组件。<span id="more"></span>此外，考虑到最近曝光的XZ后门事件，这让人们更加警惕第三方编译固件的安全性，毕竟无法完全确信他人编译的固件是否完全安全无虞。因此，为了确保设备的安全性和个性化需求，自行编译适合自己使用的OpenWrt固件不失为一个更为可靠的选择。</p>
@@ -1202,41 +1237,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 ]]></content>
       <tags>
         <tag>OpenWrt</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>青龙面板保活Serv00并启用TG推送</title>
-    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
-    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
-<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
-<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
-<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
-<ol>
-<li>多账号添加更方便;</li>
-<li>设置了ssh超时,避免了脚本卡死;</li>
-<li>电报消息可以提示哪些账号出错。</li>
-</ol>
-<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<p>附telegram的通知截图<br><img src="https://tcer.rr.nu/i/2024/08/05/66b044e5d99fb.png" width=50% height=50% /></p>
-<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
-<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
-<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
-<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
-<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
-<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
-<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
-<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>青龙面板</tag>
-        <tag>Serv00</tag>
       </tags>
   </entry>
 </search>
