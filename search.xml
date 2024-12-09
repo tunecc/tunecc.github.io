@@ -1,6 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Cloudflare R2图床</title>
+    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
+<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
+<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
+<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
+<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
+<p>两个教程不同之处：</p>
+<ol>
+<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
+<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Cloudflare</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cloudflare Tunnel内网穿透及优选</title>
+    <url>/2024/12/06/Cloudflare%20tunnel/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>ImmortalWrt 23.05</li>
+<li>两个域名且绑定在Cloudflare</li>
+<li>CF账号以及开通 SAAS 不多说</li>
+</ul>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>首先在 ImmortalWrt上面安装好 <code>luci-app-cloudflared</code> (ImmortalWrt 自带相关软件包，我未深入研究其他安装方式。Linux 系统的安装方法有很多，这里不再赘述，详情可参考官方 GitHub 页面：<a href="https://github.com/cloudflare/cloudflared">Cloudflare&#x2F;cloudflared</a> ）</p>
+<h2 id="SSH-连接到设备"><a href="#SSH-连接到设备" class="headerlink" title="SSH 连接到设备"></a>SSH 连接到设备</h2><p>注意：如果和我一样是是用 ImmortalWrt 提供的软件包，可以输入 <code>cloudflared update </code>来更新软件，不会影响 luci 的兼容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel login</span><br></pre></td></tr></table></figure>
+
+<p>这时候打开客户端跳出来的链接，登录 Cloudflare 后选择你的副域名（辅助域名），例如：back.com<br>电脑这时候会下载 “cert.pem” 到 <code>/root/.cloudflared</code>，需要自己把他移动到 <code>/etc/cloudflared/</code> 或者用luci界面上传<br>如果下载失败可以手动点击控制台的链接下载到电脑，重命名后，再用上面的方式传输到 OpenWrt</p>
+<h2 id="创建隧道，随意命名"><a href="#创建隧道，随意命名" class="headerlink" title="创建隧道，随意命名"></a>创建隧道，随意命名</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel create XXX</span><br></pre></td></tr></table></figure>
+
+<p>这时候 <code>/root/.cloudflared</code> 下面会有一个 <code>&lt;UUID&gt;.json</code>文件，同样把它弄到 <code>/etc/cloudflared/</code> 文件夹里面去</p>
+<p>添加一个域名，这个域名将作为回退源，建议使用子域名，这里以 op.back.com 为例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel route dns &lt;UUID or NAME&gt; op.back.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建配置文件-config-yml"><a href="#创建配置文件-config-yml" class="headerlink" title="创建配置文件 config.yml"></a>创建配置文件 config.yml</h2><figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">tunnel: &lt;UUID&gt;</span><br><span class="line">credentials-file: /etc/cloudflared/&lt;UUID&gt;.json</span><br><span class="line"></span><br><span class="line">ingress:</span><br><span class="line">  - hostname: back.com</span><br><span class="line">    service: http://localhost</span><br><span class="line"></span><br><span class="line">  # Example of a rule responding to traffic with an HTTP status:</span><br><span class="line">  - service: http_status:404</span><br></pre></td></tr></table></figure>
+
+<p>验证配置是否有效</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel ingress validate</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行隧道"><a href="#运行隧道" class="headerlink" title="运行隧道"></a>运行隧道</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel run &lt;UUID or NAME&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或去luci启动</p>
+<h2 id="迁移本地配置"><a href="#迁移本地配置" class="headerlink" title="迁移本地配置"></a>迁移本地配置</h2><p>迁移到云端更便于管理，避免使用抓包 PUT 请求</p>
+<p>去 Cloudflare 的 Tunnel 界面查看是否为 <code>HEALTHY</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/225d0b8e7d2bf8bfdd4b5490eedad8e0.webp"  />
+
+<p>进入该 Tunnel 的管理界面，一路确认就可以迁移了</p>
+<p>这时候可以添加主域名的穿透了，Add a public hostname –&gt; <code>op.a.com</code> –&gt; <code>http://192.168.8.1:80</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/e812b96e59aebffed374496d45d975e3.webp"  />
+
+<p>还可以继续添加同一IP不同端口的服务到，a.com 的其他子域名下面（我自己折腾，同一内网不同IP也是可以的，如：回退源为192.168.8.1，但是我穿透192.168.8.2的服务，用网站测速也是有加速效果的，这里没有佬的研究成果，效果不敢保证）</p>
+<h2 id="设置优选域名"><a href="#设置优选域名" class="headerlink" title="设置优选域名"></a>设置优选域名</h2><ol>
+<li>在Cloudflare中直接设置</li>
+<li>主域名的一个子域名（cdn.a.com）托管到腾讯云、阿里云等提供DNS分线路解析服务的平台，进行境内境外分流</li>
+</ol>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>到 辅助域名（back.com ）的管理页面</p>
+<p>添加一条DNS记录，用作优选域名，如：cdn.back.com</p>
+<p>把该域名CNAME到一个优选域名（切记关闭小黄云），请自行挑选：<a href="https://www.wetest.vip/page/cloudflare/cname.html">CloudFlare公共Cname域名</a></p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>dnspod 或其他 dns 平台，添加主域名的随机一个子域名，如：cdn.a.com</p>
+<p>这里以腾讯云为例</p>
+<p>复制主机记录和记录值去 CF 添加，同时添加 NS 记录指向 <code>f1g1ns1.dnspod.net</code> 和 <code>f1g1ns2.dnspod.net</code>，然后在高级设置中关闭暂停解析</p>
+<p>如下图添加解析，境内指向优选域名 &#x2F; IP，境外指向你的回退源</p>
+<img src="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp"  />
+
+<p>然后在我的域名界面，点击该加速域名的 “更多” –&gt; “开始解析”</p>
+<h2 id="设置回退源"><a href="#设置回退源" class="headerlink" title="设置回退源"></a>设置回退源</h2><p>辅助域名（back.com）管理界面，左侧边栏–&gt;SSL&#x2F;TLS–&gt;自定义主机名</p>
+<p>设置回退源为 <code>op.back.com</code></p>
+<p>设置自定义主机名为 <code>op.a.com</code>（还有其他服务一并添加）</p>
+<p>复制好 “主机名预验证 TXT 名称” 和 “主机名预验证 TXT 值”<br>就是 <code>_cf-custom-hostname.op.a.com</code> </p>
+<p>证书验证（_acme-challenge.op.a.com）不用管，CNAME 到回退源他会自动消失的</p>
+<h2 id="主域名设置"><a href="#主域名设置" class="headerlink" title="主域名设置"></a>主域名设置</h2><p>现在去主域名（a.com）设置 DNS 记录</p>
+<p>由于我们在 Tunnel 已经添加过主域名的记录，所以这里会有CNAME的记录，且内容为我我们的容器ID</p>
+<p>把容器 ID 改为我们的优选域名（cdn.a.com）关闭小黄云，这样就用上了</p>
+<p>再把 “主机名预验证 TXT 名称” 和 “主机名预验证 TXT 值” 添加好，这时候可以回到，辅助域名（back.com）自定义主机界面，看 “证书状态” 和 “主机名状态” 是否都变成了有效，到此就大功告成了</p>
+<p>去 <a href="https://www.itdog.cn/http/">ITDOG</a> 和 <a href="https://zhale.me/http/">ZHALE</a> 的网站测速看看（带上https:&#x2F;&#x2F;，慢速检测），出口IP有十个以上就是成功了</p>
+<h1 id="设置截图"><a href="#设置截图" class="headerlink" title="设置截图"></a>设置截图</h1><p>Public hostname<br><img src="https://85d8ba7.webp.li/2024/12/b25173d3c71da7eed98a4213d5b41737.webp"  /></p>
+<p>辅助域名（back.com DNS设置）<br><img src="https://85d8ba7.webp.li/2024/12/418b6e87f9235a5ea6dd4c7a0724a2af.webp"  /></p>
+<p>自定义主机名设置<br><img src="https://85d8ba7.webp.li/2024/12/1726bfa32a1d2224e0b4714ca04dc33e.webp"  /></p>
+<p>主域名（a.com DNS设置）<br><img src="https://85d8ba7.webp.li/2024/12/09ff7293440f35e7a1fbaf18cacde9a1.webp"  /></p>
+<p>加速域名设置（cdn.a.com）<br><img src="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp"  /></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ol>
+<li><p>OpenWrt 上面跑了科学的话，请跳过这两个域名的流量嗅探，或者 OpenWrt 不要走代理，不然会连接不到 Cloudflare</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">region1.v2.argotunnel.com</span><br><span class="line">region2.v2.argotunnel.com</span><br></pre></td></tr></table></figure>
+
+<p>最好走直连，或者把 CF Tunnel 的服务 IP 走直连，不然家里的梯子断了就连不回来了</p>
+<p>思路来源于</p>
+<p><a href="https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html">https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html</a></p>
+<p><a href="https://www.nodeseek.com/post-201141-1">https://www.nodeseek.com/post-201141-1</a></p>
+</li>
+<li><p><strong>免费计划 API Tokens 只能创建 50 个</strong>，也就是你只要授权 50 次，就会报错：<code>Quota limit exceeded, you can create no more than 50 tokens.</code><br>所以要记得删除无用的：<a href="https://dash.cloudflare.com/profile/api-tokens">https://dash.cloudflare.com/profile/api-tokens</a></p>
+<p>详细请见：<a href="https://blog.tsinbei.com/archives/1505">https://blog.tsinbei.com/archives/1505</a></p>
+</li>
+</ol>
+<h1 id="看过的教程"><a href="#看过的教程" class="headerlink" title="看过的教程"></a>看过的教程</h1><h2 id="视频："><a href="#视频：" class="headerlink" title="视频："></a>视频：</h2><ul>
+<li><a href="https://www.youtube.com/watch?v=BOIOxneWX_k">https://www.youtube.com/watch?v=BOIOxneWX_k</a></li>
+<li><a href="https://www.bilibili.com/video/BV1PPy6YzE5C">https://www.bilibili.com/video/BV1PPy6YzE5C</a></li>
+</ul>
+<h2 id="文字："><a href="#文字：" class="headerlink" title="文字："></a>文字：</h2><ul>
+<li><a href="https://linux.do/t/topic/118132">https://linux.do/t/topic/118132</a></li>
+<li><a href="https://linux.do/t/topic/156469">https://linux.do/t/topic/156469</a></li>
+<li><a href="https://linux.do/t/topic/122087">https://linux.do/t/topic/122087</a></li>
+<li><a href="https://linux.do/t/topic/114314">https://linux.do/t/topic/114314</a></li>
+<li><a href="https://linux.do/t/topic/122246">https://linux.do/t/topic/122246</a></li>
+<li><a href="https://linux.do/t/topic/78224">https://linux.do/t/topic/78224</a></li>
+<li><a href="https://blog.tsinbei.com/archives/1505">https://blog.tsinbei.com/archives/1505</a></li>
+<li><a href="https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html">https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html</a></li>
+</ul>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>其实优选后的提升不是很大，建议不折腾。</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker 搭建 Sub-Store</title>
     <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
@@ -38,29 +155,6 @@
 ]]></content>
       <tags>
         <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -160,12 +254,12 @@
 
 <p>方法来自<a href="https://hst15701102464.github.io/2022/02/17/next%E4%B8%BA%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E8%BE%B9%E6%A1%86%E9%98%B4%E5%BD%B1-%E7%BB%9D%E5%AF%B9%E6%9C%89%E6%95%88/">呼松涛的博客</a></p>
 <p>此时你会发现首页的第一篇文章的边框上边距很大，但是第二篇是正常的，这时候使用浏览器开发者工具会发现，该边框的padding-top还是有80px，我也找不到这个代码在哪，所以曲线救国了</p>
-<img src="https://tcer.rr.nu/i/2024/08/11/66b8605fde90a.webp"/>
+<img src="https://85d8ba7.webp.li/2024/12/a37a70f5fd045272ddbb8c3050bd6163.webp"/>
 
 <p>打开&#x2F;blog&#x2F;themes&#x2F;next&#x2F;source&#x2F;css&#x2F;_schemes&#x2F;Mist&#x2F;_posts-expand.styl 添加</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.post-block:first-of-type &#123;</span><br><span class="line">  padding-top: 25px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这时你打开网页，就会发现边距合适了，但是用开发者工具查看，可以发现并没有把80px的代码去掉，只不过我们设置的优先级更高而已</p>
-<img src="https://tcer.rr.nu/i/2024/08/11/66b8607abf97d.webp" />
+<img src="https://85d8ba7.webp.li/2024/12/9738e73acca39868f0b3394b79546628.webp"/>
 
 <h2 id="调整首页文章边距"><a href="#调整首页文章边距" class="headerlink" title="调整首页文章边距"></a>调整首页文章边距</h2><p>和上面是同一个文件，打开&#x2F;blog&#x2F;themes&#x2F;next&#x2F;source&#x2F;css&#x2F;_schemes&#x2F;Mist&#x2F;_posts-expand.styl<br>将120px，修改成合适的大小，我改为25px</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.post-block:not(:first-of-type) &#123;</span><br><span class="line">  margin-top: 120px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -324,11 +418,35 @@
 <li><input disabled="" type="checkbox"> 评论系统</li>
 <li><input disabled="" type="checkbox"> 优化cdn</li>
 <li><input disabled="" type="checkbox"> 深浅色切换按钮</li>
+<li><input checked="" disabled="" type="checkbox"> 图床，长期使用CF R2，2024年12月7日</li>
 </ul>
 <p>搭建网站看了很多很多大佬的教程，感谢大佬们的无私分享<br>1.<a href="https://blog.csdn.net/as480133937/article/details/100138838">https://blog.csdn.net/as480133937/article/details/100138838</a><br>2.<a href="http://home.ustc.edu.cn/~liujunyan/blog/hexo-next-theme-config/">http://home.ustc.edu.cn/~liujunyan/blog/hexo-next-theme-config/</a><br>3.<a href="https://www.itfanr.cc/2021/04/16/hexo-blog-article-encryption/">https://www.itfanr.cc/2021/04/16/hexo-blog-article-encryption/</a><br>4.<a href="https://blog.csdn.net/jiunian_2761/article/details/122908619">https://blog.csdn.net/jiunian_2761/article/details/122908619</a><br>5.<a href="https://hexo-next.readthedocs.io/zh-cn/latest/">https://hexo-next.readthedocs.io/zh-cn/latest/</a><br>6.<a href="https://hst15701102464.github.io/2022/02/17/next%E4%B8%BA%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E8%BE%B9%E6%A1%86%E9%98%B4%E5%BD%B1-%E7%BB%9D%E5%AF%B9%E6%9C%89%E6%95%88/">https://hst15701102464.github.io/2022/02/17/next%E4%B8%BA%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E8%BE%B9%E6%A1%86%E9%98%B4%E5%BD%B1-%E7%BB%9D%E5%AF%B9%E6%9C%89%E6%95%88/</a><br>7.<a href="https://io-oi.me/tech/hexo-next-optimization/">https://io-oi.me/tech/hexo-next-optimization/</a><br>8.<a href="https://www.lvxuefei.top/%E5%88%A9%E7%94%A8Hexo-Next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E4%B8%89%EF%BC%89-%E4%BC%98%E5%8C%96/">https://www.lvxuefei.top/%E5%88%A9%E7%94%A8Hexo-Next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E4%B8%89%EF%BC%89-%E4%BC%98%E5%8C%96/</a><br>9.<a href="https://www.techgrow.cn/posts/abf4aee1.html#Next-8-x-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%8F%AF%E5%88%87%E6%8D%A2%E7%9A%84%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F">https://www.techgrow.cn/posts/abf4aee1.html#Next-8-x-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%8F%AF%E5%88%87%E6%8D%A2%E7%9A%84%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F</a><br>10.<a href="https://lanlan2017.github.io/blog/63f5df0e/#%E5%88%A0%E9%99%A4landscape%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">https://lanlan2017.github.io/blog/63f5df0e/#%E5%88%A0%E9%99%A4landscape%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6</a><br>11.<a href="https://theme-next.js.org/pisces/">https://theme-next.js.org/pisces/</a><br>12.<a href="https://siriusq.top/Next-8-0-%E5%8D%87%E7%BA%A7%E6%97%A5%E5%BF%97.html?highlight">https://siriusq.top/Next-8-0-%E5%8D%87%E7%BA%A7%E6%97%A5%E5%BF%97.html?highlight</a><br>13.<a href="https://vic.kim/2019/05/23/Hexo%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B%E6%A0%87%E7%AD%BE%E4%BA%91%E5%8F%8A%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA/">https://vic.kim/2019/05/23/Hexo%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B%E6%A0%87%E7%AD%BE%E4%BA%91%E5%8F%8A%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA/</a><br>14.<a href="https://notes.boshkuo.com/docs/Hexo/Advance/hexo-advanced-supplementary-1">https://notes.boshkuo.com/docs/Hexo/Advance/hexo-advanced-supplementary-1</a><br>15.<a href="https://yangbingdong.com/2017/build-blog-hexo-base/#GitHub">https://yangbingdong.com/2017/build-blog-hexo-base/#GitHub</a><br>16.<a href="https://blog.luzy.top/posts/456645515/">https://blog.luzy.top/posts/456645515/</a><br>17.<a href="https://www.iszy.cc/posts/a8mr7k/">https://www.iszy.cc/posts/a8mr7k/</a><br>18.<a href="https://blog.csdn.net/xingyuzhongxuan/article/details/125392822">https://blog.csdn.net/xingyuzhongxuan/article/details/125392822</a></p>
 ]]></content>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
+
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -353,48 +471,6 @@
 ]]></content>
       <tags>
         <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PVE优化</title>
-    <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
-<span id="more"></span>
-
-<h1 id="PVE优化工具"><a href="#PVE优化工具" class="headerlink" title="PVE优化工具"></a>PVE优化工具</h1><h2 id="x86派老虎大神"><a href="#x86派老虎大神" class="headerlink" title="x86派老虎大神"></a><a href="https://bbs.x86pi.cn/thread?topicId=20">x86派老虎大神</a></h2><img src="https://tcer.rr.nu/i/2024/08/05/66b055f209acb.png" width=50% height=50% />
-我这次优化就只使用了一这款,因为能显示CPU的实时频率,还有网卡名称使用原始命名
-
-<h2 id="pvetools"><a href="#pvetools" class="headerlink" title="pvetools"></a><a href="https://github.com/ivanhao/pvetools">pvetools</a></h2><p>PVE上star有4.1k(2024.8.5)<br><img src="https://tcer.rr.nu/i/2024/08/05/66b08fef1b584.webp" width=60% height=60% /></p>
-<h2 id="恩山大佬shell脚本"><a href="#恩山大佬shell脚本" class="headerlink" title="恩山大佬shell脚本"></a><a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">恩山大佬shell脚本</a></h2><p>开源地址<a href="https://github.com/a904055262/PVE-manager-status">https://github.com/a904055262/PVE-manager-status</a><br>这一款的功能比上面少一些了<br><img src="https://tcer.rr.nu/i/2024/08/05/66b05882259b3.jpg" width=75% height=75% /></p>
-<h1 id="移除local-lvm存储空间"><a href="#移除local-lvm存储空间" class="headerlink" title="移除local-lvm存储空间"></a>移除local-lvm存储空间</h1><p>注意:<br>1、移除 local-lvm 后会导致虚拟机及 CT 容器的快照功能失效<br>2、移除前需自行关闭并备份各虚拟机、CT 容器等, 谨防移除造成数据丢失 </p>
-<p>因为我用不上快照功能,所以把他移除了,移除后能更好利用硬盘资源<br>备份是备份在llocal里面的,可以放心删除local-lvm</p>
-<p>恩山上的<a href="https://www.right.com.cn/forum/thread-3513183-1-1.html">帖子</a><br>1、备份虚拟机<br>2、删除虚拟机<br>3、删除local-lvm<br>命令：<code>lvremove pve/data</code><br>4、把local-lvm空间分配给Local<br>命令：<code>lvextend -l +100%FREE -r pve/root</code><br>5、删除local-lvm<br>数据中心-存储-删除local-lvm<br>6、编辑local，内容里添加 磁盘映像和容器<br>7、恢复虚拟机</p>
-<p>懒得输命令就用老虎的脚本吧</p>
-<p>虚拟机的安装以及还原,可以看看这两个视频<br><a href="https://www.bilibili.com/video/BV1aM4m1U7Fy/">https://www.bilibili.com/video/BV1aM4m1U7Fy/</a><br><a href="https://www.bilibili.com/video/BV1Gi421U78K/">https://www.bilibili.com/video/BV1Gi421U78K/</a></p>
-<h1 id="开启iommu"><a href="#开启iommu" class="headerlink" title="开启iommu"></a>开启iommu</h1><h2 id="修改-etc-default-grub"><a href="#修改-etc-default-grub" class="headerlink" title="修改/etc/default/grub"></a>修改<code>/etc/default/grub</code></h2><p>在里面找到：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet”<br>Intel cpu改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet intel_iommu&#x3D;on”<br>AMD cpu请改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet amd_iommu&#x3D;on”</p>
-<p>我的文件里面是这些</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet intel_iommu=on iommu=pt&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br></pre></td></tr></table></figure>
-<p>##修改完成之后，直接更新grub<br><code>update-grub</code></p>
-<h2 id="加载相应的内核模块"><a href="#加载相应的内核模块" class="headerlink" title="加载相应的内核模块"></a>加载相应的内核模块</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo vfio &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_iommu_type1 &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_pci &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_virqfd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
-<p>也可以去<code>/etc/modules</code>直接添加</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vfio</span><br><span class="line">vfio_iommu_type1</span><br><span class="line">vfio_pci</span><br><span class="line">vfio_virqfd</span><br><span class="line">coretemp</span><br></pre></td></tr></table></figure>
-<h2 id="重启主机"><a href="#重启主机" class="headerlink" title="重启主机"></a>重启主机</h2><h2 id="验证是否开启iommu"><a href="#验证是否开启iommu" class="headerlink" title="验证是否开启iommu"></a>验证是否开启iommu</h2><p>终端输入<br><code>dmesg | grep iommu</code><br>出现如下例子。则代表成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ 1.341100] pci 0000:00:00.0: Adding to iommu group 0</span><br><span class="line">[ 1.341116] pci 0000:00:01.0: Adding to iommu group 1</span><br><span class="line">[ 1.341126] pci 0000:00:02.0: Adding to iommu group 2</span><br><span class="line">[ 1.341137] pci 0000:00:14.0: Adding to iommu group 3</span><br><span class="line">[ 1.341146] pci 0000:00:17.0: Adding to iommu group 4</span><br></pre></td></tr></table></figure>
-<p>或者输入<br><code>dmesg | grep &#39;remapping&#39;</code><br>出现如下例子。则代表成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AMD-Vi: Interrupt remapping enabled</span><br><span class="line">#或者</span><br><span class="line">DMAR-IR: Enabled IRQ remapping in x2apic mode</span><br></pre></td></tr></table></figure>
-
-<p>此时输入命令<br><code>find /sys/kernel/iommu_groups/ -type l </code><br>#出现很多直通组，就代表成功了。如果没有任何东西，就是没有开启</p>
-<h1 id="其他的一些优化"><a href="#其他的一些优化" class="headerlink" title="其他的一些优化"></a>其他的一些优化</h1><p>换源、移除订阅、修改概要信息、重命名网口用老虎大佬的一键脚本就行了</p>
-<p>下面这个帖子对PVE系统的讲解很全,有需要的可以去看看<br><a href="https://www.chiphell.com/thread-2496541-1-1.html">https://www.chiphell.com/thread-2496541-1-1.html</a></p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://www.xh86.me/?p=724">https://www.xh86.me/?p=724</a></li>
-<li><a href="https://foxi.buduanwang.vip/virtualization/pve/561.html/">https://foxi.buduanwang.vip/virtualization/pve/561.html/</a></li>
-<li><a href="https://xxand.cc/84.html">https://xxand.cc/84.html</a></li>
-<li><a href="https://bricawa.com/posts/56512/">https://bricawa.com/posts/56512/</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>PVE</tag>
       </tags>
   </entry>
   <entry>
@@ -437,6 +513,67 @@
 ]]></content>
       <tags>
         <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PVE优化</title>
+    <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
+<span id="more"></span>
+
+<h1 id="PVE优化工具"><a href="#PVE优化工具" class="headerlink" title="PVE优化工具"></a>PVE优化工具</h1><h2 id="x86派老虎大神"><a href="#x86派老虎大神" class="headerlink" title="x86派老虎大神"></a><a href="https://bbs.x86pi.cn/thread?topicId=20">x86派老虎大神</a></h2><img src="https://85d8ba7.webp.li/2024/12/d12e3ae3cfabaf0c57a718adb87e77a4.png" width=50% height=50% />
+我这次优化就只使用了一这款,因为能显示CPU的实时频率,还有网卡名称使用原始命名
+
+<h2 id="pvetools"><a href="#pvetools" class="headerlink" title="pvetools"></a><a href="https://github.com/ivanhao/pvetools">pvetools</a></h2><p>PVE上star有4.1k(2024.8.5)<br><img src="https://85d8ba7.webp.li/2024/12/df770ca50f6344258710879e4c5bc6fd.webp" width=60% height=60% /></p>
+<h2 id="恩山大佬shell脚本"><a href="#恩山大佬shell脚本" class="headerlink" title="恩山大佬shell脚本"></a><a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">恩山大佬shell脚本</a></h2><p>开源地址<a href="https://github.com/a904055262/PVE-manager-status">https://github.com/a904055262/PVE-manager-status</a><br>这一款的功能比上面少一些了</p>
+<img src="https://85d8ba7.webp.li/2024/12/a880586cfeb65ed058cb265da41b55d7.jpg" width=75% height=75% />
+
+
+<h1 id="移除local-lvm存储空间"><a href="#移除local-lvm存储空间" class="headerlink" title="移除local-lvm存储空间"></a>移除local-lvm存储空间</h1><p>注意:<br>1、移除 local-lvm 后会导致虚拟机及 CT 容器的快照功能失效<br>2、移除前需自行关闭并备份各虚拟机、CT 容器等, 谨防移除造成数据丢失 </p>
+<p>因为我用不上快照功能,所以把他移除了,移除后能更好利用硬盘资源<br>备份是备份在llocal里面的,可以放心删除local-lvm</p>
+<p>恩山上的<a href="https://www.right.com.cn/forum/thread-3513183-1-1.html">帖子</a><br>1、备份虚拟机<br>2、删除虚拟机<br>3、删除local-lvm<br>命令：<code>lvremove pve/data</code><br>4、把local-lvm空间分配给Local<br>命令：<code>lvextend -l +100%FREE -r pve/root</code><br>5、删除local-lvm<br>数据中心-存储-删除local-lvm<br>6、编辑local，内容里添加 磁盘映像和容器<br>7、恢复虚拟机</p>
+<p>懒得输命令就用老虎的脚本吧</p>
+<p>虚拟机的安装以及还原,可以看看这两个视频<br><a href="https://www.bilibili.com/video/BV1aM4m1U7Fy/">https://www.bilibili.com/video/BV1aM4m1U7Fy/</a><br><a href="https://www.bilibili.com/video/BV1Gi421U78K/">https://www.bilibili.com/video/BV1Gi421U78K/</a></p>
+<h1 id="开启iommu"><a href="#开启iommu" class="headerlink" title="开启iommu"></a>开启iommu</h1><h2 id="修改-etc-default-grub"><a href="#修改-etc-default-grub" class="headerlink" title="修改/etc/default/grub"></a>修改<code>/etc/default/grub</code></h2><p>在里面找到：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet”<br>Intel cpu改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet intel_iommu&#x3D;on”<br>AMD cpu请改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet amd_iommu&#x3D;on”</p>
+<p>我的文件里面是这些</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet intel_iommu=on iommu=pt&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br></pre></td></tr></table></figure>
+<p>##修改完成之后，直接更新grub<br><code>update-grub</code></p>
+<h2 id="加载相应的内核模块"><a href="#加载相应的内核模块" class="headerlink" title="加载相应的内核模块"></a>加载相应的内核模块</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo vfio &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_iommu_type1 &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_pci &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_virqfd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
+<p>也可以去<code>/etc/modules</code>直接添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vfio</span><br><span class="line">vfio_iommu_type1</span><br><span class="line">vfio_pci</span><br><span class="line">vfio_virqfd</span><br><span class="line">coretemp</span><br></pre></td></tr></table></figure>
+<h2 id="重启主机"><a href="#重启主机" class="headerlink" title="重启主机"></a>重启主机</h2><h2 id="验证是否开启iommu"><a href="#验证是否开启iommu" class="headerlink" title="验证是否开启iommu"></a>验证是否开启iommu</h2><p>终端输入<br><code>dmesg | grep iommu</code><br>出现如下例子。则代表成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ 1.341100] pci 0000:00:00.0: Adding to iommu group 0</span><br><span class="line">[ 1.341116] pci 0000:00:01.0: Adding to iommu group 1</span><br><span class="line">[ 1.341126] pci 0000:00:02.0: Adding to iommu group 2</span><br><span class="line">[ 1.341137] pci 0000:00:14.0: Adding to iommu group 3</span><br><span class="line">[ 1.341146] pci 0000:00:17.0: Adding to iommu group 4</span><br></pre></td></tr></table></figure>
+<p>或者输入<br><code>dmesg | grep &#39;remapping&#39;</code><br>出现如下例子。则代表成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AMD-Vi: Interrupt remapping enabled</span><br><span class="line">#或者</span><br><span class="line">DMAR-IR: Enabled IRQ remapping in x2apic mode</span><br></pre></td></tr></table></figure>
+
+<p>此时输入命令<br><code>find /sys/kernel/iommu_groups/ -type l </code><br>#出现很多直通组，就代表成功了。如果没有任何东西，就是没有开启</p>
+<h1 id="其他的一些优化"><a href="#其他的一些优化" class="headerlink" title="其他的一些优化"></a>其他的一些优化</h1><p>换源、移除订阅、修改概要信息、重命名网口用老虎大佬的一键脚本就行了</p>
+<p>下面这个帖子对PVE系统的讲解很全,有需要的可以去看看<br><a href="https://www.chiphell.com/thread-2496541-1-1.html">https://www.chiphell.com/thread-2496541-1-1.html</a></p>
+<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><h2 id="PVE中的-Windows-系统扩容"><a href="#PVE中的-Windows-系统扩容" class="headerlink" title="PVE中的 Windows 系统扩容"></a>PVE中的 Windows 系统扩容</h2><p>首先关闭win10虚拟机</p>
+<p>然后点击动态调整磁盘大小(增量添加)</p>
+<img src="https://85d8ba7.webp.li/2024/12/671a45434d37287d236dc8a279e38417.png" width=75% height=75% />
+
+<p>输入自己想增加的大小（增量）</p>
+<p>点击完成就可以看到扩容成功了，这时候还需要去 Windows 系统里面扩展卷，就扩容成功了</p>
+<p>参考文章：<a href="https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space">https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space</a></p>
+<h2 id="简单解决不能在虚拟机中运行某些软件"><a href="#简单解决不能在虚拟机中运行某些软件" class="headerlink" title="简单解决不能在虚拟机中运行某些软件"></a>简单解决不能在虚拟机中运行某些软件</h2><p>软件提示：Sorry, this application cannot run under a Virtual Machine.</p>
+<p>SSH 连接到 PVE 编辑下面的文件</p>
+<p><code>/etc/pve/nodes/宿主机名/qemu-server/虚拟机ID.conf</code></p>
+<p>加入这一行</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">args: -cpu host,-hypervisor,kvm=off</span><br></pre></td></tr></table></figure>
+
+<p>（-cpu host 在我设备上不设置会开不了机）</p>
+<p>保存，重启虚拟机，就可以打开检测虚拟机的软件了</p>
+<p>参考文章：<a href="https://bugxia.com/3600.html">https://bugxia.com/3600.html</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://www.xh86.me/?p=724">https://www.xh86.me/?p=724</a></li>
+<li><a href="https://foxi.buduanwang.vip/virtualization/pve/561.html/">https://foxi.buduanwang.vip/virtualization/pve/561.html/</a></li>
+<li><a href="https://xxand.cc/84.html">https://xxand.cc/84.html</a></li>
+<li><a href="https://bricawa.com/posts/56512/">https://bricawa.com/posts/56512/</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>PVE</tag>
       </tags>
   </entry>
   <entry>
@@ -766,10 +903,10 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
 
 <p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://tcer.rr.nu/i/2024/08/07/66b3211c1815b.png" width=80% height=80% />
+<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
 
 <p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://tcer.rr.nu/i/2024/08/07/66b31fc133801.png" width=80% height=80% />
+<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
 
 <p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
 <h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
@@ -790,18 +927,24 @@
 <ul>
 <li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
 <li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
+<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
+<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
+<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
+<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
 </ul>
 <h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
 <p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
 <p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
 <p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
+<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
 ]]></content>
       <tags>
         <tag>Android</tag>
       </tags>
   </entry>
   <entry>
-    <title>屏蔽 bilibili PCDN</title>
+    <title>屏蔽 Bilibili PCDN</title>
     <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20bilibili%20CDN/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 bilibili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
 <p><a href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
@@ -1012,41 +1155,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>青龙面板保活Serv00并启用TG推送</title>
-    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
-    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
-<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
-<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
-<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
-<ol>
-<li>多账号添加更方便;</li>
-<li>设置了ssh超时,避免了脚本卡死;</li>
-<li>电报消息可以提示哪些账号出错。</li>
-</ol>
-<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<p>附telegram的通知截图<br><img src="https://tcer.rr.nu/i/2024/08/05/66b044e5d99fb.png" width=50% height=50% /></p>
-<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
-<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
-<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
-<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
-<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
-<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
-<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
-<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>青龙面板</tag>
-        <tag>Serv00</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>编译OpenWrt</title>
     <url>/2024/06/22/%E7%BC%96%E8%AF%91OpenWrt/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>网上有大量的OpenWrt固件供用户下载使用。这类固件旨在满足广泛用户群体的需求，因此可能包含了一些并非所有用户都会用到的功能或组件。<span id="more"></span>此外，考虑到最近曝光的XZ后门事件，这让人们更加警惕第三方编译固件的安全性，毕竟无法完全确信他人编译的固件是否完全安全无虞。因此，为了确保设备的安全性和个性化需求，自行编译适合自己使用的OpenWrt固件不失为一个更为可靠的选择。</p>
@@ -1237,6 +1345,41 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 ]]></content>
       <tags>
         <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>青龙面板保活Serv00并启用TG推送</title>
+    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
+    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
+<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
+<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
+<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
+<ol>
+<li>多账号添加更方便;</li>
+<li>设置了ssh超时,避免了脚本卡死;</li>
+<li>电报消息可以提示哪些账号出错。</li>
+</ol>
+<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>附telegram的通知截图<br><img src="https://85d8ba7.webp.li/2024/12/e40e393a90e4ca1d48f5dcb663e0c56a.png" width=50% height=50% /></p>
+<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
+<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
+<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
+<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
+<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
+<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
+<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
+<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>青龙面板</tag>
+        <tag>Serv00</tag>
       </tags>
   </entry>
 </search>

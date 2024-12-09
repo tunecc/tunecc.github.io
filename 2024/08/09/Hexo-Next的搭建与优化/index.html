@@ -29,14 +29,14 @@
 <meta property="og:site_name" content="Tune">
 <meta property="og:description" content="前言很早就想弄一个博客,在大一的暑假终于开始着手搭建,在经过一番研究和比较，我最终决定采用 Hexo 系统来构建我的个人博客。主题选择了比较简洁的Next。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tcer.rr.nu/i/2024/08/11/66b8605fde90a.webp">
-<meta property="og:image" content="https://tcer.rr.nu/i/2024/08/11/66b8607abf97d.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/a37a70f5fd045272ddbb8c3050bd6163.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/9738e73acca39868f0b3394b79546628.webp">
 <meta property="article:published_time" content="2024-08-09T06:37:45.000Z">
 <meta property="article:modified_time" content="2024-10-20T16:00:00.000Z">
 <meta property="article:author" content="Tune">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tcer.rr.nu/i/2024/08/11/66b8605fde90a.webp">
+<meta name="twitter:image" content="https://85d8ba7.webp.li/2024/12/a37a70f5fd045272ddbb8c3050bd6163.webp">
 
 
 <link rel="canonical" href="https://696966.xyz/2024/08/09/Hexo-Next%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BC%98%E5%8C%96/">
@@ -158,13 +158,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -363,12 +363,12 @@
 
 <p>方法来自<a target="_blank" rel="noopener" href="https://hst15701102464.github.io/2022/02/17/next%E4%B8%BA%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E8%BE%B9%E6%A1%86%E9%98%B4%E5%BD%B1-%E7%BB%9D%E5%AF%B9%E6%9C%89%E6%95%88/">呼松涛的博客</a></p>
 <p>此时你会发现首页的第一篇文章的边框上边距很大，但是第二篇是正常的，这时候使用浏览器开发者工具会发现，该边框的padding-top还是有80px，我也找不到这个代码在哪，所以曲线救国了</p>
-<img src="https://tcer.rr.nu/i/2024/08/11/66b8605fde90a.webp"/>
+<img src="https://85d8ba7.webp.li/2024/12/a37a70f5fd045272ddbb8c3050bd6163.webp"/>
 
 <p>打开&#x2F;blog&#x2F;themes&#x2F;next&#x2F;source&#x2F;css&#x2F;_schemes&#x2F;Mist&#x2F;_posts-expand.styl 添加</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.post-block:first-of-type &#123;</span><br><span class="line">  padding-top: 25px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这时你打开网页，就会发现边距合适了，但是用开发者工具查看，可以发现并没有把80px的代码去掉，只不过我们设置的优先级更高而已</p>
-<img src="https://tcer.rr.nu/i/2024/08/11/66b8607abf97d.webp" />
+<img src="https://85d8ba7.webp.li/2024/12/9738e73acca39868f0b3394b79546628.webp"/>
 
 <h2 id="调整首页文章边距"><a href="#调整首页文章边距" class="headerlink" title="调整首页文章边距"></a>调整首页文章边距</h2><p>和上面是同一个文件，打开&#x2F;blog&#x2F;themes&#x2F;next&#x2F;source&#x2F;css&#x2F;_schemes&#x2F;Mist&#x2F;_posts-expand.styl<br>将120px，修改成合适的大小，我改为25px</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.post-block:not(:first-of-type) &#123;</span><br><span class="line">  margin-top: 120px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -527,6 +527,7 @@
 <li><input disabled="" type="checkbox"> 评论系统</li>
 <li><input disabled="" type="checkbox"> 优化cdn</li>
 <li><input disabled="" type="checkbox"> 深浅色切换按钮</li>
+<li><input checked="" disabled="" type="checkbox"> 图床，长期使用CF R2，2024年12月7日</li>
 </ul>
 <p>搭建网站看了很多很多大佬的教程，感谢大佬们的无私分享<br>1.<a target="_blank" rel="noopener" href="https://blog.csdn.net/as480133937/article/details/100138838">https://blog.csdn.net/as480133937/article/details/100138838</a><br>2.<a target="_blank" rel="noopener" href="http://home.ustc.edu.cn/~liujunyan/blog/hexo-next-theme-config/">http://home.ustc.edu.cn/~liujunyan/blog/hexo-next-theme-config/</a><br>3.<a target="_blank" rel="noopener" href="https://www.itfanr.cc/2021/04/16/hexo-blog-article-encryption/">https://www.itfanr.cc/2021/04/16/hexo-blog-article-encryption/</a><br>4.<a target="_blank" rel="noopener" href="https://blog.csdn.net/jiunian_2761/article/details/122908619">https://blog.csdn.net/jiunian_2761/article/details/122908619</a><br>5.<a target="_blank" rel="noopener" href="https://hexo-next.readthedocs.io/zh-cn/latest/">https://hexo-next.readthedocs.io/zh-cn/latest/</a><br>6.<a target="_blank" rel="noopener" href="https://hst15701102464.github.io/2022/02/17/next%E4%B8%BA%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E8%BE%B9%E6%A1%86%E9%98%B4%E5%BD%B1-%E7%BB%9D%E5%AF%B9%E6%9C%89%E6%95%88/">https://hst15701102464.github.io/2022/02/17/next%E4%B8%BA%E9%A6%96%E9%A1%B5%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E8%BE%B9%E6%A1%86%E9%98%B4%E5%BD%B1-%E7%BB%9D%E5%AF%B9%E6%9C%89%E6%95%88/</a><br>7.<a target="_blank" rel="noopener" href="https://io-oi.me/tech/hexo-next-optimization/">https://io-oi.me/tech/hexo-next-optimization/</a><br>8.<a target="_blank" rel="noopener" href="https://www.lvxuefei.top/%E5%88%A9%E7%94%A8Hexo-Next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E4%B8%89%EF%BC%89-%E4%BC%98%E5%8C%96/">https://www.lvxuefei.top/%E5%88%A9%E7%94%A8Hexo-Next%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E4%B8%89%EF%BC%89-%E4%BC%98%E5%8C%96/</a><br>9.<a target="_blank" rel="noopener" href="https://www.techgrow.cn/posts/abf4aee1.html#Next-8-x-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%8F%AF%E5%88%87%E6%8D%A2%E7%9A%84%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F">https://www.techgrow.cn/posts/abf4aee1.html#Next-8-x-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%8F%AF%E5%88%87%E6%8D%A2%E7%9A%84%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F</a><br>10.<a target="_blank" rel="noopener" href="https://lanlan2017.github.io/blog/63f5df0e/#%E5%88%A0%E9%99%A4landscape%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">https://lanlan2017.github.io/blog/63f5df0e/#%E5%88%A0%E9%99%A4landscape%E4%B8%BB%E9%A2%98%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6</a><br>11.<a target="_blank" rel="noopener" href="https://theme-next.js.org/pisces/">https://theme-next.js.org/pisces/</a><br>12.<a target="_blank" rel="noopener" href="https://siriusq.top/Next-8-0-%E5%8D%87%E7%BA%A7%E6%97%A5%E5%BF%97.html?highlight">https://siriusq.top/Next-8-0-%E5%8D%87%E7%BA%A7%E6%97%A5%E5%BF%97.html?highlight</a><br>13.<a target="_blank" rel="noopener" href="https://vic.kim/2019/05/23/Hexo%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B%E6%A0%87%E7%AD%BE%E4%BA%91%E5%8F%8A%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA/">https://vic.kim/2019/05/23/Hexo%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B%E6%A0%87%E7%AD%BE%E4%BA%91%E5%8F%8A%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA/</a><br>14.<a target="_blank" rel="noopener" href="https://notes.boshkuo.com/docs/Hexo/Advance/hexo-advanced-supplementary-1">https://notes.boshkuo.com/docs/Hexo/Advance/hexo-advanced-supplementary-1</a><br>15.<a target="_blank" rel="noopener" href="https://yangbingdong.com/2017/build-blog-hexo-base/#GitHub">https://yangbingdong.com/2017/build-blog-hexo-base/#GitHub</a><br>16.<a target="_blank" rel="noopener" href="https://blog.luzy.top/posts/456645515/">https://blog.luzy.top/posts/456645515/</a><br>17.<a target="_blank" rel="noopener" href="https://www.iszy.cc/posts/a8mr7k/">https://www.iszy.cc/posts/a8mr7k/</a><br>18.<a target="_blank" rel="noopener" href="https://blog.csdn.net/xingyuzhongxuan/article/details/125392822">https://blog.csdn.net/xingyuzhongxuan/article/details/125392822</a></p>
 
@@ -629,14 +630,14 @@
         <i class="fa fa-chart-line"></i>
       </span>
         <span>站点总字数：</span>
-      <span title="站点总字数">66k</span>
+      <span title="站点总字数">70k</span>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="fa fa-coffee"></i>
       </span>
         <span>站点阅读时长 &asymp;</span>
-      <span title="站点阅读时长">1:25</span>
+      <span title="站点阅读时长">1:30</span>
     </span>
   </div>
   <div class="busuanzi-count">
