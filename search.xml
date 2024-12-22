@@ -26,24 +26,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Cloudflare R2图床</title>
-    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
-<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
-<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
-<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
-<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
-<p>两个教程不同之处：</p>
-<ol>
-<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
-<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Cloudflare</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Cloudflare Tunnel内网穿透及优选</title>
     <url>/2024/12/06/Cloudflare%20tunnel/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾<span id="more"></span></p>
@@ -180,6 +162,24 @@
 ]]></content>
       <tags>
         <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cloudflare R2图床</title>
+    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
+<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
+<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
+<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
+<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
+<p>两个教程不同之处：</p>
+<ol>
+<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
+<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Cloudflare</tag>
       </tags>
   </entry>
   <entry>
@@ -475,6 +475,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PVE优化</title>
     <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
@@ -533,30 +557,6 @@
 ]]></content>
       <tags>
         <tag>PVE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
-<span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
-
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
