@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Bilibili Auto Pause</title>
+    <url>/2024/12/22/Bilibili%20Auto%20Pause/</url>
+    <content><![CDATA[<p>在使用 Enhancer for YouTube 插件时有一个功能 “自动暂停在后台标签中打开的视频” 特别好用，在国内的环境下，多少还是要用一下 BilBili 的，所以想着自己来实现这个功能<span id="more"></span>。</p>
+<p>对还不懂写代码的我来说，去单独写一个插件难度太大了，所以就选择去叫 GPT 写一个油猴脚本吧。</p>
+<p>就得到了</p>
+<img src="https://85d8ba7.webp.li/2024/12/3f2e151406baf43325a233ee8a7a3330.webp" width=30% height=30% />
+
+<p>0.5.2版本的代码不足之处：非焦点窗口加载视频时会让焦点窗口的视频停止。</p>
+<p>叫GPT改了之后（v0.6）的新BUG：同一窗口的视频又不会自动暂停了😭。</p>
+<p>怎么改都不对，就放弃折腾，v0.5.2已经够我用</p>
+<p>v0.5.2的代码如下:</p>
+<div style="max-height: 500px; overflow-y: auto; padding: 8px; border: 1px solid #ddd; border-radius: 8px;">
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         Bilibili Auto Pause</span></span><br><span class="line"><span class="comment">// @version      0.5.2</span></span><br><span class="line"><span class="comment">// @description  当 B 站在前台播放新视频时，自动暂停其他后台标签页的视频，适用于同一窗口和不同窗口的多标签页</span></span><br><span class="line"><span class="comment">// @match        https://*.bilibili.com/*</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> video = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> channel = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">CHANNEL_NAME</span> = <span class="string">&#x27;bilibili-video-control&#x27;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 唯一标识每个标签页</span></span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">TAB_ID</span> = <span class="title class_">Date</span>.<span class="title function_">now</span>() + <span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化广播通道和事件监听</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">init</span>(<span class="params"></span>) &#123;</span><br><span class="line">        video = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!video) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">        channel = <span class="keyword">new</span> <span class="title class_">BroadcastChannel</span>(<span class="variable constant_">CHANNEL_NAME</span>);</span><br><span class="line">        video.<span class="title function_">addEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">        channel.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, onMessage);</span><br><span class="line">        <span class="comment">// 移除visibilitychange事件监听</span></span><br><span class="line">        <span class="comment">// document.addEventListener(&#x27;visibilitychange&#x27;, onVisibilityChange);</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 视频播放事件处理</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onPlay</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">hidden</span>) &#123;</span><br><span class="line">            video.<span class="title function_">pause</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">            channel.<span class="title function_">postMessage</span>(&#123; <span class="attr">action</span>: <span class="string">&#x27;pauseOthers&#x27;</span>, <span class="attr">sender</span>: <span class="variable constant_">TAB_ID</span> &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 接收到消息时的处理</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onMessage</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> data = event.<span class="property">data</span>;</span><br><span class="line">        <span class="keyword">if</span> (!data || data.<span class="property">action</span> !== <span class="string">&#x27;pauseOthers&#x27;</span>) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (data.<span class="property">sender</span> !== <span class="variable constant_">TAB_ID</span> &amp;&amp; video &amp;&amp; !video.<span class="property">paused</span>) &#123;</span><br><span class="line">            video.<span class="title function_">pause</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 观察器回调函数，检测视频元素的添加</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">mutationCallback</span>(<span class="params">mutationsList</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> mutation <span class="keyword">of</span> mutationsList) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mutation.<span class="property">type</span> === <span class="string">&#x27;childList&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> newVideo = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">                <span class="keyword">if</span> (newVideo &amp;&amp; newVideo !== video) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (video) &#123;</span><br><span class="line">                        video.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">                    &#125;</span><br><span class="line">                    video = newVideo;</span><br><span class="line">                    video.<span class="title function_">addEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 设置MutationObserver以监控视频元素的变化</span></span><br><span class="line">    <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(mutationCallback);</span><br><span class="line">    observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="property">body</span>, &#123; <span class="attr">childList</span>: <span class="literal">true</span>, <span class="attr">subtree</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化脚本</span></span><br><span class="line">    <span class="title function_">init</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 清理资源</span></span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;beforeunload&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">            channel.<span class="title function_">close</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (video) &#123;</span><br><span class="line">            video.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 移除visibilitychange事件监听</span></span><br><span class="line">        <span class="comment">// document.removeEventListener(&#x27;visibilitychange&#x27;, onVisibilityChange);</span></span><br><span class="line">        observer.<span class="title function_">disconnect</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+</div>
+
+<p>另附上我的v0.6.1的代码，如下:</p>
+<div style="max-height: 500px; overflow-y: auto; padding: 8px; border: 1px solid #ddd; border-radius: 8px;">
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         Bilibili Auto Pause</span></span><br><span class="line"><span class="comment">// @version      0.6.1</span></span><br><span class="line"><span class="comment">// @description  当 B 站在前台播放新视频时，自动暂停其他后台标签页视频，适用于同一窗口和不同窗口的多标签页</span></span><br><span class="line"><span class="comment">// @match        https://*.bilibili.com/*</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> video = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> channel = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">CHANNEL_NAME</span> = <span class="string">&#x27;bilibili-video-control&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">TAB_ID</span> = <span class="title class_">Date</span>.<span class="title function_">now</span>() + <span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化广播通道和事件监听</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">init</span>(<span class="params"></span>) &#123;</span><br><span class="line">        video = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!video) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建广播通道</span></span><br><span class="line">        channel = <span class="keyword">new</span> <span class="title class_">BroadcastChannel</span>(<span class="variable constant_">CHANNEL_NAME</span>);</span><br><span class="line">        video.<span class="title function_">addEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">        channel.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, onMessage);</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;visibilitychange&#x27;</span>, onVisibilityChange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 视频播放事件处理</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onPlay</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 检查当前标签页是否可见且具有焦点</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">visibilityState</span> !== <span class="string">&#x27;visible&#x27;</span> || !<span class="variable language_">document</span>.<span class="title function_">hasFocus</span>()) &#123;</span><br><span class="line">            <span class="comment">// 如果标签页不可见或失去焦点，暂停视频</span></span><br><span class="line">            video.<span class="title function_">pause</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">            <span class="comment">// 发送消息通知其他标签页暂停视频</span></span><br><span class="line">            channel.<span class="title function_">postMessage</span>(&#123; <span class="attr">action</span>: <span class="string">&#x27;pauseOthers&#x27;</span>, <span class="attr">sender</span>: <span class="variable constant_">TAB_ID</span> &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 接收到消息时的处理</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onMessage</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> data = event.<span class="property">data</span>;</span><br><span class="line">        <span class="keyword">if</span> (!data || !data.<span class="property">action</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (data.<span class="property">action</span> === <span class="string">&#x27;pauseOthers&#x27;</span>) &#123;</span><br><span class="line">            <span class="title function_">handlePauseOthers</span>(data.<span class="property">sender</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理暂停其他标签页的视频</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">handlePauseOthers</span>(<span class="params">senderId</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果消息来自自身，不执行任何操作</span></span><br><span class="line">        <span class="keyword">if</span> (senderId === <span class="variable constant_">TAB_ID</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 仅当当前标签页可见且视频正在播放时，暂停视频</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">visibilityState</span> === <span class="string">&#x27;visible&#x27;</span> &amp;&amp; video &amp;&amp; !video.<span class="property">paused</span>) &#123;</span><br><span class="line">            video.<span class="title function_">pause</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理页面可见性变化</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onVisibilityChange</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">visibilityState</span> === <span class="string">&#x27;visible&#x27;</span> &amp;&amp; video &amp;&amp; !video.<span class="property">paused</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">                channel.<span class="title function_">postMessage</span>(&#123; <span class="attr">action</span>: <span class="string">&#x27;pauseOthers&#x27;</span>, <span class="attr">sender</span>: <span class="variable constant_">TAB_ID</span> &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 观察器回调函数，检测视频元素的添加</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">mutationCallback</span>(<span class="params">mutationsList</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> mutation <span class="keyword">of</span> mutationsList) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mutation.<span class="property">type</span> === <span class="string">&#x27;childList&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> newVideo = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">                <span class="keyword">if</span> (newVideo &amp;&amp; newVideo !== video) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (video) &#123;</span><br><span class="line">                        video.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">                    &#125;</span><br><span class="line">                    video = newVideo;</span><br><span class="line">                    video.<span class="title function_">addEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(mutationCallback);</span><br><span class="line">    observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="property">body</span>, &#123; <span class="attr">childList</span>: <span class="literal">true</span>, <span class="attr">subtree</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">init</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 清理资源</span></span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;beforeunload&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">            channel.<span class="title function_">close</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (video) &#123;</span><br><span class="line">            video.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;visibilitychange&#x27;</span>, onVisibilityChange);</span><br><span class="line">        observer.<span class="title function_">disconnect</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+</div>]]></content>
+      <tags>
+        <tag>BiliBili</tag>
+        <tag>插件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cloudflare R2图床</title>
     <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
     <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
@@ -450,72 +475,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
-<span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
-
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FRP 内网穿透</title>
-    <url>/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
-<h1 id="安装Frps（服务端）"><a href="#安装Frps（服务端）" class="headerlink" title="安装Frps（服务端）"></a>安装Frps（服务端）</h1><p>有一台带公网 IPv4 的云服务器，然后在VPS上安装好frps</p>
-<p><a href="https://github.com/mvscode/frps-onekey">Frp服务端一键脚本项目地址</a></p>
-<p><a href="https://www.youtube.com/watch?v=D7e6TaWSneg">一瓶奶油视频教程</a></p>
-<h2 id="Install（安装）"><a href="#Install（安装）" class="headerlink" title="Install（安装）"></a>Install（安装）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/mvscode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line"><span class="built_in">chmod</span> 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
-
-<h2 id="Uninstall（卸载）"><a href="#Uninstall（卸载）" class="headerlink" title="Uninstall（卸载）"></a>Uninstall（卸载）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
-
-<h2 id="Update（更新）"><a href="#Update（更新）" class="headerlink" title="Update（更新）"></a>Update（更新）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
-
-<h2 id="设置后台运行"><a href="#设置后台运行" class="headerlink" title="设置后台运行"></a>设置后台运行</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-
-<h2 id="FRP常用命令"><a href="#FRP常用命令" class="headerlink" title="FRP常用命令"></a>FRP常用命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开启FRP：frps start</span><br><span class="line">停止FRP：frps stop</span><br><span class="line">重启FRP：frps restart</span><br><span class="line">打开配置文件：frps config</span><br><span class="line">查看FRP版本：frps version</span><br><span class="line">检查FRP运行状态：frps status</span><br></pre></td></tr></table></figure>
-
-<h1 id="安装Frpc（客户端）"><a href="#安装Frpc（客户端）" class="headerlink" title="安装Frpc（客户端）"></a>安装Frpc（客户端）</h1><h2 id="OpenWrt-未集成"><a href="#OpenWrt-未集成" class="headerlink" title="OpenWrt 未集成"></a>OpenWrt 未集成</h2><p><a href="https://github.com/kuoruan/openwrt-frp/releases">frpc下载</a></p>
-<p><a href="https://github.com/kuoruan/luci-app-frpc/releases">luci-app-frpc和汉化包下载</a></p>
-<p>设置（ 来自<a href="https://naiyous.com/4482.html">https://naiyous.com/4482.html</a> ）</p>
-<p>建议：Frp 协议类型，选择 tcp，这样可以反代的设备更多</p>
-<div>
-    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1024x532.png" style="width: 100%; height: auto; display: block; margin: 0;" />
-    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1-1024x565.png" style="width: 100%; height: auto; display: block; margin: 0;" />
-</div>
-
-
-<h2 id="OpenWrt集成"><a href="#OpenWrt集成" class="headerlink" title="OpenWrt集成"></a>OpenWrt集成</h2><p>immortalwrt 维护的 frpc 界面与上面的有所不同，软件的启动、停止需要在 <strong>系统—启动项</strong> 中控制，其它的都有对应的设置项</p>
-<h1 id="CF-重定向"><a href="#CF-重定向" class="headerlink" title="CF 重定向"></a>CF 重定向</h1><p>灵感来自于：<a href="https://youtu.be/KfOEabr38WU?t=232&si=ho4f7p8s9uN8XqKm">https://youtu.be/KfOEabr38WU?t=232&amp;si=ho4f7p8s9uN8XqKm</a></p>
-<p>准备一个能套上 CF 的域名</p>
-<p>左侧选项卡 <strong>DNS——记录——添加记录</strong></p>
-<p>类型：A 是 IPv4 ，AAAA 是 IPv6</p>
-<p>首先添加：<br>名称——简短，填你想要的域名前缀<br>IPv4 地址——都填服务器的 IP<br>小黄云可以打开</p>
-<p>左侧选项卡 <strong>规则——Origin Rules——创建规则</strong></p>
-<p>规则名称——随意<br>字段——主机名<br>运算符——等于<br>值——填 “DNS中的名称” . “你的域名”<br>重写到——填你在 Frpc 中设置的远程端口<br>部署</p>
-<p>这样就完成了</p>
-<p>这时候在浏览器输入自己的服务器 IP 加上端口（默认是：6443），再输入账号密码，左侧 Proxies 中选择 TCP 就可以看到已经反代的服务了</p>
-]]></content>
-      <tags>
-        <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PVE优化</title>
     <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
@@ -574,6 +533,147 @@
 ]]></content>
       <tags>
         <tag>PVE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FRP 内网穿透</title>
+    <url>/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
+<h1 id="安装Frps（服务端）"><a href="#安装Frps（服务端）" class="headerlink" title="安装Frps（服务端）"></a>安装Frps（服务端）</h1><p>有一台带公网 IPv4 的云服务器，然后在VPS上安装好frps</p>
+<p><a href="https://github.com/mvscode/frps-onekey">Frp服务端一键脚本项目地址</a></p>
+<p><a href="https://www.youtube.com/watch?v=D7e6TaWSneg">一瓶奶油视频教程</a></p>
+<h2 id="Install（安装）"><a href="#Install（安装）" class="headerlink" title="Install（安装）"></a>Install（安装）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/mvscode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line"><span class="built_in">chmod</span> 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
+
+<h2 id="Uninstall（卸载）"><a href="#Uninstall（卸载）" class="headerlink" title="Uninstall（卸载）"></a>Uninstall（卸载）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
+
+<h2 id="Update（更新）"><a href="#Update（更新）" class="headerlink" title="Update（更新）"></a>Update（更新）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置后台运行"><a href="#设置后台运行" class="headerlink" title="设置后台运行"></a>设置后台运行</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FRP常用命令"><a href="#FRP常用命令" class="headerlink" title="FRP常用命令"></a>FRP常用命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开启FRP：frps start</span><br><span class="line">停止FRP：frps stop</span><br><span class="line">重启FRP：frps restart</span><br><span class="line">打开配置文件：frps config</span><br><span class="line">查看FRP版本：frps version</span><br><span class="line">检查FRP运行状态：frps status</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装Frpc（客户端）"><a href="#安装Frpc（客户端）" class="headerlink" title="安装Frpc（客户端）"></a>安装Frpc（客户端）</h1><h2 id="OpenWrt-未集成"><a href="#OpenWrt-未集成" class="headerlink" title="OpenWrt 未集成"></a>OpenWrt 未集成</h2><p><a href="https://github.com/kuoruan/openwrt-frp/releases">frpc下载</a></p>
+<p><a href="https://github.com/kuoruan/luci-app-frpc/releases">luci-app-frpc和汉化包下载</a></p>
+<p>设置（ 来自<a href="https://naiyous.com/4482.html">https://naiyous.com/4482.html</a> ）</p>
+<p>建议：Frp 协议类型，选择 tcp，这样可以反代的设备更多</p>
+<div>
+    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1024x532.png" style="width: 100%; height: auto; display: block; margin: 0;" />
+    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1-1024x565.png" style="width: 100%; height: auto; display: block; margin: 0;" />
+</div>
+
+
+<h2 id="OpenWrt集成"><a href="#OpenWrt集成" class="headerlink" title="OpenWrt集成"></a>OpenWrt集成</h2><p>immortalwrt 维护的 frpc 界面与上面的有所不同，软件的启动、停止需要在 <strong>系统—启动项</strong> 中控制，其它的都有对应的设置项</p>
+<h1 id="CF-重定向"><a href="#CF-重定向" class="headerlink" title="CF 重定向"></a>CF 重定向</h1><p>灵感来自于：<a href="https://youtu.be/KfOEabr38WU?t=232&si=ho4f7p8s9uN8XqKm">https://youtu.be/KfOEabr38WU?t=232&amp;si=ho4f7p8s9uN8XqKm</a></p>
+<p>准备一个能套上 CF 的域名</p>
+<p>左侧选项卡 <strong>DNS——记录——添加记录</strong></p>
+<p>类型：A 是 IPv4 ，AAAA 是 IPv6</p>
+<p>首先添加：<br>名称——简短，填你想要的域名前缀<br>IPv4 地址——都填服务器的 IP<br>小黄云可以打开</p>
+<p>左侧选项卡 <strong>规则——Origin Rules——创建规则</strong></p>
+<p>规则名称——随意<br>字段——主机名<br>运算符——等于<br>值——填 “DNS中的名称” . “你的域名”<br>重写到——填你在 Frpc 中设置的远程端口<br>部署</p>
+<p>这样就完成了</p>
+<p>这时候在浏览器输入自己的服务器 IP 加上端口（默认是：6443），再输入账号密码，左侧 Proxies 中选择 TCP 就可以看到已经反代的服务了</p>
+]]></content>
+      <tags>
+        <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 折腾</title>
+    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
+<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
+<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
+<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
+<ul>
+<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
+<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
+<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
+<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
+<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
+<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
+</ul>
+<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
+<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
+<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
+<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
+<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
+]]></content>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
+<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
+<ul>
+<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
+<li>UDP(<strong>21116</strong>)</li>
+</ul>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+]]></content>
+      <tags>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
       </tags>
   </entry>
   <entry>
@@ -875,211 +975,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases%60">https://github.com/rustdesk/rustdesk-server/releases`</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.11-1版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.11-1/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
-<ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
-</ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃会自动重启,之前用着就会失效,所以加了这个</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
-]]></content>
-      <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android 折腾</title>
-    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
-<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
-<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
-<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
-<ul>
-<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
-<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
-<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
-<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
-<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
-<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
-</ul>
-<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
-<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
-<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
-<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
-<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
-]]></content>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>屏蔽 Bilibili PCDN</title>
-    <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20bilibili%20CDN/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 bilibili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
-<p><a href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
-<p>B 站的 video host 有四种类型：（我将其添加个称呼好标注，非官方称呼）<br><a href="http://upos-sz-mirrorkodo.bilivideo.com/">upos-sz-mirrorkodo.bilivideo.com</a> &#x2F; <a href="http://upos-sz-mirrorcos.bilivideo.com/">upos-sz-mirrorcos.bilivideo.com</a> &#x2F; Mirror 型<br><a href="http://cn-gdgz4-cmcc-v-09.bilivideo.com/">cn-gdgz4-cmcc-v-09.bilivideo.com</a> &#x2F; <a href="http://cn-gdst-cmcc-bcache-02.bilivideo.com/">cn-gdst-cmcc-bcache-02.bilivideo.com</a> &#x2F; Cache 型<br><a href="http://xy112x48x59x98xy.mcdn.bilivideo.cn/">xy112x48x59x98xy.mcdn.bilivideo.cn</a> &#x2F; <a href="http://xy110x85x55x73xy.mcdn.bilivideo.cn/">xy110x85x55x73xy.mcdn.bilivideo.cn</a> &#x2F; MCDN 型<br><a href="http://a93lt21v.v1d.szbdyd.com/">a93lt21v.v1d.szbdyd.com</a> &#x2F; <a href="http://hz6xy5t6.v1d.szbdyd.com/">hz6xy5t6.v1d.szbdyd.com</a> &#x2F; PCDN 型<br>以上几种是在广东移动的场景下测的，其他运营商应该也差不多。</p>
-<p>B 站官方测速地址</p>
-<p><a href="https://www.bilibili.com/blackboard/app-speed-test.html">https://www.bilibili.com/blackboard/app-speed-test.html</a></p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
-<li><p><a href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
-<p><a href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
-</li>
-<li><p><a href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
-</li>
-</ol>
-<p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来，那我就直接用了😁</p>
-<h2 id="Mosdns（推荐）"><a href="#Mosdns（推荐）" class="headerlink" title="Mosdns（推荐）"></a>Mosdns（推荐）</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:stun1.douyucdn.cn</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">domain:dyp2p-ali.douyucdn.cn</span><br><span class="line">domain:dyp2p-hw.douyucdn.cn</span><br><span class="line">domain:p2p-ali.douyucdn.cn</span><br><span class="line">domain:p2p.qq.com</span><br><span class="line">domain:p2pchunk-hw.douyucdn.cn</span><br><span class="line">domain:p2pchunk-table.douyucdn.cn</span><br><span class="line">domain:p2pchunk-ws.douyucdn.cn</span><br><span class="line">domain:p2perrorlog.douyucdn.cn</span><br><span class="line">domain:p2plive-ali.douyucdn.cn</span><br><span class="line">domain:p2plive-ws.douyucdn.cn</span><br><span class="line">domain:p2plog.douyucdn.cn</span><br><span class="line">domain:p2ptun.qq.com</span><br><span class="line">domain:p2pupdate.gamedl.qq.com</span><br><span class="line">domain:p2pupgrade.gamedl.qq.com</span><br><span class="line">domain:p2pvod-ws.douyucdn.cn</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:cn-.*\.bilivideo\.com            #屏蔽这个会导致看不了直播</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>使用 Clash 规则时，需要<strong>添加好对应的端口</strong>，例如：</p>
-<p>xy111x51x181x119xy.mcdn.bilivideo.cn:4483，使用的是京东云，在clash的代理端口上需要把对应的TCP 端口加上 4483 8082，有点麻烦</p>
-<p><a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
-<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
-<details>
-  <summary>点我展开</summary>
-  <pre><code>
-// ==UserScript==
-// @name         Make BiliBili Great Again
-// @namespace    https://www.kookxiang.com/
-// @version      1.5.5
-// @description  useful tweaks for bilibili.com
-// @author       kookxiang
-// @match        https://*.bilibili.com/*
-// @run-at       document-body
-// @grant        unsafeWindow
-// @grant        GM_addStyle
-// @grant        GM_notification
-// @downloadURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.user.js
-// @updateURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.meta.js
-// ==/UserScript==
-// 去掉叔叔去世时的全站黑白效果
-GM_addStyle("html, body &#123; -webkit-filter: none !important; filter: none !important; &#125;");
-
-<p>&#x2F;&#x2F; 没用的 URL 参数<br>const uselessUrlParams &#x3D; [<br>    ‘buvid’,<br>    ‘is_story_h5’,<br>    ‘launch_id’,<br>    ‘live_from’,<br>    ‘mid’,<br>    ‘session_id’,<br>    ‘timestamp’,<br>    ‘up_id’,<br>    ‘vd_source’,<br>    &#x2F;^share&#x2F;,<br>    &#x2F;^spm&#x2F;,<br>];</p>
-<p>&#x2F;&#x2F; Block WebRTC，CNM 陈睿你就缺这点棺材钱？<br>try &#123;<br>    Object.defineProperty(unsafeWindow, ‘webkitRTCPeerConnection’, &#123; value: undefined, enumerable: false, writable: false &#125;);<br>&#125; catch (e) &#123; &#125;</p>
-<p>&#x2F;&#x2F; 移除鸿蒙字体，系统自带它不香吗？<br>window.addEventListener(‘load’, function () &#123;<br>    document.body.classList.remove(‘harmony-font’);<br>&#125;)</p>
-<p>&#x2F;&#x2F; 首页优化<br>if (location.host &#x3D;&#x3D;&#x3D; “<a href="http://www.bilibili.com/">www.bilibili.com</a>“) &#123;<br>    GM_addStyle(‘.feed2 .feed-card:has(a[href*&#x3D;”cm.bilibili.com”]) &#123; display: none &#125; .feed2 .container &gt; * &#123; margin-top: 0 !important &#125;’);<br>&#125;</p>
-<p>&#x2F;&#x2F; 动态页面优化<br>if (location.host &#x3D;&#x3D;&#x3D; “t.bilibili.com”) &#123;<br>    GM_addStyle(“html[wide] #app &#123; display: flex; &#125; html[wide] .bili-dyn-home–member &#123; box-sizing: border-box;padding: 0 10px;width: 100%;flex: 1; &#125; html[wide] .bili-dyn-content &#123; width: initial; &#125; html[wide] main &#123; margin: 0 8px;flex: 1;overflow: hidden;width: initial; &#125; #wide-mode-switch &#123; margin-left: 0;margin-right: 20px; &#125; .bili-dyn-list__item:has(.bili-dyn-card-goods), .bili-dyn-list__item:has(.bili-rich-text-module.goods) &#123; display: none !important &#125;”);<br>    if (!localStorage.WIDE_OPT_OUT) &#123;<br>        document.documentElement.setAttribute(‘wide’, ‘wide’);<br>    &#125;<br>    window.addEventListener(‘load’, function () &#123;<br>        const tabContainer &#x3D; document.querySelector(‘.bili-dyn-list-tabs__list’);<br>        const placeHolder &#x3D; document.createElement(‘div’);<br>        placeHolder.style.flex &#x3D; 1;<br>        const switchButton &#x3D; document.createElement(‘a’);<br>        switchButton.id &#x3D; ‘wide-mode-switch’;<br>        switchButton.className &#x3D; ‘bili-dyn-list-tabs__item’;<br>        switchButton.textContent &#x3D; ‘宽屏模式’;<br>        switchButton.addEventListener(‘click’, function (e) &#123;<br>            e.preventDefault();<br>            if (localStorage.WIDE_OPT_OUT) &#123;<br>                localStorage.removeItem(‘WIDE_OPT_OUT’);<br>                document.documentElement.setAttribute(‘wide’, ‘wide’);<br>            &#125; else &#123;<br>                localStorage.setItem(‘WIDE_OPT_OUT’, ‘1’);<br>                document.documentElement.removeAttribute(‘wide’);<br>            &#125;<br>        &#125;)<br>        tabContainer.appendChild(placeHolder);<br>        tabContainer.appendChild(switchButton);<br>    &#125;)<br>&#125;</p>
-<p>&#x2F;&#x2F; 去广告<br>GM_addStyle(‘.ad-report, a[href*&#x3D;”cm.bilibili.com”] &#123; display: none !important; &#125;’);<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.adData) &#123;<br>    for (const key in unsafeWindow.<strong>INITIAL_STATE</strong>.adData) &#123;<br>        if (!Array.isArray(unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key])) continue;<br>        for (const item of unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key]) &#123;<br>            item.name &#x3D; ‘B 站未来有可能会倒闭，但绝不会变质’;<br>            item.pic &#x3D; ‘<a href="https://static.hdslb.com/images/transparent.gif">https://static.hdslb.com/images/transparent.gif</a>‘;<br>            item.url &#x3D; ‘<a href="https://space.bilibili.com/208259">https://space.bilibili.com/208259</a>‘;<br>        &#125;<br>    &#125;<br>&#125;</p>
-<p>&#x2F;&#x2F; 去充电列表（叔叔的跳过按钮越做越小了，就尼玛离谱）<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.elecFullInfo) &#123;<br>    delete unsafeWindow.<strong>INITIAL_STATE</strong>.elecFullInfo;<br>&#125;</p>
-<p>&#x2F;&#x2F; 修复文章区复制<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/read/cv">https://www.bilibili.com/read/cv</a>‘)) &#123;<br>    unsafeWindow.original.reprint &#x3D; “1”;<br>    document.querySelector(‘.article-holder’).classList.remove(“unable-reprint”);<br>    document.querySelector(‘.article-holder’).addEventListener(‘copy’, e &#x3D;&gt; e.stopImmediatePropagation(), true);<br>&#125;</p>
-<p>&#x2F;&#x2F; 真·原画直播<br>if (location.href.startsWith(‘<a href="https://live.bilibili.com/">https://live.bilibili.com/</a>‘)) &#123;<br>    unsafeWindow.forceHighestQuality &#x3D; true;<br>    let recentErrors &#x3D; 0;<br>    setInterval(() &#x3D;&gt; recentErrors &gt; 0 ? recentErrors &#x2F; 2 : null, 10000);</p>
-<pre><code>const oldFetch = unsafeWindow.fetch;
-unsafeWindow.fetch = function (url) &#123;
-    try &#123;
-        const mcdnRegexp = /[xy0-9]+\.mcdn\.bilivideo\.cn:\d+/
-        const qualityRegexp = /(live-bvc\/\d+\/live_\d+_\d+)_\w+/;
-        if (mcdnRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.disableMcdn) &#123;
-            return Promise.reject();
-        &#125;
-        if (qualityRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
-            arguments[0] = arguments[0]
-                .replace(qualityRegexp, &#39;$1&#39;)
-                .replace(/(\d+)_(mini|pro)hevc/g, &#39;$1&#39;);
-        &#125;
-        const promise = oldFetch.apply(this, arguments);
-        promise.then(response =&gt; &#123;
-            if (!url.match(/\.(m3u8|m4s)/)) return;
-            if ([403, 404].includes(response.status)) recentErrors++;
-            if (recentErrors &gt;= 5 &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
-                recentErrors = 0;
-                unsafeWindow.forceHighestQuality = false;
-                GM_notification(&#123; title: &#39;最高清晰度可能不可用&#39;, text: &#39;已为您自动切换至播放器上选择的清晰度.&#39;, timeout: 3000, silent: true &#125;);
-            &#125;
-        &#125;);
-        return promise;
-    &#125; catch (e) &#123; &#125;
-    return oldFetch.apply(this, arguments);
-&#125;
-</code></pre>
-<p>}</p>
-<p>&#x2F;&#x2F; 视频裁切<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a>‘)) {<br>    GM_addStyle(“body[video-fit] #bilibili-player video { object-fit: cover; } .bpx-player-ctrl-setting-fit-mode { display: flex;width: 100%;height: 32px;line-height: 32px; } .bpx-player-ctrl-setting-box .bui-panel-wrap, .bpx-player-ctrl-setting-box .bui-panel-item { min-height: 172px !important; }”);<br>    let timer;<br>    function toggleMode(enabled) {<br>        if (enabled) {<br>            document.body.setAttribute(‘video-fit’, ‘’);<br>        } else {<br>            document.body.removeAttribute(‘video-fit’);<br>        }<br>    }<br>    function injectButton() {<br>        if (!document.querySelector(‘.bpx-player-ctrl-setting-menu-left’)) {<br>            return;<br>        }<br>        clearInterval(timer);<br>        const parent &#x3D; document.querySelector(‘.bpx-player-ctrl-setting-menu-left’);<br>        const item &#x3D; document.createElement(‘div’);<br>        item.className &#x3D; ‘bpx-player-ctrl-setting-fit-mode bui bui-switch’;<br>        item.innerHTML &#x3D; ‘<input class="bui-switch-input" type="checkbox"><label class="bui-switch-label"><span class="bui-switch-name">裁切模式</span><span class="bui-switch-body"><span class="bui-switch-dot"><span></span></span></span></label>‘;<br>        parent.insertBefore(item, document.querySelector(‘.bpx-player-ctrl-setting-more’));<br>        document.querySelector(‘.bpx-player-ctrl-setting-fit-mode input’).addEventListener(‘change’, e &#x3D;&gt; toggleMode(e.target.checked));<br>        document.querySelector(‘.bpx-player-ctrl-setting-box .bui-panel-item’).style.height &#x3D; ‘’;<br>    }<br>    timer &#x3D; setInterval(injectButton, 200);<br>}</p>
-<p>&#x2F;&#x2F; 去除地址栏多余参数<br>unsafeWindow.history.replaceState(undefined, undefined, removeTracking(location.href));<br>const pushState &#x3D; unsafeWindow.history.pushState;<br>unsafeWindow.history.pushState &#x3D; function (state, unused, url) {<br>    return pushState.apply(this, [state, unused, removeTracking(url)]);<br>}<br>const replaceState &#x3D; unsafeWindow.history.replaceState;<br>unsafeWindow.history.replaceState &#x3D; function (state, unused, url) {<br>    return replaceState.apply(this, [state, unused, removeTracking(url)]);<br>}</p>
-<p>function removeTracking(url) {<br>    if (!url) return url;<br>    try {<br>        const [base, search] &#x3D; url.split(‘?’);<br>        if (!search) return url;<br>        const searchParams &#x3D; new URLSearchParams(‘?’ + search);<br>        const keys &#x3D; Array.from(searchParams.keys());<br>        for (const key of keys) {<br>            uselessUrlParams.forEach(item &#x3D;&gt; {<br>                if (typeof item &#x3D;&#x3D;&#x3D; ‘string’) {<br>                    if (item &#x3D;&#x3D;&#x3D; key) searchParams.delete(key);<br>                } else if (item instanceof RegExp) {<br>                    if (item.test(key)) searchParams.delete(key);<br>                }<br>            });<br>        }<br>        if (location.pathname &#x3D;&#x3D;&#x3D; base &amp;&amp; !searchParams.size) return;<br>        return [base, searchParams.toString()].filter(Boolean).join(‘?’);<br>    } catch (e) {<br>        return url;<br>    }<br>}</p>
-<p>&#x2F;&#x2F; 去掉 B 站的傻逼上报<br>!function () {<br>    const oldFetch &#x3D; unsafeWindow.fetch;<br>    unsafeWindow.fetch &#x3D; function (url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’))<br>            return Promise.resolve(new Response());<br>        return oldFetch.apply(this, arguments);<br>    }<br>    const oldSend &#x3D; unsafeWindow.XMLHttpRequest.prototype.open;<br>    unsafeWindow.XMLHttpRequest.prototype.open &#x3D; function (method, url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’)) {<br>            this.send &#x3D; function () { };<br>            return;<br>        }<br>        return oldSend.apply(this, arguments);<br>    }<br>    unsafeWindow.navigator.sendBeacon &#x3D; () &#x3D;&gt; Promise.resolve();</p>
-<pre><code>unsafeWindow.MReporter = function () &#123; &#125;;
-unsafeWindow.MReporter.appear = function () &#123; &#125;;
-unsafeWindow.MReporter.click = function () &#123; &#125;;
-unsafeWindow.MReporter.tech = function () &#123; &#125;;
-unsafeWindow.MReporter.pv = function () &#123; &#125;;
-unsafeWindow.MReporter.import = &#123; auto() &#123; &#125; &#125;;
-
-const sentryHub = class &#123; bindClient() &#123; &#125; &#125;
-const fakeSentry = &#123;
-    SDK_NAME: &#39;sentry.javascript.browser&#39;,
-    SDK_VERSION: &#39;0.0.0&#39;,
-    BrowserClient: class &#123; &#125;,
-    Hub: sentryHub,
-    Integrations: &#123;
-        Vue: class &#123; &#125;,
-        GlobalHandlers: class &#123; &#125;,
-        InboundFilters: class &#123; &#125;,
-    &#125;,
-    init() &#123; &#125;,
-    configureScope() &#123; &#125;,
-    getCurrentHub: () =&gt; new sentryHub(),
-    setContext() &#123; &#125;,
-    setExtra() &#123; &#125;,
-    setExtras() &#123; &#125;,
-    setTag() &#123; &#125;,
-    setTags() &#123; &#125;,
-    setUser() &#123; &#125;,
-    wrap() &#123; &#125;,
-&#125;
-if (!unsafeWindow.Sentry || unsafeWindow.Sentry.SDK_VERSION !== fakeSentry.SDK_VERSION) &#123;
-    if (unsafeWindow.Sentry) &#123; delete unsafeWindow.Sentry &#125;
-    Object.defineProperty(unsafeWindow, &#39;Sentry&#39;, &#123; value: fakeSentry, enumerable: false, writable: false &#125;);
-&#125;
-Object.defineProperty(unsafeWindow, &#39;ReporterPb&#39;, &#123; value: class &#123; click() &#123; &#125; custom() &#123; &#125; exposure() &#123; &#125; report() &#123; &#125; tech() &#123; &#125; pv() &#123; &#125; &#125;, enumerable: false, writable: false &#125;);
-
-Object.defineProperty(unsafeWindow, &#39;__biliUserFp__&#39;, &#123;
-    get() &#123; return &#123; init() &#123; &#125;, queryUserLog() &#123; return [] &#125; &#125; &#125;,
-    set() &#123; &#125;,
-&#125;);
-Object.defineProperty(unsafeWindow, &#39;__USER_FP_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
-Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
-</code></pre>
-<p>}()<br>  </code></pre></p>
-</details>
-
-<p>大家可以去看看<a href="https://mymuwu.net/?p=1427">大佬文章的说明</a>，我这就不贴了</p>
-]]></content>
-      <tags>
-        <tag>OpenClash</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>搭建越狱软件源</title>
     <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
@@ -1345,6 +1240,198 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 ]]></content>
       <tags>
         <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>屏蔽 BiliBili PCDN</title>
+    <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
+<p><a href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
+<p>B 站的 video host 有四种类型：（我将其添加个称呼好标注，非官方称呼）<br><a href="http://upos-sz-mirrorkodo.bilivideo.com/">upos-sz-mirrorkodo.bilivideo.com</a> &#x2F; <a href="http://upos-sz-mirrorcos.bilivideo.com/">upos-sz-mirrorcos.bilivideo.com</a> &#x2F; Mirror 型<br><a href="http://cn-gdgz4-cmcc-v-09.bilivideo.com/">cn-gdgz4-cmcc-v-09.bilivideo.com</a> &#x2F; <a href="http://cn-gdst-cmcc-bcache-02.bilivideo.com/">cn-gdst-cmcc-bcache-02.bilivideo.com</a> &#x2F; Cache 型<br><a href="http://xy112x48x59x98xy.mcdn.bilivideo.cn/">xy112x48x59x98xy.mcdn.bilivideo.cn</a> &#x2F; <a href="http://xy110x85x55x73xy.mcdn.bilivideo.cn/">xy110x85x55x73xy.mcdn.bilivideo.cn</a> &#x2F; MCDN 型<br><a href="http://a93lt21v.v1d.szbdyd.com/">a93lt21v.v1d.szbdyd.com</a> &#x2F; <a href="http://hz6xy5t6.v1d.szbdyd.com/">hz6xy5t6.v1d.szbdyd.com</a> &#x2F; PCDN 型<br>以上几种是在广东移动的场景下测的，其他运营商应该也差不多。</p>
+<p>B 站官方测速地址</p>
+<p><a href="https://www.bilibili.com/blackboard/app-speed-test.html">https://www.bilibili.com/blackboard/app-speed-test.html</a></p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
+<li><p><a href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
+<p><a href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
+</li>
+<li><p><a href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
+</li>
+</ol>
+<p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来，那我就直接用了😁</p>
+<p>又找到一个佬关于B站 PCDN 的规则</p>
+<p><a href="https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml">https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml</a></p>
+<p>Noodseek：<a href="https://www.nodeseek.com/post-139229-1">https://www.nodeseek.com/post-139229-1</a></p>
+<p>anti-AD：<a href="https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt">https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt</a></p>
+<h2 id="Mosdns（推荐）"><a href="#Mosdns（推荐）" class="headerlink" title="Mosdns（推荐）"></a>Mosdns（推荐）</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
+<details>
+  <summary>点我展开看废弃代码</summary>
+  <pre><code>
+domain:gjfzpt.cn
+domain:szbdyd.com
+domain:bsccdn.net
+domain:pkoplink.com
+domain:saxysec.com
+domain:uhabo.com
+domain:xycdn.com
+domain:kuiniuca.com
+domain:onethingpcs.com
+domain:jomodns.cn
+domain:p2p.huya.com
+domain:stun.douyucdn.cn
+domain:stun.hitv.com
+domain:stun1.douyucdn.cn
+domain:mcdn.bilivideo.cn
+domain:tpa-hcdn.iqiyi.com
+domain:pcdn.xmcdn.com
+domain:pcdn.yximgs.com
+domain:dyp2p-ali.douyucdn.cn
+domain:dyp2p-hw.douyucdn.cn
+domain:p2p-ali.douyucdn.cn
+domain:p2p.qq.com
+domain:p2pchunk-hw.douyucdn.cn
+domain:p2pchunk-table.douyucdn.cn
+domain:p2pchunk-ws.douyucdn.cn
+domain:p2perrorlog.douyucdn.cn
+domain:p2plive-ali.douyucdn.cn
+domain:p2plive-ws.douyucdn.cn
+domain:p2plog.douyucdn.cn
+domain:p2ptun.qq.com
+domain:p2pupdate.gamedl.qq.com
+domain:p2pupgrade.gamedl.qq.com
+domain:p2pvod-ws.douyucdn.cn
+regexp:.*pcdn.*biliapi\.net
+regexp:.*pcdn.*youku\.com
+regexp:.*p2p.*douyucdn\.cn
+regexp:.*p2p.*qq\.com
+regexp:.*pcdn.*biliapi\.net
+regexp:.*pcdn.*youku\.com
+regexp:cn-.*\.bilivideo\.com            #屏蔽这个会导致看不了直播
+  </code></pre>
+</details>
+
+<p>由于旧版误伤过多，所以精简了很多</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi.net</span><br><span class="line">regexp:.*pcdn.*youku.com</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>使用 Clash 规则时，需要<strong>添加好对应的端口</strong>，例如：</p>
+<p>xy111x51x181x119xy.mcdn.bilivideo.cn:4483，使用的是京东云，在clash的代理端口上需要把对应的TCP 端口加上 4483 8082，有点麻烦</p>
+<p><a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
+<details>
+  <summary>点我展开</summary>
+  <pre><code>
+// ==UserScript==
+// @name         Make BiliBili Great Again
+// @namespace    https://www.kookxiang.com/
+// @version      1.5.5
+// @description  useful tweaks for bilibili.com
+// @author       kookxiang
+// @match        https://*.bilibili.com/*
+// @run-at       document-body
+// @grant        unsafeWindow
+// @grant        GM_addStyle
+// @grant        GM_notification
+// @downloadURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.user.js
+// @updateURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.meta.js
+// ==/UserScript==
+// 去掉叔叔去世时的全站黑白效果
+GM_addStyle("html, body &#123; -webkit-filter: none !important; filter: none !important; &#125;");
+
+<p>&#x2F;&#x2F; 没用的 URL 参数<br>const uselessUrlParams &#x3D; [<br>    ‘buvid’,<br>    ‘is_story_h5’,<br>    ‘launch_id’,<br>    ‘live_from’,<br>    ‘mid’,<br>    ‘session_id’,<br>    ‘timestamp’,<br>    ‘up_id’,<br>    ‘vd_source’,<br>    &#x2F;^share&#x2F;,<br>    &#x2F;^spm&#x2F;,<br>];</p>
+<p>&#x2F;&#x2F; Block WebRTC，CNM 陈睿你就缺这点棺材钱？<br>try &#123;<br>    Object.defineProperty(unsafeWindow, ‘webkitRTCPeerConnection’, &#123; value: undefined, enumerable: false, writable: false &#125;);<br>&#125; catch (e) &#123; &#125;</p>
+<p>&#x2F;&#x2F; 移除鸿蒙字体，系统自带它不香吗？<br>window.addEventListener(‘load’, function () &#123;<br>    document.body.classList.remove(‘harmony-font’);<br>&#125;)</p>
+<p>&#x2F;&#x2F; 首页优化<br>if (location.host &#x3D;&#x3D;&#x3D; “<a href="http://www.bilibili.com/">www.bilibili.com</a>“) &#123;<br>    GM_addStyle(‘.feed2 .feed-card:has(a[href*&#x3D;”cm.bilibili.com”]) &#123; display: none &#125; .feed2 .container &gt; * &#123; margin-top: 0 !important &#125;’);<br>&#125;</p>
+<p>&#x2F;&#x2F; 动态页面优化<br>if (location.host &#x3D;&#x3D;&#x3D; “t.bilibili.com”) &#123;<br>    GM_addStyle(“html[wide] #app &#123; display: flex; &#125; html[wide] .bili-dyn-home–member &#123; box-sizing: border-box;padding: 0 10px;width: 100%;flex: 1; &#125; html[wide] .bili-dyn-content &#123; width: initial; &#125; html[wide] main &#123; margin: 0 8px;flex: 1;overflow: hidden;width: initial; &#125; #wide-mode-switch &#123; margin-left: 0;margin-right: 20px; &#125; .bili-dyn-list__item:has(.bili-dyn-card-goods), .bili-dyn-list__item:has(.bili-rich-text-module.goods) &#123; display: none !important &#125;”);<br>    if (!localStorage.WIDE_OPT_OUT) &#123;<br>        document.documentElement.setAttribute(‘wide’, ‘wide’);<br>    &#125;<br>    window.addEventListener(‘load’, function () &#123;<br>        const tabContainer &#x3D; document.querySelector(‘.bili-dyn-list-tabs__list’);<br>        const placeHolder &#x3D; document.createElement(‘div’);<br>        placeHolder.style.flex &#x3D; 1;<br>        const switchButton &#x3D; document.createElement(‘a’);<br>        switchButton.id &#x3D; ‘wide-mode-switch’;<br>        switchButton.className &#x3D; ‘bili-dyn-list-tabs__item’;<br>        switchButton.textContent &#x3D; ‘宽屏模式’;<br>        switchButton.addEventListener(‘click’, function (e) &#123;<br>            e.preventDefault();<br>            if (localStorage.WIDE_OPT_OUT) &#123;<br>                localStorage.removeItem(‘WIDE_OPT_OUT’);<br>                document.documentElement.setAttribute(‘wide’, ‘wide’);<br>            &#125; else &#123;<br>                localStorage.setItem(‘WIDE_OPT_OUT’, ‘1’);<br>                document.documentElement.removeAttribute(‘wide’);<br>            &#125;<br>        &#125;)<br>        tabContainer.appendChild(placeHolder);<br>        tabContainer.appendChild(switchButton);<br>    &#125;)<br>&#125;</p>
+<p>&#x2F;&#x2F; 去广告<br>GM_addStyle(‘.ad-report, a[href*&#x3D;”cm.bilibili.com”] &#123; display: none !important; &#125;’);<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.adData) &#123;<br>    for (const key in unsafeWindow.<strong>INITIAL_STATE</strong>.adData) &#123;<br>        if (!Array.isArray(unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key])) continue;<br>        for (const item of unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key]) &#123;<br>            item.name &#x3D; ‘B 站未来有可能会倒闭，但绝不会变质’;<br>            item.pic &#x3D; ‘<a href="https://static.hdslb.com/images/transparent.gif">https://static.hdslb.com/images/transparent.gif</a>‘;<br>            item.url &#x3D; ‘<a href="https://space.bilibili.com/208259">https://space.bilibili.com/208259</a>‘;<br>        &#125;<br>    &#125;<br>&#125;</p>
+<p>&#x2F;&#x2F; 去充电列表（叔叔的跳过按钮越做越小了，就尼玛离谱）<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.elecFullInfo) &#123;<br>    delete unsafeWindow.<strong>INITIAL_STATE</strong>.elecFullInfo;<br>&#125;</p>
+<p>&#x2F;&#x2F; 修复文章区复制<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/read/cv">https://www.bilibili.com/read/cv</a>‘)) &#123;<br>    unsafeWindow.original.reprint &#x3D; “1”;<br>    document.querySelector(‘.article-holder’).classList.remove(“unable-reprint”);<br>    document.querySelector(‘.article-holder’).addEventListener(‘copy’, e &#x3D;&gt; e.stopImmediatePropagation(), true);<br>&#125;</p>
+<p>&#x2F;&#x2F; 真·原画直播<br>if (location.href.startsWith(‘<a href="https://live.bilibili.com/">https://live.bilibili.com/</a>‘)) &#123;<br>    unsafeWindow.forceHighestQuality &#x3D; true;<br>    let recentErrors &#x3D; 0;<br>    setInterval(() &#x3D;&gt; recentErrors &gt; 0 ? recentErrors &#x2F; 2 : null, 10000);</p>
+<pre><code>const oldFetch = unsafeWindow.fetch;
+unsafeWindow.fetch = function (url) &#123;
+    try &#123;
+        const mcdnRegexp = /[xy0-9]+\.mcdn\.bilivideo\.cn:\d+/
+        const qualityRegexp = /(live-bvc\/\d+\/live_\d+_\d+)_\w+/;
+        if (mcdnRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.disableMcdn) &#123;
+            return Promise.reject();
+        &#125;
+        if (qualityRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
+            arguments[0] = arguments[0]
+                .replace(qualityRegexp, &#39;$1&#39;)
+                .replace(/(\d+)_(mini|pro)hevc/g, &#39;$1&#39;);
+        &#125;
+        const promise = oldFetch.apply(this, arguments);
+        promise.then(response =&gt; &#123;
+            if (!url.match(/\.(m3u8|m4s)/)) return;
+            if ([403, 404].includes(response.status)) recentErrors++;
+            if (recentErrors &gt;= 5 &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
+                recentErrors = 0;
+                unsafeWindow.forceHighestQuality = false;
+                GM_notification(&#123; title: &#39;最高清晰度可能不可用&#39;, text: &#39;已为您自动切换至播放器上选择的清晰度.&#39;, timeout: 3000, silent: true &#125;);
+            &#125;
+        &#125;);
+        return promise;
+    &#125; catch (e) &#123; &#125;
+    return oldFetch.apply(this, arguments);
+&#125;
+</code></pre>
+<p>}</p>
+<p>&#x2F;&#x2F; 视频裁切<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a>‘)) {<br>    GM_addStyle(“body[video-fit] #bilibili-player video { object-fit: cover; } .bpx-player-ctrl-setting-fit-mode { display: flex;width: 100%;height: 32px;line-height: 32px; } .bpx-player-ctrl-setting-box .bui-panel-wrap, .bpx-player-ctrl-setting-box .bui-panel-item { min-height: 172px !important; }”);<br>    let timer;<br>    function toggleMode(enabled) {<br>        if (enabled) {<br>            document.body.setAttribute(‘video-fit’, ‘’);<br>        } else {<br>            document.body.removeAttribute(‘video-fit’);<br>        }<br>    }<br>    function injectButton() {<br>        if (!document.querySelector(‘.bpx-player-ctrl-setting-menu-left’)) {<br>            return;<br>        }<br>        clearInterval(timer);<br>        const parent &#x3D; document.querySelector(‘.bpx-player-ctrl-setting-menu-left’);<br>        const item &#x3D; document.createElement(‘div’);<br>        item.className &#x3D; ‘bpx-player-ctrl-setting-fit-mode bui bui-switch’;<br>        item.innerHTML &#x3D; ‘<input class="bui-switch-input" type="checkbox"><label class="bui-switch-label"><span class="bui-switch-name">裁切模式</span><span class="bui-switch-body"><span class="bui-switch-dot"><span></span></span></span></label>‘;<br>        parent.insertBefore(item, document.querySelector(‘.bpx-player-ctrl-setting-more’));<br>        document.querySelector(‘.bpx-player-ctrl-setting-fit-mode input’).addEventListener(‘change’, e &#x3D;&gt; toggleMode(e.target.checked));<br>        document.querySelector(‘.bpx-player-ctrl-setting-box .bui-panel-item’).style.height &#x3D; ‘’;<br>    }<br>    timer &#x3D; setInterval(injectButton, 200);<br>}</p>
+<p>&#x2F;&#x2F; 去除地址栏多余参数<br>unsafeWindow.history.replaceState(undefined, undefined, removeTracking(location.href));<br>const pushState &#x3D; unsafeWindow.history.pushState;<br>unsafeWindow.history.pushState &#x3D; function (state, unused, url) {<br>    return pushState.apply(this, [state, unused, removeTracking(url)]);<br>}<br>const replaceState &#x3D; unsafeWindow.history.replaceState;<br>unsafeWindow.history.replaceState &#x3D; function (state, unused, url) {<br>    return replaceState.apply(this, [state, unused, removeTracking(url)]);<br>}</p>
+<p>function removeTracking(url) {<br>    if (!url) return url;<br>    try {<br>        const [base, search] &#x3D; url.split(‘?’);<br>        if (!search) return url;<br>        const searchParams &#x3D; new URLSearchParams(‘?’ + search);<br>        const keys &#x3D; Array.from(searchParams.keys());<br>        for (const key of keys) {<br>            uselessUrlParams.forEach(item &#x3D;&gt; {<br>                if (typeof item &#x3D;&#x3D;&#x3D; ‘string’) {<br>                    if (item &#x3D;&#x3D;&#x3D; key) searchParams.delete(key);<br>                } else if (item instanceof RegExp) {<br>                    if (item.test(key)) searchParams.delete(key);<br>                }<br>            });<br>        }<br>        if (location.pathname &#x3D;&#x3D;&#x3D; base &amp;&amp; !searchParams.size) return;<br>        return [base, searchParams.toString()].filter(Boolean).join(‘?’);<br>    } catch (e) {<br>        return url;<br>    }<br>}</p>
+<p>&#x2F;&#x2F; 去掉 B 站的傻逼上报<br>!function () {<br>    const oldFetch &#x3D; unsafeWindow.fetch;<br>    unsafeWindow.fetch &#x3D; function (url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’))<br>            return Promise.resolve(new Response());<br>        return oldFetch.apply(this, arguments);<br>    }<br>    const oldSend &#x3D; unsafeWindow.XMLHttpRequest.prototype.open;<br>    unsafeWindow.XMLHttpRequest.prototype.open &#x3D; function (method, url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’)) {<br>            this.send &#x3D; function () { };<br>            return;<br>        }<br>        return oldSend.apply(this, arguments);<br>    }<br>    unsafeWindow.navigator.sendBeacon &#x3D; () &#x3D;&gt; Promise.resolve();</p>
+<pre><code>unsafeWindow.MReporter = function () &#123; &#125;;
+unsafeWindow.MReporter.appear = function () &#123; &#125;;
+unsafeWindow.MReporter.click = function () &#123; &#125;;
+unsafeWindow.MReporter.tech = function () &#123; &#125;;
+unsafeWindow.MReporter.pv = function () &#123; &#125;;
+unsafeWindow.MReporter.import = &#123; auto() &#123; &#125; &#125;;
+
+const sentryHub = class &#123; bindClient() &#123; &#125; &#125;
+const fakeSentry = &#123;
+    SDK_NAME: &#39;sentry.javascript.browser&#39;,
+    SDK_VERSION: &#39;0.0.0&#39;,
+    BrowserClient: class &#123; &#125;,
+    Hub: sentryHub,
+    Integrations: &#123;
+        Vue: class &#123; &#125;,
+        GlobalHandlers: class &#123; &#125;,
+        InboundFilters: class &#123; &#125;,
+    &#125;,
+    init() &#123; &#125;,
+    configureScope() &#123; &#125;,
+    getCurrentHub: () =&gt; new sentryHub(),
+    setContext() &#123; &#125;,
+    setExtra() &#123; &#125;,
+    setExtras() &#123; &#125;,
+    setTag() &#123; &#125;,
+    setTags() &#123; &#125;,
+    setUser() &#123; &#125;,
+    wrap() &#123; &#125;,
+&#125;
+if (!unsafeWindow.Sentry || unsafeWindow.Sentry.SDK_VERSION !== fakeSentry.SDK_VERSION) &#123;
+    if (unsafeWindow.Sentry) &#123; delete unsafeWindow.Sentry &#125;
+    Object.defineProperty(unsafeWindow, &#39;Sentry&#39;, &#123; value: fakeSentry, enumerable: false, writable: false &#125;);
+&#125;
+Object.defineProperty(unsafeWindow, &#39;ReporterPb&#39;, &#123; value: class &#123; click() &#123; &#125; custom() &#123; &#125; exposure() &#123; &#125; report() &#123; &#125; tech() &#123; &#125; pv() &#123; &#125; &#125;, enumerable: false, writable: false &#125;);
+
+Object.defineProperty(unsafeWindow, &#39;__biliUserFp__&#39;, &#123;
+    get() &#123; return &#123; init() &#123; &#125;, queryUserLog() &#123; return [] &#125; &#125; &#125;,
+    set() &#123; &#125;,
+&#125;);
+Object.defineProperty(unsafeWindow, &#39;__USER_FP_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
+Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
+</code></pre>
+<p>}()<br>  </code></pre></p>
+</details>
+
+<p>大家可以去看看<a href="https://mymuwu.net/?p=1427">大佬文章的说明</a>，我这就不贴了</p>
+]]></content>
+      <tags>
+        <tag>BiliBili</tag>
+        <tag>OpenClash</tag>
       </tags>
   </entry>
   <entry>
