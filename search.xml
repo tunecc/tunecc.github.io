@@ -19,6 +19,14 @@
 <p>另附上我的v0.6.1的代码，如下:</p>
 <div style="max-height: 500px; overflow-y: auto; padding: 8px; border: 1px solid #ddd; border-radius: 8px;">
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         Bilibili Auto Pause</span></span><br><span class="line"><span class="comment">// @version      0.6.1</span></span><br><span class="line"><span class="comment">// @description  当 B 站在前台播放新视频时，自动暂停其他后台标签页视频，适用于同一窗口和不同窗口的多标签页</span></span><br><span class="line"><span class="comment">// @match        https://*.bilibili.com/*</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> video = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> channel = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">CHANNEL_NAME</span> = <span class="string">&#x27;bilibili-video-control&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">TAB_ID</span> = <span class="title class_">Date</span>.<span class="title function_">now</span>() + <span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化广播通道和事件监听</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">init</span>(<span class="params"></span>) &#123;</span><br><span class="line">        video = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!video) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建广播通道</span></span><br><span class="line">        channel = <span class="keyword">new</span> <span class="title class_">BroadcastChannel</span>(<span class="variable constant_">CHANNEL_NAME</span>);</span><br><span class="line">        video.<span class="title function_">addEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">        channel.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, onMessage);</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;visibilitychange&#x27;</span>, onVisibilityChange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 视频播放事件处理</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onPlay</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 检查当前标签页是否可见且具有焦点</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">visibilityState</span> !== <span class="string">&#x27;visible&#x27;</span> || !<span class="variable language_">document</span>.<span class="title function_">hasFocus</span>()) &#123;</span><br><span class="line">            <span class="comment">// 如果标签页不可见或失去焦点，暂停视频</span></span><br><span class="line">            video.<span class="title function_">pause</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">            <span class="comment">// 发送消息通知其他标签页暂停视频</span></span><br><span class="line">            channel.<span class="title function_">postMessage</span>(&#123; <span class="attr">action</span>: <span class="string">&#x27;pauseOthers&#x27;</span>, <span class="attr">sender</span>: <span class="variable constant_">TAB_ID</span> &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 接收到消息时的处理</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onMessage</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> data = event.<span class="property">data</span>;</span><br><span class="line">        <span class="keyword">if</span> (!data || !data.<span class="property">action</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (data.<span class="property">action</span> === <span class="string">&#x27;pauseOthers&#x27;</span>) &#123;</span><br><span class="line">            <span class="title function_">handlePauseOthers</span>(data.<span class="property">sender</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理暂停其他标签页的视频</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">handlePauseOthers</span>(<span class="params">senderId</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果消息来自自身，不执行任何操作</span></span><br><span class="line">        <span class="keyword">if</span> (senderId === <span class="variable constant_">TAB_ID</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 仅当当前标签页可见且视频正在播放时，暂停视频</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">visibilityState</span> === <span class="string">&#x27;visible&#x27;</span> &amp;&amp; video &amp;&amp; !video.<span class="property">paused</span>) &#123;</span><br><span class="line">            video.<span class="title function_">pause</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理页面可见性变化</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onVisibilityChange</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">visibilityState</span> === <span class="string">&#x27;visible&#x27;</span> &amp;&amp; video &amp;&amp; !video.<span class="property">paused</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">                channel.<span class="title function_">postMessage</span>(&#123; <span class="attr">action</span>: <span class="string">&#x27;pauseOthers&#x27;</span>, <span class="attr">sender</span>: <span class="variable constant_">TAB_ID</span> &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 观察器回调函数，检测视频元素的添加</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">mutationCallback</span>(<span class="params">mutationsList</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> mutation <span class="keyword">of</span> mutationsList) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mutation.<span class="property">type</span> === <span class="string">&#x27;childList&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> newVideo = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">                <span class="keyword">if</span> (newVideo &amp;&amp; newVideo !== video) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (video) &#123;</span><br><span class="line">                        video.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">                    &#125;</span><br><span class="line">                    video = newVideo;</span><br><span class="line">                    video.<span class="title function_">addEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(mutationCallback);</span><br><span class="line">    observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="property">body</span>, &#123; <span class="attr">childList</span>: <span class="literal">true</span>, <span class="attr">subtree</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">init</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 清理资源</span></span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;beforeunload&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">            channel.<span class="title function_">close</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (video) &#123;</span><br><span class="line">            video.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;visibilitychange&#x27;</span>, onVisibilityChange);</span><br><span class="line">        observer.<span class="title function_">disconnect</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+</div>
+
+
+
+<p>0.7版本（2025-03-16）</p>
+<p>GitHub Copilot 可以白嫖 Claude 3.7 Sonnet Thinking 了，终于达到效果了</p>
+<div style="max-height: 500px; overflow-y: auto; padding: 8px; border: 1px solid #ddd; border-radius: 8px;">
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         Bilibili Auto Pause</span></span><br><span class="line"><span class="comment">// @namespace    https://example.com</span></span><br><span class="line"><span class="comment">// @version      0.7.0</span></span><br><span class="line"><span class="comment">// @description  当 B 站在前台播放新视频时，自动暂停其他后台标签页视频，适用于同一窗口和不同窗口的多标签页</span></span><br><span class="line"><span class="comment">// @match        https://*.bilibili.com/*</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> video = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> channel = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">CHANNEL_NAME</span> = <span class="string">&#x27;bilibili-video-control&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">TAB_ID</span> = <span class="title class_">Date</span>.<span class="title function_">now</span>() + <span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化广播通道和事件监听</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">init</span>(<span class="params"></span>) &#123;</span><br><span class="line">        video = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (!video) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 创建广播通道</span></span><br><span class="line">        channel = <span class="keyword">new</span> <span class="title class_">BroadcastChannel</span>(<span class="variable constant_">CHANNEL_NAME</span>);</span><br><span class="line">        video.<span class="title function_">addEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">        channel.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, onMessage);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 视频播放事件处理</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onPlay</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 检查当前标签页是否可见且具有焦点 - 保留0.6.1版本的完整检查</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">visibilityState</span> !== <span class="string">&#x27;visible&#x27;</span> || !<span class="variable language_">document</span>.<span class="title function_">hasFocus</span>()) &#123;</span><br><span class="line">            <span class="comment">// 如果标签页不可见或失去焦点，暂停视频</span></span><br><span class="line">            video.<span class="title function_">pause</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">            <span class="comment">// 发送消息通知其他标签页暂停视频</span></span><br><span class="line">            channel.<span class="title function_">postMessage</span>(&#123; <span class="attr">action</span>: <span class="string">&#x27;pauseOthers&#x27;</span>, <span class="attr">sender</span>: <span class="variable constant_">TAB_ID</span> &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 接收到消息时的处理</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">onMessage</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> data = event.<span class="property">data</span>;</span><br><span class="line">        <span class="keyword">if</span> (!data || !data.<span class="property">action</span>) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (data.<span class="property">action</span> === <span class="string">&#x27;pauseOthers&#x27;</span> &amp;&amp; data.<span class="property">sender</span> !== <span class="variable constant_">TAB_ID</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果视频存在且正在播放，则暂停</span></span><br><span class="line">            <span class="keyword">if</span> (video &amp;&amp; !video.<span class="property">paused</span>) &#123;</span><br><span class="line">                video.<span class="title function_">pause</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 观察器回调函数，检测视频元素的添加</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">mutationCallback</span>(<span class="params">mutationsList</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> mutation <span class="keyword">of</span> mutationsList) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mutation.<span class="property">type</span> === <span class="string">&#x27;childList&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> newVideo = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;video&#x27;</span>);</span><br><span class="line">                <span class="keyword">if</span> (newVideo &amp;&amp; newVideo !== video) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (video) &#123;</span><br><span class="line">                        video.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">                    &#125;</span><br><span class="line">                    video = newVideo;</span><br><span class="line">                    video.<span class="title function_">addEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(mutationCallback);</span><br><span class="line">    observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="property">body</span>, &#123; <span class="attr">childList</span>: <span class="literal">true</span>, <span class="attr">subtree</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">init</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 清理资源</span></span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;beforeunload&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (channel) &#123;</span><br><span class="line">            channel.<span class="title function_">close</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (video) &#123;</span><br><span class="line">            video.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;play&#x27;</span>, onPlay);</span><br><span class="line">        &#125;</span><br><span class="line">        observer.<span class="title function_">disconnect</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 </div>]]></content>
       <tags>
         <tag>BiliBili</tag>
@@ -183,6 +191,70 @@
       </tags>
   </entry>
   <entry>
+    <title>FRP + SAAS 回源</title>
+    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
+    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
+<ol>
+<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
+<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
+</ol>
+<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
+<li>回源域名开启小黄云指向服务器IP</li>
+<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
+<li>服务器上面自签证书用 主力域名（访问域名）</li>
+<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
+</ol>
+<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FRP 内网穿透</title>
+    <url>/2024/10/08/Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
+<h1 id="安装Frps（服务端）"><a href="#安装Frps（服务端）" class="headerlink" title="安装Frps（服务端）"></a>安装Frps（服务端）</h1><p>有一台带公网 IPv4 的云服务器，然后在VPS上安装好frps</p>
+<p><a href="https://github.com/mvscode/frps-onekey">Frp服务端一键脚本项目地址</a></p>
+<p><a href="https://www.youtube.com/watch?v=D7e6TaWSneg">一瓶奶油视频教程</a></p>
+<h2 id="Install（安装）"><a href="#Install（安装）" class="headerlink" title="Install（安装）"></a>Install（安装）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/mvscode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line"><span class="built_in">chmod</span> 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
+
+<h2 id="Uninstall（卸载）"><a href="#Uninstall（卸载）" class="headerlink" title="Uninstall（卸载）"></a>Uninstall（卸载）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
+
+<h2 id="Update（更新）"><a href="#Update（更新）" class="headerlink" title="Update（更新）"></a>Update（更新）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置后台运行"><a href="#设置后台运行" class="headerlink" title="设置后台运行"></a>设置后台运行</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FRP常用命令"><a href="#FRP常用命令" class="headerlink" title="FRP常用命令"></a>FRP常用命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开启FRP：frps start</span><br><span class="line">停止FRP：frps stop</span><br><span class="line">重启FRP：frps restart</span><br><span class="line">打开配置文件：frps config</span><br><span class="line">查看FRP版本：frps version</span><br><span class="line">检查FRP运行状态：frps status</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装Frpc（客户端）"><a href="#安装Frpc（客户端）" class="headerlink" title="安装Frpc（客户端）"></a>安装Frpc（客户端）</h1><h2 id="OpenWrt-未集成"><a href="#OpenWrt-未集成" class="headerlink" title="OpenWrt 未集成"></a>OpenWrt 未集成</h2><p><a href="https://github.com/kuoruan/openwrt-frp/releases">frpc下载</a></p>
+<p><a href="https://github.com/kuoruan/luci-app-frpc/releases">luci-app-frpc和汉化包下载</a></p>
+<p>设置（ 来自<a href="https://naiyous.com/4482.html">https://naiyous.com/4482.html</a> ）</p>
+<p>建议：Frp 协议类型，选择 tcp，这样可以反代的设备更多</p>
+<div>
+    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1024x532.png" style="width: 100%; height: auto; display: block; margin: 0;" />
+    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1-1024x565.png" style="width: 100%; height: auto; display: block; margin: 0;" />
+</div>
+
+
+<h2 id="OpenWrt集成"><a href="#OpenWrt集成" class="headerlink" title="OpenWrt集成"></a>OpenWrt集成</h2><p>immortalwrt 维护的 frpc 界面与上面的有所不同，软件的启动、停止需要在 <strong>系统—启动项</strong> 中控制，其它的都有对应的设置项</p>
+<h1 id="CF-重定向"><a href="#CF-重定向" class="headerlink" title="CF 重定向"></a>CF 重定向</h1><p>灵感来自于：<a href="https://youtu.be/KfOEabr38WU?t=232&si=ho4f7p8s9uN8XqKm">https://youtu.be/KfOEabr38WU?t=232&amp;si=ho4f7p8s9uN8XqKm</a></p>
+<p>准备一个能套上 CF 的域名</p>
+<p>左侧选项卡 <strong>DNS——记录——添加记录</strong></p>
+<p>类型：A 是 IPv4 ，AAAA 是 IPv6</p>
+<p>首先添加：<br>名称——简短，填你想要的域名前缀<br>IPv4 地址——都填服务器的 IP<br>小黄云可以打开</p>
+<p>左侧选项卡 <strong>规则——Origin Rules——创建规则</strong></p>
+<p>规则名称——随意<br>字段——主机名<br>运算符——等于<br>值——填 “DNS中的名称” . “你的域名”<br>重写到——填你在 Frpc 中设置的远程端口<br>部署</p>
+<p>这样就完成了</p>
+<p>这时候在浏览器输入自己的服务器 IP 加上端口（默认是：6443），再输入账号密码，左侧 Proxies 中选择 TCP 就可以看到已经反代的服务了</p>
+]]></content>
+      <tags>
+        <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Gost v3中转</title>
     <url>/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/</url>
     <content><![CDATA[<p>不想使用x-ui的任意门，所以使用了更加专业的Gost 来中转<span id="more"></span></p>
@@ -269,29 +341,6 @@
 ]]></content>
       <tags>
         <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -564,8 +613,31 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
+
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac 小技巧</title>
-    <url>/2025/01/14/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+    <url>/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
     <content><![CDATA[<p>一些小技巧<span id="more"></span></p>
 <h1 id="重置-DNS-缓存"><a href="#重置-DNS-缓存" class="headerlink" title="重置 DNS 缓存"></a>重置 DNS 缓存</h1><p>打开终端，输入如下命令来重置 DNS 缓存，适用于 macOS 10.15 至 14.x:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> killall -HUP mDNSResponder; <span class="built_in">sudo</span> dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
@@ -666,48 +738,6 @@
 ]]></content>
       <tags>
         <tag>PVE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FRP 内网穿透</title>
-    <url>/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
-<h1 id="安装Frps（服务端）"><a href="#安装Frps（服务端）" class="headerlink" title="安装Frps（服务端）"></a>安装Frps（服务端）</h1><p>有一台带公网 IPv4 的云服务器，然后在VPS上安装好frps</p>
-<p><a href="https://github.com/mvscode/frps-onekey">Frp服务端一键脚本项目地址</a></p>
-<p><a href="https://www.youtube.com/watch?v=D7e6TaWSneg">一瓶奶油视频教程</a></p>
-<h2 id="Install（安装）"><a href="#Install（安装）" class="headerlink" title="Install（安装）"></a>Install（安装）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/mvscode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line"><span class="built_in">chmod</span> 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
-
-<h2 id="Uninstall（卸载）"><a href="#Uninstall（卸载）" class="headerlink" title="Uninstall（卸载）"></a>Uninstall（卸载）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
-
-<h2 id="Update（更新）"><a href="#Update（更新）" class="headerlink" title="Update（更新）"></a>Update（更新）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
-
-<h2 id="设置后台运行"><a href="#设置后台运行" class="headerlink" title="设置后台运行"></a>设置后台运行</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-
-<h2 id="FRP常用命令"><a href="#FRP常用命令" class="headerlink" title="FRP常用命令"></a>FRP常用命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开启FRP：frps start</span><br><span class="line">停止FRP：frps stop</span><br><span class="line">重启FRP：frps restart</span><br><span class="line">打开配置文件：frps config</span><br><span class="line">查看FRP版本：frps version</span><br><span class="line">检查FRP运行状态：frps status</span><br></pre></td></tr></table></figure>
-
-<h1 id="安装Frpc（客户端）"><a href="#安装Frpc（客户端）" class="headerlink" title="安装Frpc（客户端）"></a>安装Frpc（客户端）</h1><h2 id="OpenWrt-未集成"><a href="#OpenWrt-未集成" class="headerlink" title="OpenWrt 未集成"></a>OpenWrt 未集成</h2><p><a href="https://github.com/kuoruan/openwrt-frp/releases">frpc下载</a></p>
-<p><a href="https://github.com/kuoruan/luci-app-frpc/releases">luci-app-frpc和汉化包下载</a></p>
-<p>设置（ 来自<a href="https://naiyous.com/4482.html">https://naiyous.com/4482.html</a> ）</p>
-<p>建议：Frp 协议类型，选择 tcp，这样可以反代的设备更多</p>
-<div>
-    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1024x532.png" style="width: 100%; height: auto; display: block; margin: 0;" />
-    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1-1024x565.png" style="width: 100%; height: auto; display: block; margin: 0;" />
-</div>
-
-
-<h2 id="OpenWrt集成"><a href="#OpenWrt集成" class="headerlink" title="OpenWrt集成"></a>OpenWrt集成</h2><p>immortalwrt 维护的 frpc 界面与上面的有所不同，软件的启动、停止需要在 <strong>系统—启动项</strong> 中控制，其它的都有对应的设置项</p>
-<h1 id="CF-重定向"><a href="#CF-重定向" class="headerlink" title="CF 重定向"></a>CF 重定向</h1><p>灵感来自于：<a href="https://youtu.be/KfOEabr38WU?t=232&si=ho4f7p8s9uN8XqKm">https://youtu.be/KfOEabr38WU?t=232&amp;si=ho4f7p8s9uN8XqKm</a></p>
-<p>准备一个能套上 CF 的域名</p>
-<p>左侧选项卡 <strong>DNS——记录——添加记录</strong></p>
-<p>类型：A 是 IPv4 ，AAAA 是 IPv6</p>
-<p>首先添加：<br>名称——简短，填你想要的域名前缀<br>IPv4 地址——都填服务器的 IP<br>小黄云可以打开</p>
-<p>左侧选项卡 <strong>规则——Origin Rules——创建规则</strong></p>
-<p>规则名称——随意<br>字段——主机名<br>运算符——等于<br>值——填 “DNS中的名称” . “你的域名”<br>重写到——填你在 Frpc 中设置的远程端口<br>部署</p>
-<p>这样就完成了</p>
-<p>这时候在浏览器输入自己的服务器 IP 加上端口（默认是：6443），再输入账号密码，左侧 Proxies 中选择 TCP 就可以看到已经反代的服务了</p>
-]]></content>
-      <tags>
-        <tag>FRP</tag>
       </tags>
   </entry>
   <entry>
@@ -1009,52 +1039,46 @@
       </tags>
   </entry>
   <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+    <title>syslog、daemon.log 占用大量空间</title>
+    <url>/2025/03/17/syslog,daemon.log/</url>
+    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
+<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
 
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
+<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
+
+<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
+<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
+<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
+<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
+<p><strong>修改方法</strong>：</p>
 <ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+<li><p>**对于 <code>syslog</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
+</li>
+<li><p>**对于 <code>daemon.log</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
 
+<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
+<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
-<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
-<ul>
-<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
-<li>UDP(<strong>21116</strong>)</li>
-</ul>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+<p>此配置可避免单个日志文件过大</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
 ]]></content>
       <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1188,7 +1212,56 @@
       </tags>
   </entry>
   <entry>
-    <title>服务器监控v1</title>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
+<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
+<ul>
+<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
+<li>UDP(<strong>21116</strong>)</li>
+</ul>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+]]></content>
+      <tags>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哪吒监控v1</title>
     <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
     <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
 <h1 id="安装-Dashboard"><a href="#安装-Dashboard" class="headerlink" title="安装 Dashboard"></a>安装 Dashboard</h1><p><a href="https://nezha.wiki/guide/dashboard.html">官方面板安装教程</a></p>
@@ -1266,6 +1339,103 @@
 ]]></content>
       <tags>
         <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建越狱软件源</title>
+    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
+<p>环境：</p>
+<ul>
+<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
+<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
+<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
+</li>
+<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
+</li>
+<li><p>Mac OS X：<code>brew install dpkg</code></p>
+</li>
+<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
+</li>
+</ul>
+<p>插件来源：</p>
+<ol>
+<li><p>Telegram、QQ等社交软件</p>
+</li>
+<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
+<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
+</li>
+<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
+</li>
+</ol>
+<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>可选（可直接略过）：</strong></p>
+<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
+<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
+<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>Terminal</code> 打开所在文件夹</p>
+<p>将位于debs目录的所有deb包扫描并生成Packages</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
+
+<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
+
+<p>为什么需要压缩文件？</p>
+<p>Cydia添加源时大致行为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
+
+<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
+<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
+<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
+<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
+<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
+<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
+<p>步骤：</p>
+<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
+<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
+<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
+<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
+<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
+<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
+<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>越狱</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>百度网盘青龙面板会员签到</title>
+    <url>/2025/03/16/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BC%9A%E5%91%98%E7%AD%BE%E5%88%B0/</url>
+    <content><![CDATA[<p>GitHub地址：<a href="https://github.com/tunecc/DuPan">https://github.com/tunecc/DuPan</a> <span id="more"></span></p>
+<h1 id="为什么要签到答题？"><a href="#为什么要签到答题？" class="headerlink" title="为什么要签到答题？"></a>为什么要签到答题？</h1><p>坚持签到和答题一年17*365&#x3D;6205成长值，相当于开三年会员赠送的成长值，再算上svip每天30（一年10950）的成长值，只要成长值到10w，减去1.5万开通v10，可以实现正常续费无限v10（引用自：<a href="https://hostloc.com/thread-1392878-1-1.html">https://hostloc.com/thread-1392878-1-1.html</a> ）</p>
+<h1 id="为什么有这个项目"><a href="#为什么有这个项目" class="headerlink" title="为什么有这个项目"></a>为什么有这个项目</h1><p>因为上面说的，所以我一直有签到的需求，最开始发现 <a href="https://github.com/qd-today/qd">qd</a> 上面有现成的，用起来觉得不够方便，又在网上搜寻一番找到了</p>
+<p><a href="https://www.blueskyxn.com/202410/7228.html">https://www.blueskyxn.com/202410/7228.html</a> 这一篇博文，里面有现成的代码，能在ql上面使用，就拿过来叫大模型改了改。</p>
+<h1 id="Cookie获取"><a href="#Cookie获取" class="headerlink" title="Cookie获取"></a>Cookie获取</h1><p>打开：<a href="https://pan.baidu.com/">https://pan.baidu.com</a> ，F12，网络，main文档里面把cookie，全部弄到变量里面，我的变量为 <code>XFI=***ndut_fmt=***</code>（只列出了开头和结尾两个变量）</p>
+<p>这个 <a href="https://gist.github.com/RunwangGuo/48d98ff5763c9a3883907e9a593e18fb">fork</a> 的修改应该是只需要 <code> &quot;BDUSS=xxxx; BAIDUID=xxxx;&quot;</code> 但是我找不到 BAIDUID 这个变量</p>
+<h1 id="TG通知示例"><a href="#TG通知示例" class="headerlink" title="TG通知示例"></a>TG通知示例</h1><p>当天第一次成功签到</p>
+<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/first.jpg" alt="image"></p>
+<p>当天重复签到</p>
+<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/repeat.jpg" alt="image"></p>
+<h1 id="注意（引用自原文）"><a href="#注意（引用自原文）" class="headerlink" title="注意（引用自原文）"></a>注意（<a href="https://www.blueskyxn.com/202410/7228.html">引用自原文</a>）</h1><p>基于Python，需要Cookie</p>
+<p>建议在本地或固定登录百度网盘的设备（包括Windows服务器、Alist）使用，避免多IP风控。</p>
+<p>不建议使用云函数，因为动态IP。</p>
+<p>虽然百度的大部分风控不影响签到，但是会影响你下载。</p>
+]]></content>
+      <tags>
+        <tag>青龙面板</tag>
       </tags>
   </entry>
   <entry>
@@ -1458,81 +1628,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       <tags>
         <tag>BiliBili</tag>
         <tag>OpenClash</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建越狱软件源</title>
-    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
-<p>环境：</p>
-<ul>
-<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
-<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
-<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
-</li>
-<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
-</li>
-<li><p>Mac OS X：<code>brew install dpkg</code></p>
-</li>
-<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
-</li>
-</ul>
-<p>插件来源：</p>
-<ol>
-<li><p>Telegram、QQ等社交软件</p>
-</li>
-<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
-<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
-</li>
-<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
-</li>
-</ol>
-<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
-
-<p><strong>可选（可直接略过）：</strong></p>
-<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
-<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
-<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>Terminal</code> 打开所在文件夹</p>
-<p>将位于debs目录的所有deb包扫描并生成Packages</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
-
-<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
-
-<p>为什么需要压缩文件？</p>
-<p>Cydia添加源时大致行为如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
-
-<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
-<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
-<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
-<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
-<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
-<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
-<p>步骤：</p>
-<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
-<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
-<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
-<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
-<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
-<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
-<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
-<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>越狱</tag>
       </tags>
   </entry>
   <entry>
