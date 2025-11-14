@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/rainbow.ico">
+  <link rel="mask-icon" href="/images/rainbow.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"696966.xyz","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="屏蔽 BiliBili PCDN">
+<meta property="og:url" content="https://696966.xyz/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/index.html">
+<meta property="og:site_name" content="Tune">
+<meta property="og:description" content="前言用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-17T16:00:00.000Z">
+<meta property="article:author" content="Tune">
+<meta property="article:tag" content="BiliBili">
+<meta property="article:tag" content="OpenClash">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://696966.xyz/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/","path":"2024/09/24/屏蔽 BiliBili CDN/","title":"屏蔽 BiliBili PCDN"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>屏蔽 BiliBili PCDN | Tune</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tune</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC"><span class="nav-number">2.1.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mosdns%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">Mosdns（推荐）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clash"><span class="nav-number">2.3.</span> <span class="nav-text">Clash</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Other"><span class="nav-number">3.</span> <span class="nav-text">Other</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tune</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/itunehh@gmail.com" title="E-Mail → itunehh@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/ithhc" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;ithhc" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://696966.xyz/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tune">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tune">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="屏蔽 BiliBili PCDN | Tune">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          屏蔽 BiliBili PCDN
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-09-24 00:00:00" itemprop="dateCreated datePublished" datetime="2024-09-24T00:00:00+08:00">2024-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-10-18 00:00:00" itemprop="dateModified" datetime="2024-10-18T00:00:00+08:00">2024-10-18</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>18 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a target="_blank" rel="noopener" href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a target="_blank" rel="noopener" href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a target="_blank" rel="noopener" href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
+<p>B 站的 video host 有四种类型：（我将其添加个称呼好标注，非官方称呼）<br><a target="_blank" rel="noopener" href="http://upos-sz-mirrorkodo.bilivideo.com/">upos-sz-mirrorkodo.bilivideo.com</a> &#x2F; <a target="_blank" rel="noopener" href="http://upos-sz-mirrorcos.bilivideo.com/">upos-sz-mirrorcos.bilivideo.com</a> &#x2F; Mirror 型<br><a target="_blank" rel="noopener" href="http://cn-gdgz4-cmcc-v-09.bilivideo.com/">cn-gdgz4-cmcc-v-09.bilivideo.com</a> &#x2F; <a target="_blank" rel="noopener" href="http://cn-gdst-cmcc-bcache-02.bilivideo.com/">cn-gdst-cmcc-bcache-02.bilivideo.com</a> &#x2F; Cache 型<br><a target="_blank" rel="noopener" href="http://xy112x48x59x98xy.mcdn.bilivideo.cn/">xy112x48x59x98xy.mcdn.bilivideo.cn</a> &#x2F; <a target="_blank" rel="noopener" href="http://xy110x85x55x73xy.mcdn.bilivideo.cn/">xy110x85x55x73xy.mcdn.bilivideo.cn</a> &#x2F; MCDN 型<br><a target="_blank" rel="noopener" href="http://a93lt21v.v1d.szbdyd.com/">a93lt21v.v1d.szbdyd.com</a> &#x2F; <a target="_blank" rel="noopener" href="http://hz6xy5t6.v1d.szbdyd.com/">hz6xy5t6.v1d.szbdyd.com</a> &#x2F; PCDN 型<br>以上几种是在广东移动的场景下测的，其他运营商应该也差不多。</p>
+<p>B 站官方测速地址</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/blackboard/app-speed-test.html">https://www.bilibili.com/blackboard/app-speed-test.html</a></p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
+</li>
+</ol>
+<p>脚本是挺方便的，但是手机用不了啊，看到<a target="_blank" rel="noopener" href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来，那我就直接用了😁</p>
+<p>又找到一个佬关于B站 PCDN 的规则</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml">https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml</a></p>
+<p>Noodseek：<a target="_blank" rel="noopener" href="https://www.nodeseek.com/post-139229-1">https://www.nodeseek.com/post-139229-1</a></p>
+<p>anti-AD：<a target="_blank" rel="noopener" href="https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt">https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt</a></p>
+<h2 id="Mosdns（推荐）"><a href="#Mosdns（推荐）" class="headerlink" title="Mosdns（推荐）"></a>Mosdns（推荐）</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
+<details>
+  <summary>点我展开看废弃代码</summary>
+  <pre><code>
+domain:gjfzpt.cn
+domain:szbdyd.com
+domain:bsccdn.net
+domain:pkoplink.com
+domain:saxysec.com
+domain:uhabo.com
+domain:xycdn.com
+domain:kuiniuca.com
+domain:onethingpcs.com
+domain:jomodns.cn
+domain:p2p.huya.com
+domain:stun.douyucdn.cn
+domain:stun.hitv.com
+domain:stun1.douyucdn.cn
+domain:mcdn.bilivideo.cn
+domain:tpa-hcdn.iqiyi.com
+domain:pcdn.xmcdn.com
+domain:pcdn.yximgs.com
+domain:dyp2p-ali.douyucdn.cn
+domain:dyp2p-hw.douyucdn.cn
+domain:p2p-ali.douyucdn.cn
+domain:p2p.qq.com
+domain:p2pchunk-hw.douyucdn.cn
+domain:p2pchunk-table.douyucdn.cn
+domain:p2pchunk-ws.douyucdn.cn
+domain:p2perrorlog.douyucdn.cn
+domain:p2plive-ali.douyucdn.cn
+domain:p2plive-ws.douyucdn.cn
+domain:p2plog.douyucdn.cn
+domain:p2ptun.qq.com
+domain:p2pupdate.gamedl.qq.com
+domain:p2pupgrade.gamedl.qq.com
+domain:p2pvod-ws.douyucdn.cn
+regexp:.*pcdn.*biliapi\.net
+regexp:.*pcdn.*youku\.com
+regexp:.*p2p.*douyucdn\.cn
+regexp:.*p2p.*qq\.com
+regexp:.*pcdn.*biliapi\.net
+regexp:.*pcdn.*youku\.com
+regexp:cn-.*\.bilivideo\.com            #屏蔽这个会导致看不了直播
+  </code></pre>
+</details>
+
+<p>由于旧版误伤过多，所以精简了很多</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi.net</span><br><span class="line">regexp:.*pcdn.*youku.com</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>使用 Clash 规则时，需要<strong>添加好对应的端口</strong>，例如：</p>
+<p>xy111x51x181x119xy.mcdn.bilivideo.cn:4483，使用的是京东云，在clash的代理端口上需要把对应的TCP 端口加上 4483 8082，有点麻烦</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a target="_blank" rel="noopener" href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
+<details>
+  <summary>点我展开</summary>
+  <pre><code>
+// ==UserScript==
+// @name         Make BiliBili Great Again
+// @namespace    https://www.kookxiang.com/
+// @version      1.5.5
+// @description  useful tweaks for bilibili.com
+// @author       kookxiang
+// @match        https://*.bilibili.com/*
+// @run-at       document-body
+// @grant        unsafeWindow
+// @grant        GM_addStyle
+// @grant        GM_notification
+// @downloadURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.user.js
+// @updateURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.meta.js
+// ==/UserScript==
+// 去掉叔叔去世时的全站黑白效果
+GM_addStyle("html, body &#123; -webkit-filter: none !important; filter: none !important; &#125;");
+
+<p>&#x2F;&#x2F; 没用的 URL 参数<br>const uselessUrlParams &#x3D; [<br>    ‘buvid’,<br>    ‘is_story_h5’,<br>    ‘launch_id’,<br>    ‘live_from’,<br>    ‘mid’,<br>    ‘session_id’,<br>    ‘timestamp’,<br>    ‘up_id’,<br>    ‘vd_source’,<br>    &#x2F;^share&#x2F;,<br>    &#x2F;^spm&#x2F;,<br>];</p>
+<p>&#x2F;&#x2F; Block WebRTC，CNM 陈睿你就缺这点棺材钱？<br>try &#123;<br>    Object.defineProperty(unsafeWindow, ‘webkitRTCPeerConnection’, &#123; value: undefined, enumerable: false, writable: false &#125;);<br>&#125; catch (e) &#123; &#125;</p>
+<p>&#x2F;&#x2F; 移除鸿蒙字体，系统自带它不香吗？<br>window.addEventListener(‘load’, function () &#123;<br>    document.body.classList.remove(‘harmony-font’);<br>&#125;)</p>
+<p>&#x2F;&#x2F; 首页优化<br>if (location.host &#x3D;&#x3D;&#x3D; “<a target="_blank" rel="noopener" href="http://www.bilibili.com/">www.bilibili.com</a>“) &#123;<br>    GM_addStyle(‘.feed2 .feed-card:has(a[href*&#x3D;”cm.bilibili.com”]) &#123; display: none &#125; .feed2 .container &gt; * &#123; margin-top: 0 !important &#125;’);<br>&#125;</p>
+<p>&#x2F;&#x2F; 动态页面优化<br>if (location.host &#x3D;&#x3D;&#x3D; “t.bilibili.com”) &#123;<br>    GM_addStyle(“html[wide] #app &#123; display: flex; &#125; html[wide] .bili-dyn-home–member &#123; box-sizing: border-box;padding: 0 10px;width: 100%;flex: 1; &#125; html[wide] .bili-dyn-content &#123; width: initial; &#125; html[wide] main &#123; margin: 0 8px;flex: 1;overflow: hidden;width: initial; &#125; #wide-mode-switch &#123; margin-left: 0;margin-right: 20px; &#125; .bili-dyn-list__item:has(.bili-dyn-card-goods), .bili-dyn-list__item:has(.bili-rich-text-module.goods) &#123; display: none !important &#125;”);<br>    if (!localStorage.WIDE_OPT_OUT) &#123;<br>        document.documentElement.setAttribute(‘wide’, ‘wide’);<br>    &#125;<br>    window.addEventListener(‘load’, function () &#123;<br>        const tabContainer &#x3D; document.querySelector(‘.bili-dyn-list-tabs__list’);<br>        const placeHolder &#x3D; document.createElement(‘div’);<br>        placeHolder.style.flex &#x3D; 1;<br>        const switchButton &#x3D; document.createElement(‘a’);<br>        switchButton.id &#x3D; ‘wide-mode-switch’;<br>        switchButton.className &#x3D; ‘bili-dyn-list-tabs__item’;<br>        switchButton.textContent &#x3D; ‘宽屏模式’;<br>        switchButton.addEventListener(‘click’, function (e) &#123;<br>            e.preventDefault();<br>            if (localStorage.WIDE_OPT_OUT) &#123;<br>                localStorage.removeItem(‘WIDE_OPT_OUT’);<br>                document.documentElement.setAttribute(‘wide’, ‘wide’);<br>            &#125; else &#123;<br>                localStorage.setItem(‘WIDE_OPT_OUT’, ‘1’);<br>                document.documentElement.removeAttribute(‘wide’);<br>            &#125;<br>        &#125;)<br>        tabContainer.appendChild(placeHolder);<br>        tabContainer.appendChild(switchButton);<br>    &#125;)<br>&#125;</p>
+<p>&#x2F;&#x2F; 去广告<br>GM_addStyle(‘.ad-report, a[href*&#x3D;”cm.bilibili.com”] &#123; display: none !important; &#125;’);<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.adData) &#123;<br>    for (const key in unsafeWindow.<strong>INITIAL_STATE</strong>.adData) &#123;<br>        if (!Array.isArray(unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key])) continue;<br>        for (const item of unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key]) &#123;<br>            item.name &#x3D; ‘B 站未来有可能会倒闭，但绝不会变质’;<br>            item.pic &#x3D; ‘<a target="_blank" rel="noopener" href="https://static.hdslb.com/images/transparent.gif">https://static.hdslb.com/images/transparent.gif</a>‘;<br>            item.url &#x3D; ‘<a target="_blank" rel="noopener" href="https://space.bilibili.com/208259">https://space.bilibili.com/208259</a>‘;<br>        &#125;<br>    &#125;<br>&#125;</p>
+<p>&#x2F;&#x2F; 去充电列表（叔叔的跳过按钮越做越小了，就尼玛离谱）<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.elecFullInfo) &#123;<br>    delete unsafeWindow.<strong>INITIAL_STATE</strong>.elecFullInfo;<br>&#125;</p>
+<p>&#x2F;&#x2F; 修复文章区复制<br>if (location.href.startsWith(‘<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv">https://www.bilibili.com/read/cv</a>‘)) &#123;<br>    unsafeWindow.original.reprint &#x3D; “1”;<br>    document.querySelector(‘.article-holder’).classList.remove(“unable-reprint”);<br>    document.querySelector(‘.article-holder’).addEventListener(‘copy’, e &#x3D;&gt; e.stopImmediatePropagation(), true);<br>&#125;</p>
+<p>&#x2F;&#x2F; 真·原画直播<br>if (location.href.startsWith(‘<a target="_blank" rel="noopener" href="https://live.bilibili.com/">https://live.bilibili.com/</a>‘)) &#123;<br>    unsafeWindow.forceHighestQuality &#x3D; true;<br>    let recentErrors &#x3D; 0;<br>    setInterval(() &#x3D;&gt; recentErrors &gt; 0 ? recentErrors &#x2F; 2 : null, 10000);</p>
+<pre><code>const oldFetch = unsafeWindow.fetch;
+unsafeWindow.fetch = function (url) &#123;
+    try &#123;
+        const mcdnRegexp = /[xy0-9]+\.mcdn\.bilivideo\.cn:\d+/
+        const qualityRegexp = /(live-bvc\/\d+\/live_\d+_\d+)_\w+/;
+        if (mcdnRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.disableMcdn) &#123;
+            return Promise.reject();
+        &#125;
+        if (qualityRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
+            arguments[0] = arguments[0]
+                .replace(qualityRegexp, &#39;$1&#39;)
+                .replace(/(\d+)_(mini|pro)hevc/g, &#39;$1&#39;);
+        &#125;
+        const promise = oldFetch.apply(this, arguments);
+        promise.then(response =&gt; &#123;
+            if (!url.match(/\.(m3u8|m4s)/)) return;
+            if ([403, 404].includes(response.status)) recentErrors++;
+            if (recentErrors &gt;= 5 &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
+                recentErrors = 0;
+                unsafeWindow.forceHighestQuality = false;
+                GM_notification(&#123; title: &#39;最高清晰度可能不可用&#39;, text: &#39;已为您自动切换至播放器上选择的清晰度.&#39;, timeout: 3000, silent: true &#125;);
+            &#125;
+        &#125;);
+        return promise;
+    &#125; catch (e) &#123; &#125;
+    return oldFetch.apply(this, arguments);
+&#125;
+</code></pre>
+<p>}</p>
+<p>&#x2F;&#x2F; 视频裁切<br>if (location.href.startsWith(‘<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a>‘)) {<br>    GM_addStyle(“body[video-fit] #bilibili-player video { object-fit: cover; } .bpx-player-ctrl-setting-fit-mode { display: flex;width: 100%;height: 32px;line-height: 32px; } .bpx-player-ctrl-setting-box .bui-panel-wrap, .bpx-player-ctrl-setting-box .bui-panel-item { min-height: 172px !important; }”);<br>    let timer;<br>    function toggleMode(enabled) {<br>        if (enabled) {<br>            document.body.setAttribute(‘video-fit’, ‘’);<br>        } else {<br>            document.body.removeAttribute(‘video-fit’);<br>        }<br>    }<br>    function injectButton() {<br>        if (!document.querySelector(‘.bpx-player-ctrl-setting-menu-left’)) {<br>            return;<br>        }<br>        clearInterval(timer);<br>        const parent &#x3D; document.querySelector(‘.bpx-player-ctrl-setting-menu-left’);<br>        const item &#x3D; document.createElement(‘div’);<br>        item.className &#x3D; ‘bpx-player-ctrl-setting-fit-mode bui bui-switch’;<br>        item.innerHTML &#x3D; ‘<input class="bui-switch-input" type="checkbox"><label class="bui-switch-label"><span class="bui-switch-name">裁切模式</span><span class="bui-switch-body"><span class="bui-switch-dot"><span></span></span></span></label>‘;<br>        parent.insertBefore(item, document.querySelector(‘.bpx-player-ctrl-setting-more’));<br>        document.querySelector(‘.bpx-player-ctrl-setting-fit-mode input’).addEventListener(‘change’, e &#x3D;&gt; toggleMode(e.target.checked));<br>        document.querySelector(‘.bpx-player-ctrl-setting-box .bui-panel-item’).style.height &#x3D; ‘’;<br>    }<br>    timer &#x3D; setInterval(injectButton, 200);<br>}</p>
+<p>&#x2F;&#x2F; 去除地址栏多余参数<br>unsafeWindow.history.replaceState(undefined, undefined, removeTracking(location.href));<br>const pushState &#x3D; unsafeWindow.history.pushState;<br>unsafeWindow.history.pushState &#x3D; function (state, unused, url) {<br>    return pushState.apply(this, [state, unused, removeTracking(url)]);<br>}<br>const replaceState &#x3D; unsafeWindow.history.replaceState;<br>unsafeWindow.history.replaceState &#x3D; function (state, unused, url) {<br>    return replaceState.apply(this, [state, unused, removeTracking(url)]);<br>}</p>
+<p>function removeTracking(url) {<br>    if (!url) return url;<br>    try {<br>        const [base, search] &#x3D; url.split(‘?’);<br>        if (!search) return url;<br>        const searchParams &#x3D; new URLSearchParams(‘?’ + search);<br>        const keys &#x3D; Array.from(searchParams.keys());<br>        for (const key of keys) {<br>            uselessUrlParams.forEach(item &#x3D;&gt; {<br>                if (typeof item &#x3D;&#x3D;&#x3D; ‘string’) {<br>                    if (item &#x3D;&#x3D;&#x3D; key) searchParams.delete(key);<br>                } else if (item instanceof RegExp) {<br>                    if (item.test(key)) searchParams.delete(key);<br>                }<br>            });<br>        }<br>        if (location.pathname &#x3D;&#x3D;&#x3D; base &amp;&amp; !searchParams.size) return;<br>        return [base, searchParams.toString()].filter(Boolean).join(‘?’);<br>    } catch (e) {<br>        return url;<br>    }<br>}</p>
+<p>&#x2F;&#x2F; 去掉 B 站的傻逼上报<br>!function () {<br>    const oldFetch &#x3D; unsafeWindow.fetch;<br>    unsafeWindow.fetch &#x3D; function (url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’))<br>            return Promise.resolve(new Response());<br>        return oldFetch.apply(this, arguments);<br>    }<br>    const oldSend &#x3D; unsafeWindow.XMLHttpRequest.prototype.open;<br>    unsafeWindow.XMLHttpRequest.prototype.open &#x3D; function (method, url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’)) {<br>            this.send &#x3D; function () { };<br>            return;<br>        }<br>        return oldSend.apply(this, arguments);<br>    }<br>    unsafeWindow.navigator.sendBeacon &#x3D; () &#x3D;&gt; Promise.resolve();</p>
+<pre><code>unsafeWindow.MReporter = function () &#123; &#125;;
+unsafeWindow.MReporter.appear = function () &#123; &#125;;
+unsafeWindow.MReporter.click = function () &#123; &#125;;
+unsafeWindow.MReporter.tech = function () &#123; &#125;;
+unsafeWindow.MReporter.pv = function () &#123; &#125;;
+unsafeWindow.MReporter.import = &#123; auto() &#123; &#125; &#125;;
+
+const sentryHub = class &#123; bindClient() &#123; &#125; &#125;
+const fakeSentry = &#123;
+    SDK_NAME: &#39;sentry.javascript.browser&#39;,
+    SDK_VERSION: &#39;0.0.0&#39;,
+    BrowserClient: class &#123; &#125;,
+    Hub: sentryHub,
+    Integrations: &#123;
+        Vue: class &#123; &#125;,
+        GlobalHandlers: class &#123; &#125;,
+        InboundFilters: class &#123; &#125;,
+    &#125;,
+    init() &#123; &#125;,
+    configureScope() &#123; &#125;,
+    getCurrentHub: () =&gt; new sentryHub(),
+    setContext() &#123; &#125;,
+    setExtra() &#123; &#125;,
+    setExtras() &#123; &#125;,
+    setTag() &#123; &#125;,
+    setTags() &#123; &#125;,
+    setUser() &#123; &#125;,
+    wrap() &#123; &#125;,
+&#125;
+if (!unsafeWindow.Sentry || unsafeWindow.Sentry.SDK_VERSION !== fakeSentry.SDK_VERSION) &#123;
+    if (unsafeWindow.Sentry) &#123; delete unsafeWindow.Sentry &#125;
+    Object.defineProperty(unsafeWindow, &#39;Sentry&#39;, &#123; value: fakeSentry, enumerable: false, writable: false &#125;);
+&#125;
+Object.defineProperty(unsafeWindow, &#39;ReporterPb&#39;, &#123; value: class &#123; click() &#123; &#125; custom() &#123; &#125; exposure() &#123; &#125; report() &#123; &#125; tech() &#123; &#125; pv() &#123; &#125; &#125;, enumerable: false, writable: false &#125;);
+
+Object.defineProperty(unsafeWindow, &#39;__biliUserFp__&#39;, &#123;
+    get() &#123; return &#123; init() &#123; &#125;, queryUserLog() &#123; return [] &#125; &#125; &#125;,
+    set() &#123; &#125;,
+&#125;);
+Object.defineProperty(unsafeWindow, &#39;__USER_FP_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
+Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
+</code></pre>
+<p>}()<br>  </code></pre></p>
+</details>
+
+<p>大家可以去看看<a target="_blank" rel="noopener" href="https://mymuwu.net/?p=1427">大佬文章的说明</a>，我这就不贴了</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Tune
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://696966.xyz/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/" title="屏蔽 BiliBili PCDN">https://696966.xyz/2024/09/24/屏蔽 BiliBili CDN/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/BiliBili/" rel="tag"><i class="fa fa-tag"></i> BiliBili</a>
+              <a href="/tags/OpenClash/" rel="tag"><i class="fa fa-tag"></i> OpenClash</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/" rel="prev" title="搭建越狱软件源">
+                  <i class="fa fa-angle-left"></i> 搭建越狱软件源
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/" rel="next" title="Docker 搭建 Sub-Store">
+                  Docker 搭建 Sub-Store <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-container">
+
+<!--
+  <div class="copyright">
+    &copy; 2024 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Tune</span>
+  </div>-->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="copyright">
+        &copy; 2024 – 
+        <span itemprop="copyrightYear">2025</span>
+        <!--<span class="with-love">
+          <i class="fa fa-heart"></i>
+        </span>
+        <span class="author" itemprop="copyrightHolder">Tune</span>-->
+      </div>
+      <div class="runtime">
+        <span id="timeDate">载入天数...</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function createtime() {
+      var now = new Date();
+      var grt = new Date("7/30/2024 00:00:00"); // 设置开始日期
+      var days = Math.floor((now - grt) / 1000 / 60 / 60 / 24); // 计算已运行天数
+      document.getElementById("timeDate").innerHTML = "已运行 " + days + " 天 ";
+  }
+  createtime(); // 初始调用
+  setInterval(createtime, 86400000); // 每天更新一次（86400000 毫秒 = 24 小时）
+</script>
+  <div class="wordcount">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-chart-line"></i>
+      </span>
+        <span>站点总字数：</span>
+      <span title="站点总字数">106k</span>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-coffee"></i>
+      </span>
+        <span>站点阅读时长 &asymp;</span>
+      <span title="站点阅读时长">2:16</span>
+    </span>
+  </div>
+  <div class="busuanzi-count">
+      <span class="post-meta-item" id="busuanzi_container_site_uv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-user"></i>
+        </span>
+        <span class="site-uv" title="总访客量">
+          来过 <span id="busuanzi_value_site_uv"></span> 人
+        </span>
+      </span>
+      <span class="post-meta-item" id="busuanzi_container_site_pv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-eye"></i>
+        </span>
+        <span class="site-pv" title="总访问量">
+          读了 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+      </span>
+  </div>
+
+<style>
+  .footer-container {
+    text-align: center; /* 保证内容居中 */
+  }
+
+  .footer-content {
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+  }
+
+  .copyright,
+  .runtime {
+    margin: 0 10px; /* 添加左右间距 */
+  }
+</style>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/change.js"></script>
+</body>
+</html>

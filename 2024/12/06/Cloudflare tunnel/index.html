@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/rainbow.ico">
+  <link rel="mask-icon" href="/images/rainbow.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"696966.xyz","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cloudflare Tunnel内网穿透及优选">
+<meta property="og:url" content="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/index.html">
+<meta property="og:site_name" content="Tune">
+<meta property="og:description" content="前言11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/225d0b8e7d2bf8bfdd4b5490eedad8e0.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/e812b96e59aebffed374496d45d975e3.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/b25173d3c71da7eed98a4213d5b41737.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/418b6e87f9235a5ea6dd4c7a0724a2af.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/1726bfa32a1d2224e0b4714ca04dc33e.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/09ff7293440f35e7a1fbaf18cacde9a1.webp">
+<meta property="og:image" content="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp">
+<meta property="article:published_time" content="2024-12-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-05T16:00:00.000Z">
+<meta property="article:author" content="Tune">
+<meta property="article:tag" content="OpenWrt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://85d8ba7.webp.li/2024/12/225d0b8e7d2bf8bfdd4b5490eedad8e0.webp">
+
+
+<link rel="canonical" href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2024/12/06/Cloudflare%20tunnel/","path":"2024/12/06/Cloudflare tunnel/","title":"Cloudflare Tunnel内网穿透及优选"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Cloudflare Tunnel内网穿透及优选 | Tune</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tune</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B"><span class="nav-number">3.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH-%E8%BF%9E%E6%8E%A5%E5%88%B0%E8%AE%BE%E5%A4%87"><span class="nav-number">3.1.</span> <span class="nav-text">SSH 连接到设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%9A%A7%E9%81%93%EF%BC%8C%E9%9A%8F%E6%84%8F%E5%91%BD%E5%90%8D"><span class="nav-number">3.2.</span> <span class="nav-text">创建隧道，随意命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-config-yml"><span class="nav-number">3.3.</span> <span class="nav-text">创建配置文件 config.yml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%9A%A7%E9%81%93"><span class="nav-number">3.4.</span> <span class="nav-text">运行隧道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AE"><span class="nav-number">3.5.</span> <span class="nav-text">迁移本地配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%BC%98%E9%80%89%E5%9F%9F%E5%90%8D"><span class="nav-number">3.6.</span> <span class="nav-text">设置优选域名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">3.6.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">3.6.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%9B%9E%E9%80%80%E6%BA%90"><span class="nav-number">3.7.</span> <span class="nav-text">设置回退源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E5%9F%9F%E5%90%8D%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.8.</span> <span class="nav-text">主域名设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%88%AA%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">设置截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9C%8B%E8%BF%87%E7%9A%84%E6%95%99%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">看过的教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%EF%BC%9A"><span class="nav-number">6.1.</span> <span class="nav-text">视频：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%AD%97%EF%BC%9A"><span class="nav-number">6.2.</span> <span class="nav-text">文字：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#End"><span class="nav-number">7.</span> <span class="nav-text">End</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tune</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/itunehh@gmail.com" title="E-Mail → itunehh@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/ithhc" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;ithhc" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tune">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tune">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Cloudflare Tunnel内网穿透及优选 | Tune">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cloudflare Tunnel内网穿透及优选
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-12-06 00:00:00" itemprop="dateCreated datePublished" datetime="2024-12-06T00:00:00+08:00">2024-12-06</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>ImmortalWrt 23.05</li>
+<li>两个域名且绑定在Cloudflare</li>
+<li>CF账号以及开通 SAAS 不多说</li>
+</ul>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>首先在 ImmortalWrt上面安装好 <code>luci-app-cloudflared</code> (ImmortalWrt 自带相关软件包，我未深入研究其他安装方式。Linux 系统的安装方法有很多，这里不再赘述，详情可参考官方 GitHub 页面：<a target="_blank" rel="noopener" href="https://github.com/cloudflare/cloudflared">Cloudflare&#x2F;cloudflared</a> ）</p>
+<h2 id="SSH-连接到设备"><a href="#SSH-连接到设备" class="headerlink" title="SSH 连接到设备"></a>SSH 连接到设备</h2><p>注意：如果和我一样是是用 ImmortalWrt 提供的软件包，可以输入 <code>cloudflared update </code>来更新软件，不会影响 luci 的兼容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel login</span><br></pre></td></tr></table></figure>
+
+<p>这时候打开客户端跳出来的链接，登录 Cloudflare 后选择你的副域名（辅助域名），例如：back.com<br>电脑这时候会下载 “cert.pem” 到 <code>/root/.cloudflared</code>，需要自己把他移动到 <code>/etc/cloudflared/</code> 或者用luci界面上传<br>如果下载失败可以手动点击控制台的链接下载到电脑，重命名后，再用上面的方式传输到 OpenWrt</p>
+<h2 id="创建隧道，随意命名"><a href="#创建隧道，随意命名" class="headerlink" title="创建隧道，随意命名"></a>创建隧道，随意命名</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel create XXX</span><br></pre></td></tr></table></figure>
+
+<p>这时候 <code>/root/.cloudflared</code> 下面会有一个 <code>&lt;UUID&gt;.json</code>文件，同样把它弄到 <code>/etc/cloudflared/</code> 文件夹里面去</p>
+<p>添加一个域名，这个域名将作为回退源，建议使用子域名，这里以 op.back.com 为例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel route dns &lt;UUID or NAME&gt; op.back.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建配置文件-config-yml"><a href="#创建配置文件-config-yml" class="headerlink" title="创建配置文件 config.yml"></a>创建配置文件 config.yml</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tunnel: &lt;UUID&gt;</span><br><span class="line">credentials-file: /etc/cloudflared/&lt;UUID&gt;.json</span><br><span class="line"></span><br><span class="line">ingress:</span><br><span class="line">  - hostname: back.com</span><br><span class="line">    service: http://localhost</span><br><span class="line"></span><br><span class="line">  # Example of a rule responding to traffic with an HTTP status:</span><br><span class="line">  - service: http_status:404</span><br></pre></td></tr></table></figure>
+
+<p>验证配置是否有效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel ingress validate</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行隧道"><a href="#运行隧道" class="headerlink" title="运行隧道"></a>运行隧道</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel run &lt;UUID or NAME&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或去luci启动</p>
+<h2 id="迁移本地配置"><a href="#迁移本地配置" class="headerlink" title="迁移本地配置"></a>迁移本地配置</h2><p>迁移到云端更便于管理，避免使用抓包 PUT 请求</p>
+<p>去 Cloudflare 的 Tunnel 界面查看是否为 <code>HEALTHY</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/225d0b8e7d2bf8bfdd4b5490eedad8e0.webp"  />
+
+<p>进入该 Tunnel 的管理界面，一路确认就可以迁移了</p>
+<p>这时候可以添加主域名的穿透了，Add a public hostname –&gt; <code>op.a.com</code> –&gt; <code>http://192.168.8.1:80</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/e812b96e59aebffed374496d45d975e3.webp"  />
+
+<p>还可以继续添加同一IP不同端口的服务到，a.com 的其他子域名下面（我自己折腾，同一内网不同IP也是可以的，如：回退源为192.168.8.1，但是我穿透192.168.8.2的服务，用网站测速也是有加速效果的，这里没有佬的研究成果，效果不敢保证）</p>
+<h2 id="设置优选域名"><a href="#设置优选域名" class="headerlink" title="设置优选域名"></a>设置优选域名</h2><ol>
+<li>在Cloudflare中直接设置</li>
+<li>主域名的一个子域名（cdn.a.com）托管到腾讯云、阿里云等提供DNS分线路解析服务的平台，进行境内境外分流</li>
+</ol>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>到 辅助域名（back.com ）的管理页面</p>
+<p>添加一条DNS记录，用作优选域名，如：cdn.back.com</p>
+<p>把该域名CNAME到一个优选域名（切记关闭小黄云），请自行挑选：<a target="_blank" rel="noopener" href="https://www.wetest.vip/page/cloudflare/cname.html">CloudFlare公共Cname域名</a></p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>dnspod 或其他 dns 平台，添加主域名的随机一个子域名，如：cdn.a.com</p>
+<p>这里以腾讯云为例</p>
+<p>复制主机记录和记录值去 CF 添加，同时添加 NS 记录指向 <code>f1g1ns1.dnspod.net</code> 和 <code>f1g1ns2.dnspod.net</code>，然后在高级设置中关闭暂停解析</p>
+<p>如下图添加解析，境内指向优选域名 &#x2F; IP，境外指向你的回退源</p>
+<img src="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp"  />
+
+<p>然后在我的域名界面，点击该加速域名的 “更多” –&gt; “开始解析”</p>
+<h2 id="设置回退源"><a href="#设置回退源" class="headerlink" title="设置回退源"></a>设置回退源</h2><p>辅助域名（back.com）管理界面，左侧边栏–&gt;SSL&#x2F;TLS–&gt;自定义主机名</p>
+<p>设置回退源为 <code>op.back.com</code></p>
+<p>设置自定义主机名为 <code>op.a.com</code>（还有其他服务一并添加）</p>
+<p>复制好 “主机名预验证 TXT 名称” 和 “主机名预验证 TXT 值”<br>就是 <code>_cf-custom-hostname.op.a.com</code> </p>
+<p>证书验证（_acme-challenge.op.a.com）不用管，CNAME 到回退源他会自动消失的</p>
+<h2 id="主域名设置"><a href="#主域名设置" class="headerlink" title="主域名设置"></a>主域名设置</h2><p>现在去主域名（a.com）设置 DNS 记录</p>
+<p>由于我们在 Tunnel 已经添加过主域名的记录，所以这里会有CNAME的记录，且内容为我我们的容器ID</p>
+<p>把容器 ID 改为我们的优选域名（cdn.a.com）关闭小黄云，这样就用上了</p>
+<p>再把 “主机名预验证 TXT 名称” 和 “主机名预验证 TXT 值” 添加好，这时候可以回到，辅助域名（back.com）自定义主机界面，看 “证书状态” 和 “主机名状态” 是否都变成了有效，到此就大功告成了</p>
+<p>去 <a target="_blank" rel="noopener" href="https://www.itdog.cn/http/">ITDOG</a> 和 <a target="_blank" rel="noopener" href="https://zhale.me/http/">ZHALE</a> 的网站测速看看（带上https:&#x2F;&#x2F;，慢速检测），出口IP有十个以上就是成功了</p>
+<h1 id="设置截图"><a href="#设置截图" class="headerlink" title="设置截图"></a>设置截图</h1><p>Public hostname<br><img src="https://85d8ba7.webp.li/2024/12/b25173d3c71da7eed98a4213d5b41737.webp"  /></p>
+<p>辅助域名（back.com DNS设置）<br><img src="https://85d8ba7.webp.li/2024/12/418b6e87f9235a5ea6dd4c7a0724a2af.webp"  /></p>
+<p>自定义主机名设置<br><img src="https://85d8ba7.webp.li/2024/12/1726bfa32a1d2224e0b4714ca04dc33e.webp"  /></p>
+<p>主域名（a.com DNS设置）<br><img src="https://85d8ba7.webp.li/2024/12/09ff7293440f35e7a1fbaf18cacde9a1.webp"  /></p>
+<p>加速域名设置（cdn.a.com）<br><img src="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp"  /></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ol>
+<li><p>OpenWrt 上面跑了科学的话，请跳过这个域名的Fakeip，或者 OpenWrt 不要走代理，不然会连接不到 Cloudflare</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+.v2.argotunnel.com</span><br></pre></td></tr></table></figure>
+
+<p>最好走直连，或者把 CF Tunnel 的服务 IP 走直连，不然家里的梯子断了就连不回来了</p>
+<p>思路来源于</p>
+<p><a target="_blank" rel="noopener" href="https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html">https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.nodeseek.com/post-201141-1">https://www.nodeseek.com/post-201141-1</a></p>
+</li>
+<li><p><strong>免费计划 API Tokens 只能创建 50 个</strong>，也就是你只要授权 50 次，就会报错：<code>Quota limit exceeded, you can create no more than 50 tokens.</code><br>所以要记得删除无用的：<a target="_blank" rel="noopener" href="https://dash.cloudflare.com/profile/api-tokens">https://dash.cloudflare.com/profile/api-tokens</a></p>
+<p>详细请见：<a target="_blank" rel="noopener" href="https://blog.tsinbei.com/archives/1505">https://blog.tsinbei.com/archives/1505</a></p>
+</li>
+</ol>
+<h1 id="看过的教程"><a href="#看过的教程" class="headerlink" title="看过的教程"></a>看过的教程</h1><h2 id="视频："><a href="#视频：" class="headerlink" title="视频："></a>视频：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=BOIOxneWX_k">https://www.youtube.com/watch?v=BOIOxneWX_k</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1PPy6YzE5C">https://www.bilibili.com/video/BV1PPy6YzE5C</a></li>
+</ul>
+<h2 id="文字："><a href="#文字：" class="headerlink" title="文字："></a>文字：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://linux.do/t/topic/118132">https://linux.do/t/topic/118132</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.do/t/topic/156469">https://linux.do/t/topic/156469</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.do/t/topic/122087">https://linux.do/t/topic/122087</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.do/t/topic/114314">https://linux.do/t/topic/114314</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.do/t/topic/122246">https://linux.do/t/topic/122246</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.do/t/topic/78224">https://linux.do/t/topic/78224</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.tsinbei.com/archives/1505">https://blog.tsinbei.com/archives/1505</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html">https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html</a></li>
+</ul>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>其实优选后的提升不是很大，建议不折腾。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Tune
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/" title="Cloudflare Tunnel内网穿透及优选">https://696966.xyz/2024/12/06/Cloudflare tunnel/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/OpenWrt/" rel="tag"><i class="fa fa-tag"></i> OpenWrt</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/" rel="prev" title="Android 折腾">
+                  <i class="fa fa-angle-left"></i> Android 折腾
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/" rel="next" title="Cloudflare R2图床">
+                  Cloudflare R2图床 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-container">
+
+<!--
+  <div class="copyright">
+    &copy; 2024 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Tune</span>
+  </div>-->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="copyright">
+        &copy; 2024 – 
+        <span itemprop="copyrightYear">2025</span>
+        <!--<span class="with-love">
+          <i class="fa fa-heart"></i>
+        </span>
+        <span class="author" itemprop="copyrightHolder">Tune</span>-->
+      </div>
+      <div class="runtime">
+        <span id="timeDate">载入天数...</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function createtime() {
+      var now = new Date();
+      var grt = new Date("7/30/2024 00:00:00"); // 设置开始日期
+      var days = Math.floor((now - grt) / 1000 / 60 / 60 / 24); // 计算已运行天数
+      document.getElementById("timeDate").innerHTML = "已运行 " + days + " 天 ";
+  }
+  createtime(); // 初始调用
+  setInterval(createtime, 86400000); // 每天更新一次（86400000 毫秒 = 24 小时）
+</script>
+  <div class="wordcount">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-chart-line"></i>
+      </span>
+        <span>站点总字数：</span>
+      <span title="站点总字数">106k</span>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-coffee"></i>
+      </span>
+        <span>站点阅读时长 &asymp;</span>
+      <span title="站点阅读时长">2:16</span>
+    </span>
+  </div>
+  <div class="busuanzi-count">
+      <span class="post-meta-item" id="busuanzi_container_site_uv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-user"></i>
+        </span>
+        <span class="site-uv" title="总访客量">
+          来过 <span id="busuanzi_value_site_uv"></span> 人
+        </span>
+      </span>
+      <span class="post-meta-item" id="busuanzi_container_site_pv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-eye"></i>
+        </span>
+        <span class="site-pv" title="总访问量">
+          读了 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+      </span>
+  </div>
+
+<style>
+  .footer-container {
+    text-align: center; /* 保证内容居中 */
+  }
+
+  .footer-content {
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+  }
+
+  .copyright,
+  .runtime {
+    margin: 0 10px; /* 添加左右间距 */
+  }
+</style>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/change.js"></script>
+</body>
+</html>

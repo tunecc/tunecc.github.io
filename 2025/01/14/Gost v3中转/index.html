@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/rainbow.ico">
+  <link rel="mask-icon" href="/images/rainbow.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"696966.xyz","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="不想使用x-ui的任意门，所以使用了更加专业的Gost 来中转">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gost v3中转">
+<meta property="og:url" content="https://696966.xyz/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/index.html">
+<meta property="og:site_name" content="Tune">
+<meta property="og:description" content="不想使用x-ui的任意门，所以使用了更加专业的Gost 来中转">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-01-16T16:00:00.000Z">
+<meta property="article:author" content="Tune">
+<meta property="article:tag" content="折腾">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://696966.xyz/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/","path":"2025/01/14/Gost v3中转/","title":"Gost v3中转"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Gost v3中转 | Tune</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tune</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">下载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">二进制文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">解压</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F1"><span class="nav-number">2.1.</span> <span class="nav-text">方式1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F2"><span class="nav-number">2.2.</span> <span class="nav-text">方式2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%90%8E%E5%8F%B0%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C"><span class="nav-number">2.3.</span> <span class="nav-text">查询后台正在运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB%EF%BC%88GPT%E7%9A%84%E5%9B%9E%E7%AD%94%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">区别（GPT的回答）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">方式 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F-2"><span class="nav-number">2.4.2.</span> <span class="nav-text">配置方式 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%9A%84%E5%AF%B9%E6%AF%94%E4%B8%8E%E9%80%89%E6%8B%A9"><span class="nav-number">2.4.3.</span> <span class="nav-text">两种方式的对比与选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">2.4.4.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E4%B8%AD%E8%BD%AChy2%EF%BC%882025-1-17%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">加密中转hy2（2025-1-17更新）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tune</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/itunehh@gmail.com" title="E-Mail → itunehh@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/ithhc" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;ithhc" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://696966.xyz/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tune">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tune">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Gost v3中转 | Tune">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Gost v3中转
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-01-14 00:00:00" itemprop="dateCreated datePublished" datetime="2025-01-14T00:00:00+08:00">2025-01-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-01-17 00:00:00" itemprop="dateModified" datetime="2025-01-17T00:00:00+08:00">2025-01-17</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>不想使用x-ui的任意门，所以使用了更加专业的Gost 来中转<span id="more"></span></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/go-gost/gost">Gost GitHub</a></p>
+<p><a target="_blank" rel="noopener" href="https://gost.run/">Gost官方文档</a></p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h2 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h2><p><a target="_blank" rel="noopener" href="https://github.com/go-gost/gost/releases">https://github.com/go-gost/gost/releases</a></p>
+<p>找到好版本，然后用 <code>wget</code></p>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><p><code>tar -zxvf gost_3.0.0_linux_amd64.tar.gz</code></p>
+<p>无法运行记得给权限</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><p>中转机：<code>./gost -L tcp://:中转机入站端口 -F relay+tls://落地机IP:落地机入站端口</code></p>
+<p>落地机：<code>./gost -L relay+tls://:落地机入站端口/:节点端口</code></p>
+<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>1.1.1.1 为落地 IP</p>
+<p>中转机：<code>./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</code></p>
+<p>落地机：<code>./gost -L relay+tls://:8443</code></p>
+<p>可以把 IP 换为网址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">##后台运行，并且把日志写入到 gost.log，名称可自定义</span><br><span class="line">nohup 运行指令 &gt; gost.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##丢弃日志，推荐测试完成后丢弃，这个日志会变大的</span><br><span class="line">nohup 运行指令 &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##中转转发UDP</span><br><span class="line">./gost -L tcp://:9527  -L udp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+<p>在落地机搭建好节点，把IP和端口改成中转机的 IP 和转发端口就行了</p>
+<h2 id="查询后台正在运行"><a href="#查询后台正在运行" class="headerlink" title="查询后台正在运行"></a>查询后台正在运行</h2><p><code>ps aux | grep gost | grep -v grep</code></p>
+<p>删除后台<br><code>kill pid</code></p>
+<h2 id="区别（GPT的回答）"><a href="#区别（GPT的回答）" class="headerlink" title="区别（GPT的回答）"></a>区别（GPT的回答）</h2><p>下面分别对两种配置方式进行详细说明，并探讨它们在使用场景与配置便捷性方面的差异。</p>
+<hr>
+<h3 id="方式-1"><a href="#方式-1" class="headerlink" title="方式 1"></a>方式 1</h3><p>中转机 (Relay Server):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gost -L tcp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+
+<p>落地机 (Target Server):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gost -L relay+tls://:8443/:80</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>中转机监听本地 TCP 端口 9527，并通过 relay+tls 协议把流量转发到落地机的 1.1.1.1:8443。  </li>
+<li>落地机在 8443 端口上监听 relay+tls 流量，并最终将流量转发到本地 80 端口。</li>
+</ol>
+<p>在这种布局下：<br>• 中转机对外暴露的 TCP 端口是 9527，落地机对外暴露的 relay+tls 端口是 8443。<br>• 客户端连接到中转机的 9527 端口时，中转机会将流量加密并转发到落地机的 8443，然后落地机解密后将流量转发到本机 80 端口。<br>• 这种方式较为直观：中转机本身只做简单的 TCP 监听与加密转发，不指定最终的后端端口（由落地机自己确定 80）。</p>
+<hr>
+<h3 id="配置方式-2"><a href="#配置方式-2" class="headerlink" title="配置方式 2"></a>配置方式 2</h3><p>中转机 (Relay Server):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+
+<p>落地机 (Target Server):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gost -L relay+tls://:8443</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>中转机监听本地 TCP 端口 9527，并且在本条指令中已经将后端 IP:Port 显式指定为 1.1.1.1:80，然后再使用 relay+tls 协议将流量加密发送到 1.1.1.1:8443。  </li>
+<li>落地机只需要对外监听 relay+tls:&#x2F;&#x2F;:8443，并把解密后的流量直接送到 1.1.1.1:80（因为在中转机命令里已经填写了最终地址）。</li>
+</ol>
+<p>在这种布局下：<br>• 中转机直接定义了后端服务地址 “1.1.1.1:80”，落地机只负责监听加密端口 8443 并把流量转发到对应的本地端口（通常是 1.1.1.1:80，若落地机是同一台机器，IP 可理解为本机 IP）。<br>• 好处是中转机的一条命令就能控制最终流向的地址，不需要在落地机处指定后端端口。缺点是落地机配置更为简化，但中转机对后端 IP&#x2F;端口的依赖更强。</p>
+<hr>
+<h3 id="两种方式的对比与选择"><a href="#两种方式的对比与选择" class="headerlink" title="两种方式的对比与选择"></a>两种方式的对比与选择</h3><ol>
+<li><p>配置灵活度：  </p>
+<ul>
+<li>方式 1 更加模块化：中转机只做加密转发，落地机决定 80 端口或其他端口。后期若要修改后端端口，只需改动落地机的配置即可。  </li>
+<li>方式 2 更加集中：中转机一条命令中明确指定了 “1.1.1.1:80”，落地机无需指定后端端口，配置更简单，但导致中转机和落地机耦合更紧密。</li>
+</ul>
+</li>
+<li><p>可维护性：  </p>
+<ul>
+<li>如果你需要经常在落地机上变更端口或部署新的服务，方式 1 更符合“解耦”思路。  </li>
+<li>如果整个维护都由中转机负责，而落地机始终只跑一个服务（例如指定的 1.1.1.1:80），方式 2 则更方便。</li>
+</ul>
+</li>
+<li><p>安全性：  </p>
+<ul>
+<li>两种方式的加密协议都是 relay+tls，本质安全性相似，主要取决于证书配置与网络环境。  </li>
+<li>实际安全需求（例如是否需要验证证书、双向 TLS 等）可在具体命令或配置文件中进一步完善。</li>
+</ul>
+</li>
+<li><p>性能与负载：  </p>
+<ul>
+<li>方式 1 与方式 2 的性能基本差异不大，因为核心逻辑都是中转机加密转发、落地机解密并转发到 80 端口。  </li>
+<li>若有复杂负载或需要负载均衡，推荐进一步探索 GOST 的多路复用或其它模式。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>• 如果你想在中转机上集中管理后端 IP 和端口，且保持落地机配置最简化，可以选方式 2。<br>• 如果你想让中转机仅做加密隧道，不直接关心后端实际服务端口（由落地机自行配置），或可能以后变更落地机端口，方式 1 会更灵活。  </p>
+<p>从方便维护和解耦的角度，方式 1 通常更推荐，因为它把“转发和加密“与“监听及后端服务端口”分离开来，后续更改落地机端口时只需改动落地机的配置而无需变动中转机。方式 2 则更适合后端固定且不需要频繁更改服务端口的场景。</p>
+<h1 id="加密中转hy2（2025-1-17更新）"><a href="#加密中转hy2（2025-1-17更新）" class="headerlink" title="加密中转hy2（2025-1-17更新）"></a>加密中转hy2（2025-1-17更新）</h1><p>又折腾了两天，用了realm发现没有加密，还是考虑 Gost ，发现了有一键脚本</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/KANIKIG/Multi-EasyGost">https://github.com/KANIKIG/Multi-EasyGost</a></p>
+<p>这一个项目挺好用的，但是不支持 Alpine</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kwxos/Multi-EasyGost%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89">https://github.com/kwxos/Multi-EasyGost（推荐）</a></p>
+<p>这一个fork支持了alpine系统，都是使用的 Gost v2.11.2</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/qqrrooty/EZgost">https://github.com/qqrrooty/EZgost</a></p>
+<p>这一个使用的是 Gost v2.11.5，但是没有适配 Alpine</p>
+<p>加密隧道中转用TLS就可以了</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://bulianglin.com/archives/relay.html">不良林文档</a><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=AEqP8x_tILw">不良林视频教程</a><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=cuWaTP90bOs">奶油视频（不推荐）</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Tune
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://696966.xyz/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/" title="Gost v3中转">https://696966.xyz/2025/01/14/Gost v3中转/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"><i class="fa fa-tag"></i> 折腾</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/" rel="prev" title="哪吒监控v1">
+                  <i class="fa fa-angle-left"></i> 哪吒监控v1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/01/21/theos%E5%92%8Cmonkeydev%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="next" title="安装Theos和Monkeydev">
+                  安装Theos和Monkeydev <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-container">
+
+<!--
+  <div class="copyright">
+    &copy; 2024 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Tune</span>
+  </div>-->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="copyright">
+        &copy; 2024 – 
+        <span itemprop="copyrightYear">2025</span>
+        <!--<span class="with-love">
+          <i class="fa fa-heart"></i>
+        </span>
+        <span class="author" itemprop="copyrightHolder">Tune</span>-->
+      </div>
+      <div class="runtime">
+        <span id="timeDate">载入天数...</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function createtime() {
+      var now = new Date();
+      var grt = new Date("7/30/2024 00:00:00"); // 设置开始日期
+      var days = Math.floor((now - grt) / 1000 / 60 / 60 / 24); // 计算已运行天数
+      document.getElementById("timeDate").innerHTML = "已运行 " + days + " 天 ";
+  }
+  createtime(); // 初始调用
+  setInterval(createtime, 86400000); // 每天更新一次（86400000 毫秒 = 24 小时）
+</script>
+  <div class="wordcount">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-chart-line"></i>
+      </span>
+        <span>站点总字数：</span>
+      <span title="站点总字数">106k</span>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-coffee"></i>
+      </span>
+        <span>站点阅读时长 &asymp;</span>
+      <span title="站点阅读时长">2:16</span>
+    </span>
+  </div>
+  <div class="busuanzi-count">
+      <span class="post-meta-item" id="busuanzi_container_site_uv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-user"></i>
+        </span>
+        <span class="site-uv" title="总访客量">
+          来过 <span id="busuanzi_value_site_uv"></span> 人
+        </span>
+      </span>
+      <span class="post-meta-item" id="busuanzi_container_site_pv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-eye"></i>
+        </span>
+        <span class="site-pv" title="总访问量">
+          读了 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+      </span>
+  </div>
+
+<style>
+  .footer-container {
+    text-align: center; /* 保证内容居中 */
+  }
+
+  .footer-content {
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+  }
+
+  .copyright,
+  .runtime {
+    margin: 0 10px; /* 添加左右间距 */
+  }
+</style>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/change.js"></script>
+</body>
+</html>

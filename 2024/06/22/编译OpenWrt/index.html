@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/rainbow.ico">
+  <link rel="mask-icon" href="/images/rainbow.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"696966.xyz","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言网上有大量的OpenWrt固件供用户下载使用。这类固件旨在满足广泛用户群体的需求，因此可能包含了一些并非所有用户都会用到的功能或组件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译OpenWrt">
+<meta property="og:url" content="https://696966.xyz/2024/06/22/%E7%BC%96%E8%AF%91OpenWrt/index.html">
+<meta property="og:site_name" content="Tune">
+<meta property="og:description" content="前言网上有大量的OpenWrt固件供用户下载使用。这类固件旨在满足广泛用户群体的需求，因此可能包含了一些并非所有用户都会用到的功能或组件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-01T16:00:00.000Z">
+<meta property="article:author" content="Tune">
+<meta property="article:tag" content="OpenWrt">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://696966.xyz/2024/06/22/%E7%BC%96%E8%AF%91OpenWrt/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2024/06/22/%E7%BC%96%E8%AF%91OpenWrt/","path":"2024/06/22/编译OpenWrt/","title":"编译OpenWrt"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>编译OpenWrt | Tune</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tune</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E7%BC%96%E8%AF%91"><span class="nav-number">3.</span> <span class="nav-text">开始编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%8C%85%E7%B4%A2%E5%BC%95%E6%96%87%E4%BB%B6%E3%80%81%E5%AE%89%E8%A3%85%E6%96%B0%E7%89%88%E6%9C%AC%E5%8C%85"><span class="nav-number">3.1.</span> <span class="nav-text">更新包索引文件、安装新版本包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">安装依赖：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">3.3.</span> <span class="nav-text">下载源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%9D%E5%90%88%E4%B8%80%E4%BA%9B%E5%85%B6%E4%BB%96%E6%8F%92%E4%BB%B6"><span class="nav-number">3.4.</span> <span class="nav-text">缝合一些其他插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%90%8E%E6%89%A7%E8%A1%8C%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">3.5.</span> <span class="nav-text">添加后执行以下命令下载安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-Mosdns-%E6%BA%90%E7%A0%81"><span class="nav-number">3.6.</span> <span class="nav-text">添加 Mosdns 源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%BD%A2%E5%8C%96%E9%85%8D%E7%BD%AEOpenWRT%E7%BB%84%E4%BB%B6%EF%BC%9A-%E7%BF%BB%E8%AF%91%E8%A7%81%E6%AD%A4%E5%A4%84-%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9%E7%BF%BB%E8%AF%91"><span class="nav-number">3.7.</span> <span class="nav-text">图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-dl-%E5%BA%93"><span class="nav-number">3.8.</span> <span class="nav-text">下载 dl 库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E7%BC%96%E8%AF%91%E5%9B%BA%E4%BB%B6"><span class="nav-number">3.9.</span> <span class="nav-text">开始编译固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E7%BC%96%E8%AF%91%EF%BC%88%E9%80%82%E7%94%A8%E4%BA%8E%E4%B8%8D%E6%9B%B4%E6%94%B9%E9%85%8D%E7%BD%AE%E5%8A%9F%E8%83%BD%E5%92%8C%E6%8F%92%E4%BB%B6%EF%BC%8C%E4%BB%85%E5%8D%87%E7%BA%A7%EF%BC%89"><span class="nav-number">3.10.</span> <span class="nav-text">二次编译（适用于不更改配置功能和插件，仅升级）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9D%82%E6%8A%80%E5%B7%A7"><span class="nav-number">4.</span> <span class="nav-text">杂技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">一些配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E7%BC%96%E8%AF%91OpenWrt%E5%8E%9F%E7%89%88"><span class="nav-number">4.2.</span> <span class="nav-text">如果编译OpenWrt原版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%90%86-Web-%E7%AE%A1%E7%90%86%E4%B8%8A%E9%9D%A2-APP-%E5%87%BA%E7%8E%B0%E7%9A%84%E8%8F%9C%E5%8D%95%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.3.</span> <span class="nav-text">管理 Web 管理上面 APP 出现的菜单位置()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MentoHUST%EF%BC%88%E9%94%90%E6%8D%B7%E8%AE%A4%E8%AF%81%EF%BC%89"><span class="nav-number">4.4.</span> <span class="nav-text">MentoHUST（锐捷认证）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E7%BC%96%E8%AF%91"><span class="nav-number">4.5.</span> <span class="nav-text">重新编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9openwrt%E5%90%8E%E5%8F%B0web%E7%99%BB%E9%99%86%E7%94%A8%E6%88%B7%E5%90%8D%E6%96%B9%E6%B3%95"><span class="nav-number">4.6.</span> <span class="nav-text">更改openwrt后台web登陆用户名方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E9%80%9F%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">4.7.</span> <span class="nav-text">限速的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AE%E9%80%89%E9%A1%B9%E7%BF%BB%E8%AF%91"><span class="nav-number">4.8.</span> <span class="nav-text">编译配置选项翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scripts-feeds-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">4.9.</span> <span class="nav-text">.&#x2F;scripts&#x2F;feeds 的用法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#End"><span class="nav-number">5.</span> <span class="nav-text">End</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">6.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tune</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/itunehh@gmail.com" title="E-Mail → itunehh@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/ithhc" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;ithhc" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://696966.xyz/2024/06/22/%E7%BC%96%E8%AF%91OpenWrt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tune">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tune">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="编译OpenWrt | Tune">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          编译OpenWrt
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-22 00:00:00" itemprop="dateCreated datePublished" datetime="2024-06-22T00:00:00+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-02 00:00:00" itemprop="dateModified" datetime="2024-07-02T00:00:00+08:00">2024-07-02</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>网上有大量的OpenWrt固件供用户下载使用。这类固件旨在满足广泛用户群体的需求，因此可能包含了一些并非所有用户都会用到的功能或组件。<span id="more"></span>此外，考虑到最近曝光的XZ后门事件，这让人们更加警惕第三方编译固件的安全性，毕竟无法完全确信他人编译的固件是否完全安全无虞。因此，为了确保设备的安全性和个性化需求，自行编译适合自己使用的OpenWrt固件不失为一个更为可靠的选择。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ol>
+<li><p><strong>Linux系统，这里使用 Ubuntu 20.04 LTS x64</strong></p>
+<p>VMware安装 Ubuntu</p>
+<p>创建虚拟机：</p>
+<p>兼容模式自选；</p>
+<p>稍后安装操作系统（之后用ISO安装）；</p>
+<p>Linux–Ubuntu 64位；</p>
+<p>磁盘 80~100 GB，拆分成多个文件；</p>
+<p>自定义硬件注意：</p>
+<p>网络选桥接，便于 ssh，处理器只要总线程少于自己电脑的线程就可以，看看<a target="_blank" rel="noopener" href="https://blog.csdn.net/p1279030826/article/details/103044840">这篇CSDN</a></p>
+<p>在虚拟机设置-CD&#x2F;DVD里面-选择下载好的Ubuntu镜像</p>
+<p>启动虚拟机开始安装Ubuntu</p>
+<p>时区选上海Shanghai 其他没什么</p>
+</li>
+<li><p><strong>源码选择</strong></p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/coolsnowwolf/lede">LEDE</a></p>
+<p>缺乏我所需的一些功能，由于使用人数众多，项目的开发重点往往是保持代码的稳定性</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Lienol/openwrt">Lienol</a></p>
+<p>与我所编译的插件冲突，导致一直编译失败</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/immortalwrt/immortalwrt">ImmortalWrt</a>（推荐）</p>
+<p>官方的软件源维护很好，体验无限接近主线的一个OpenWrt分支&#x2F;变体，主要针对墙内用户体验做了很多工作。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/openwrt/openwrt">OpenWrt官方</a></p>
+<p>精简干净</p>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h1><p>Ubuntu 全局上网，不要使用 root 用户编译</p>
+<h2 id="更新包索引文件、安装新版本包"><a href="#更新包索引文件、安装新版本包" class="headerlink" title="更新包索引文件、安装新版本包"></a>更新包索引文件、安装新版本包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update -y</span><br><span class="line">sudo apt full-upgrade -y</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装依赖："><a href="#安装依赖：" class="headerlink" title="安装依赖："></a>安装依赖：</h2><p>下面的是 ImmortalWrt 的，比LEDE的全</p>
+<p>不要使用 ImmortalWrt 项目里面的一键脚本，会把 Ubuntu 的软件源改成华为的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \</span><br><span class="line">  bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib \</span><br><span class="line">  g++-multilib git gnutls-dev gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev \</span><br><span class="line">  libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5 \</span><br><span class="line">  libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lld llvm lrzsz mkisofs msmtp \</span><br><span class="line">  nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-ply \</span><br><span class="line">  python3-docutils python3-pyelftools qemu-utils re2c rsync scons squashfs-tools subversion swig \</span><br><span class="line">  texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev zstd</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载源代码"><a href="#下载源代码" class="headerlink" title="下载源代码"></a>下载源代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b &lt;branch&gt; --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
+
+<p>示例：下载 21.02 版本（iptables 最后一版）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b openwrt-23.05  --single-branch --filter=blob:none https://github.com/immortalwrt/immortalwrt</span><br></pre></td></tr></table></figure>
+
+<p>进入 immortalwrt 文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd immortalwrt</span><br></pre></td></tr></table></figure>
+
+<h2 id="缝合一些其他插件"><a href="#缝合一些其他插件" class="headerlink" title="缝合一些其他插件"></a>缝合一些其他插件</h2><p>按照下面格式添加到根目录 feeds.conf.default 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src-git &lt;文件夹名，不要重复&gt; https://xx.xx/xxx</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- [fw876/helloworld](https://github.com/fw876/helloworld) 科学上网插件集</span><br><span class="line">- 来自神秘网友 kenzok8（ssrp、passwall、openclash 等）</span><br><span class="line">  * [kenzok8/openwrt-packages](https://github.com/kenzok8/openwrt-packages)</span><br><span class="line">  * [kenzok8/small](https://github.com/kenzok8/small)</span><br><span class="line">  * [kenzok8/small-package](https://github.com/kenzok8/small-package) 最新源</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加后执行以下命令下载安装软件"><a href="#添加后执行以下命令下载安装软件" class="headerlink" title="添加后执行以下命令下载安装软件"></a>添加后执行以下命令下载安装软件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/feeds update -a</span><br></pre></td></tr></table></figure>
+
+<p>创建软链接到 package&#x2F;feeds 目录（package目录下的软件会被 make menuconfig 识别）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/feeds install -a</span><br></pre></td></tr></table></figure>
+
+<p>[.&#x2F;scripts&#x2F;feeds 的用法见此处](# .&#x2F;scripts&#x2F;feeds 的用法)</p>
+<h2 id="添加-Mosdns-源码"><a href="#添加-Mosdns-源码" class="headerlink" title="添加 Mosdns 源码"></a>添加 Mosdns 源码</h2><p><a target="_blank" rel="noopener" href="https://github.com/sbwml/luci-app-mosdns">GitHub项目</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    # （OpenWrt-21.02 及更旧版本）更新golang 1.20.x 或最新版本</span><br><span class="line">rm -rf feeds/packages/lang/golang</span><br><span class="line">git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    # (openwrt-22.03 &amp; master)remove v2ray-geodata package from feeds </span><br><span class="line">rm -rf feeds/packages/net/v2ray-geodata</span><br><span class="line">git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns</span><br><span class="line">git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="图形化配置OpenWRT组件：-翻译见此处-编译配置选项翻译"><a href="#图形化配置OpenWRT组件：-翻译见此处-编译配置选项翻译" class="headerlink" title="图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)"></a>图形化配置OpenWRT组件：[翻译见此处](# 编译配置选项翻译)</h2><p>[注意] 执行下述命令启动图形化配置界面之前，把“终端”命令行窗口最大化。如果窗口太小可能会导致启动失败！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+
+
+<p>*表示编译进固件里面      M表示只编译但不写到固件里面去         （空） 留空表示不做任何操作</p>
+<p><strong>Target Images（目标系统）</strong></p>
+<p>ext4，efi不要，vmdk 安装到VMware用</p>
+<p>squashfs镜像不支持扩展</p>
+<p>谨慎使用带有rootfs的镜像，没有引导，需要自己折腾</p>
+<p>(16) Kernel partition size (in MB) </p>
+<p>(400) Root filesystem partition size (in MB) </p>
+<p><strong>Base system（基本系统）</strong></p>
+<p>dnsmasq-full—&gt; 选满（HAVE不选）, 取消dnsmasq, dnsmasq-dhcpv6两个选项，否则编译会出差！！！</p>
+<p>下翻选firewall4   不选firewall。</p>
+<p><strong>Extra packages （额外包）</strong></p>
+<p>autocore        选</p>
+<p>automount      不     USB 文件共享</p>
+<p>autoautosamba  不     Samba 多媒体共享</p>
+<p>ipv6helper       IPV6选</p>
+<p><strong>Kernel modules（内核模块）</strong></p>
+<p>Network Devices</p>
+<p>只留了e1000、ifb （虚拟网卡，记得eqos、qos采用的就是这个，方便对同一网口进行上下行限速）、igc(i225) 、macvlan、vmxnet3  (有一些把USB去掉之后可以取消)</p>
+<p>Network Support——kmod-tun 选（openclash依赖，最后确认一下，可能会被自动取消掉）</p>
+<p>SPI &#x2F; Sound &#x2F; USB &#x2F;Video Support &#x2F; Wireless Drivers都可以取消</p>
+<p><strong>Network</strong></p>
+<p>——odhcp6c和odhcpd-ipv6only（这两个应该会自动选上）IPv6选</p>
+<p>—&gt;Firewall —&gt; ip6tables-extra 和 ip6tables-mod-nat   IPv6选</p>
+<p>—&gt;SSH—&gt; openssh-sftp-server   选  我不选这个无法ssh连接，后面也可以加上</p>
+<p><strong>LuCI</strong></p>
+<p>—&gt; Collections—&gt; luci  选</p>
+<p>—&gt; Modules —&gt;Translations记得选简中</p>
+<p>​               luci-compat 选（OpenClash依赖）</p>
+<p>—&gt;Applications —-根据自己的需求来选择（第一次编译少选一些，passwall的配置用动，我这很容易报错），可以看看<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-3682029-1-1.html">恩山的帖子</a></p>
+<pre><code>   这几个比较绕
+   上网时间控制：luci-app-timecontrol
+   访问限制：luci-app-control-webrestriction
+   网址过滤：luci-app-control-weburl
+   定时唤醒：luci-app-control-timewol
+</code></pre>
+<p>—&gt;Themes—&gt;luci-theme-argon 选</p>
+<p>保存并退出到 Terminal</p>
+<h2 id="下载-dl-库"><a href="#下载-dl-库" class="headerlink" title="下载 dl 库"></a>下载 dl 库</h2><p>-j 后面是线程数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make download -j8 V=s</span><br></pre></td></tr></table></figure>
+
+<h2 id="开始编译固件"><a href="#开始编译固件" class="headerlink" title="开始编译固件"></a>开始编译固件</h2><p><strong>第一次</strong>编译推荐用<strong>单线程</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make V=s -j1</span><br></pre></td></tr></table></figure>
+
+<p>弄完就可以去睡觉了，大概需要六、七个小时</p>
+<p>编译输出路径：<code> /bin/targets</code></p>
+<h2 id="二次编译（适用于不更改配置功能和插件，仅升级）"><a href="#二次编译（适用于不更改配置功能和插件，仅升级）" class="headerlink" title="二次编译（适用于不更改配置功能和插件，仅升级）"></a>二次编译（适用于不更改配置功能和插件，仅升级）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> immortalwrt</span><br><span class="line"></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">make defconfig</span><br><span class="line"></span><br><span class="line">make download -j8 V=s</span><br><span class="line"></span><br><span class="line">make V=s -j$(<span class="built_in">nproc</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="杂技巧"><a href="#杂技巧" class="headerlink" title="杂技巧"></a>杂技巧</h1><h2 id="一些配置"><a href="#一些配置" class="headerlink" title="一些配置"></a>一些配置</h2><ol>
+<li><p><strong>更改LAN口的默认IP地址</strong><br> <code>package/base-files/files/bin/config_generate</code> 165 行</p>
+</li>
+<li><p><strong>修改默认主题为 argone（ImmortalWrt不用改）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/luci-theme-bootstrap/luci-theme-argone/g&#x27; feeds/luci/collections/luci/Makefile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>更改 固件版本信息</strong></p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &quot;s/OpenWrt /$(date +%Y.%m.%d) 2022/xx/xx /g&quot; package/lean/default-settings/files/zzz-default-settings</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p><strong>添加自定义插件</strong></p>
+<p>原理是把插件源码放到 package 目录下，编译时会自动遍历</p>
+<p>示例：</p>
+<p>- 安装最新 <a target="_blank" rel="noopener" href="https://github.com/jerrykuku/luci-theme-argon/">argon</a> 主题  # openwrt 源码</p>
+<p>  cd package</p>
+<p>  git clone <a target="_blank" rel="noopener" href="https://github.com/jerrykuku/luci-theme-argon.git">https://github.com/jerrykuku/luci-theme-argon.git</a>    # Lean 源码</p>
+<p>  cd &#x2F;package&#x2F;feeds&#x2F;luci</p>
+<p>  rm -rf luci-theme-argon</p>
+<p>  git clone -b 18.06 <a target="_blank" rel="noopener" href="https://github.com/jerrykuku/luci-theme-argon.git">https://github.com/jerrykuku/luci-theme-argon.git</a></p>
+</li>
+<li><p><strong>修改 SSH 登陆欢迎信息</strong></p>
+<p>修改文件<code>/package/base-files/files/etc/banner</code></p>
+<p>可以在<a target="_blank" rel="noopener" href="http://patorjk.com/software/taag/">此处</a>定制自己的样式</p>
+</li>
+</ol>
+<h2 id="如果编译OpenWrt原版"><a href="#如果编译OpenWrt原版" class="headerlink" title="如果编译OpenWrt原版"></a>如果编译OpenWrt原版</h2><p>切换最新稳定分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br><span class="line"></span><br><span class="line">git tag</span><br><span class="line"></span><br><span class="line">git checkout v22.03</span><br></pre></td></tr></table></figure>
+
+<p>[说明] 这一步很重要，切换稳定分支，编译的版本是经过充分验证的稳定版本，不容易出现莫名其妙的bug, 减少很多白折腾。切身教训，供参考。</p>
+<h2 id="管理-Web-管理上面-APP-出现的菜单位置"><a href="#管理-Web-管理上面-APP-出现的菜单位置" class="headerlink" title="管理 Web 管理上面 APP 出现的菜单位置()"></a>管理 Web 管理上面 APP 出现的菜单位置()</h2><p>比如把一个出现在“服务”菜单里的app改到“网络”里，以NFT-QOS为例：</p>
+<p>进入package下面的luci-app-nft-qos&#x2F;controller,看到nft-qos.lua文件，打开看到：</p>
+<p>entry({“admin”, “services”, “nft-qos”}, cbi(“nft-qos&#x2F;nft-qos”),</p>
+<p>上面的”services”就是“服务”，修改为”network”,这个app就会改变到“网络”菜单里了。</p>
+<p>———某些比较复杂关系的app只修改这一处会无法运行，是因为多个函数使用了这个路径，需要逐一修改。luasrc下面所有文件都要打开查找一遍，凡是存在“services”这个一路径的（或者是admin&#x2F;services&#x2F;xxx这样的路径的），通通需要替换成“network”才算完成。</p>
+<p>lean的defaultsetting有这些lua重分配命令，但是同样存在上面的问题，所以必须从源码本身去修改。</p>
+<h2 id="MentoHUST（锐捷认证）"><a href="#MentoHUST（锐捷认证）" class="headerlink" title="MentoHUST（锐捷认证）"></a>MentoHUST（锐捷认证）</h2><p><a target="_blank" rel="noopener" href="https://github.com/sbwml/luci-app-mentohust/releases/tag/v0.3.1">用这个GitHub的</a></p>
+<p>文件主体可以用GitHub的，luci用immortalwrt可以完美使用</p>
+<h2 id="重新编译"><a href="#重新编译" class="headerlink" title="重新编译"></a>重新编译</h2><p><code>make clean</code>   仅仅是清除之前编译的可执行文件及配置文件，比如bin路径下面的文件，config配置文件不会清除。</p>
+<p><code>make distclean</code>  清除所有生成的文件，连feeds也会干掉，只留下git clone完成时候的初始状态。</p>
+<h2 id="更改openwrt后台web登陆用户名方法"><a href="#更改openwrt后台web登陆用户名方法" class="headerlink" title="更改openwrt后台web登陆用户名方法"></a>更改openwrt后台web登陆用户名方法</h2><p>修改&#x2F;etc&#x2F;passwd</p>
+<p>将<code>root:x:0:0:root:/root:/bin/ash</code>修改为<code>username:x:0:0:root:/root:/bin/ash</code></p>
+<h2 id="限速的配置"><a href="#限速的配置" class="headerlink" title="限速的配置"></a>限速的配置</h2><p>详见<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-8292547-1-1.html">恩山的帖子</a></p>
+<p>最好有以下依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">        tc-tiny                                      重要</span><br><span class="line">        </span><br><span class="line">Kernel modules---&gt;Network Support：</span><br><span class="line">        kmod-sched                             tc sfq 随机公平排队 相关 ，查看固件是否支持sfq ，终端命令：opkg files kmod-sched|grep sfq</span><br><span class="line">        kmod-sched-cake                     流量智能队列管理（QOS）</span><br><span class="line">        kmod-sched-connmark</span><br><span class="line">        kmod-sched-core                      tc 限速核心</span><br><span class="line">        kmod-sched-ipset</span><br><span class="line">        </span><br><span class="line">Kernel modules---&gt;Network Devices：</span><br><span class="line">        kmod-ifb                                 虚拟网卡，记得eqos、qos采用的就是这个，方便对同一网口进行上下行限速</span><br><span class="line">        </span><br><span class="line">Network---&gt;Firewall：</span><br><span class="line">        iptables-mod-iprange                对IP段进行筛选(过滤)</span><br><span class="line">        iptables-mod-nat-extra              流量智能队列管理（QOS）</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="编译配置选项翻译"><a href="#编译配置选项翻译" class="headerlink" title="编译配置选项翻译"></a>编译配置选项翻译</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">OpenWrtConfiguration【OpenWrt配置】</span><br><span class="line">TargetSystem () ---&gt; 目标系统（）</span><br><span class="line">Subtarget() ---&gt; 子目标（）</span><br><span class="line">TargetProfile () ---&gt;目标配置文件（通用）</span><br><span class="line">TargetImages ---&gt; 保存目标镜像的格式</span><br><span class="line">Enableexperimental features by default ---&gt; 默认情况下启用实验功能</span><br><span class="line">Globalbuild settings ---&gt; 全局构建设置</span><br><span class="line">Advancedconfiguration options (for developers) ---- 高级配置选项（适用于开发人员）</span><br><span class="line">Buildthe OpenWrt Image Builder 构建OpenWrt图像生成器</span><br><span class="line">Buildthe OpenWrt SDK构建OpenWrt SDK</span><br><span class="line">Packagethe OpenWrt-based Toolchain打包基于OpenWrt的工具链</span><br><span class="line">Imageconfiguration ---&gt;图像配置</span><br><span class="line">Basesystem ---&gt; 基本系统</span><br><span class="line">Administration---&gt; 管理</span><br><span class="line">BootLoaders ---&gt;引导加载程序</span><br><span class="line">Development---&gt; 开发</span><br><span class="line">Extrapackages ---&gt; 额外包</span><br><span class="line">Firmware---&gt;固件</span><br><span class="line">Fonts---&gt;字体</span><br><span class="line">Kernelmodules ---&gt; 内核模块</span><br><span class="line">Languages---&gt;语言</span><br><span class="line">Libraries---&gt; 图书馆</span><br><span class="line">LuCI---&gt; LuCI 软件包</span><br><span class="line">Mail---&gt;邮件</span><br><span class="line">Multimedia---&gt;多媒体</span><br><span class="line">Network---&gt;网络</span><br><span class="line">Sound---&gt; 声音</span><br><span class="line">Utilities---&gt;实用程序</span><br><span class="line">Xorg---&gt;Xorg</span><br></pre></td></tr></table></figure>
+
+<h2 id="scripts-feeds-的用法"><a href="#scripts-feeds-的用法" class="headerlink" title=".&#x2F;scripts&#x2F;feeds 的用法"></a>.&#x2F;scripts&#x2F;feeds 的用法</h2><p>更新包列表：<code>./scripts/feeds update -a</code><br>集成到menuconfig：<code>./scripts/feeds install -a</code></p>
+<p>此外可以直接输入<code>./scripts/feeds</code>查看其用法，下面简略翻译了一下用法（水平有限，若有错误欢迎指正）：</p>
+<p>用法: <code>./scripts/feeds &lt;命令&gt; [参数]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">命令:</span><br><span class="line">list [参数]: 列出所有源及其内容和修订版本(如果已经安装)</span><br><span class="line">参数:</span><br><span class="line">-s :            源名称及其URL列表.</span><br><span class="line">-r &lt;源名称&gt;:    特定源提供的包列表.</span><br><span class="line">-d &lt;分隔符&gt;:    指定区分不同行的分隔符 (默认: 空格)</span><br><span class="line">install [参数] &lt;包&gt;: 安装一个包</span><br><span class="line">参数:</span><br><span class="line">-a :            安装所有源提供的包或者特定源提供的包(使用-p参数).</span><br><span class="line">-p &lt;源名称&gt;:    指定安装包的时候要使用的源.</span><br><span class="line">-d &lt;y|m|n&gt;:     为新安装的软件包设置默认值.</span><br><span class="line">search [参数] &lt;子字符串&gt;: 搜索一个包</span><br><span class="line">参数:</span><br><span class="line">-r &lt;源名称&gt;:    只从该源搜索</span><br><span class="line">uninstall -a|&lt;包&gt;: 卸载一个包</span><br><span class="line">参数:</span><br><span class="line">-a :            卸载所有包.</span><br><span class="line">update -a|&lt;源名(一个或多个)&gt;: 更新文件feeds.conf里的源提供的包列表.</span><br><span class="line">参数:</span><br><span class="line">-a :            更新feeds.conf里所有源提供的包列表. 否则只更新特定源的.</span><br><span class="line">-i :            只重建索引列表. 不升级源.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>从2024年6月22日一直到7月2日，我尝试编译了多种不同的源码，有的编译失败，有的则无法满足我的需求，迄今为止最为折腾的经历</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/immortalwrt/immortalwrt">https://github.com/immortalwrt/immortalwrt</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/coolsnowwolf/lede">https://github.com/coolsnowwolf/lede</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Lienol/openwrt">https://github.com/Lienol/openwrt</a></li>
+<li><a target="_blank" rel="noopener" href="https://shimo.im/docs/gYjt9QVr8T9Vhv9X/read">https://shimo.im/docs/gYjt9QVr8T9Vhv9X/read</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kn-zheng/p/17340151.html">https://www.cnblogs.com/kn-zheng/p/17340151.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-3682029-1-1.html">https://www.right.com.cn/forum/thread-3682029-1-1.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://sspai.com/post/61463">https://sspai.com/post/61463</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kn-zheng/p/17340776.html">https://www.cnblogs.com/kn-zheng/p/17340776.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-469400-1-1.html">https://www.right.com.cn/forum/thread-469400-1-1.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://eagmi.com/categories/openwrt%E7%B3%BB%E5%88%97/">https://eagmi.com/categories/openwrt%E7%B3%BB%E5%88%97/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/immortalwrt/immortalwrt/discussions/1109">https://github.com/immortalwrt/immortalwrt/discussions/1109</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Tune
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://696966.xyz/2024/06/22/%E7%BC%96%E8%AF%91OpenWrt/" title="编译OpenWrt">https://696966.xyz/2024/06/22/编译OpenWrt/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/OpenWrt/" rel="tag"><i class="fa fa-tag"></i> OpenWrt</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/" rel="prev" title="使用Systemctl运行Rustdesk服务端">
+                  <i class="fa fa-angle-left"></i> 使用Systemctl运行Rustdesk服务端
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="next" title="Mac 小技巧">
+                  Mac 小技巧 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-container">
+
+<!--
+  <div class="copyright">
+    &copy; 2024 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Tune</span>
+  </div>-->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="copyright">
+        &copy; 2024 – 
+        <span itemprop="copyrightYear">2025</span>
+        <!--<span class="with-love">
+          <i class="fa fa-heart"></i>
+        </span>
+        <span class="author" itemprop="copyrightHolder">Tune</span>-->
+      </div>
+      <div class="runtime">
+        <span id="timeDate">载入天数...</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function createtime() {
+      var now = new Date();
+      var grt = new Date("7/30/2024 00:00:00"); // 设置开始日期
+      var days = Math.floor((now - grt) / 1000 / 60 / 60 / 24); // 计算已运行天数
+      document.getElementById("timeDate").innerHTML = "已运行 " + days + " 天 ";
+  }
+  createtime(); // 初始调用
+  setInterval(createtime, 86400000); // 每天更新一次（86400000 毫秒 = 24 小时）
+</script>
+  <div class="wordcount">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-chart-line"></i>
+      </span>
+        <span>站点总字数：</span>
+      <span title="站点总字数">106k</span>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-coffee"></i>
+      </span>
+        <span>站点阅读时长 &asymp;</span>
+      <span title="站点阅读时长">2:16</span>
+    </span>
+  </div>
+  <div class="busuanzi-count">
+      <span class="post-meta-item" id="busuanzi_container_site_uv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-user"></i>
+        </span>
+        <span class="site-uv" title="总访客量">
+          来过 <span id="busuanzi_value_site_uv"></span> 人
+        </span>
+      </span>
+      <span class="post-meta-item" id="busuanzi_container_site_pv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-eye"></i>
+        </span>
+        <span class="site-pv" title="总访问量">
+          读了 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+      </span>
+  </div>
+
+<style>
+  .footer-container {
+    text-align: center; /* 保证内容居中 */
+  }
+
+  .footer-content {
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+  }
+
+  .copyright,
+  .runtime {
+    margin: 0 10px; /* 添加左右间距 */
+  }
+</style>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/change.js"></script>
+</body>
+</html>
