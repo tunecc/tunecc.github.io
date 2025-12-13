@@ -86,64 +86,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Cloudflare R2图床</title>
-    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
-<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
-<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
-<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
-<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
-<p>两个教程不同之处：</p>
-<ol>
-<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
-<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Cloudflare</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker 搭建 Sub-Store</title>
-    <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
-<h1 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h1><ol>
-<li><p><a href="https://github.com/sub-store-org/Sub-Store">Sub-Store</a>（推荐）</p>
-<p>刚开始使用 Surge 的时候，就接触过，折腾一番后发现这是最适合我的</p>
-</li>
-<li><p><a href="https://github.com/gooaclok819/sublinkX">sublinkX</a></p>
-<p>必须搭配模板使用，我只想整合节点</p>
-</li>
-<li><p><a href="https://github.com/cedar2025/Xboard">Xboard</a></p>
-<p>机场的模板，有流量统计等功能，我用不上</p>
-</li>
-</ol>
-<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><p>GitHub 上面有一个 <a href="https://github.com/SaintWe/Sub-Store-Docker">Sub-Store-Docker</a> 的项目，<a href="https://hub.docker.com/r/saintwe/sub-store">saintwe&#x2F;sub-store</a>，Docker 还没有系统学习过的我，只看 README 还是不会搭建，还好 YouTube 上面有一个 <a href="https://www.youtube.com/watch?v=M4167ErswdE">视频教程</a></p>
-<ol>
-<li><p><code>docker pull xream/sub-store</code></p>
-</li>
-<li><p>打开 portainer –Create stack（创建堆栈）–Web editor–下面添加</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">version: &quot;3.8&quot;</span><br><span class="line">services:</span><br><span class="line">  sub-store:</span><br><span class="line">    image: xream/sub-store:latest</span><br><span class="line">    container_name: sub-store</span><br><span class="line">    network_mode: host</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - /opt/sub-store-data:/opt/app/data</span><br><span class="line">    environment:</span><br><span class="line">      - SUB_STORE_BACKEND_CRON=0 0 * * *</span><br><span class="line">      - SUB_STORE_FRONTEND_BACKEND_PATH=/1234567890</span><br><span class="line">      - SUB_STORE_FRONTEND_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_FRONTEND_PORT=3001</span><br><span class="line">      - SUB_STORE_DATA_BASE_PATH=/opt/app/data</span><br><span class="line">      - SUB_STORE_BACKEND_API_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_BACKEND_API_PORT=3002</span><br><span class="line">    stdin_open: true</span><br><span class="line">    tty: true</span><br></pre></td></tr></table></figure>
-
-<p>其中的“1234567890”就相当于密钥，请自行修改成复杂的密码，避免被盗</p>
-</li>
-<li><p>在最上面填写好 Name 后，到网页最下面点击 Deploy the stack 即可成功部署</p>
-</li>
-<li><p>打开 Docker 的 IP 加上3001，即可访问 Sub-Store<br><code>http://192.168.xx.xx:3001</code></p>
-</li>
-<li><p>这时候会显示数据加载失败，这是因为还没有改后端的地址，网页底部选择设置–后端设置–添加后端–名称随意–后端地址填写</p>
-<p><code>http://192.168.xx.xx:3001/1234567890</code></p>
-<p>添加成功后记得选择刚刚添加的后端，这样就成功了</p>
-</li>
-<li><p>使用 frp 实现公网访问<br>等我专门写一篇吧😁</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Cloudflare Tunnel内网穿透及优选</title>
     <url>/2024/12/06/Cloudflare%20tunnel/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾<span id="more"></span></p>
@@ -243,6 +185,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Cloudflare R2图床</title>
+    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
+<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
+<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
+<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
+<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
+<p>两个教程不同之处：</p>
+<ol>
+<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
+<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Cloudflare</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>FRP + SAAS 回源</title>
     <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
     <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
@@ -262,6 +222,46 @@
       <tags>
         <tag>OpenWrt</tag>
         <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker 搭建 Sub-Store</title>
+    <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
+<h1 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h1><ol>
+<li><p><a href="https://github.com/sub-store-org/Sub-Store">Sub-Store</a>（推荐）</p>
+<p>刚开始使用 Surge 的时候，就接触过，折腾一番后发现这是最适合我的</p>
+</li>
+<li><p><a href="https://github.com/gooaclok819/sublinkX">sublinkX</a></p>
+<p>必须搭配模板使用，我只想整合节点</p>
+</li>
+<li><p><a href="https://github.com/cedar2025/Xboard">Xboard</a></p>
+<p>机场的模板，有流量统计等功能，我用不上</p>
+</li>
+</ol>
+<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><p>GitHub 上面有一个 <a href="https://github.com/SaintWe/Sub-Store-Docker">Sub-Store-Docker</a> 的项目，<a href="https://hub.docker.com/r/saintwe/sub-store">saintwe&#x2F;sub-store</a>，Docker 还没有系统学习过的我，只看 README 还是不会搭建，还好 YouTube 上面有一个 <a href="https://www.youtube.com/watch?v=M4167ErswdE">视频教程</a></p>
+<ol>
+<li><p><code>docker pull xream/sub-store</code></p>
+</li>
+<li><p>打开 portainer –Create stack（创建堆栈）–Web editor–下面添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">version: &quot;3.8&quot;</span><br><span class="line">services:</span><br><span class="line">  sub-store:</span><br><span class="line">    image: xream/sub-store:latest</span><br><span class="line">    container_name: sub-store</span><br><span class="line">    network_mode: host</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - /opt/sub-store-data:/opt/app/data</span><br><span class="line">    environment:</span><br><span class="line">      - SUB_STORE_BACKEND_CRON=0 0 * * *</span><br><span class="line">      - SUB_STORE_FRONTEND_BACKEND_PATH=/1234567890</span><br><span class="line">      - SUB_STORE_FRONTEND_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_FRONTEND_PORT=3001</span><br><span class="line">      - SUB_STORE_DATA_BASE_PATH=/opt/app/data</span><br><span class="line">      - SUB_STORE_BACKEND_API_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_BACKEND_API_PORT=3002</span><br><span class="line">    stdin_open: true</span><br><span class="line">    tty: true</span><br></pre></td></tr></table></figure>
+
+<p>其中的“1234567890”就相当于密钥，请自行修改成复杂的密码，避免被盗</p>
+</li>
+<li><p>在最上面填写好 Name 后，到网页最下面点击 Deploy the stack 即可成功部署</p>
+</li>
+<li><p>打开 Docker 的 IP 加上3001，即可访问 Sub-Store<br><code>http://192.168.xx.xx:3001</code></p>
+</li>
+<li><p>这时候会显示数据加载失败，这是因为还没有改后端的地址，网页底部选择设置–后端设置–添加后端–名称随意–后端地址填写</p>
+<p><code>http://192.168.xx.xx:3001/1234567890</code></p>
+<p>添加成功后记得选择刚刚添加的后端，这样就成功了</p>
+</li>
+<li><p>使用 frp 实现公网访问<br>等我专门写一篇吧😁</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -307,92 +307,26 @@
       </tags>
   </entry>
   <entry>
-    <title>Gost v3中转</title>
-    <url>/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/</url>
-    <content><![CDATA[<p>不想使用x-ui的任意门，所以使用了更加专业的Gost 来中转<span id="more"></span></p>
-<p><a href="https://github.com/go-gost/gost">Gost GitHub</a></p>
-<p><a href="https://gost.run/">Gost官方文档</a></p>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h2 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h2><p><a href="https://github.com/go-gost/gost/releases">https://github.com/go-gost/gost/releases</a></p>
-<p>找到好版本，然后用 <code>wget</code></p>
-<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><p><code>tar -zxvf gost_3.0.0_linux_amd64.tar.gz</code></p>
-<p>无法运行记得给权限</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><p>中转机：<code>./gost -L tcp://:中转机入站端口 -F relay+tls://落地机IP:落地机入站端口</code></p>
-<p>落地机：<code>./gost -L relay+tls://:落地机入站端口/:节点端口</code></p>
-<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>1.1.1.1 为落地 IP</p>
-<p>中转机：<code>./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</code></p>
-<p>落地机：<code>./gost -L relay+tls://:8443</code></p>
-<p>可以把 IP 换为网址</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##后台运行，并且把日志写入到 gost.log，名称可自定义</span><br><span class="line">nohup 运行指令 &gt; gost.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##丢弃日志，推荐测试完成后丢弃，这个日志会变大的</span><br><span class="line">nohup 运行指令 &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##中转转发UDP</span><br><span class="line">./gost -L tcp://:9527  -L udp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
-<p>在落地机搭建好节点，把IP和端口改成中转机的 IP 和转发端口就行了</p>
-<h2 id="查询后台正在运行"><a href="#查询后台正在运行" class="headerlink" title="查询后台正在运行"></a>查询后台正在运行</h2><p><code>ps aux | grep gost | grep -v grep</code></p>
-<p>删除后台<br><code>kill pid</code></p>
-<h2 id="区别（GPT的回答）"><a href="#区别（GPT的回答）" class="headerlink" title="区别（GPT的回答）"></a>区别（GPT的回答）</h2><p>下面分别对两种配置方式进行详细说明，并探讨它们在使用场景与配置便捷性方面的差异。</p>
-<hr>
-<h3 id="方式-1"><a href="#方式-1" class="headerlink" title="方式 1"></a>方式 1</h3><p>中转机 (Relay Server):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L tcp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
 
-<p>落地机 (Target Server):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L relay+tls://:8443/:80</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>中转机监听本地 TCP 端口 9527，并通过 relay+tls 协议把流量转发到落地机的 1.1.1.1:8443。  </li>
-<li>落地机在 8443 端口上监听 relay+tls 流量，并最终将流量转发到本地 80 端口。</li>
-</ol>
-<p>在这种布局下：<br>• 中转机对外暴露的 TCP 端口是 9527，落地机对外暴露的 relay+tls 端口是 8443。<br>• 客户端连接到中转机的 9527 端口时，中转机会将流量加密并转发到落地机的 8443，然后落地机解密后将流量转发到本机 80 端口。<br>• 这种方式较为直观：中转机本身只做简单的 TCP 监听与加密转发，不指定最终的后端端口（由落地机自己确定 80）。</p>
-<hr>
-<h3 id="配置方式-2"><a href="#配置方式-2" class="headerlink" title="配置方式 2"></a>配置方式 2</h3><p>中转机 (Relay Server):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
-
-<p>落地机 (Target Server):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L relay+tls://:8443</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>中转机监听本地 TCP 端口 9527，并且在本条指令中已经将后端 IP:Port 显式指定为 1.1.1.1:80，然后再使用 relay+tls 协议将流量加密发送到 1.1.1.1:8443。  </li>
-<li>落地机只需要对外监听 relay+tls:&#x2F;&#x2F;:8443，并把解密后的流量直接送到 1.1.1.1:80（因为在中转机命令里已经填写了最终地址）。</li>
-</ol>
-<p>在这种布局下：<br>• 中转机直接定义了后端服务地址 “1.1.1.1:80”，落地机只负责监听加密端口 8443 并把流量转发到对应的本地端口（通常是 1.1.1.1:80，若落地机是同一台机器，IP 可理解为本机 IP）。<br>• 好处是中转机的一条命令就能控制最终流向的地址，不需要在落地机处指定后端端口。缺点是落地机配置更为简化，但中转机对后端 IP&#x2F;端口的依赖更强。</p>
-<hr>
-<h3 id="两种方式的对比与选择"><a href="#两种方式的对比与选择" class="headerlink" title="两种方式的对比与选择"></a>两种方式的对比与选择</h3><ol>
-<li><p>配置灵活度：  </p>
-<ul>
-<li>方式 1 更加模块化：中转机只做加密转发，落地机决定 80 端口或其他端口。后期若要修改后端端口，只需改动落地机的配置即可。  </li>
-<li>方式 2 更加集中：中转机一条命令中明确指定了 “1.1.1.1:80”，落地机无需指定后端端口，配置更简单，但导致中转机和落地机耦合更紧密。</li>
-</ul>
-</li>
-<li><p>可维护性：  </p>
-<ul>
-<li>如果你需要经常在落地机上变更端口或部署新的服务，方式 1 更符合“解耦”思路。  </li>
-<li>如果整个维护都由中转机负责，而落地机始终只跑一个服务（例如指定的 1.1.1.1:80），方式 2 则更方便。</li>
-</ul>
-</li>
-<li><p>安全性：  </p>
-<ul>
-<li>两种方式的加密协议都是 relay+tls，本质安全性相似，主要取决于证书配置与网络环境。  </li>
-<li>实际安全需求（例如是否需要验证证书、双向 TLS 等）可在具体命令或配置文件中进一步完善。</li>
-</ul>
-</li>
-<li><p>性能与负载：  </p>
-<ul>
-<li>方式 1 与方式 2 的性能基本差异不大，因为核心逻辑都是中转机加密转发、落地机解密并转发到 80 端口。  </li>
-<li>若有复杂负载或需要负载均衡，推荐进一步探索 GOST 的多路复用或其它模式。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>• 如果你想在中转机上集中管理后端 IP 和端口，且保持落地机配置最简化，可以选方式 2。<br>• 如果你想让中转机仅做加密隧道，不直接关心后端实际服务端口（由落地机自行配置），或可能以后变更落地机端口，方式 1 会更灵活。  </p>
-<p>从方便维护和解耦的角度，方式 1 通常更推荐，因为它把“转发和加密“与“监听及后端服务端口”分离开来，后续更改落地机端口时只需改动落地机的配置而无需变动中转机。方式 2 则更适合后端固定且不需要频繁更改服务端口的场景。</p>
-<h1 id="加密中转hy2（2025-1-17更新）"><a href="#加密中转hy2（2025-1-17更新）" class="headerlink" title="加密中转hy2（2025-1-17更新）"></a>加密中转hy2（2025-1-17更新）</h1><p>又折腾了两天，用了realm发现没有加密，还是考虑 Gost ，发现了有一键脚本</p>
-<p><a href="https://github.com/KANIKIG/Multi-EasyGost">https://github.com/KANIKIG/Multi-EasyGost</a></p>
-<p>这一个项目挺好用的，但是不支持 Alpine</p>
-<p><a href="https://github.com/kwxos/Multi-EasyGost%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89">https://github.com/kwxos/Multi-EasyGost（推荐）</a></p>
-<p>这一个fork支持了alpine系统，都是使用的 Gost v2.11.2</p>
-<p><a href="https://github.com/qqrrooty/EZgost">https://github.com/qqrrooty/EZgost</a></p>
-<p>这一个使用的是 Gost v2.11.5，但是没有适配 Alpine</p>
-<p>加密隧道中转用TLS就可以了</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bulianglin.com/archives/relay.html">不良林文档</a><br><a href="https://www.youtube.com/watch?v=AEqP8x_tILw">不良林视频教程</a><br><a href="https://www.youtube.com/watch?v=cuWaTP90bOs">奶油视频（不推荐）</a></p>
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
 ]]></content>
       <tags>
-        <tag>折腾</tag>
+        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -665,6 +599,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac 小技巧</title>
     <url>/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
     <content><![CDATA[<p>一些小技巧<span id="more"></span></p>
@@ -682,51 +640,6 @@
 <h1 id="Mac电脑窗口拖动"><a href="#Mac电脑窗口拖动" class="headerlink" title="Mac电脑窗口拖动"></a>Mac电脑窗口拖动</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浏览器扩展：将YouTube缩略图改回每行6个</title>
-    <url>/2025/04/06/Youtube%E5%B8%83%E5%B1%80/</url>
-    <content><![CDATA[<p>在用电脑上面使用 YouTube 时，我有账号每行4个视频缩略图，有账号3个，感觉都太大了<span id="more"></span>，在Reddit上面发现了两个帖子</p>
-<ol>
-<li><del><a href="https://www.reddit.com/r/youtube/comments/qx8lfa/youtube_has_recently_changed_the_way_they_render">https://www.reddit.com/r/youtube/comments/qx8lfa/youtube_has_recently_changed_the_way_they_render</a></del></li>
-<li><del><a href="https://www.reddit.com/r/youtube/comments/cur4bl/why_are_thumbnails_so_big_anyone_know_how_to_fix">https://www.reddit.com/r/youtube/comments/cur4bl/why_are_thumbnails_so_big_anyone_know_how_to_fix</a></del></li>
-</ol>
-<p><del>发现这个插件可以解决</del></p>
-<p><del>Youtube thumbnail resizer by iAlen：</del></p>
-<p><del>YouTube缩略图resizer将6个缩略图带回去，而不是4个缩略图 这是YouTube的简单扩展。它连续将新的4个缩略图调整到连续6个旧的6。</del></p>
-<p><del>下载地址：<a href="https://wwcp.lanzout.com/iMah22stv0wd">https://wwcp.lanzout.com/iMah22stv0wd</a></del></p>
-<p><del>也可在下面的网站下载</del></p>
-<p><del><a href="https://www.crxsoso.com/addon/detail/ipgmfobgnagjpilonpeccpmglemaimge">https://www.crxsoso.com/addon/detail/ipgmfobgnagjpilonpeccpmglemaimge</a></del></p>
-<p>本来想把他改成  “manifest_version”: 3，后面发现用油猴脚本更简单</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         YouTube缩略图调整器</span></span><br><span class="line"><span class="comment">// @namespace    http://tampermonkey.net/</span></span><br><span class="line"><span class="comment">// @version      1.3</span></span><br><span class="line"><span class="comment">// @description  将YouTube缩略图调整为每行6个而非4个，同时解决布局问题</span></span><br><span class="line"><span class="comment">// @author       Tune</span></span><br><span class="line"><span class="comment">// @match        https://www.youtube.com/*</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// @run-at       document-start</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建样式元素</span></span><br><span class="line">    <span class="keyword">const</span> style = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;style&#x27;</span>);</span><br><span class="line">    style.<span class="property">textContent</span> = <span class="string">`</span></span><br><span class="line"><span class="string">        /* 设置视频网格为6个一行 */</span></span><br><span class="line"><span class="string">        .ytd-rich-grid-renderer &#123;</span></span><br><span class="line"><span class="string">            --ytd-rich-grid-items-per-row: 6 !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 隐藏视频上传者头像 */</span></span><br><span class="line"><span class="string">        #avatar-link.ytd-rich-grid-video-renderer &#123;</span></span><br><span class="line"><span class="string">            display: none;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 调整内容区域宽度，确保能完整显示6个缩略图 */</span></span><br><span class="line"><span class="string">        #primary.ytd-two-column-browse-results-renderer &#123;</span></span><br><span class="line"><span class="string">            max-width: none !important;</span></span><br><span class="line"><span class="string">            width: calc(100% - 240px) !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 收起侧边栏时的宽度调整 */</span></span><br><span class="line"><span class="string">        ytd-page-manager.ytd-app ytd-browse[page-subtype=&quot;home&quot;] #primary.ytd-two-column-browse-results-renderer,</span></span><br><span class="line"><span class="string">        ytd-page-manager.ytd-app[mini-guide-visible] ytd-browse[page-subtype=&quot;home&quot;] #primary.ytd-two-column-browse-results-renderer &#123;</span></span><br><span class="line"><span class="string">            width: calc(100% - 72px) !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 确保页面本身不出现横向滚动条 */</span></span><br><span class="line"><span class="string">        html &#123;</span></span><br><span class="line"><span class="string">            overflow-x: hidden !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 添加样式到文档</span></span><br><span class="line">    (<span class="variable language_">document</span>.<span class="property">head</span> || <span class="variable language_">document</span>.<span class="property">documentElement</span>).<span class="title function_">appendChild</span>(style);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 动态调整布局的功能</span></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">adjustLayout</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> contentElem = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;content&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (contentElem) &#123;</span><br><span class="line">            <span class="comment">// 确保内容区域有足够宽度</span></span><br><span class="line">            contentElem.<span class="property">style</span>.<span class="property">maxWidth</span> = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始调整</span></span><br><span class="line">    <span class="title function_">adjustLayout</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 监听DOM变化以持续调整布局</span></span><br><span class="line">    <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(adjustLayout);</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="property">body</span>, &#123; <span class="attr">childList</span>: <span class="literal">true</span>, <span class="attr">subtree</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 控制台显示脚本已加载</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;YouTube缩略图调整器已加载&quot;</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>Extensions</tag>
       </tags>
   </entry>
   <entry>
@@ -791,70 +704,25 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
-<span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+    <title>浏览器扩展：将YouTube缩略图改回每行6个</title>
+    <url>/2025/04/06/Youtube%E5%B8%83%E5%B1%80/</url>
+    <content><![CDATA[<p>在用电脑上面使用 YouTube 时，我有账号每行4个视频缩略图，有账号3个，感觉都太大了<span id="more"></span>，在Reddit上面发现了两个帖子</p>
+<ol>
+<li><del><a href="https://www.reddit.com/r/youtube/comments/qx8lfa/youtube_has_recently_changed_the_way_they_render">https://www.reddit.com/r/youtube/comments/qx8lfa/youtube_has_recently_changed_the_way_they_render</a></del></li>
+<li><del><a href="https://www.reddit.com/r/youtube/comments/cur4bl/why_are_thumbnails_so_big_anyone_know_how_to_fix">https://www.reddit.com/r/youtube/comments/cur4bl/why_are_thumbnails_so_big_anyone_know_how_to_fix</a></del></li>
+</ol>
+<p><del>发现这个插件可以解决</del></p>
+<p><del>Youtube thumbnail resizer by iAlen：</del></p>
+<p><del>YouTube缩略图resizer将6个缩略图带回去，而不是4个缩略图 这是YouTube的简单扩展。它连续将新的4个缩略图调整到连续6个旧的6。</del></p>
+<p><del>下载地址：<a href="https://wwcp.lanzout.com/iMah22stv0wd">https://wwcp.lanzout.com/iMah22stv0wd</a></del></p>
+<p><del>也可在下面的网站下载</del></p>
+<p><del><a href="https://www.crxsoso.com/addon/detail/ipgmfobgnagjpilonpeccpmglemaimge">https://www.crxsoso.com/addon/detail/ipgmfobgnagjpilonpeccpmglemaimge</a></del></p>
+<p>本来想把他改成  “manifest_version”: 3，后面发现用油猴脚本更简单</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         YouTube缩略图调整器</span></span><br><span class="line"><span class="comment">// @namespace    http://tampermonkey.net/</span></span><br><span class="line"><span class="comment">// @version      1.3</span></span><br><span class="line"><span class="comment">// @description  将YouTube缩略图调整为每行6个而非4个，同时解决布局问题</span></span><br><span class="line"><span class="comment">// @author       Tune</span></span><br><span class="line"><span class="comment">// @match        https://www.youtube.com/*</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// @run-at       document-start</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建样式元素</span></span><br><span class="line">    <span class="keyword">const</span> style = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;style&#x27;</span>);</span><br><span class="line">    style.<span class="property">textContent</span> = <span class="string">`</span></span><br><span class="line"><span class="string">        /* 设置视频网格为6个一行 */</span></span><br><span class="line"><span class="string">        .ytd-rich-grid-renderer &#123;</span></span><br><span class="line"><span class="string">            --ytd-rich-grid-items-per-row: 6 !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 隐藏视频上传者头像 */</span></span><br><span class="line"><span class="string">        #avatar-link.ytd-rich-grid-video-renderer &#123;</span></span><br><span class="line"><span class="string">            display: none;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 调整内容区域宽度，确保能完整显示6个缩略图 */</span></span><br><span class="line"><span class="string">        #primary.ytd-two-column-browse-results-renderer &#123;</span></span><br><span class="line"><span class="string">            max-width: none !important;</span></span><br><span class="line"><span class="string">            width: calc(100% - 240px) !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 收起侧边栏时的宽度调整 */</span></span><br><span class="line"><span class="string">        ytd-page-manager.ytd-app ytd-browse[page-subtype=&quot;home&quot;] #primary.ytd-two-column-browse-results-renderer,</span></span><br><span class="line"><span class="string">        ytd-page-manager.ytd-app[mini-guide-visible] ytd-browse[page-subtype=&quot;home&quot;] #primary.ytd-two-column-browse-results-renderer &#123;</span></span><br><span class="line"><span class="string">            width: calc(100% - 72px) !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 确保页面本身不出现横向滚动条 */</span></span><br><span class="line"><span class="string">        html &#123;</span></span><br><span class="line"><span class="string">            overflow-x: hidden !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 添加样式到文档</span></span><br><span class="line">    (<span class="variable language_">document</span>.<span class="property">head</span> || <span class="variable language_">document</span>.<span class="property">documentElement</span>).<span class="title function_">appendChild</span>(style);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 动态调整布局的功能</span></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">adjustLayout</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> contentElem = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;content&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (contentElem) &#123;</span><br><span class="line">            <span class="comment">// 确保内容区域有足够宽度</span></span><br><span class="line">            contentElem.<span class="property">style</span>.<span class="property">maxWidth</span> = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始调整</span></span><br><span class="line">    <span class="title function_">adjustLayout</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 监听DOM变化以持续调整布局</span></span><br><span class="line">    <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(adjustLayout);</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="property">body</span>, &#123; <span class="attr">childList</span>: <span class="literal">true</span>, <span class="attr">subtree</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 控制台显示脚本已加载</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;YouTube缩略图调整器已加载&quot;</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
 ]]></content>
       <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>syslog、daemon.log 占用大量空间</title>
-    <url>/2025/03/17/syslog,daemon.log/</url>
-    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
-<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
-
-<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
-<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
-<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
-<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
-<p><strong>修改方法</strong>：</p>
-<ul>
-<li><p>**对于 <code>syslog</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
-</li>
-<li><p>**对于 <code>daemon.log</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
-<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此配置可避免单个日志文件过大</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
+        <tag>Extensions</tag>
       </tags>
   </entry>
   <entry>
@@ -1156,6 +1024,222 @@
       </tags>
   </entry>
   <entry>
+    <title>syslog、daemon.log 占用大量空间</title>
+    <url>/2025/03/17/syslog,daemon.log/</url>
+    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
+<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
+
+<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
+<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
+<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
+<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
+<p><strong>修改方法</strong>：</p>
+<ul>
+<li><p>**对于 <code>syslog</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
+</li>
+<li><p>**对于 <code>daemon.log</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
+<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此配置可避免单个日志文件过大</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gost v3中转</title>
+    <url>/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/</url>
+    <content><![CDATA[<p>不想使用x-ui的任意门，所以使用了更加专业的Gost 来中转<span id="more"></span></p>
+<p><a href="https://github.com/go-gost/gost">Gost GitHub</a></p>
+<p><a href="https://gost.run/">Gost官方文档</a></p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h2 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h2><p><a href="https://github.com/go-gost/gost/releases">https://github.com/go-gost/gost/releases</a></p>
+<p>找到好版本，然后用 <code>wget</code></p>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><p><code>tar -zxvf gost_3.0.0_linux_amd64.tar.gz</code></p>
+<p>无法运行记得给权限</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><p>中转机：<code>./gost -L tcp://:中转机入站端口 -F relay+tls://落地机IP:落地机入站端口</code></p>
+<p>落地机：<code>./gost -L relay+tls://:落地机入站端口/:节点端口</code></p>
+<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>1.1.1.1 为落地 IP</p>
+<p>中转机：<code>./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</code></p>
+<p>落地机：<code>./gost -L relay+tls://:8443</code></p>
+<p>可以把 IP 换为网址</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##后台运行，并且把日志写入到 gost.log，名称可自定义</span><br><span class="line">nohup 运行指令 &gt; gost.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##丢弃日志，推荐测试完成后丢弃，这个日志会变大的</span><br><span class="line">nohup 运行指令 &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##中转转发UDP</span><br><span class="line">./gost -L tcp://:9527  -L udp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+<p>在落地机搭建好节点，把IP和端口改成中转机的 IP 和转发端口就行了</p>
+<h2 id="查询后台正在运行"><a href="#查询后台正在运行" class="headerlink" title="查询后台正在运行"></a>查询后台正在运行</h2><p><code>ps aux | grep gost | grep -v grep</code></p>
+<p>删除后台<br><code>kill pid</code></p>
+<h2 id="区别（GPT的回答）"><a href="#区别（GPT的回答）" class="headerlink" title="区别（GPT的回答）"></a>区别（GPT的回答）</h2><p>下面分别对两种配置方式进行详细说明，并探讨它们在使用场景与配置便捷性方面的差异。</p>
+<hr>
+<h3 id="方式-1"><a href="#方式-1" class="headerlink" title="方式 1"></a>方式 1</h3><p>中转机 (Relay Server):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L tcp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+
+<p>落地机 (Target Server):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L relay+tls://:8443/:80</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>中转机监听本地 TCP 端口 9527，并通过 relay+tls 协议把流量转发到落地机的 1.1.1.1:8443。  </li>
+<li>落地机在 8443 端口上监听 relay+tls 流量，并最终将流量转发到本地 80 端口。</li>
+</ol>
+<p>在这种布局下：<br>• 中转机对外暴露的 TCP 端口是 9527，落地机对外暴露的 relay+tls 端口是 8443。<br>• 客户端连接到中转机的 9527 端口时，中转机会将流量加密并转发到落地机的 8443，然后落地机解密后将流量转发到本机 80 端口。<br>• 这种方式较为直观：中转机本身只做简单的 TCP 监听与加密转发，不指定最终的后端端口（由落地机自己确定 80）。</p>
+<hr>
+<h3 id="配置方式-2"><a href="#配置方式-2" class="headerlink" title="配置方式 2"></a>配置方式 2</h3><p>中转机 (Relay Server):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+
+<p>落地机 (Target Server):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L relay+tls://:8443</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>中转机监听本地 TCP 端口 9527，并且在本条指令中已经将后端 IP:Port 显式指定为 1.1.1.1:80，然后再使用 relay+tls 协议将流量加密发送到 1.1.1.1:8443。  </li>
+<li>落地机只需要对外监听 relay+tls:&#x2F;&#x2F;:8443，并把解密后的流量直接送到 1.1.1.1:80（因为在中转机命令里已经填写了最终地址）。</li>
+</ol>
+<p>在这种布局下：<br>• 中转机直接定义了后端服务地址 “1.1.1.1:80”，落地机只负责监听加密端口 8443 并把流量转发到对应的本地端口（通常是 1.1.1.1:80，若落地机是同一台机器，IP 可理解为本机 IP）。<br>• 好处是中转机的一条命令就能控制最终流向的地址，不需要在落地机处指定后端端口。缺点是落地机配置更为简化，但中转机对后端 IP&#x2F;端口的依赖更强。</p>
+<hr>
+<h3 id="两种方式的对比与选择"><a href="#两种方式的对比与选择" class="headerlink" title="两种方式的对比与选择"></a>两种方式的对比与选择</h3><ol>
+<li><p>配置灵活度：  </p>
+<ul>
+<li>方式 1 更加模块化：中转机只做加密转发，落地机决定 80 端口或其他端口。后期若要修改后端端口，只需改动落地机的配置即可。  </li>
+<li>方式 2 更加集中：中转机一条命令中明确指定了 “1.1.1.1:80”，落地机无需指定后端端口，配置更简单，但导致中转机和落地机耦合更紧密。</li>
+</ul>
+</li>
+<li><p>可维护性：  </p>
+<ul>
+<li>如果你需要经常在落地机上变更端口或部署新的服务，方式 1 更符合“解耦”思路。  </li>
+<li>如果整个维护都由中转机负责，而落地机始终只跑一个服务（例如指定的 1.1.1.1:80），方式 2 则更方便。</li>
+</ul>
+</li>
+<li><p>安全性：  </p>
+<ul>
+<li>两种方式的加密协议都是 relay+tls，本质安全性相似，主要取决于证书配置与网络环境。  </li>
+<li>实际安全需求（例如是否需要验证证书、双向 TLS 等）可在具体命令或配置文件中进一步完善。</li>
+</ul>
+</li>
+<li><p>性能与负载：  </p>
+<ul>
+<li>方式 1 与方式 2 的性能基本差异不大，因为核心逻辑都是中转机加密转发、落地机解密并转发到 80 端口。  </li>
+<li>若有复杂负载或需要负载均衡，推荐进一步探索 GOST 的多路复用或其它模式。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>• 如果你想在中转机上集中管理后端 IP 和端口，且保持落地机配置最简化，可以选方式 2。<br>• 如果你想让中转机仅做加密隧道，不直接关心后端实际服务端口（由落地机自行配置），或可能以后变更落地机端口，方式 1 会更灵活。  </p>
+<p>从方便维护和解耦的角度，方式 1 通常更推荐，因为它把“转发和加密“与“监听及后端服务端口”分离开来，后续更改落地机端口时只需改动落地机的配置而无需变动中转机。方式 2 则更适合后端固定且不需要频繁更改服务端口的场景。</p>
+<h1 id="加密中转hy2（2025-1-17更新）"><a href="#加密中转hy2（2025-1-17更新）" class="headerlink" title="加密中转hy2（2025-1-17更新）"></a>加密中转hy2（2025-1-17更新）</h1><p>又折腾了两天，用了realm发现没有加密，还是考虑 Gost ，发现了有一键脚本</p>
+<p><a href="https://github.com/KANIKIG/Multi-EasyGost">https://github.com/KANIKIG/Multi-EasyGost</a></p>
+<p>这一个项目挺好用的，但是不支持 Alpine</p>
+<p><a href="https://github.com/kwxos/Multi-EasyGost%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89">https://github.com/kwxos/Multi-EasyGost（推荐）</a></p>
+<p>这一个fork支持了alpine系统，都是使用的 Gost v2.11.2</p>
+<p><a href="https://github.com/qqrrooty/EZgost">https://github.com/qqrrooty/EZgost</a></p>
+<p>这一个使用的是 Gost v2.11.5，但是没有适配 Alpine</p>
+<p>加密隧道中转用TLS就可以了</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bulianglin.com/archives/relay.html">不良林文档</a><br><a href="https://www.youtube.com/watch?v=AEqP8x_tILw">不良林视频教程</a><br><a href="https://www.youtube.com/watch?v=cuWaTP90bOs">奶油视频（不推荐）</a></p>
+]]></content>
+      <tags>
+        <tag>折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Bose QC Ultra 和 Sony XM5</title>
+    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
+    <content><![CDATA[<p>入耳式耳机戴着就是不舒服，而且容易引发炎症（三星buds pro）</p>
+]]></content>
+      <tags>
+        <tag>耳机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
+<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
+<ul>
+<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
+<li>UDP(<strong>21116</strong>)</li>
+</ul>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+]]></content>
+      <tags>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 折腾</title>
+    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
+<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
+<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
+<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
+<ul>
+<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
+<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
+<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
+<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
+<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
+<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
+</ul>
+<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
+<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
+<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
+<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
+<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
+]]></content>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安装Theos和Monkeydev</title>
     <url>/2025/01/21/theos%E5%92%8Cmonkeydev%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<p>认真玩越狱一年了，想学习开发插件，总结一下工具的安装<span id="more"></span></p>
@@ -1283,87 +1367,6 @@
       <tags>
         <tag>Mac</tag>
         <tag>越狱</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>哪吒监控v1</title>
-    <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
-<h1 id="安装-Dashboard"><a href="#安装-Dashboard" class="headerlink" title="安装 Dashboard"></a>安装 Dashboard</h1><p><a href="https://nezha.wiki/guide/dashboard.html">官方面板安装教程</a></p>
-<p>安装脚本：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/main/install.sh -o nezha.sh &amp;&amp; <span class="built_in">chmod</span> +x nezha.sh &amp;&amp; <span class="built_in">sudo</span> ./nezha.sh</span><br></pre></td></tr></table></figure>
-
-<p>首次登录的默认用户名和密码均为 <code>admin</code>，记得及时改密码</p>
-<p>使用一个域名开启 CDN 用作访问，另一个域名不开启 CDN 来用于 agent 通信</p>
-<p>去面板设置把 <code>Agent对接地址【域名/IP:端口】</code> 改为<strong>不套CDN</strong>的地址+<strong>端口</strong></p>
-<h1 id="安装-Nginx-反代"><a href="#安装-Nginx-反代" class="headerlink" title="安装 Nginx 反代"></a>安装 Nginx 反代</h1><p>只需要反代面板域名，(开启 CDN 的即可)</p>
-<p>推荐使用 科技lion 的脚本（还有很多其他好用的功能）</p>
-<p>脚本的 Nginx 使用：<a href="https://www.youtube.com/watch?v=rcLgEzdM2Tc">https://www.youtube.com/watch?v=rcLgEzdM2Tc</a></p>
-<h1 id="安装-Agent"><a href="#安装-Agent" class="headerlink" title="安装 Agent"></a>安装 Agent</h1><p>在 Dashboard 中直接复制安装命令</p>
-<h2 id="卸载（来自官方）"><a href="#卸载（来自官方）" class="headerlink" title="卸载（来自官方）"></a>卸载（来自官方）</h2><p>卸载 Agent 包括停止服务、卸载服务，以及删除相关文件。以下是 Ubuntu 系统的卸载步骤：</p>
-<ol>
-<li><p>停止并卸载服务：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/nezha/agent/</span><br><span class="line">./nezha-agent service uninstall</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除 Agent 文件夹：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /opt/nezha/agent/</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>如果安装了多个服务并想要全部卸载，可以使用 Agent 安装脚本的卸载功能：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./agent.sh uninstall</span><br></pre></td></tr></table></figure>
-
-<h1 id="serv00-安装哪咤监控"><a href="#serv00-安装哪咤监控" class="headerlink" title="serv00 安装哪咤监控"></a>serv00 安装哪咤监控</h1><p>市面上有挺多的脚本的，我推荐这个作者的<br><a href="https://github.com/vfhky/serv00_ct8_nezha">https://github.com/vfhky/serv00_ct8_nezha</a></p>
-<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1、下载脚本</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vfhky/serv00_ct8_nezha.git</span><br><span class="line"></span><br><span class="line">2、进入项目</span><br><span class="line"><span class="built_in">cd</span> serv00_ct8_nezha</span><br><span class="line"></span><br><span class="line">3、修改配置（非必须的操作</span><br><span class="line">vim config/host.eg</span><br><span class="line"></span><br><span class="line">4、开始安装</span><br><span class="line">python3 main.py</span><br></pre></td></tr></table></figure>
-
-<p>作者的博客：<br><a href="https://typecodes.com/python/serv00ct8nezhav1.html">https://typecodes.com/python/serv00ct8nezhav1.html</a></p>
-<p>注意，该作者的脚本做的保活面板，只需要ssh登录一次即可，不需要特意用作者的脚本，我的保活脚本可以继续使用</p>
-<p>该项目的<code>utils.sh</code>使用：<a href="https://typecodes.com/python/serv00ct8nezha4.html">https://typecodes.com/python/serv00ct8nezha4.html</a></p>
-<p>常用</p>
-<ol>
-<li><p>重新 serv00 或者 ct8 主机的系统。脚本会删除用户目录除了 backup 外的所有文件或者目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh restore</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>卸载已经安装的哪吒探针的dashboard和agent 并删除 crontab中的哪吒探针心跳(heart_beat_entry.sh)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh uninstall</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="数据迁移、备份恢复"><a href="#数据迁移、备份恢复" class="headerlink" title="数据迁移、备份恢复"></a>数据迁移、备份恢复</h1><p>来自官方：<a href="https://nezha.wiki/guide/q5.html">https://nezha.wiki/guide/q5.html</a></p>
-<p><strong>停止面板服务</strong><br>在旧服务器中运行一键脚本，选择 <code>停止面板</code>。</p>
-<p><strong>备份数据</strong><br>打包旧服务器中的 <code>/opt/nezha</code> 文件夹，并将其复制到新服务器相同位置。</p>
-<p><strong>恢复数据</strong><br>在新服务器中解压 <code>/opt/nezha</code> 文件夹至相同路径。</p>
-<p><strong>启动面板服务</strong><br>在新服务器中运行一键脚本，选择 <code>启动面板</code>。</p>
-<p>注意事项</p>
-<ul>
-<li>确保 <code>/opt/nezha</code> 文件夹及其内容的权限和所有权在新服务器上正确设置。</li>
-<li>数据迁移完成后，可以通过访问 Dashboard 界面验证迁移是否成功。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android 折腾</title>
-    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
-<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
-<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
-<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
-<ul>
-<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
-<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
-<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
-<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
-<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
-<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
-</ul>
-<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
-<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
-<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
-<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
-<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
-]]></content>
-      <tags>
-        <tag>Android</tag>
       </tags>
   </entry>
   <entry>
@@ -1559,130 +1562,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
-<ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
-</ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
-<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
-<ul>
-<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
-<li>UDP(<strong>21116</strong>)</li>
-</ul>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
-]]></content>
-      <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建越狱软件源</title>
-    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
-<p>环境：</p>
-<ul>
-<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
-<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
-<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
-</li>
-<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
-</li>
-<li><p>Mac OS X：<code>brew install dpkg</code></p>
-</li>
-<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
-</li>
-</ul>
-<p>插件来源：</p>
-<ol>
-<li><p>Telegram、QQ等社交软件</p>
-</li>
-<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
-<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
-</li>
-<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
-</li>
-</ol>
-<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
-
-<p><strong>可选（可直接略过）：</strong></p>
-<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
-<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
-<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>Terminal</code> 打开所在文件夹</p>
-<p>将位于debs目录的所有deb包扫描并生成Packages</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
-
-<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
-
-<p>为什么需要压缩文件？</p>
-<p>Cydia添加源时大致行为如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
-
-<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
-<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
-<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
-<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
-<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
-<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
-<p>步骤：</p>
-<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
-<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
-<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
-<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
-<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
-<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
-<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
-<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>越狱</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>百度网盘青龙面板会员签到</title>
     <url>/2025/03/16/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BC%9A%E5%91%98%E7%AD%BE%E5%88%B0/</url>
     <content><![CDATA[<p>GitHub地址：<a href="https://github.com/tunecc/DuPan">https://github.com/tunecc/DuPan</a> <span id="more"></span></p>
@@ -1702,6 +1581,66 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 ]]></content>
       <tags>
         <tag>青龙面板</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mihomo 链式代理</title>
+    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
+<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
+<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
+<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
+<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
+<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
+<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>青龙面板保活Serv00并启用TG推送</title>
+    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
+    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
+<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
+<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
+<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
+<ol>
+<li>多账号添加更方便;</li>
+<li>设置了ssh超时,避免了脚本卡死;</li>
+<li>电报消息可以提示哪些账号出错。</li>
+</ol>
+<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>附telegram的通知截图<br><img src="https://85d8ba7.webp.li/2024/12/e40e393a90e4ca1d48f5dcb663e0c56a.png" width=50% height=50% /></p>
+<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
+<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
+<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
+<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
+<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
+<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
+<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
+<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>青龙面板</tag>
+        <tag>Serv00</tag>
       </tags>
   </entry>
   <entry>
@@ -1898,41 +1837,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>青龙面板保活Serv00并启用TG推送</title>
-    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
-    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
-<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
-<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
-<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
-<ol>
-<li>多账号添加更方便;</li>
-<li>设置了ssh超时,避免了脚本卡死;</li>
-<li>电报消息可以提示哪些账号出错。</li>
-</ol>
-<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<p>附telegram的通知截图<br><img src="https://85d8ba7.webp.li/2024/12/e40e393a90e4ca1d48f5dcb663e0c56a.png" width=50% height=50% /></p>
-<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
-<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
-<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
-<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
-<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
-<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
-<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
-<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>青龙面板</tag>
-        <tag>Serv00</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>转换GitHub Raw 链接</title>
     <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
     <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
@@ -1950,37 +1854,133 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>Bose QC Ultra 和 Sony XM5</title>
-    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
-    <content><![CDATA[<p>入耳式耳机戴着就是不舒服，而且容易引发炎症（三星buds pro）</p>
+    <title>哪吒监控v1</title>
+    <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
+<h1 id="安装-Dashboard"><a href="#安装-Dashboard" class="headerlink" title="安装 Dashboard"></a>安装 Dashboard</h1><p><a href="https://nezha.wiki/guide/dashboard.html">官方面板安装教程</a></p>
+<p>安装脚本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/main/install.sh -o nezha.sh &amp;&amp; <span class="built_in">chmod</span> +x nezha.sh &amp;&amp; <span class="built_in">sudo</span> ./nezha.sh</span><br></pre></td></tr></table></figure>
+
+<p>首次登录的默认用户名和密码均为 <code>admin</code>，记得及时改密码</p>
+<p>使用一个域名开启 CDN 用作访问，另一个域名不开启 CDN 来用于 agent 通信</p>
+<p>去面板设置把 <code>Agent对接地址【域名/IP:端口】</code> 改为<strong>不套CDN</strong>的地址+<strong>端口</strong></p>
+<h1 id="安装-Nginx-反代"><a href="#安装-Nginx-反代" class="headerlink" title="安装 Nginx 反代"></a>安装 Nginx 反代</h1><p>只需要反代面板域名，(开启 CDN 的即可)</p>
+<p>推荐使用 科技lion 的脚本（还有很多其他好用的功能）</p>
+<p>脚本的 Nginx 使用：<a href="https://www.youtube.com/watch?v=rcLgEzdM2Tc">https://www.youtube.com/watch?v=rcLgEzdM2Tc</a></p>
+<h1 id="安装-Agent"><a href="#安装-Agent" class="headerlink" title="安装 Agent"></a>安装 Agent</h1><p>在 Dashboard 中直接复制安装命令</p>
+<h2 id="卸载（来自官方）"><a href="#卸载（来自官方）" class="headerlink" title="卸载（来自官方）"></a>卸载（来自官方）</h2><p>卸载 Agent 包括停止服务、卸载服务，以及删除相关文件。以下是 Ubuntu 系统的卸载步骤：</p>
+<ol>
+<li><p>停止并卸载服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/nezha/agent/</span><br><span class="line">./nezha-agent service uninstall</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除 Agent 文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /opt/nezha/agent/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>如果安装了多个服务并想要全部卸载，可以使用 Agent 安装脚本的卸载功能：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./agent.sh uninstall</span><br></pre></td></tr></table></figure>
+
+<h1 id="serv00-安装哪咤监控"><a href="#serv00-安装哪咤监控" class="headerlink" title="serv00 安装哪咤监控"></a>serv00 安装哪咤监控</h1><p>市面上有挺多的脚本的，我推荐这个作者的<br><a href="https://github.com/vfhky/serv00_ct8_nezha">https://github.com/vfhky/serv00_ct8_nezha</a></p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1、下载脚本</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vfhky/serv00_ct8_nezha.git</span><br><span class="line"></span><br><span class="line">2、进入项目</span><br><span class="line"><span class="built_in">cd</span> serv00_ct8_nezha</span><br><span class="line"></span><br><span class="line">3、修改配置（非必须的操作</span><br><span class="line">vim config/host.eg</span><br><span class="line"></span><br><span class="line">4、开始安装</span><br><span class="line">python3 main.py</span><br></pre></td></tr></table></figure>
+
+<p>作者的博客：<br><a href="https://typecodes.com/python/serv00ct8nezhav1.html">https://typecodes.com/python/serv00ct8nezhav1.html</a></p>
+<p>注意，该作者的脚本做的保活面板，只需要ssh登录一次即可，不需要特意用作者的脚本，我的保活脚本可以继续使用</p>
+<p>该项目的<code>utils.sh</code>使用：<a href="https://typecodes.com/python/serv00ct8nezha4.html">https://typecodes.com/python/serv00ct8nezha4.html</a></p>
+<p>常用</p>
+<ol>
+<li><p>重新 serv00 或者 ct8 主机的系统。脚本会删除用户目录除了 backup 外的所有文件或者目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh restore</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载已经安装的哪吒探针的dashboard和agent 并删除 crontab中的哪吒探针心跳(heart_beat_entry.sh)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh uninstall</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="数据迁移、备份恢复"><a href="#数据迁移、备份恢复" class="headerlink" title="数据迁移、备份恢复"></a>数据迁移、备份恢复</h1><p>来自官方：<a href="https://nezha.wiki/guide/q5.html">https://nezha.wiki/guide/q5.html</a></p>
+<p><strong>停止面板服务</strong><br>在旧服务器中运行一键脚本，选择 <code>停止面板</code>。</p>
+<p><strong>备份数据</strong><br>打包旧服务器中的 <code>/opt/nezha</code> 文件夹，并将其复制到新服务器相同位置。</p>
+<p><strong>恢复数据</strong><br>在新服务器中解压 <code>/opt/nezha</code> 文件夹至相同路径。</p>
+<p><strong>启动面板服务</strong><br>在新服务器中运行一键脚本，选择 <code>启动面板</code>。</p>
+<p>注意事项</p>
+<ul>
+<li>确保 <code>/opt/nezha</code> 文件夹及其内容的权限和所有权在新服务器上正确设置。</li>
+<li>数据迁移完成后，可以通过访问 Dashboard 界面验证迁移是否成功。</li>
+</ul>
 ]]></content>
       <tags>
-        <tag>耳机</tag>
+        <tag>折腾</tag>
       </tags>
   </entry>
   <entry>
-    <title>Mihomo 链式代理</title>
-    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
-<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
-<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
-<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+    <title>搭建越狱软件源</title>
+    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
+<p>环境：</p>
+<ul>
+<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
+<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
+<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
+</li>
+<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
+</li>
+<li><p>Mac OS X：<code>brew install dpkg</code></p>
+</li>
+<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
+</li>
+</ul>
+<p>插件来源：</p>
+<ol>
+<li><p>Telegram、QQ等社交软件</p>
+</li>
+<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
+<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
+</li>
+<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
+</li>
+</ol>
+<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>可选（可直接略过）：</strong></p>
+<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
+<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
+<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>Terminal</code> 打开所在文件夹</p>
+<p>将位于debs目录的所有deb包扫描并生成Packages</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
+
+<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
+
+<p>为什么需要压缩文件？</p>
+<p>Cydia添加源时大致行为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
+
+<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
+<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
+<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
+<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
+<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
+<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
+<p>步骤：</p>
+<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
+<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
 
 
 
-<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
-<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
-<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
-<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
+<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
+<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
+<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
+<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
+<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
+</ol>
 ]]></content>
+      <tags>
+        <tag>越狱</tag>
+      </tags>
   </entry>
 </search>
