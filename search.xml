@@ -144,6 +144,127 @@
       </tags>
   </entry>
   <entry>
+    <title>Cloudflare Tunnel内网穿透及优选</title>
+    <url>/2024/12/06/Cloudflare%20tunnel/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
+<li>ImmortalWrt 23.05</li>
+<li>两个域名且绑定在Cloudflare</li>
+<li>CF账号以及开通 SAAS 不多说</li>
+</ul>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>首先在 ImmortalWrt上面安装好 <code>luci-app-cloudflared</code> (ImmortalWrt 自带相关软件包，我未深入研究其他安装方式。Linux 系统的安装方法有很多，这里不再赘述，详情可参考官方 GitHub 页面：<a href="https://github.com/cloudflare/cloudflared">Cloudflare&#x2F;cloudflared</a> ）</p>
+<h2 id="SSH-连接到设备"><a href="#SSH-连接到设备" class="headerlink" title="SSH 连接到设备"></a>SSH 连接到设备</h2><p>注意：如果和我一样是是用 ImmortalWrt 提供的软件包，可以输入 <code>cloudflared update </code>来更新软件，不会影响 luci 的兼容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel login</span><br></pre></td></tr></table></figure>
+
+<p>这时候打开客户端跳出来的链接，登录 Cloudflare 后选择你的副域名（辅助域名），例如：back.com<br>电脑这时候会下载 “cert.pem” 到 <code>/root/.cloudflared</code>，需要自己把他移动到 <code>/etc/cloudflared/</code> 或者用luci界面上传<br>如果下载失败可以手动点击控制台的链接下载到电脑，重命名后，再用上面的方式传输到 OpenWrt</p>
+<h2 id="创建隧道，随意命名"><a href="#创建隧道，随意命名" class="headerlink" title="创建隧道，随意命名"></a>创建隧道，随意命名</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel create XXX</span><br></pre></td></tr></table></figure>
+
+<p>这时候 <code>/root/.cloudflared</code> 下面会有一个 <code>&lt;UUID&gt;.json</code>文件，同样把它弄到 <code>/etc/cloudflared/</code> 文件夹里面去</p>
+<p>添加一个域名，这个域名将作为回退源，建议使用子域名，这里以 op.back.com 为例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel route dns &lt;UUID or NAME&gt; op.back.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建配置文件-config-yml"><a href="#创建配置文件-config-yml" class="headerlink" title="创建配置文件 config.yml"></a>创建配置文件 config.yml</h2><figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">tunnel: &lt;UUID&gt;</span><br><span class="line">credentials-file: /etc/cloudflared/&lt;UUID&gt;.json</span><br><span class="line"></span><br><span class="line">ingress:</span><br><span class="line">  - hostname: back.com</span><br><span class="line">    service: http://localhost</span><br><span class="line"></span><br><span class="line">  # Example of a rule responding to traffic with an HTTP status:</span><br><span class="line">  - service: http_status:404</span><br></pre></td></tr></table></figure>
+
+<p>验证配置是否有效</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel ingress validate</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行隧道"><a href="#运行隧道" class="headerlink" title="运行隧道"></a>运行隧道</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel run &lt;UUID or NAME&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或去luci启动</p>
+<h2 id="迁移本地配置"><a href="#迁移本地配置" class="headerlink" title="迁移本地配置"></a>迁移本地配置</h2><p>迁移到云端更便于管理，避免使用抓包 PUT 请求</p>
+<p>去 Cloudflare 的 Tunnel 界面查看是否为 <code>HEALTHY</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/225d0b8e7d2bf8bfdd4b5490eedad8e0.webp"  />
+
+<p>进入该 Tunnel 的管理界面，一路确认就可以迁移了</p>
+<p>这时候可以添加主域名的穿透了，Add a public hostname –&gt; <code>op.a.com</code> –&gt; <code>http://192.168.8.1:80</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/e812b96e59aebffed374496d45d975e3.webp"  />
+
+<p>还可以继续添加同一IP不同端口的服务到，a.com 的其他子域名下面（我自己折腾，同一内网不同IP也是可以的，如：回退源为192.168.8.1，但是我穿透192.168.8.2的服务，用网站测速也是有加速效果的，这里没有佬的研究成果，效果不敢保证）</p>
+<h2 id="设置优选域名"><a href="#设置优选域名" class="headerlink" title="设置优选域名"></a>设置优选域名</h2><ol>
+<li>在Cloudflare中直接设置</li>
+<li>主域名的一个子域名（cdn.a.com）托管到腾讯云、阿里云等提供DNS分线路解析服务的平台，进行境内境外分流</li>
+</ol>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>到 辅助域名（back.com ）的管理页面</p>
+<p>添加一条DNS记录，用作优选域名，如：cdn.back.com</p>
+<p>把该域名CNAME到一个优选域名（切记关闭小黄云），请自行挑选：<a href="https://www.wetest.vip/page/cloudflare/cname.html">CloudFlare公共Cname域名</a></p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>dnspod 或其他 dns 平台，添加主域名的随机一个子域名，如：cdn.a.com</p>
+<p>这里以腾讯云为例</p>
+<p>复制主机记录和记录值去 CF 添加，同时添加 NS 记录指向 <code>f1g1ns1.dnspod.net</code> 和 <code>f1g1ns2.dnspod.net</code>，然后在高级设置中关闭暂停解析</p>
+<p>如下图添加解析，境内指向优选域名 &#x2F; IP，境外指向你的回退源</p>
+<img src="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp"  />
+
+<p>然后在我的域名界面，点击该加速域名的 “更多” –&gt; “开始解析”</p>
+<h2 id="设置回退源"><a href="#设置回退源" class="headerlink" title="设置回退源"></a>设置回退源</h2><p>辅助域名（back.com）管理界面，左侧边栏–&gt;SSL&#x2F;TLS–&gt;自定义主机名</p>
+<p>设置回退源为 <code>op.back.com</code></p>
+<p>设置自定义主机名为 <code>op.a.com</code>（还有其他服务一并添加）</p>
+<p>复制好 “主机名预验证 TXT 名称” 和 “主机名预验证 TXT 值”<br>就是 <code>_cf-custom-hostname.op.a.com</code> </p>
+<p>证书验证（_acme-challenge.op.a.com）不用管，CNAME 到回退源他会自动消失的</p>
+<h2 id="主域名设置"><a href="#主域名设置" class="headerlink" title="主域名设置"></a>主域名设置</h2><p>现在去主域名（a.com）设置 DNS 记录</p>
+<p>由于我们在 Tunnel 已经添加过主域名的记录，所以这里会有CNAME的记录，且内容为我我们的容器ID</p>
+<p>把容器 ID 改为我们的优选域名（cdn.a.com）关闭小黄云，这样就用上了</p>
+<p>再把 “主机名预验证 TXT 名称” 和 “主机名预验证 TXT 值” 添加好，这时候可以回到，辅助域名（back.com）自定义主机界面，看 “证书状态” 和 “主机名状态” 是否都变成了有效，到此就大功告成了</p>
+<p>去 <a href="https://www.itdog.cn/http/">ITDOG</a> 和 <a href="https://zhale.me/http/">ZHALE</a> 的网站测速看看（带上https:&#x2F;&#x2F;，慢速检测），出口IP有十个以上就是成功了</p>
+<h1 id="设置截图"><a href="#设置截图" class="headerlink" title="设置截图"></a>设置截图</h1><p>Public hostname<br><img src="https://85d8ba7.webp.li/2024/12/b25173d3c71da7eed98a4213d5b41737.webp"  /></p>
+<p>辅助域名（back.com DNS设置）<br><img src="https://85d8ba7.webp.li/2024/12/418b6e87f9235a5ea6dd4c7a0724a2af.webp"  /></p>
+<p>自定义主机名设置<br><img src="https://85d8ba7.webp.li/2024/12/1726bfa32a1d2224e0b4714ca04dc33e.webp"  /></p>
+<p>主域名（a.com DNS设置）<br><img src="https://85d8ba7.webp.li/2024/12/09ff7293440f35e7a1fbaf18cacde9a1.webp"  /></p>
+<p>加速域名设置（cdn.a.com）<br><img src="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp"  /></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ol>
+<li><p>OpenWrt 上面跑了科学的话，请跳过这个域名的Fakeip，或者 OpenWrt 不要走代理，不然会连接不到 Cloudflare</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+.v2.argotunnel.com</span><br></pre></td></tr></table></figure>
+
+<p>最好走直连，或者把 CF Tunnel 的服务 IP 走直连，不然家里的梯子断了就连不回来了</p>
+<p>思路来源于</p>
+<p><a href="https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html">https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html</a></p>
+<p><a href="https://www.nodeseek.com/post-201141-1">https://www.nodeseek.com/post-201141-1</a></p>
+</li>
+<li><p><strong>免费计划 API Tokens 只能创建 50 个</strong>，也就是你只要授权 50 次，就会报错：<code>Quota limit exceeded, you can create no more than 50 tokens.</code><br>所以要记得删除无用的：<a href="https://dash.cloudflare.com/profile/api-tokens">https://dash.cloudflare.com/profile/api-tokens</a></p>
+<p>详细请见：<a href="https://blog.tsinbei.com/archives/1505">https://blog.tsinbei.com/archives/1505</a></p>
+</li>
+</ol>
+<h1 id="看过的教程"><a href="#看过的教程" class="headerlink" title="看过的教程"></a>看过的教程</h1><h2 id="视频："><a href="#视频：" class="headerlink" title="视频："></a>视频：</h2><ul>
+<li><a href="https://www.youtube.com/watch?v=BOIOxneWX_k">https://www.youtube.com/watch?v=BOIOxneWX_k</a></li>
+<li><a href="https://www.bilibili.com/video/BV1PPy6YzE5C">https://www.bilibili.com/video/BV1PPy6YzE5C</a></li>
+</ul>
+<h2 id="文字："><a href="#文字：" class="headerlink" title="文字："></a>文字：</h2><ul>
+<li><a href="https://linux.do/t/topic/118132">https://linux.do/t/topic/118132</a></li>
+<li><a href="https://linux.do/t/topic/156469">https://linux.do/t/topic/156469</a></li>
+<li><a href="https://linux.do/t/topic/122087">https://linux.do/t/topic/122087</a></li>
+<li><a href="https://linux.do/t/topic/114314">https://linux.do/t/topic/114314</a></li>
+<li><a href="https://linux.do/t/topic/122246">https://linux.do/t/topic/122246</a></li>
+<li><a href="https://linux.do/t/topic/78224">https://linux.do/t/topic/78224</a></li>
+<li><a href="https://blog.tsinbei.com/archives/1505">https://blog.tsinbei.com/archives/1505</a></li>
+<li><a href="https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html">https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html</a></li>
+</ul>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>其实优选后的提升不是很大，建议不折腾。</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FRP + SAAS 回源</title>
+    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
+    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
+<ol>
+<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
+<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
+</ol>
+<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
+<li>回源域名开启小黄云指向服务器IP</li>
+<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
+<li>服务器上面自签证书用 主力域名（访问域名）</li>
+<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
+</ol>
+<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>FRP 内网穿透</title>
     <url>/2024/10/08/Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
@@ -272,51 +393,6 @@
 ]]></content>
       <tags>
         <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FRP + SAAS 回源</title>
-    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
-    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
-<ol>
-<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
-<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
-</ol>
-<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
-<li>回源域名开启小黄云指向服务器IP</li>
-<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
-<li>服务器上面自签证书用 主力域名（访问域名）</li>
-<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
-</ol>
-<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
-]]></content>
-      <tags>
-        <tag>FRP</tag>
-        <tag>OpenWrt</tag>
       </tags>
   </entry>
   <entry>
@@ -609,24 +685,23 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
 <span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
 
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
 ]]></content>
       <tags>
         <tag>Mac</tag>
@@ -652,6 +727,134 @@
 ]]></content>
       <tags>
         <tag>Extensions</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PVE优化</title>
+    <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
+<span id="more"></span>
+
+<h1 id="PVE优化工具"><a href="#PVE优化工具" class="headerlink" title="PVE优化工具"></a>PVE优化工具</h1><h2 id="x86派老虎大神"><a href="#x86派老虎大神" class="headerlink" title="x86派老虎大神"></a><a href="https://bbs.x86pi.cn/thread?topicId=20">x86派老虎大神</a></h2><img src="https://85d8ba7.webp.li/2024/12/d12e3ae3cfabaf0c57a718adb87e77a4.png" width=50% height=50% />
+我这次优化就只使用了一这款,因为能显示CPU的实时频率,还有网卡名称使用原始命名
+
+<h2 id="pvetools"><a href="#pvetools" class="headerlink" title="pvetools"></a><a href="https://github.com/ivanhao/pvetools">pvetools</a></h2><p>PVE上star有4.1k(2024.8.5)<br><img src="https://85d8ba7.webp.li/2024/12/df770ca50f6344258710879e4c5bc6fd.webp" width=60% height=60% /></p>
+<h2 id="恩山大佬shell脚本"><a href="#恩山大佬shell脚本" class="headerlink" title="恩山大佬shell脚本"></a><a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">恩山大佬shell脚本</a></h2><p>开源地址<a href="https://github.com/a904055262/PVE-manager-status">https://github.com/a904055262/PVE-manager-status</a><br>这一款的功能比上面少一些了</p>
+<img src="https://85d8ba7.webp.li/2024/12/a880586cfeb65ed058cb265da41b55d7.jpg" width=75% height=75% />
+
+
+<h1 id="移除local-lvm存储空间"><a href="#移除local-lvm存储空间" class="headerlink" title="移除local-lvm存储空间"></a>移除local-lvm存储空间</h1><p>注意:<br>1、移除 local-lvm 后会导致虚拟机及 CT 容器的快照功能失效<br>2、移除前需自行关闭并备份各虚拟机、CT 容器等, 谨防移除造成数据丢失 </p>
+<p>因为我用不上快照功能,所以把他移除了,移除后能更好利用硬盘资源<br>备份是备份在llocal里面的,可以放心删除local-lvm</p>
+<p>恩山上的<a href="https://www.right.com.cn/forum/thread-3513183-1-1.html">帖子</a><br>1、备份虚拟机<br>2、删除虚拟机<br>3、删除local-lvm<br>命令：<code>lvremove pve/data</code><br>4、把local-lvm空间分配给Local<br>命令：<code>lvextend -l +100%FREE -r pve/root</code><br>5、删除local-lvm<br>数据中心-存储-删除local-lvm<br>6、编辑local，内容里添加 磁盘映像和容器<br>7、恢复虚拟机</p>
+<p>懒得输命令就用老虎的脚本吧</p>
+<p>虚拟机的安装以及还原,可以看看这两个视频<br><a href="https://www.bilibili.com/video/BV1aM4m1U7Fy/">https://www.bilibili.com/video/BV1aM4m1U7Fy/</a><br><a href="https://www.bilibili.com/video/BV1Gi421U78K/">https://www.bilibili.com/video/BV1Gi421U78K/</a></p>
+<h1 id="开启iommu"><a href="#开启iommu" class="headerlink" title="开启iommu"></a>开启iommu</h1><h2 id="修改-etc-default-grub"><a href="#修改-etc-default-grub" class="headerlink" title="修改/etc/default/grub"></a>修改<code>/etc/default/grub</code></h2><p>在里面找到：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet”<br>Intel cpu改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet intel_iommu&#x3D;on”<br>AMD cpu请改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet amd_iommu&#x3D;on”</p>
+<p>我的文件里面是这些</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet intel_iommu=on iommu=pt&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br></pre></td></tr></table></figure>
+<p>##修改完成之后，直接更新grub<br><code>update-grub</code></p>
+<h2 id="加载相应的内核模块"><a href="#加载相应的内核模块" class="headerlink" title="加载相应的内核模块"></a>加载相应的内核模块</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo vfio &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_iommu_type1 &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_pci &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_virqfd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
+<p>也可以去<code>/etc/modules</code>直接添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vfio</span><br><span class="line">vfio_iommu_type1</span><br><span class="line">vfio_pci</span><br><span class="line">vfio_virqfd</span><br><span class="line">coretemp</span><br></pre></td></tr></table></figure>
+<h2 id="重启主机"><a href="#重启主机" class="headerlink" title="重启主机"></a>重启主机</h2><h2 id="验证是否开启iommu"><a href="#验证是否开启iommu" class="headerlink" title="验证是否开启iommu"></a>验证是否开启iommu</h2><p>终端输入<br><code>dmesg | grep iommu</code><br>出现如下例子。则代表成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ 1.341100] pci 0000:00:00.0: Adding to iommu group 0</span><br><span class="line">[ 1.341116] pci 0000:00:01.0: Adding to iommu group 1</span><br><span class="line">[ 1.341126] pci 0000:00:02.0: Adding to iommu group 2</span><br><span class="line">[ 1.341137] pci 0000:00:14.0: Adding to iommu group 3</span><br><span class="line">[ 1.341146] pci 0000:00:17.0: Adding to iommu group 4</span><br></pre></td></tr></table></figure>
+<p>或者输入<br><code>dmesg | grep &#39;remapping&#39;</code><br>出现如下例子。则代表成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AMD-Vi: Interrupt remapping enabled</span><br><span class="line">#或者</span><br><span class="line">DMAR-IR: Enabled IRQ remapping in x2apic mode</span><br></pre></td></tr></table></figure>
+
+<p>此时输入命令<br><code>find /sys/kernel/iommu_groups/ -type l </code><br>#出现很多直通组，就代表成功了。如果没有任何东西，就是没有开启</p>
+<h1 id="其他的一些优化"><a href="#其他的一些优化" class="headerlink" title="其他的一些优化"></a>其他的一些优化</h1><p>换源、移除订阅、修改概要信息、重命名网口用老虎大佬的一键脚本就行了</p>
+<p>下面这个帖子对PVE系统的讲解很全,有需要的可以去看看<br><a href="https://www.chiphell.com/thread-2496541-1-1.html">https://www.chiphell.com/thread-2496541-1-1.html</a></p>
+<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><h2 id="PVE中的-Windows-系统扩容"><a href="#PVE中的-Windows-系统扩容" class="headerlink" title="PVE中的 Windows 系统扩容"></a>PVE中的 Windows 系统扩容</h2><p>首先关闭win10虚拟机</p>
+<p>然后点击动态调整磁盘大小(增量添加)</p>
+<img src="https://85d8ba7.webp.li/2024/12/671a45434d37287d236dc8a279e38417.png" width=75% height=75% />
+
+<p>输入自己想增加的大小（增量）</p>
+<p>点击完成就可以看到扩容成功了，这时候还需要去 Windows 系统里面扩展卷，就扩容成功了</p>
+<p>参考文章：<a href="https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space">https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space</a></p>
+<h2 id="简单解决不能在虚拟机中运行某些软件"><a href="#简单解决不能在虚拟机中运行某些软件" class="headerlink" title="简单解决不能在虚拟机中运行某些软件"></a>简单解决不能在虚拟机中运行某些软件</h2><p>软件提示：Sorry, this application cannot run under a Virtual Machine.</p>
+<p>SSH 连接到 PVE 编辑下面的文件</p>
+<p><code>/etc/pve/nodes/宿主机名/qemu-server/虚拟机ID.conf</code></p>
+<p>加入这一行</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">args: -cpu host,-hypervisor,kvm=off</span><br></pre></td></tr></table></figure>
+
+<p>（-cpu host 在我设备上不设置会开不了机）</p>
+<p>保存，重启虚拟机，就可以打开检测虚拟机的软件了</p>
+<p>参考文章：<a href="https://bugxia.com/3600.html">https://bugxia.com/3600.html</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://www.xh86.me/?p=724">https://www.xh86.me/?p=724</a></li>
+<li><a href="https://foxi.buduanwang.vip/virtualization/pve/561.html/">https://foxi.buduanwang.vip/virtualization/pve/561.html/</a></li>
+<li><a href="https://xxand.cc/84.html">https://xxand.cc/84.html</a></li>
+<li><a href="https://bricawa.com/posts/56512/">https://bricawa.com/posts/56512/</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>PVE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>syslog、daemon.log 占用大量空间</title>
+    <url>/2025/03/17/syslog,daemon.log/</url>
+    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
+<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
+
+<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
+<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
+<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
+<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
+<p><strong>修改方法</strong>：</p>
+<ul>
+<li><p>**对于 <code>syslog</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
+</li>
+<li><p>**对于 <code>daemon.log</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
+<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此配置可避免单个日志文件过大</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -953,49 +1156,6 @@
       </tags>
   </entry>
   <entry>
-    <title>syslog、daemon.log 占用大量空间</title>
-    <url>/2025/03/17/syslog,daemon.log/</url>
-    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
-<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
-
-<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
-<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
-<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
-<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
-<p><strong>修改方法</strong>：</p>
-<ul>
-<li><p>**对于 <code>syslog</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
-</li>
-<li><p>**对于 <code>daemon.log</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
-<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此配置可避免单个日志文件过大</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安装Theos和Monkeydev</title>
     <url>/2025/01/21/theos%E5%92%8Cmonkeydev%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<p>认真玩越狱一年了，想学习开发插件，总结一下工具的安装<span id="more"></span></p>
@@ -1126,64 +1286,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Bose QC Ultra 和 Sony XM5</title>
-    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
-    <content><![CDATA[<p>入耳式耳机戴着就是不舒服，而且容易引发炎症（三星buds pro）</p>
-]]></content>
-      <tags>
-        <tag>耳机</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
-<ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
-</ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
-<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
-<ul>
-<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
-<li>UDP(<strong>21116</strong>)</li>
-</ul>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
-]]></content>
-      <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>哪吒监控v1</title>
     <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
     <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
@@ -1236,67 +1338,6 @@
 ]]></content>
       <tags>
         <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PVE优化</title>
-    <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
-<span id="more"></span>
-
-<h1 id="PVE优化工具"><a href="#PVE优化工具" class="headerlink" title="PVE优化工具"></a>PVE优化工具</h1><h2 id="x86派老虎大神"><a href="#x86派老虎大神" class="headerlink" title="x86派老虎大神"></a><a href="https://bbs.x86pi.cn/thread?topicId=20">x86派老虎大神</a></h2><img src="https://85d8ba7.webp.li/2024/12/d12e3ae3cfabaf0c57a718adb87e77a4.png" width=50% height=50% />
-我这次优化就只使用了一这款,因为能显示CPU的实时频率,还有网卡名称使用原始命名
-
-<h2 id="pvetools"><a href="#pvetools" class="headerlink" title="pvetools"></a><a href="https://github.com/ivanhao/pvetools">pvetools</a></h2><p>PVE上star有4.1k(2024.8.5)<br><img src="https://85d8ba7.webp.li/2024/12/df770ca50f6344258710879e4c5bc6fd.webp" width=60% height=60% /></p>
-<h2 id="恩山大佬shell脚本"><a href="#恩山大佬shell脚本" class="headerlink" title="恩山大佬shell脚本"></a><a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">恩山大佬shell脚本</a></h2><p>开源地址<a href="https://github.com/a904055262/PVE-manager-status">https://github.com/a904055262/PVE-manager-status</a><br>这一款的功能比上面少一些了</p>
-<img src="https://85d8ba7.webp.li/2024/12/a880586cfeb65ed058cb265da41b55d7.jpg" width=75% height=75% />
-
-
-<h1 id="移除local-lvm存储空间"><a href="#移除local-lvm存储空间" class="headerlink" title="移除local-lvm存储空间"></a>移除local-lvm存储空间</h1><p>注意:<br>1、移除 local-lvm 后会导致虚拟机及 CT 容器的快照功能失效<br>2、移除前需自行关闭并备份各虚拟机、CT 容器等, 谨防移除造成数据丢失 </p>
-<p>因为我用不上快照功能,所以把他移除了,移除后能更好利用硬盘资源<br>备份是备份在llocal里面的,可以放心删除local-lvm</p>
-<p>恩山上的<a href="https://www.right.com.cn/forum/thread-3513183-1-1.html">帖子</a><br>1、备份虚拟机<br>2、删除虚拟机<br>3、删除local-lvm<br>命令：<code>lvremove pve/data</code><br>4、把local-lvm空间分配给Local<br>命令：<code>lvextend -l +100%FREE -r pve/root</code><br>5、删除local-lvm<br>数据中心-存储-删除local-lvm<br>6、编辑local，内容里添加 磁盘映像和容器<br>7、恢复虚拟机</p>
-<p>懒得输命令就用老虎的脚本吧</p>
-<p>虚拟机的安装以及还原,可以看看这两个视频<br><a href="https://www.bilibili.com/video/BV1aM4m1U7Fy/">https://www.bilibili.com/video/BV1aM4m1U7Fy/</a><br><a href="https://www.bilibili.com/video/BV1Gi421U78K/">https://www.bilibili.com/video/BV1Gi421U78K/</a></p>
-<h1 id="开启iommu"><a href="#开启iommu" class="headerlink" title="开启iommu"></a>开启iommu</h1><h2 id="修改-etc-default-grub"><a href="#修改-etc-default-grub" class="headerlink" title="修改/etc/default/grub"></a>修改<code>/etc/default/grub</code></h2><p>在里面找到：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet”<br>Intel cpu改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet intel_iommu&#x3D;on”<br>AMD cpu请改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet amd_iommu&#x3D;on”</p>
-<p>我的文件里面是这些</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet intel_iommu=on iommu=pt&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br></pre></td></tr></table></figure>
-<p>##修改完成之后，直接更新grub<br><code>update-grub</code></p>
-<h2 id="加载相应的内核模块"><a href="#加载相应的内核模块" class="headerlink" title="加载相应的内核模块"></a>加载相应的内核模块</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo vfio &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_iommu_type1 &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_pci &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_virqfd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
-<p>也可以去<code>/etc/modules</code>直接添加</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vfio</span><br><span class="line">vfio_iommu_type1</span><br><span class="line">vfio_pci</span><br><span class="line">vfio_virqfd</span><br><span class="line">coretemp</span><br></pre></td></tr></table></figure>
-<h2 id="重启主机"><a href="#重启主机" class="headerlink" title="重启主机"></a>重启主机</h2><h2 id="验证是否开启iommu"><a href="#验证是否开启iommu" class="headerlink" title="验证是否开启iommu"></a>验证是否开启iommu</h2><p>终端输入<br><code>dmesg | grep iommu</code><br>出现如下例子。则代表成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ 1.341100] pci 0000:00:00.0: Adding to iommu group 0</span><br><span class="line">[ 1.341116] pci 0000:00:01.0: Adding to iommu group 1</span><br><span class="line">[ 1.341126] pci 0000:00:02.0: Adding to iommu group 2</span><br><span class="line">[ 1.341137] pci 0000:00:14.0: Adding to iommu group 3</span><br><span class="line">[ 1.341146] pci 0000:00:17.0: Adding to iommu group 4</span><br></pre></td></tr></table></figure>
-<p>或者输入<br><code>dmesg | grep &#39;remapping&#39;</code><br>出现如下例子。则代表成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AMD-Vi: Interrupt remapping enabled</span><br><span class="line">#或者</span><br><span class="line">DMAR-IR: Enabled IRQ remapping in x2apic mode</span><br></pre></td></tr></table></figure>
-
-<p>此时输入命令<br><code>find /sys/kernel/iommu_groups/ -type l </code><br>#出现很多直通组，就代表成功了。如果没有任何东西，就是没有开启</p>
-<h1 id="其他的一些优化"><a href="#其他的一些优化" class="headerlink" title="其他的一些优化"></a>其他的一些优化</h1><p>换源、移除订阅、修改概要信息、重命名网口用老虎大佬的一键脚本就行了</p>
-<p>下面这个帖子对PVE系统的讲解很全,有需要的可以去看看<br><a href="https://www.chiphell.com/thread-2496541-1-1.html">https://www.chiphell.com/thread-2496541-1-1.html</a></p>
-<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><h2 id="PVE中的-Windows-系统扩容"><a href="#PVE中的-Windows-系统扩容" class="headerlink" title="PVE中的 Windows 系统扩容"></a>PVE中的 Windows 系统扩容</h2><p>首先关闭win10虚拟机</p>
-<p>然后点击动态调整磁盘大小(增量添加)</p>
-<img src="https://85d8ba7.webp.li/2024/12/671a45434d37287d236dc8a279e38417.png" width=75% height=75% />
-
-<p>输入自己想增加的大小（增量）</p>
-<p>点击完成就可以看到扩容成功了，这时候还需要去 Windows 系统里面扩展卷，就扩容成功了</p>
-<p>参考文章：<a href="https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space">https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space</a></p>
-<h2 id="简单解决不能在虚拟机中运行某些软件"><a href="#简单解决不能在虚拟机中运行某些软件" class="headerlink" title="简单解决不能在虚拟机中运行某些软件"></a>简单解决不能在虚拟机中运行某些软件</h2><p>软件提示：Sorry, this application cannot run under a Virtual Machine.</p>
-<p>SSH 连接到 PVE 编辑下面的文件</p>
-<p><code>/etc/pve/nodes/宿主机名/qemu-server/虚拟机ID.conf</code></p>
-<p>加入这一行</p>
-<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">args: -cpu host,-hypervisor,kvm=off</span><br></pre></td></tr></table></figure>
-
-<p>（-cpu host 在我设备上不设置会开不了机）</p>
-<p>保存，重启虚拟机，就可以打开检测虚拟机的软件了</p>
-<p>参考文章：<a href="https://bugxia.com/3600.html">https://bugxia.com/3600.html</a></p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://www.xh86.me/?p=724">https://www.xh86.me/?p=724</a></li>
-<li><a href="https://foxi.buduanwang.vip/virtualization/pve/561.html/">https://foxi.buduanwang.vip/virtualization/pve/561.html/</a></li>
-<li><a href="https://xxand.cc/84.html">https://xxand.cc/84.html</a></li>
-<li><a href="https://bricawa.com/posts/56512/">https://bricawa.com/posts/56512/</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>PVE</tag>
       </tags>
   </entry>
   <entry>
@@ -1515,6 +1556,55 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       <tags>
         <tag>BiliBili</tag>
         <tag>OpenClash</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
+<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
+<ul>
+<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
+<li>UDP(<strong>21116</strong>)</li>
+</ul>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+]]></content>
+      <tags>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
       </tags>
   </entry>
   <entry>
@@ -1808,48 +1898,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>转换GitHub Raw 链接</title>
-    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
-    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
-<p>sh脚本：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
-
-<p>js脚本：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
-]]></content>
-      <tags>
-        <tag>GitHub</tag>
-        <tag>小脚本</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mihomo 链式代理</title>
-    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
-<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
-<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
-<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
-<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
-<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
-<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>青龙面板保活Serv00并启用TG推送</title>
     <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
     <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
@@ -1885,102 +1933,54 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>Cloudflare Tunnel内网穿透及优选</title>
-    <url>/2024/12/06/Cloudflare%20tunnel/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾<span id="more"></span></p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ul>
-<li>ImmortalWrt 23.05</li>
-<li>两个域名且绑定在Cloudflare</li>
-<li>CF账号以及开通 SAAS 不多说</li>
-</ul>
-<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>首先在 ImmortalWrt上面安装好 <code>luci-app-cloudflared</code> (ImmortalWrt 自带相关软件包，我未深入研究其他安装方式。Linux 系统的安装方法有很多，这里不再赘述，详情可参考官方 GitHub 页面：<a href="https://github.com/cloudflare/cloudflared">Cloudflare&#x2F;cloudflared</a> ）</p>
-<h2 id="SSH-连接到设备"><a href="#SSH-连接到设备" class="headerlink" title="SSH 连接到设备"></a>SSH 连接到设备</h2><p>注意：如果和我一样是是用 ImmortalWrt 提供的软件包，可以输入 <code>cloudflared update </code>来更新软件，不会影响 luci 的兼容</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel login</span><br></pre></td></tr></table></figure>
+    <title>转换GitHub Raw 链接</title>
+    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
+    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
+<p>sh脚本：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
 
-<p>这时候打开客户端跳出来的链接，登录 Cloudflare 后选择你的副域名（辅助域名），例如：back.com<br>电脑这时候会下载 “cert.pem” 到 <code>/root/.cloudflared</code>，需要自己把他移动到 <code>/etc/cloudflared/</code> 或者用luci界面上传<br>如果下载失败可以手动点击控制台的链接下载到电脑，重命名后，再用上面的方式传输到 OpenWrt</p>
-<h2 id="创建隧道，随意命名"><a href="#创建隧道，随意命名" class="headerlink" title="创建隧道，随意命名"></a>创建隧道，随意命名</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel create XXX</span><br></pre></td></tr></table></figure>
+<p>js脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这时候 <code>/root/.cloudflared</code> 下面会有一个 <code>&lt;UUID&gt;.json</code>文件，同样把它弄到 <code>/etc/cloudflared/</code> 文件夹里面去</p>
-<p>添加一个域名，这个域名将作为回退源，建议使用子域名，这里以 op.back.com 为例</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel route dns &lt;UUID or NAME&gt; op.back.com</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建配置文件-config-yml"><a href="#创建配置文件-config-yml" class="headerlink" title="创建配置文件 config.yml"></a>创建配置文件 config.yml</h2><figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">tunnel: &lt;UUID&gt;</span><br><span class="line">credentials-file: /etc/cloudflared/&lt;UUID&gt;.json</span><br><span class="line"></span><br><span class="line">ingress:</span><br><span class="line">  - hostname: back.com</span><br><span class="line">    service: http://localhost</span><br><span class="line"></span><br><span class="line">  # Example of a rule responding to traffic with an HTTP status:</span><br><span class="line">  - service: http_status:404</span><br></pre></td></tr></table></figure>
-
-<p>验证配置是否有效</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel ingress validate</span><br></pre></td></tr></table></figure>
-
-<h2 id="运行隧道"><a href="#运行隧道" class="headerlink" title="运行隧道"></a>运行隧道</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cloudflared tunnel run &lt;UUID or NAME&gt;</span><br></pre></td></tr></table></figure>
-
-<p>或去luci启动</p>
-<h2 id="迁移本地配置"><a href="#迁移本地配置" class="headerlink" title="迁移本地配置"></a>迁移本地配置</h2><p>迁移到云端更便于管理，避免使用抓包 PUT 请求</p>
-<p>去 Cloudflare 的 Tunnel 界面查看是否为 <code>HEALTHY</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/225d0b8e7d2bf8bfdd4b5490eedad8e0.webp"  />
-
-<p>进入该 Tunnel 的管理界面，一路确认就可以迁移了</p>
-<p>这时候可以添加主域名的穿透了，Add a public hostname –&gt; <code>op.a.com</code> –&gt; <code>http://192.168.8.1:80</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/e812b96e59aebffed374496d45d975e3.webp"  />
-
-<p>还可以继续添加同一IP不同端口的服务到，a.com 的其他子域名下面（我自己折腾，同一内网不同IP也是可以的，如：回退源为192.168.8.1，但是我穿透192.168.8.2的服务，用网站测速也是有加速效果的，这里没有佬的研究成果，效果不敢保证）</p>
-<h2 id="设置优选域名"><a href="#设置优选域名" class="headerlink" title="设置优选域名"></a>设置优选域名</h2><ol>
-<li>在Cloudflare中直接设置</li>
-<li>主域名的一个子域名（cdn.a.com）托管到腾讯云、阿里云等提供DNS分线路解析服务的平台，进行境内境外分流</li>
-</ol>
-<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>到 辅助域名（back.com ）的管理页面</p>
-<p>添加一条DNS记录，用作优选域名，如：cdn.back.com</p>
-<p>把该域名CNAME到一个优选域名（切记关闭小黄云），请自行挑选：<a href="https://www.wetest.vip/page/cloudflare/cname.html">CloudFlare公共Cname域名</a></p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>dnspod 或其他 dns 平台，添加主域名的随机一个子域名，如：cdn.a.com</p>
-<p>这里以腾讯云为例</p>
-<p>复制主机记录和记录值去 CF 添加，同时添加 NS 记录指向 <code>f1g1ns1.dnspod.net</code> 和 <code>f1g1ns2.dnspod.net</code>，然后在高级设置中关闭暂停解析</p>
-<p>如下图添加解析，境内指向优选域名 &#x2F; IP，境外指向你的回退源</p>
-<img src="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp"  />
-
-<p>然后在我的域名界面，点击该加速域名的 “更多” –&gt; “开始解析”</p>
-<h2 id="设置回退源"><a href="#设置回退源" class="headerlink" title="设置回退源"></a>设置回退源</h2><p>辅助域名（back.com）管理界面，左侧边栏–&gt;SSL&#x2F;TLS–&gt;自定义主机名</p>
-<p>设置回退源为 <code>op.back.com</code></p>
-<p>设置自定义主机名为 <code>op.a.com</code>（还有其他服务一并添加）</p>
-<p>复制好 “主机名预验证 TXT 名称” 和 “主机名预验证 TXT 值”<br>就是 <code>_cf-custom-hostname.op.a.com</code> </p>
-<p>证书验证（_acme-challenge.op.a.com）不用管，CNAME 到回退源他会自动消失的</p>
-<h2 id="主域名设置"><a href="#主域名设置" class="headerlink" title="主域名设置"></a>主域名设置</h2><p>现在去主域名（a.com）设置 DNS 记录</p>
-<p>由于我们在 Tunnel 已经添加过主域名的记录，所以这里会有CNAME的记录，且内容为我我们的容器ID</p>
-<p>把容器 ID 改为我们的优选域名（cdn.a.com）关闭小黄云，这样就用上了</p>
-<p>再把 “主机名预验证 TXT 名称” 和 “主机名预验证 TXT 值” 添加好，这时候可以回到，辅助域名（back.com）自定义主机界面，看 “证书状态” 和 “主机名状态” 是否都变成了有效，到此就大功告成了</p>
-<p>去 <a href="https://www.itdog.cn/http/">ITDOG</a> 和 <a href="https://zhale.me/http/">ZHALE</a> 的网站测速看看（带上https:&#x2F;&#x2F;，慢速检测），出口IP有十个以上就是成功了</p>
-<h1 id="设置截图"><a href="#设置截图" class="headerlink" title="设置截图"></a>设置截图</h1><p>Public hostname<br><img src="https://85d8ba7.webp.li/2024/12/b25173d3c71da7eed98a4213d5b41737.webp"  /></p>
-<p>辅助域名（back.com DNS设置）<br><img src="https://85d8ba7.webp.li/2024/12/418b6e87f9235a5ea6dd4c7a0724a2af.webp"  /></p>
-<p>自定义主机名设置<br><img src="https://85d8ba7.webp.li/2024/12/1726bfa32a1d2224e0b4714ca04dc33e.webp"  /></p>
-<p>主域名（a.com DNS设置）<br><img src="https://85d8ba7.webp.li/2024/12/09ff7293440f35e7a1fbaf18cacde9a1.webp"  /></p>
-<p>加速域名设置（cdn.a.com）<br><img src="https://85d8ba7.webp.li/2024/12/a772ac3e0e92b1eeb78ac1fb2d679fad.webp"  /></p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ol>
-<li><p>OpenWrt 上面跑了科学的话，请跳过这个域名的Fakeip，或者 OpenWrt 不要走代理，不然会连接不到 Cloudflare</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+.v2.argotunnel.com</span><br></pre></td></tr></table></figure>
-
-<p>最好走直连，或者把 CF Tunnel 的服务 IP 走直连，不然家里的梯子断了就连不回来了</p>
-<p>思路来源于</p>
-<p><a href="https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html">https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html</a></p>
-<p><a href="https://www.nodeseek.com/post-201141-1">https://www.nodeseek.com/post-201141-1</a></p>
-</li>
-<li><p><strong>免费计划 API Tokens 只能创建 50 个</strong>，也就是你只要授权 50 次，就会报错：<code>Quota limit exceeded, you can create no more than 50 tokens.</code><br>所以要记得删除无用的：<a href="https://dash.cloudflare.com/profile/api-tokens">https://dash.cloudflare.com/profile/api-tokens</a></p>
-<p>详细请见：<a href="https://blog.tsinbei.com/archives/1505">https://blog.tsinbei.com/archives/1505</a></p>
-</li>
-</ol>
-<h1 id="看过的教程"><a href="#看过的教程" class="headerlink" title="看过的教程"></a>看过的教程</h1><h2 id="视频："><a href="#视频：" class="headerlink" title="视频："></a>视频：</h2><ul>
-<li><a href="https://www.youtube.com/watch?v=BOIOxneWX_k">https://www.youtube.com/watch?v=BOIOxneWX_k</a></li>
-<li><a href="https://www.bilibili.com/video/BV1PPy6YzE5C">https://www.bilibili.com/video/BV1PPy6YzE5C</a></li>
-</ul>
-<h2 id="文字："><a href="#文字：" class="headerlink" title="文字："></a>文字：</h2><ul>
-<li><a href="https://linux.do/t/topic/118132">https://linux.do/t/topic/118132</a></li>
-<li><a href="https://linux.do/t/topic/156469">https://linux.do/t/topic/156469</a></li>
-<li><a href="https://linux.do/t/topic/122087">https://linux.do/t/topic/122087</a></li>
-<li><a href="https://linux.do/t/topic/114314">https://linux.do/t/topic/114314</a></li>
-<li><a href="https://linux.do/t/topic/122246">https://linux.do/t/topic/122246</a></li>
-<li><a href="https://linux.do/t/topic/78224">https://linux.do/t/topic/78224</a></li>
-<li><a href="https://blog.tsinbei.com/archives/1505">https://blog.tsinbei.com/archives/1505</a></li>
-<li><a href="https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html">https://blog.xmgspace.me/archives/cloudflare-tunnel-via-proxy.html</a></li>
-</ul>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>其实优选后的提升不是很大，建议不折腾。</p>
+<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
 ]]></content>
       <tags>
-        <tag>OpenWrt</tag>
+        <tag>GitHub</tag>
+        <tag>小脚本</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Bose QC Ultra 和 Sony XM5</title>
+    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
+    <content><![CDATA[<p>入耳式耳机戴着就是不舒服，而且容易引发炎症（三星buds pro）</p>
+]]></content>
+      <tags>
+        <tag>耳机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mihomo 链式代理</title>
+    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
+<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
+<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
+<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
+<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
+<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
+<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
+]]></content>
   </entry>
 </search>
