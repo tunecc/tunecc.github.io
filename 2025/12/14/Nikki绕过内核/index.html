@@ -24,7 +24,7 @@
 
     <meta name="description" content="最近闲得很，把Mihomo的配置给重写了一边，自己局域网的iOS设备，每一晚上都是耗电太多了，虽然早就知道了，现在趁着重写配置文件，给他解决了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nikki APNS绕过内核">
+<meta property="og:title" content="解决Nikki局域网Apple设备耗电">
 <meta property="og:url" content="https://696966.xyz/2025/12/14/Nikki%E7%BB%95%E8%BF%87%E5%86%85%E6%A0%B8/index.html">
 <meta property="og:site_name" content="Tune">
 <meta property="og:description" content="最近闲得很，把Mihomo的配置给重写了一边，自己局域网的iOS设备，每一晚上都是耗电太多了，虽然早就知道了，现在趁着重写配置文件，给他解决了">
@@ -41,10 +41,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2025/12/14/Nikki%E7%BB%95%E8%BF%87%E5%86%85%E6%A0%B8/","path":"2025/12/14/Nikki绕过内核/","title":"Nikki APNS绕过内核"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2025/12/14/Nikki%E7%BB%95%E8%BF%87%E5%86%85%E6%A0%B8/","path":"2025/12/14/Nikki绕过内核/","title":"解决Nikki局域网Apple设备耗电"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Nikki APNS绕过内核 | Tune</title>
+<title>解决Nikki局域网Apple设备耗电 | Tune</title>
   
 
 
@@ -209,12 +209,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Nikki APNS绕过内核 | Tune">
+      <meta itemprop="name" content="解决Nikki局域网Apple设备耗电 | Tune">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Nikki APNS绕过内核
+          解决Nikki局域网Apple设备耗电
         </h1>
 
         <div class="post-meta-container">
@@ -242,7 +242,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>690</span>
+      <span>756</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -270,9 +270,12 @@
 <li>禁用 TCP Keep Alive</li>
 </ol>
 <p>方法二会导致长连接的问题</p>
-<p>方案一比较完美，Nikki可以使用官方提供的保留地址功能来实现，<a target="_blank" rel="noopener" href="https://github.com/nikkinikki-org/OpenWrt-nikki/wiki/Home/7f7bdf174756006379445e8cbf06516e76f7958c#%E5%85%B3%E4%BA%8E%E4%BF%9D%E7%95%99ip%E5%9C%B0%E5%9D%80%E7%9A%84%E8%AF%B4%E6%98%8E">点我查看官方说明</a></p>
+<p>方案一比较完美，Nikki（1.24及以前的版本）可以使用官方提供的保留地址功能来实现，<a target="_blank" rel="noopener" href="https://github.com/nikkinikki-org/OpenWrt-nikki/wiki/Home/7f7bdf174756006379445e8cbf06516e76f7958c#%E5%85%B3%E4%BA%8E%E4%BF%9D%E7%95%99ip%E5%9C%B0%E5%9D%80%E7%9A%84%E8%AF%B4%E6%98%8E">点我查看官方说明</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前的保留IP地址</span></span><br><span class="line">uci show nikki.proxy.reserved_ip</span><br><span class="line"><span class="comment"># 删除10.0.0.0/8</span></span><br><span class="line">uci del_list nikki.proxy.reserved_ip=10.0.0.0/8</span><br><span class="line"><span class="comment"># 添加10.0.0.0/8</span></span><br><span class="line">uci add_list nikki.proxy.reserved_ip=10.0.0.0/8</span><br><span class="line"><span class="comment"># 保存配置</span></span><br><span class="line">uci commit nikki</span><br><span class="line"><span class="comment"># 加载配置</span></span><br><span class="line">reload_config</span><br></pre></td></tr></table></figure>
 
+<p>Nikki 1.25 版本开始把保留地址的功能加到luci了</p>
+<p>代理配置—Misc</p>
+<p>添加下面的APNS的地址就好了</p>
 <p>Apple官方提供APNS的IP地址: <a target="_blank" rel="noopener" href="https://support.apple.com/zh-cn/102266">https://support.apple.com/zh-cn/102266</a></p>
 <blockquote>
 <p>IPv4</p>
@@ -308,7 +311,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://696966.xyz/2025/12/14/Nikki%E7%BB%95%E8%BF%87%E5%86%85%E6%A0%B8/" title="Nikki APNS绕过内核">https://696966.xyz/2025/12/14/Nikki绕过内核/</a>
+      <a href="https://696966.xyz/2025/12/14/Nikki%E7%BB%95%E8%BF%87%E5%86%85%E6%A0%B8/" title="解决Nikki局域网Apple设备耗电">https://696966.xyz/2025/12/14/Nikki绕过内核/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -392,14 +395,14 @@
         <i class="fa fa-chart-line"></i>
       </span>
         <span>站点总字数：</span>
-      <span title="站点总字数">116k</span>
+      <span title="站点总字数">115k</span>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="fa fa-coffee"></i>
       </span>
         <span>站点阅读时长 &asymp;</span>
-      <span title="站点阅读时长">2:29</span>
+      <span title="站点阅读时长">2:28</span>
     </span>
   </div>
   <div class="busuanzi-count">
