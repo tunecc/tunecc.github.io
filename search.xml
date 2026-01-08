@@ -77,24 +77,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Cloudflare R2图床</title>
-    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
-<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
-<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
-<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
-<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
-<p>两个教程不同之处：</p>
-<ol>
-<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
-<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Cloudflare</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Bilibili Auto Pause</title>
     <url>/2024/12/22/Bilibili%20Auto%20Pause/</url>
     <content><![CDATA[<p>在使用 Enhancer for YouTube 插件时有一个功能 “自动暂停在后台标签中打开的视频” 特别好用，在国内的环境下，多少还是要用一下 BilBili 的，所以想着自己来实现这个功能<span id="more"></span>。</p>
@@ -125,6 +107,111 @@
       <tags>
         <tag>BiliBili</tag>
         <tag>插件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cloudflare R2图床</title>
+    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
+<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
+<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
+<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
+<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
+<p>两个教程不同之处：</p>
+<ol>
+<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
+<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Cloudflare</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FRP + SAAS 回源</title>
+    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
+    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
+<ol>
+<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
+<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
+</ol>
+<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
+<li>回源域名开启小黄云指向服务器IP</li>
+<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
+<li>服务器上面自签证书用 主力域名（访问域名）</li>
+<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
+</ol>
+<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
+]]></content>
+      <tags>
+        <tag>FRP</tag>
+        <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>八年 Apple 账号被封与奇迹解封的经历</title>
+    <url>/2025/11/14/Apple%20ID%E5%B0%81%E7%A6%81/</url>
+    <content><![CDATA[<p>   好久没写博客了，这两天刚好发生了件让我心态彻底崩了的事，记录一下。</p>
+<span id="more"></span>
+
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>   这账号是 2017 年初注册的，用了 8 年。</p>
+<p>   2025 年 2 月，为了体验完整的 Apple 服务，也为了省钱（这才是重点），我把区转到了<strong>土耳其</strong>。我也没搞什么黑卡，用自己名下的信用卡在 Oyunfor 买礼品卡充值，2 月到 4 月陆续充了 <strong>8,675 TL</strong>（约 1500 RMB）。</p>
+<img src="https://85d8ba7.webp.li/2025/11/e9935b144f79c51c66bdd5d092992256.webp" width=100% height=100% />
+
+<p>   平时就拿来付 iCloud 2TB 和 Apple Music 家庭组，一直相安无事。</p>
+<p>   直到 <strong>2025 年 10 月 27 日</strong>，因为刚需，我内购订阅了一个 <strong>ChatGPT Plus</strong>。</p>
+<p>   噩梦开始了：</p>
+<ul>
+<li><strong>10.29</strong>：家庭组有人说 Apple Music 用不了了。我当时也没当回事，以为是网络波动。</li>
+<li><strong>10.30</strong>：打开 App Store 更新软件，更新界面打不开。紧接着弹窗：**此账户已被禁用 (Your Account has been disabled)**。</li>
+</ul>
+<p>   心里咯噔一下，完了。</p>
+<p>   <img src="https://85d8ba7.webp.li/2025/11/1f78ae79aaa5c4234f1a3eb10b43ee38.webp"></p>
+<h1 id="绝望"><a href="#绝望" class="headerlink" title="绝望"></a>绝望</h1><p>   尝试点解封链接，提交申请，<strong>秒拒</strong>。<br>   找在线客服，查了一下，直接告诉我：<strong>永久封禁，无法解封</strong>。</p>
+<p>   我不信邪，让人工客服打电话给我。<br>   接通的是英文客服，我英语不行，转接到了中文客服（听口音是香港的）。这通电话打完，我心凉了一半：</p>
+<ol>
+<li>他没有权限看海外账号详情。</li>
+<li>他问了后台，说已经有人尝试解封被拒了（就是刚才那个在线客服干的）。</li>
+<li>他直接建议我：<strong>“重新注册一个账号使用吧。”</strong></li>
+</ol>
+<p>   听到这句话我是真的愣住了。<br>   以前在 V2EX 看到别人说外区账号被封、维权无门，我总觉得自己不会那么倒霉，忘了自己本来就是一个运气很差的人。</p>
+<p>   我问是永久封禁吗？他说虽然我看不到状态，但既然海外团队都这么说了，那就是了。<br>   他还好心“安慰”我：以后肉身在哪就用哪的账号，赶紧把 iCloud 数据下载下来，设备退登，免得变砖。</p>
+<p>   8 年的使用记录，内购的软件，剩的 1000 多块钱余额，说没就没了。<br>   没有预兆，没有理由，申诉无门。</p>
+<p>   挂了电话，我已经在看三星和 Pixel 了，甚至想着用回 Windows 算了。Apple 要失去一名忠实用户了，但这对他来说又有什么影响呢？</p>
+<h1 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h1><p>   我不甘心。还没和真正的海外客服对上话，就被判死刑了？<br>   过了几个小时，我又打了一通电话。</p>
+<p>   这次运气好，转到了一个<strong>台湾口音</strong>的海外客服。<br>   我也没这就坦白局了，如实回答：</p>
+<ul>
+<li>最近操作？订阅了 ChatGPT Plus。</li>
+<li>人是不是在大陆？是。</li>
+<li>家庭组其他人也在大陆？是。</li>
+<li>礼品卡哪买的？土耳其官网渠道，自己信用卡付的。</li>
+</ul>
+<p>   她查了一圈，说系统显示确实没办法重新启用了。<br>   但她了解完我的情况，说可以帮我<strong>向专属团队再申请一次</strong>。留了个电话，说后天回电。</p>
+<p>   挂了电话，我其实没抱希望。毕竟是我违反条例在先，论坛上人在当地都被封的例子也不少。我已经开始闲鱼挂设备，准备彻底脱粉 Apple 了。</p>
+<h1 id="复活"><a href="#复活" class="headerlink" title="复活"></a>复活</h1><p>   可能是老天觉得我这辈子吃苦吃够了，偶尔眷顾一下？<br>   当天晚些时候，我随手试了一下 App Store，<strong>居然可以下载软件了！</strong><br>   各项功能全部恢复正常。<br>   我都怀疑是回光返照，直到周六接到那个台湾客服的回电。</p>
+<p>   她确认我的账号解封了。<br>   至于为什么封？<strong>不知道。</strong><br>   为什么解？<strong>也不清楚。</strong><br>   她告诉我，这种被系统判定永久封禁的，**申诉成功的概率不到 30%**。</p>
+<h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><p>   虽然账号回来了，设备也不卖了（电子产品贬值太恐怖了，卖了亏太多），但这次是真的被吓到了。</p>
+<p>   复盘整件事，看着那几通通话记录，才知道这次解封有多侥幸。<br>   不管是 Apple 还是哪个大厂，<strong>数据抓在自己手里才是最安全的</strong>。</p>
+<p>   以此文章，警钟长鸣。</p>
+<hr>
+<p>各种被封禁的帖子：</p>
+<ol>
+<li><a href="https://b23.tv/3laxs81">那岩 Apple ID 被封（动态已删，估计私下解了）</a></li>
+<li><a href="https://v2ex.com/t/1172286">Apple 账号被锁定</a></li>
+<li><a href="https://v2ex.com/t/1121224">用了20年的国区号被封</a></li>
+<li><a href="https://v2ex.com/t/1138834">Apple 账户毫无原由被禁用，如何解除或维权？</a></li>
+<li><a href="https://www.v2ex.com/t/1121763">10 年的 AppleID 被封，不理解苹果的封号逻辑</a></li>
+<li><a href="https://www.v2ex.com/t/1105001">为什么你不应该使用 Apple Account</a></li>
+<li><a href="https://www.uscardforum.com/t/topic/100597">肉身在美国使用美区账号也被封</a></li>
+<li><a href="https://hey.paris/posts/appleid/">25年老用户被封</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Apple</tag>
+        <tag>Apple ID</tag>
+        <tag>技术</tag>
+        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -267,28 +354,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FRP + SAAS 回源</title>
-    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
-    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
-<ol>
-<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
-<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
-</ol>
-<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
-<li>回源域名开启小黄云指向服务器IP</li>
-<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
-<li>服务器上面自签证书用 主力域名（访问域名）</li>
-<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
-</ol>
-<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
-]]></content>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>FRP 内网穿透</title>
     <url>/2024/10/08/Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
@@ -328,118 +393,6 @@
 ]]></content>
       <tags>
         <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Gost v3中转</title>
-    <url>/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/</url>
-    <content><![CDATA[<p>不想使用x-ui的任意门，所以使用了更加专业的Gost 来中转<span id="more"></span></p>
-<p><a href="https://github.com/go-gost/gost">Gost GitHub</a></p>
-<p><a href="https://gost.run/">Gost官方文档</a></p>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h2 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h2><p><a href="https://github.com/go-gost/gost/releases">https://github.com/go-gost/gost/releases</a></p>
-<p>找到好版本，然后用 <code>wget</code></p>
-<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><p><code>tar -zxvf gost_3.0.0_linux_amd64.tar.gz</code></p>
-<p>无法运行记得给权限</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><p>中转机：<code>./gost -L tcp://:中转机入站端口 -F relay+tls://落地机IP:落地机入站端口</code></p>
-<p>落地机：<code>./gost -L relay+tls://:落地机入站端口/:节点端口</code></p>
-<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>1.1.1.1 为落地 IP</p>
-<p>中转机：<code>./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</code></p>
-<p>落地机：<code>./gost -L relay+tls://:8443</code></p>
-<p>可以把 IP 换为网址</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##后台运行，并且把日志写入到 gost.log，名称可自定义</span><br><span class="line">nohup 运行指令 &gt; gost.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##丢弃日志，推荐测试完成后丢弃，这个日志会变大的</span><br><span class="line">nohup 运行指令 &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##中转转发UDP</span><br><span class="line">./gost -L tcp://:9527  -L udp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
-<p>在落地机搭建好节点，把IP和端口改成中转机的 IP 和转发端口就行了</p>
-<h2 id="查询后台正在运行"><a href="#查询后台正在运行" class="headerlink" title="查询后台正在运行"></a>查询后台正在运行</h2><p><code>ps aux | grep gost | grep -v grep</code></p>
-<p>删除后台<br><code>kill pid</code></p>
-<h2 id="区别（GPT的回答）"><a href="#区别（GPT的回答）" class="headerlink" title="区别（GPT的回答）"></a>区别（GPT的回答）</h2><p>下面分别对两种配置方式进行详细说明，并探讨它们在使用场景与配置便捷性方面的差异。</p>
-<hr>
-<h3 id="方式-1"><a href="#方式-1" class="headerlink" title="方式 1"></a>方式 1</h3><p>中转机 (Relay Server):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L tcp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
-
-<p>落地机 (Target Server):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L relay+tls://:8443/:80</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>中转机监听本地 TCP 端口 9527，并通过 relay+tls 协议把流量转发到落地机的 1.1.1.1:8443。  </li>
-<li>落地机在 8443 端口上监听 relay+tls 流量，并最终将流量转发到本地 80 端口。</li>
-</ol>
-<p>在这种布局下：<br>• 中转机对外暴露的 TCP 端口是 9527，落地机对外暴露的 relay+tls 端口是 8443。<br>• 客户端连接到中转机的 9527 端口时，中转机会将流量加密并转发到落地机的 8443，然后落地机解密后将流量转发到本机 80 端口。<br>• 这种方式较为直观：中转机本身只做简单的 TCP 监听与加密转发，不指定最终的后端端口（由落地机自己确定 80）。</p>
-<hr>
-<h3 id="配置方式-2"><a href="#配置方式-2" class="headerlink" title="配置方式 2"></a>配置方式 2</h3><p>中转机 (Relay Server):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
-
-<p>落地机 (Target Server):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L relay+tls://:8443</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>中转机监听本地 TCP 端口 9527，并且在本条指令中已经将后端 IP:Port 显式指定为 1.1.1.1:80，然后再使用 relay+tls 协议将流量加密发送到 1.1.1.1:8443。  </li>
-<li>落地机只需要对外监听 relay+tls:&#x2F;&#x2F;:8443，并把解密后的流量直接送到 1.1.1.1:80（因为在中转机命令里已经填写了最终地址）。</li>
-</ol>
-<p>在这种布局下：<br>• 中转机直接定义了后端服务地址 “1.1.1.1:80”，落地机只负责监听加密端口 8443 并把流量转发到对应的本地端口（通常是 1.1.1.1:80，若落地机是同一台机器，IP 可理解为本机 IP）。<br>• 好处是中转机的一条命令就能控制最终流向的地址，不需要在落地机处指定后端端口。缺点是落地机配置更为简化，但中转机对后端 IP&#x2F;端口的依赖更强。</p>
-<hr>
-<h3 id="两种方式的对比与选择"><a href="#两种方式的对比与选择" class="headerlink" title="两种方式的对比与选择"></a>两种方式的对比与选择</h3><ol>
-<li><p>配置灵活度：  </p>
-<ul>
-<li>方式 1 更加模块化：中转机只做加密转发，落地机决定 80 端口或其他端口。后期若要修改后端端口，只需改动落地机的配置即可。  </li>
-<li>方式 2 更加集中：中转机一条命令中明确指定了 “1.1.1.1:80”，落地机无需指定后端端口，配置更简单，但导致中转机和落地机耦合更紧密。</li>
-</ul>
-</li>
-<li><p>可维护性：  </p>
-<ul>
-<li>如果你需要经常在落地机上变更端口或部署新的服务，方式 1 更符合“解耦”思路。  </li>
-<li>如果整个维护都由中转机负责，而落地机始终只跑一个服务（例如指定的 1.1.1.1:80），方式 2 则更方便。</li>
-</ul>
-</li>
-<li><p>安全性：  </p>
-<ul>
-<li>两种方式的加密协议都是 relay+tls，本质安全性相似，主要取决于证书配置与网络环境。  </li>
-<li>实际安全需求（例如是否需要验证证书、双向 TLS 等）可在具体命令或配置文件中进一步完善。</li>
-</ul>
-</li>
-<li><p>性能与负载：  </p>
-<ul>
-<li>方式 1 与方式 2 的性能基本差异不大，因为核心逻辑都是中转机加密转发、落地机解密并转发到 80 端口。  </li>
-<li>若有复杂负载或需要负载均衡，推荐进一步探索 GOST 的多路复用或其它模式。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>• 如果你想在中转机上集中管理后端 IP 和端口，且保持落地机配置最简化，可以选方式 2。<br>• 如果你想让中转机仅做加密隧道，不直接关心后端实际服务端口（由落地机自行配置），或可能以后变更落地机端口，方式 1 会更灵活。  </p>
-<p>从方便维护和解耦的角度，方式 1 通常更推荐，因为它把“转发和加密“与“监听及后端服务端口”分离开来，后续更改落地机端口时只需改动落地机的配置而无需变动中转机。方式 2 则更适合后端固定且不需要频繁更改服务端口的场景。</p>
-<h1 id="加密中转hy2（2025-1-17更新）"><a href="#加密中转hy2（2025-1-17更新）" class="headerlink" title="加密中转hy2（2025-1-17更新）"></a>加密中转hy2（2025-1-17更新）</h1><p>又折腾了两天，用了realm发现没有加密，还是考虑 Gost ，发现了有一键脚本</p>
-<p><a href="https://github.com/KANIKIG/Multi-EasyGost">https://github.com/KANIKIG/Multi-EasyGost</a></p>
-<p>这一个项目挺好用的，但是不支持 Alpine</p>
-<p><a href="https://github.com/kwxos/Multi-EasyGost%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89">https://github.com/kwxos/Multi-EasyGost（推荐）</a></p>
-<p>这一个fork支持了alpine系统，都是使用的 Gost v2.11.2</p>
-<p><a href="https://github.com/qqrrooty/EZgost">https://github.com/qqrrooty/EZgost</a></p>
-<p>这一个使用的是 Gost v2.11.5，但是没有适配 Alpine</p>
-<p>加密隧道中转用TLS就可以了</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bulianglin.com/archives/relay.html">不良林文档</a><br><a href="https://www.youtube.com/watch?v=AEqP8x_tILw">不良林视频教程</a><br><a href="https://www.youtube.com/watch?v=cuWaTP90bOs">奶油视频（不推荐）</a></p>
-]]></content>
-      <tags>
-        <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -732,6 +685,50 @@
       </tags>
   </entry>
   <entry>
+    <title>解决Nikki局域网Apple设备耗电</title>
+    <url>/2025/12/14/Nikki%E7%BB%95%E8%BF%87%E5%86%85%E6%A0%B8/</url>
+    <content><![CDATA[<p>最近闲得很，把Mihomo的配置给重写了一边，自己局域网的iOS设备，每一晚上都是耗电太多了，虽然早就知道了，现在趁着重写配置文件，给他解决了</p>
+<span id="more"></span>
+
+<p>讨论这个问题的issue：</p>
+<p><a href="https://github.com/vernesong/OpenClash/issues/2614">https://github.com/vernesong/OpenClash/issues/2614</a></p>
+<p>文中给了两种解决方案</p>
+<ol>
+<li>绕过APNS的地址</li>
+<li>禁用 TCP Keep Alive</li>
+</ol>
+<p>方法二会导致长连接的问题</p>
+<p>方案一比较完美，Nikki（1.24及以前的版本）可以使用官方提供的保留地址功能来实现，<a href="https://github.com/nikkinikki-org/OpenWrt-nikki/wiki/Home/7f7bdf174756006379445e8cbf06516e76f7958c#%E5%85%B3%E4%BA%8E%E4%BF%9D%E7%95%99ip%E5%9C%B0%E5%9D%80%E7%9A%84%E8%AF%B4%E6%98%8E">点我查看官方说明</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看当前的保留IP地址</span></span><br><span class="line">uci show nikki.proxy.reserved_ip</span><br><span class="line"><span class="comment"># 删除10.0.0.0/8</span></span><br><span class="line">uci del_list nikki.proxy.reserved_ip=10.0.0.0/8</span><br><span class="line"><span class="comment"># 添加10.0.0.0/8</span></span><br><span class="line">uci add_list nikki.proxy.reserved_ip=10.0.0.0/8</span><br><span class="line"><span class="comment"># 保存配置</span></span><br><span class="line">uci commit nikki</span><br><span class="line"><span class="comment"># 加载配置</span></span><br><span class="line">reload_config</span><br></pre></td></tr></table></figure>
+
+<p>Nikki 1.25 版本开始把保留地址的功能加到luci了</p>
+<p>代理配置—Misc</p>
+<p>添加下面的APNS的地址就好了</p>
+<p>Apple官方提供APNS的IP地址: <a href="https://support.apple.com/zh-cn/102266">https://support.apple.com/zh-cn/102266</a></p>
+<blockquote>
+<p>IPv4</p>
+<ul>
+<li>17.249.0.0&#x2F;16</li>
+<li>17.252.0.0&#x2F;16</li>
+<li>17.57.144.0&#x2F;22</li>
+<li>17.188.128.0&#x2F;18</li>
+<li>17.188.20.0&#x2F;23</li>
+</ul>
+<p>IPv6</p>
+<ul>
+<li>2620:149:a44::&#x2F;48</li>
+<li>2403:300:a42::&#x2F;48</li>
+<li>2403:300:a51::&#x2F;48</li>
+<li>2a01:b740:a42::&#x2F;48</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>Mihomo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac 查询 NAT 类型</title>
     <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
@@ -753,69 +750,6 @@
 ]]></content>
       <tags>
         <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>八年 Apple 账号被封与奇迹解封的经历</title>
-    <url>/2025/11/14/Apple%20ID%E5%B0%81%E7%A6%81/</url>
-    <content><![CDATA[<p>   好久没写博客了，这两天刚好发生了件让我心态彻底崩了的事，记录一下。</p>
-<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>   这账号是 2017 年初注册的，用了 8 年。</p>
-<p>   2025 年 2 月，为了体验完整的 Apple 服务，也为了省钱（这才是重点），我把区转到了<strong>土耳其</strong>。我也没搞什么黑卡，用自己名下的信用卡在 Oyunfor 买礼品卡充值，2 月到 4 月陆续充了 <strong>8,675 TL</strong>（约 1500 RMB）。</p>
-<img src="https://85d8ba7.webp.li/2025/11/e9935b144f79c51c66bdd5d092992256.webp" width=100% height=100% />
-
-<p>   平时就拿来付 iCloud 2TB 和 Apple Music 家庭组，一直相安无事。</p>
-<p>   直到 <strong>2025 年 10 月 27 日</strong>，因为刚需，我内购订阅了一个 <strong>ChatGPT Plus</strong>。</p>
-<p>   噩梦开始了：</p>
-<ul>
-<li><strong>10.29</strong>：家庭组有人说 Apple Music 用不了了。我当时也没当回事，以为是网络波动。</li>
-<li><strong>10.30</strong>：打开 App Store 更新软件，更新界面打不开。紧接着弹窗：**此账户已被禁用 (Your Account has been disabled)**。</li>
-</ul>
-<p>   心里咯噔一下，完了。</p>
-<p>   <img src="https://85d8ba7.webp.li/2025/11/1f78ae79aaa5c4234f1a3eb10b43ee38.webp"></p>
-<h1 id="绝望"><a href="#绝望" class="headerlink" title="绝望"></a>绝望</h1><p>   尝试点解封链接，提交申请，<strong>秒拒</strong>。<br>   找在线客服，查了一下，直接告诉我：<strong>永久封禁，无法解封</strong>。</p>
-<p>   我不信邪，让人工客服打电话给我。<br>   接通的是英文客服，我英语不行，转接到了中文客服（听口音是香港的）。这通电话打完，我心凉了一半：</p>
-<ol>
-<li>他没有权限看海外账号详情。</li>
-<li>他问了后台，说已经有人尝试解封被拒了（就是刚才那个在线客服干的）。</li>
-<li>他直接建议我：<strong>“重新注册一个账号使用吧。”</strong></li>
-</ol>
-<p>   听到这句话我是真的愣住了。<br>   以前在 V2EX 看到别人说外区账号被封、维权无门，我总觉得自己不会那么倒霉，忘了自己本来就是一个运气很差的人。</p>
-<p>   我问是永久封禁吗？他说虽然我看不到状态，但既然海外团队都这么说了，那就是了。<br>   他还好心“安慰”我：以后肉身在哪就用哪的账号，赶紧把 iCloud 数据下载下来，设备退登，免得变砖。</p>
-<p>   8 年的使用记录，内购的软件，剩的 1000 多块钱余额，说没就没了。<br>   没有预兆，没有理由，申诉无门。</p>
-<p>   挂了电话，我已经在看三星和 Pixel 了，甚至想着用回 Windows 算了。Apple 要失去一名忠实用户了，但这对他来说又有什么影响呢？</p>
-<h1 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h1><p>   我不甘心。还没和真正的海外客服对上话，就被判死刑了？<br>   过了几个小时，我又打了一通电话。</p>
-<p>   这次运气好，转到了一个<strong>台湾口音</strong>的海外客服。<br>   我也没这就坦白局了，如实回答：</p>
-<ul>
-<li>最近操作？订阅了 ChatGPT Plus。</li>
-<li>人是不是在大陆？是。</li>
-<li>家庭组其他人也在大陆？是。</li>
-<li>礼品卡哪买的？土耳其官网渠道，自己信用卡付的。</li>
-</ul>
-<p>   她查了一圈，说系统显示确实没办法重新启用了。<br>   但她了解完我的情况，说可以帮我<strong>向专属团队再申请一次</strong>。留了个电话，说后天回电。</p>
-<p>   挂了电话，我其实没抱希望。毕竟是我违反条例在先，论坛上人在当地都被封的例子也不少。我已经开始闲鱼挂设备，准备彻底脱粉 Apple 了。</p>
-<h1 id="复活"><a href="#复活" class="headerlink" title="复活"></a>复活</h1><p>   可能是老天觉得我这辈子吃苦吃够了，偶尔眷顾一下？<br>   当天晚些时候，我随手试了一下 App Store，<strong>居然可以下载软件了！</strong><br>   各项功能全部恢复正常。<br>   我都怀疑是回光返照，直到周六接到那个台湾客服的回电。</p>
-<p>   她确认我的账号解封了。<br>   至于为什么封？<strong>不知道。</strong><br>   为什么解？<strong>也不清楚。</strong><br>   她告诉我，这种被系统判定永久封禁的，**申诉成功的概率不到 30%**。</p>
-<h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><p>   虽然账号回来了，设备也不卖了（电子产品贬值太恐怖了，卖了亏太多），但这次是真的被吓到了。</p>
-<p>   复盘整件事，看着那几通通话记录，才知道这次解封有多侥幸。<br>   不管是 Apple 还是哪个大厂，<strong>数据抓在自己手里才是最安全的</strong>。</p>
-<p>   以此文章，警钟长鸣。</p>
-<hr>
-<p>各种被封禁的帖子：</p>
-<ol>
-<li><a href="https://b23.tv/3laxs81">那岩 Apple ID 被封（动态已删，估计私下解了）</a></li>
-<li><a href="https://v2ex.com/t/1172286">Apple 账号被锁定</a></li>
-<li><a href="https://v2ex.com/t/1121224">用了20年的国区号被封</a></li>
-<li><a href="https://v2ex.com/t/1138834">Apple 账户毫无原由被禁用，如何解除或维权？</a></li>
-<li><a href="https://www.v2ex.com/t/1121763">10 年的 AppleID 被封，不理解苹果的封号逻辑</a></li>
-<li><a href="https://www.v2ex.com/t/1105001">为什么你不应该使用 Apple Account</a></li>
-<li><a href="https://www.uscardforum.com/t/topic/100597">肉身在美国使用美区账号也被封</a></li>
-<li><a href="https://hey.paris/posts/appleid/">25年老用户被封</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Apple</tag>
-        <tag>Apple ID</tag>
-        <tag>技术</tag>
-        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -880,68 +814,72 @@
       </tags>
   </entry>
   <entry>
-    <title>浏览器扩展：将YouTube缩略图改回每行6个</title>
-    <url>/2025/04/06/Youtube%E5%B8%83%E5%B1%80/</url>
-    <content><![CDATA[<p>在用电脑上面使用 YouTube 时，我有账号每行4个视频缩略图，有账号3个，感觉都太大了<span id="more"></span>，在Reddit上面发现了两个帖子</p>
-<ol>
-<li><del><a href="https://www.reddit.com/r/youtube/comments/qx8lfa/youtube_has_recently_changed_the_way_they_render">https://www.reddit.com/r/youtube/comments/qx8lfa/youtube_has_recently_changed_the_way_they_render</a></del></li>
-<li><del><a href="https://www.reddit.com/r/youtube/comments/cur4bl/why_are_thumbnails_so_big_anyone_know_how_to_fix">https://www.reddit.com/r/youtube/comments/cur4bl/why_are_thumbnails_so_big_anyone_know_how_to_fix</a></del></li>
-</ol>
-<p><del>发现这个插件可以解决</del></p>
-<p><del>Youtube thumbnail resizer by iAlen：</del></p>
-<p><del>YouTube缩略图resizer将6个缩略图带回去，而不是4个缩略图 这是YouTube的简单扩展。它连续将新的4个缩略图调整到连续6个旧的6。</del></p>
-<p><del>下载地址：<a href="https://wwcp.lanzout.com/iMah22stv0wd">https://wwcp.lanzout.com/iMah22stv0wd</a></del></p>
-<p><del>也可在下面的网站下载</del></p>
-<p><del><a href="https://www.crxsoso.com/addon/detail/ipgmfobgnagjpilonpeccpmglemaimge">https://www.crxsoso.com/addon/detail/ipgmfobgnagjpilonpeccpmglemaimge</a></del></p>
-<p>本来想把他改成  “manifest_version”: 3，后面发现用油猴脚本更简单</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         YouTube缩略图调整器</span></span><br><span class="line"><span class="comment">// @namespace    http://tampermonkey.net/</span></span><br><span class="line"><span class="comment">// @version      1.3</span></span><br><span class="line"><span class="comment">// @description  将YouTube缩略图调整为每行6个而非4个，同时解决布局问题</span></span><br><span class="line"><span class="comment">// @author       Tune</span></span><br><span class="line"><span class="comment">// @match        https://www.youtube.com/*</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// @run-at       document-start</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建样式元素</span></span><br><span class="line">    <span class="keyword">const</span> style = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;style&#x27;</span>);</span><br><span class="line">    style.<span class="property">textContent</span> = <span class="string">`</span></span><br><span class="line"><span class="string">        /* 设置视频网格为6个一行 */</span></span><br><span class="line"><span class="string">        .ytd-rich-grid-renderer &#123;</span></span><br><span class="line"><span class="string">            --ytd-rich-grid-items-per-row: 6 !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 隐藏视频上传者头像 */</span></span><br><span class="line"><span class="string">        #avatar-link.ytd-rich-grid-video-renderer &#123;</span></span><br><span class="line"><span class="string">            display: none;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 调整内容区域宽度，确保能完整显示6个缩略图 */</span></span><br><span class="line"><span class="string">        #primary.ytd-two-column-browse-results-renderer &#123;</span></span><br><span class="line"><span class="string">            max-width: none !important;</span></span><br><span class="line"><span class="string">            width: calc(100% - 240px) !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 收起侧边栏时的宽度调整 */</span></span><br><span class="line"><span class="string">        ytd-page-manager.ytd-app ytd-browse[page-subtype=&quot;home&quot;] #primary.ytd-two-column-browse-results-renderer,</span></span><br><span class="line"><span class="string">        ytd-page-manager.ytd-app[mini-guide-visible] ytd-browse[page-subtype=&quot;home&quot;] #primary.ytd-two-column-browse-results-renderer &#123;</span></span><br><span class="line"><span class="string">            width: calc(100% - 72px) !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 确保页面本身不出现横向滚动条 */</span></span><br><span class="line"><span class="string">        html &#123;</span></span><br><span class="line"><span class="string">            overflow-x: hidden !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 添加样式到文档</span></span><br><span class="line">    (<span class="variable language_">document</span>.<span class="property">head</span> || <span class="variable language_">document</span>.<span class="property">documentElement</span>).<span class="title function_">appendChild</span>(style);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 动态调整布局的功能</span></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">adjustLayout</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> contentElem = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;content&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (contentElem) &#123;</span><br><span class="line">            <span class="comment">// 确保内容区域有足够宽度</span></span><br><span class="line">            contentElem.<span class="property">style</span>.<span class="property">maxWidth</span> = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始调整</span></span><br><span class="line">    <span class="title function_">adjustLayout</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 监听DOM变化以持续调整布局</span></span><br><span class="line">    <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(adjustLayout);</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="property">body</span>, &#123; <span class="attr">childList</span>: <span class="literal">true</span>, <span class="attr">subtree</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 控制台显示脚本已加载</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;YouTube缩略图调整器已加载&quot;</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
 
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
 ]]></content>
       <tags>
-        <tag>Extensions</tag>
+        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
-    <title>syslog、daemon.log 占用大量空间</title>
-    <url>/2025/03/17/syslog,daemon.log/</url>
-    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
-<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+    <title>macOS 本地部署 Zashboard</title>
+    <url>/2025/12/16/macOS%20%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%20Zashboard/</url>
+    <content><![CDATA[<p>最近 macOS 平台新出的代理客户端 <a href="https://github.com/666OS/ClashMac">ClashMac</a> 关注度颇高（此前我使用的是 <a href="https://github.com/xishang0128/sparkle">Sparkle</a>）。由于该软件支持外部 UI 管理，我决定在本地部署 Zashboard 面板，实现更统一的管理体验。</p>
+<span id="more"></span>
 
-<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
-
-<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
-<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
-<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
-<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
-<p><strong>修改方法</strong>：</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个习惯手写 YAML 配置文件的用户，ClashMac非常适合我（虽然Sparkle开启轻量化模式占用更低，但是不能使用Zashboard管理）</p>
+<p>附上一份官方收录的第三方Mihomo工具：<a href="https://wiki.metacubex.one/startup/client/client/">https://wiki.metacubex.one/startup/client/client/</a></p>
+<p>想起Zashboard是分为前端和后端的，那我不就可以让常驻在我的Dock栏上的Zashboard Web App同时管理在家和在外的了</p>
+<p>起初我尝试使用官方提供的在线前端（<a href="https://board.zash.run.place/">https://board.zash.run.place</a> ），但遇到了两个问题：</p>
+<ol>
+<li>当通过 HTTPS 访问在线面板并导出为 Safari Web App 时，浏览器会因安全策略阻止其访问本地的 HTTP 后端接口。</li>
+<li>如果改用 HTTP 协议访问在线面板，浏览器地址栏会常驻“不安全”的红色警告，且加载速度受网络环境影响较大（官方的是通过GitHub部署的）。</li>
+</ol>
+<p>因此，在本地部署一个轻量级的前端服务成为了最佳解决方案。</p>
+<h1 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h1><h2 id="1-下载静态文件"><a href="#1-下载静态文件" class="headerlink" title="1. 下载静态文件"></a>1. 下载静态文件</h2><p>直接从 GitHub Releases 下载构建好的静态文件：</p>
 <ul>
-<li><p>**对于 <code>syslog</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
-</li>
-<li><p>**对于 <code>daemon.log</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
+<li><a href="https://github.com/Zephyruso/zashboard/releases">https://github.com/Zephyruso/zashboard/releases</a></li>
 </ul>
-<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+<p>下载最新的 <code>dist.zip</code> 或适合你的（官方有说明），解压后将其放置在一个你习惯的目录下（要一直保留，不能删除）</p>
+<h2 id="2-选择-Web-服务器"><a href="#2-选择-Web-服务器" class="headerlink" title="2. 选择 Web 服务器"></a>2. 选择 Web 服务器</h2><p>虽然 Node.js、Nginx、Caddy 甚至 Python都行 ，但为了追求极致的低资源占用，这里推荐使用 **Static Web Server (SWS)**。它基于 Rust 编写，内存占用极低且对 SPA（单页应用）支持良好。</p>
+<p><strong>安装服务器</strong></p>
+<p>使用 Homebrew 安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install static-web-server</span><br></pre></td></tr></table></figure>
 
-<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
-<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>安装完成后，可执行 <code>which static-web-server</code> 确认路径（通常位于 <code>/opt/homebrew/bin/static-web-server</code>）。</p>
+<h2 id="3-配置开机自启-Launchd"><a href="#3-配置开机自启-Launchd" class="headerlink" title="3. 配置开机自启 (Launchd)"></a>3. 配置开机自启 (Launchd)</h2><p>我们将使用 macOS 原生的 Launchd 来管理服务。</p>
+<p>在终端输入以下命令创建配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nano ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
 
-<p>此配置可避免单个日志文件过大</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
+<p>粘贴以下内容。<strong>注意：请务必将下方代码中的 <code>/Users/your_username/...</code> 替换为你实际的文件路径。</strong>或者叫AI帮你写</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">plist</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;[http://www.apple.com/DTDs/PropertyList-1.0.dtd](http://www.apple.com/DTDs/PropertyList-1.0.dtd)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>com.user.zashboard<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin/static-web-server<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--port<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>3824<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--root<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--page404<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist/index.html<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--log-level<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>error<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>EnvironmentVariables<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>PATH<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.err<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.out<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>按 <code>Ctrl + O</code> 保存，<code>Ctrl + X</code> 退出。</p>
+<h2 id="4-启动服务"><a href="#4-启动服务" class="headerlink" title="4. 启动服务"></a>4. 启动服务</h2><p>执行以下命令加载配置并启动服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 卸载可能存在的旧服务（忽略报错）</span></span><br><span class="line">launchctl unload ~/Library/LaunchAgents/com.user.zashboard.plist 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 加载新服务</span></span><br><span class="line">launchctl load ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
+
+<p>此时访问 <code>http://localhost:3824</code> 即可看到面板。</p>
+<p>相比于 Node.js 动辄 50MB+ 的内存占用，Static Web Server 在我本地的运行占用仅维持在 <strong>5MB</strong> 左右，非常轻量。</p>
 ]]></content>
       <tags>
-        <tag>Linux</tag>
+        <tag>Mihomo</tag>
+        <tag>Web</tag>
+        <tag>macOS</tag>
       </tags>
   </entry>
   <entry>
@@ -1075,47 +1013,500 @@
       </tags>
   </entry>
   <entry>
-    <title>解决Nikki局域网Apple设备耗电</title>
-    <url>/2025/12/14/Nikki%E7%BB%95%E8%BF%87%E5%86%85%E6%A0%B8/</url>
-    <content><![CDATA[<p>最近闲得很，把Mihomo的配置给重写了一边，自己局域网的iOS设备，每一晚上都是耗电太多了，虽然早就知道了，现在趁着重写配置文件，给他解决了</p>
-<span id="more"></span>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
 
-<p>讨论这个问题的issue：</p>
-<p><a href="https://github.com/vernesong/OpenClash/issues/2614">https://github.com/vernesong/OpenClash/issues/2614</a></p>
-<p>文中给了两种解决方案</p>
-<ol>
-<li>绕过APNS的地址</li>
-<li>禁用 TCP Keep Alive</li>
-</ol>
-<p>方法二会导致长连接的问题</p>
-<p>方案一比较完美，Nikki（1.24及以前的版本）可以使用官方提供的保留地址功能来实现，<a href="https://github.com/nikkinikki-org/OpenWrt-nikki/wiki/Home/7f7bdf174756006379445e8cbf06516e76f7958c#%E5%85%B3%E4%BA%8E%E4%BF%9D%E7%95%99ip%E5%9C%B0%E5%9D%80%E7%9A%84%E8%AF%B4%E6%98%8E">点我查看官方说明</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看当前的保留IP地址</span></span><br><span class="line">uci show nikki.proxy.reserved_ip</span><br><span class="line"><span class="comment"># 删除10.0.0.0/8</span></span><br><span class="line">uci del_list nikki.proxy.reserved_ip=10.0.0.0/8</span><br><span class="line"><span class="comment"># 添加10.0.0.0/8</span></span><br><span class="line">uci add_list nikki.proxy.reserved_ip=10.0.0.0/8</span><br><span class="line"><span class="comment"># 保存配置</span></span><br><span class="line">uci commit nikki</span><br><span class="line"><span class="comment"># 加载配置</span></span><br><span class="line">reload_config</span><br></pre></td></tr></table></figure>
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<p>Nikki 1.25 版本开始把保留地址的功能加到luci了</p>
-<p>代理配置—Misc</p>
-<p>添加下面的APNS的地址就好了</p>
-<p>Apple官方提供APNS的IP地址: <a href="https://support.apple.com/zh-cn/102266">https://support.apple.com/zh-cn/102266</a></p>
-<blockquote>
-<p>IPv4</p>
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
+<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
 <ul>
-<li>17.249.0.0&#x2F;16</li>
-<li>17.252.0.0&#x2F;16</li>
-<li>17.57.144.0&#x2F;22</li>
-<li>17.188.128.0&#x2F;18</li>
-<li>17.188.20.0&#x2F;23</li>
+<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
+<li>UDP(<strong>21116</strong>)</li>
 </ul>
-<p>IPv6</p>
-<ul>
-<li>2620:149:a44::&#x2F;48</li>
-<li>2403:300:a42::&#x2F;48</li>
-<li>2403:300:a51::&#x2F;48</li>
-<li>2a01:b740:a42::&#x2F;48</li>
-</ul>
-</blockquote>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
 ]]></content>
       <tags>
-        <tag>OpenWrt</tag>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哪吒监控v1</title>
+    <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
+<h1 id="安装-Dashboard"><a href="#安装-Dashboard" class="headerlink" title="安装 Dashboard"></a>安装 Dashboard</h1><p><a href="https://nezha.wiki/guide/dashboard.html">官方面板安装教程</a></p>
+<p>安装脚本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/main/install.sh -o nezha.sh &amp;&amp; <span class="built_in">chmod</span> +x nezha.sh &amp;&amp; <span class="built_in">sudo</span> ./nezha.sh</span><br></pre></td></tr></table></figure>
+
+<p>首次登录的默认用户名和密码均为 <code>admin</code>，记得及时改密码</p>
+<p>使用一个域名开启 CDN 用作访问，另一个域名不开启 CDN 来用于 agent 通信</p>
+<p>去面板设置把 <code>Agent对接地址【域名/IP:端口】</code> 改为<strong>不套CDN</strong>的地址+<strong>端口</strong></p>
+<h1 id="安装-Nginx-反代"><a href="#安装-Nginx-反代" class="headerlink" title="安装 Nginx 反代"></a>安装 Nginx 反代</h1><p>只需要反代面板域名，(开启 CDN 的即可)</p>
+<p>推荐使用 科技lion 的脚本（还有很多其他好用的功能）</p>
+<p>脚本的 Nginx 使用：<a href="https://www.youtube.com/watch?v=rcLgEzdM2Tc">https://www.youtube.com/watch?v=rcLgEzdM2Tc</a></p>
+<h1 id="安装-Agent"><a href="#安装-Agent" class="headerlink" title="安装 Agent"></a>安装 Agent</h1><p>在 Dashboard 中直接复制安装命令</p>
+<h2 id="卸载（来自官方）"><a href="#卸载（来自官方）" class="headerlink" title="卸载（来自官方）"></a>卸载（来自官方）</h2><p>卸载 Agent 包括停止服务、卸载服务，以及删除相关文件。以下是 Ubuntu 系统的卸载步骤：</p>
+<ol>
+<li><p>停止并卸载服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/nezha/agent/</span><br><span class="line">./nezha-agent service uninstall</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除 Agent 文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /opt/nezha/agent/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>如果安装了多个服务并想要全部卸载，可以使用 Agent 安装脚本的卸载功能：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./agent.sh uninstall</span><br></pre></td></tr></table></figure>
+
+<h1 id="serv00-安装哪咤监控"><a href="#serv00-安装哪咤监控" class="headerlink" title="serv00 安装哪咤监控"></a>serv00 安装哪咤监控</h1><p>市面上有挺多的脚本的，我推荐这个作者的<br><a href="https://github.com/vfhky/serv00_ct8_nezha">https://github.com/vfhky/serv00_ct8_nezha</a></p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1、下载脚本</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vfhky/serv00_ct8_nezha.git</span><br><span class="line"></span><br><span class="line">2、进入项目</span><br><span class="line"><span class="built_in">cd</span> serv00_ct8_nezha</span><br><span class="line"></span><br><span class="line">3、修改配置（非必须的操作</span><br><span class="line">vim config/host.eg</span><br><span class="line"></span><br><span class="line">4、开始安装</span><br><span class="line">python3 main.py</span><br></pre></td></tr></table></figure>
+
+<p>作者的博客：<br><a href="https://typecodes.com/python/serv00ct8nezhav1.html">https://typecodes.com/python/serv00ct8nezhav1.html</a></p>
+<p>注意，该作者的脚本做的保活面板，只需要ssh登录一次即可，不需要特意用作者的脚本，我的保活脚本可以继续使用</p>
+<p>该项目的<code>utils.sh</code>使用：<a href="https://typecodes.com/python/serv00ct8nezha4.html">https://typecodes.com/python/serv00ct8nezha4.html</a></p>
+<p>常用</p>
+<ol>
+<li><p>重新 serv00 或者 ct8 主机的系统。脚本会删除用户目录除了 backup 外的所有文件或者目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh restore</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载已经安装的哪吒探针的dashboard和agent 并删除 crontab中的哪吒探针心跳(heart_beat_entry.sh)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh uninstall</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="数据迁移、备份恢复"><a href="#数据迁移、备份恢复" class="headerlink" title="数据迁移、备份恢复"></a>数据迁移、备份恢复</h1><p>来自官方：<a href="https://nezha.wiki/guide/q5.html">https://nezha.wiki/guide/q5.html</a></p>
+<p><strong>停止面板服务</strong><br>在旧服务器中运行一键脚本，选择 <code>停止面板</code>。</p>
+<p><strong>备份数据</strong><br>打包旧服务器中的 <code>/opt/nezha</code> 文件夹，并将其复制到新服务器相同位置。</p>
+<p><strong>恢复数据</strong><br>在新服务器中解压 <code>/opt/nezha</code> 文件夹至相同路径。</p>
+<p><strong>启动面板服务</strong><br>在新服务器中运行一键脚本，选择 <code>启动面板</code>。</p>
+<p>注意事项</p>
+<ul>
+<li>确保 <code>/opt/nezha</code> 文件夹及其内容的权限和所有权在新服务器上正确设置。</li>
+<li>数据迁移完成后，可以通过访问 Dashboard 界面验证迁移是否成功。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gost v3中转</title>
+    <url>/2025/01/14/Gost%20v3%E4%B8%AD%E8%BD%AC/</url>
+    <content><![CDATA[<p>不想使用x-ui的任意门，所以使用了更加专业的Gost 来中转<span id="more"></span></p>
+<p><a href="https://github.com/go-gost/gost">Gost GitHub</a></p>
+<p><a href="https://gost.run/">Gost官方文档</a></p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><h2 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h2><p><a href="https://github.com/go-gost/gost/releases">https://github.com/go-gost/gost/releases</a></p>
+<p>找到好版本，然后用 <code>wget</code></p>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><p><code>tar -zxvf gost_3.0.0_linux_amd64.tar.gz</code></p>
+<p>无法运行记得给权限</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="方式1"><a href="#方式1" class="headerlink" title="方式1"></a>方式1</h2><p>中转机：<code>./gost -L tcp://:中转机入站端口 -F relay+tls://落地机IP:落地机入站端口</code></p>
+<p>落地机：<code>./gost -L relay+tls://:落地机入站端口/:节点端口</code></p>
+<h2 id="方式2"><a href="#方式2" class="headerlink" title="方式2"></a>方式2</h2><p>1.1.1.1 为落地 IP</p>
+<p>中转机：<code>./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</code></p>
+<p>落地机：<code>./gost -L relay+tls://:8443</code></p>
+<p>可以把 IP 换为网址</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##后台运行，并且把日志写入到 gost.log，名称可自定义</span><br><span class="line">nohup 运行指令 &gt; gost.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##丢弃日志，推荐测试完成后丢弃，这个日志会变大的</span><br><span class="line">nohup 运行指令 &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">##中转转发UDP</span><br><span class="line">./gost -L tcp://:9527  -L udp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+<p>在落地机搭建好节点，把IP和端口改成中转机的 IP 和转发端口就行了</p>
+<h2 id="查询后台正在运行"><a href="#查询后台正在运行" class="headerlink" title="查询后台正在运行"></a>查询后台正在运行</h2><p><code>ps aux | grep gost | grep -v grep</code></p>
+<p>删除后台<br><code>kill pid</code></p>
+<h2 id="区别（GPT的回答）"><a href="#区别（GPT的回答）" class="headerlink" title="区别（GPT的回答）"></a>区别（GPT的回答）</h2><p>下面分别对两种配置方式进行详细说明，并探讨它们在使用场景与配置便捷性方面的差异。</p>
+<hr>
+<h3 id="方式-1"><a href="#方式-1" class="headerlink" title="方式 1"></a>方式 1</h3><p>中转机 (Relay Server):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L tcp://:9527 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+
+<p>落地机 (Target Server):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L relay+tls://:8443/:80</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>中转机监听本地 TCP 端口 9527，并通过 relay+tls 协议把流量转发到落地机的 1.1.1.1:8443。  </li>
+<li>落地机在 8443 端口上监听 relay+tls 流量，并最终将流量转发到本地 80 端口。</li>
+</ol>
+<p>在这种布局下：<br>• 中转机对外暴露的 TCP 端口是 9527，落地机对外暴露的 relay+tls 端口是 8443。<br>• 客户端连接到中转机的 9527 端口时，中转机会将流量加密并转发到落地机的 8443，然后落地机解密后将流量转发到本机 80 端口。<br>• 这种方式较为直观：中转机本身只做简单的 TCP 监听与加密转发，不指定最终的后端端口（由落地机自己确定 80）。</p>
+<hr>
+<h3 id="配置方式-2"><a href="#配置方式-2" class="headerlink" title="配置方式 2"></a>配置方式 2</h3><p>中转机 (Relay Server):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L tcp://:9527/1.1.1.1:80 -F relay+tls://1.1.1.1:8443</span><br></pre></td></tr></table></figure>
+
+<p>落地机 (Target Server):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gost -L relay+tls://:8443</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>中转机监听本地 TCP 端口 9527，并且在本条指令中已经将后端 IP:Port 显式指定为 1.1.1.1:80，然后再使用 relay+tls 协议将流量加密发送到 1.1.1.1:8443。  </li>
+<li>落地机只需要对外监听 relay+tls:&#x2F;&#x2F;:8443，并把解密后的流量直接送到 1.1.1.1:80（因为在中转机命令里已经填写了最终地址）。</li>
+</ol>
+<p>在这种布局下：<br>• 中转机直接定义了后端服务地址 “1.1.1.1:80”，落地机只负责监听加密端口 8443 并把流量转发到对应的本地端口（通常是 1.1.1.1:80，若落地机是同一台机器，IP 可理解为本机 IP）。<br>• 好处是中转机的一条命令就能控制最终流向的地址，不需要在落地机处指定后端端口。缺点是落地机配置更为简化，但中转机对后端 IP&#x2F;端口的依赖更强。</p>
+<hr>
+<h3 id="两种方式的对比与选择"><a href="#两种方式的对比与选择" class="headerlink" title="两种方式的对比与选择"></a>两种方式的对比与选择</h3><ol>
+<li><p>配置灵活度：  </p>
+<ul>
+<li>方式 1 更加模块化：中转机只做加密转发，落地机决定 80 端口或其他端口。后期若要修改后端端口，只需改动落地机的配置即可。  </li>
+<li>方式 2 更加集中：中转机一条命令中明确指定了 “1.1.1.1:80”，落地机无需指定后端端口，配置更简单，但导致中转机和落地机耦合更紧密。</li>
+</ul>
+</li>
+<li><p>可维护性：  </p>
+<ul>
+<li>如果你需要经常在落地机上变更端口或部署新的服务，方式 1 更符合“解耦”思路。  </li>
+<li>如果整个维护都由中转机负责，而落地机始终只跑一个服务（例如指定的 1.1.1.1:80），方式 2 则更方便。</li>
+</ul>
+</li>
+<li><p>安全性：  </p>
+<ul>
+<li>两种方式的加密协议都是 relay+tls，本质安全性相似，主要取决于证书配置与网络环境。  </li>
+<li>实际安全需求（例如是否需要验证证书、双向 TLS 等）可在具体命令或配置文件中进一步完善。</li>
+</ul>
+</li>
+<li><p>性能与负载：  </p>
+<ul>
+<li>方式 1 与方式 2 的性能基本差异不大，因为核心逻辑都是中转机加密转发、落地机解密并转发到 80 端口。  </li>
+<li>若有复杂负载或需要负载均衡，推荐进一步探索 GOST 的多路复用或其它模式。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>• 如果你想在中转机上集中管理后端 IP 和端口，且保持落地机配置最简化，可以选方式 2。<br>• 如果你想让中转机仅做加密隧道，不直接关心后端实际服务端口（由落地机自行配置），或可能以后变更落地机端口，方式 1 会更灵活。  </p>
+<p>从方便维护和解耦的角度，方式 1 通常更推荐，因为它把“转发和加密“与“监听及后端服务端口”分离开来，后续更改落地机端口时只需改动落地机的配置而无需变动中转机。方式 2 则更适合后端固定且不需要频繁更改服务端口的场景。</p>
+<h1 id="加密中转hy2（2025-1-17更新）"><a href="#加密中转hy2（2025-1-17更新）" class="headerlink" title="加密中转hy2（2025-1-17更新）"></a>加密中转hy2（2025-1-17更新）</h1><p>又折腾了两天，用了realm发现没有加密，还是考虑 Gost ，发现了有一键脚本</p>
+<p><a href="https://github.com/KANIKIG/Multi-EasyGost">https://github.com/KANIKIG/Multi-EasyGost</a></p>
+<p>这一个项目挺好用的，但是不支持 Alpine</p>
+<p><a href="https://github.com/kwxos/Multi-EasyGost%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89">https://github.com/kwxos/Multi-EasyGost（推荐）</a></p>
+<p>这一个fork支持了alpine系统，都是使用的 Gost v2.11.2</p>
+<p><a href="https://github.com/qqrrooty/EZgost">https://github.com/qqrrooty/EZgost</a></p>
+<p>这一个使用的是 Gost v2.11.5，但是没有适配 Alpine</p>
+<p>加密隧道中转用TLS就可以了</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bulianglin.com/archives/relay.html">不良林文档</a><br><a href="https://www.youtube.com/watch?v=AEqP8x_tILw">不良林视频教程</a><br><a href="https://www.youtube.com/watch?v=cuWaTP90bOs">奶油视频（不推荐）</a></p>
+]]></content>
+      <tags>
+        <tag>折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>屏蔽 BiliBili PCDN</title>
+    <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
+<p><a href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
+<p>B 站的 video host 有四种类型：（我将其添加个称呼好标注，非官方称呼）<br><a href="http://upos-sz-mirrorkodo.bilivideo.com/">upos-sz-mirrorkodo.bilivideo.com</a> &#x2F; <a href="http://upos-sz-mirrorcos.bilivideo.com/">upos-sz-mirrorcos.bilivideo.com</a> &#x2F; Mirror 型<br><a href="http://cn-gdgz4-cmcc-v-09.bilivideo.com/">cn-gdgz4-cmcc-v-09.bilivideo.com</a> &#x2F; <a href="http://cn-gdst-cmcc-bcache-02.bilivideo.com/">cn-gdst-cmcc-bcache-02.bilivideo.com</a> &#x2F; Cache 型<br><a href="http://xy112x48x59x98xy.mcdn.bilivideo.cn/">xy112x48x59x98xy.mcdn.bilivideo.cn</a> &#x2F; <a href="http://xy110x85x55x73xy.mcdn.bilivideo.cn/">xy110x85x55x73xy.mcdn.bilivideo.cn</a> &#x2F; MCDN 型<br><a href="http://a93lt21v.v1d.szbdyd.com/">a93lt21v.v1d.szbdyd.com</a> &#x2F; <a href="http://hz6xy5t6.v1d.szbdyd.com/">hz6xy5t6.v1d.szbdyd.com</a> &#x2F; PCDN 型<br>以上几种是在广东移动的场景下测的，其他运营商应该也差不多。</p>
+<p>B 站官方测速地址</p>
+<p><a href="https://www.bilibili.com/blackboard/app-speed-test.html">https://www.bilibili.com/blackboard/app-speed-test.html</a></p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
+<li><p><a href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
+<p><a href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
+</li>
+<li><p><a href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
+</li>
+</ol>
+<p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来，那我就直接用了😁</p>
+<p>又找到一个佬关于B站 PCDN 的规则</p>
+<p><a href="https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml">https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml</a></p>
+<p>Noodseek：<a href="https://www.nodeseek.com/post-139229-1">https://www.nodeseek.com/post-139229-1</a></p>
+<p>anti-AD：<a href="https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt">https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt</a></p>
+<h2 id="Mosdns（推荐）"><a href="#Mosdns（推荐）" class="headerlink" title="Mosdns（推荐）"></a>Mosdns（推荐）</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
+<details>
+  <summary>点我展开看废弃代码</summary>
+  <pre><code>
+domain:gjfzpt.cn
+domain:szbdyd.com
+domain:bsccdn.net
+domain:pkoplink.com
+domain:saxysec.com
+domain:uhabo.com
+domain:xycdn.com
+domain:kuiniuca.com
+domain:onethingpcs.com
+domain:jomodns.cn
+domain:p2p.huya.com
+domain:stun.douyucdn.cn
+domain:stun.hitv.com
+domain:stun1.douyucdn.cn
+domain:mcdn.bilivideo.cn
+domain:tpa-hcdn.iqiyi.com
+domain:pcdn.xmcdn.com
+domain:pcdn.yximgs.com
+domain:dyp2p-ali.douyucdn.cn
+domain:dyp2p-hw.douyucdn.cn
+domain:p2p-ali.douyucdn.cn
+domain:p2p.qq.com
+domain:p2pchunk-hw.douyucdn.cn
+domain:p2pchunk-table.douyucdn.cn
+domain:p2pchunk-ws.douyucdn.cn
+domain:p2perrorlog.douyucdn.cn
+domain:p2plive-ali.douyucdn.cn
+domain:p2plive-ws.douyucdn.cn
+domain:p2plog.douyucdn.cn
+domain:p2ptun.qq.com
+domain:p2pupdate.gamedl.qq.com
+domain:p2pupgrade.gamedl.qq.com
+domain:p2pvod-ws.douyucdn.cn
+regexp:.*pcdn.*biliapi\.net
+regexp:.*pcdn.*youku\.com
+regexp:.*p2p.*douyucdn\.cn
+regexp:.*p2p.*qq\.com
+regexp:.*pcdn.*biliapi\.net
+regexp:.*pcdn.*youku\.com
+regexp:cn-.*\.bilivideo\.com            #屏蔽这个会导致看不了直播
+  </code></pre>
+</details>
+
+<p>由于旧版误伤过多，所以精简了很多</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi.net</span><br><span class="line">regexp:.*pcdn.*youku.com</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>使用 Clash 规则时，需要<strong>添加好对应的端口</strong>，例如：</p>
+<p>xy111x51x181x119xy.mcdn.bilivideo.cn:4483，使用的是京东云，在clash的代理端口上需要把对应的TCP 端口加上 4483 8082，有点麻烦</p>
+<p><a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
+<details>
+  <summary>点我展开</summary>
+  <pre><code>
+// ==UserScript==
+// @name         Make BiliBili Great Again
+// @namespace    https://www.kookxiang.com/
+// @version      1.5.5
+// @description  useful tweaks for bilibili.com
+// @author       kookxiang
+// @match        https://*.bilibili.com/*
+// @run-at       document-body
+// @grant        unsafeWindow
+// @grant        GM_addStyle
+// @grant        GM_notification
+// @downloadURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.user.js
+// @updateURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.meta.js
+// ==/UserScript==
+// 去掉叔叔去世时的全站黑白效果
+GM_addStyle("html, body &#123; -webkit-filter: none !important; filter: none !important; &#125;");
+
+<p>&#x2F;&#x2F; 没用的 URL 参数<br>const uselessUrlParams &#x3D; [<br>    ‘buvid’,<br>    ‘is_story_h5’,<br>    ‘launch_id’,<br>    ‘live_from’,<br>    ‘mid’,<br>    ‘session_id’,<br>    ‘timestamp’,<br>    ‘up_id’,<br>    ‘vd_source’,<br>    &#x2F;^share&#x2F;,<br>    &#x2F;^spm&#x2F;,<br>];</p>
+<p>&#x2F;&#x2F; Block WebRTC，CNM 陈睿你就缺这点棺材钱？<br>try &#123;<br>    Object.defineProperty(unsafeWindow, ‘webkitRTCPeerConnection’, &#123; value: undefined, enumerable: false, writable: false &#125;);<br>&#125; catch (e) &#123; &#125;</p>
+<p>&#x2F;&#x2F; 移除鸿蒙字体，系统自带它不香吗？<br>window.addEventListener(‘load’, function () &#123;<br>    document.body.classList.remove(‘harmony-font’);<br>&#125;)</p>
+<p>&#x2F;&#x2F; 首页优化<br>if (location.host &#x3D;&#x3D;&#x3D; “<a href="http://www.bilibili.com/">www.bilibili.com</a>“) &#123;<br>    GM_addStyle(‘.feed2 .feed-card:has(a[href*&#x3D;”cm.bilibili.com”]) &#123; display: none &#125; .feed2 .container &gt; * &#123; margin-top: 0 !important &#125;’);<br>&#125;</p>
+<p>&#x2F;&#x2F; 动态页面优化<br>if (location.host &#x3D;&#x3D;&#x3D; “t.bilibili.com”) &#123;<br>    GM_addStyle(“html[wide] #app &#123; display: flex; &#125; html[wide] .bili-dyn-home–member &#123; box-sizing: border-box;padding: 0 10px;width: 100%;flex: 1; &#125; html[wide] .bili-dyn-content &#123; width: initial; &#125; html[wide] main &#123; margin: 0 8px;flex: 1;overflow: hidden;width: initial; &#125; #wide-mode-switch &#123; margin-left: 0;margin-right: 20px; &#125; .bili-dyn-list__item:has(.bili-dyn-card-goods), .bili-dyn-list__item:has(.bili-rich-text-module.goods) &#123; display: none !important &#125;”);<br>    if (!localStorage.WIDE_OPT_OUT) &#123;<br>        document.documentElement.setAttribute(‘wide’, ‘wide’);<br>    &#125;<br>    window.addEventListener(‘load’, function () &#123;<br>        const tabContainer &#x3D; document.querySelector(‘.bili-dyn-list-tabs__list’);<br>        const placeHolder &#x3D; document.createElement(‘div’);<br>        placeHolder.style.flex &#x3D; 1;<br>        const switchButton &#x3D; document.createElement(‘a’);<br>        switchButton.id &#x3D; ‘wide-mode-switch’;<br>        switchButton.className &#x3D; ‘bili-dyn-list-tabs__item’;<br>        switchButton.textContent &#x3D; ‘宽屏模式’;<br>        switchButton.addEventListener(‘click’, function (e) &#123;<br>            e.preventDefault();<br>            if (localStorage.WIDE_OPT_OUT) &#123;<br>                localStorage.removeItem(‘WIDE_OPT_OUT’);<br>                document.documentElement.setAttribute(‘wide’, ‘wide’);<br>            &#125; else &#123;<br>                localStorage.setItem(‘WIDE_OPT_OUT’, ‘1’);<br>                document.documentElement.removeAttribute(‘wide’);<br>            &#125;<br>        &#125;)<br>        tabContainer.appendChild(placeHolder);<br>        tabContainer.appendChild(switchButton);<br>    &#125;)<br>&#125;</p>
+<p>&#x2F;&#x2F; 去广告<br>GM_addStyle(‘.ad-report, a[href*&#x3D;”cm.bilibili.com”] &#123; display: none !important; &#125;’);<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.adData) &#123;<br>    for (const key in unsafeWindow.<strong>INITIAL_STATE</strong>.adData) &#123;<br>        if (!Array.isArray(unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key])) continue;<br>        for (const item of unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key]) &#123;<br>            item.name &#x3D; ‘B 站未来有可能会倒闭，但绝不会变质’;<br>            item.pic &#x3D; ‘<a href="https://static.hdslb.com/images/transparent.gif">https://static.hdslb.com/images/transparent.gif</a>‘;<br>            item.url &#x3D; ‘<a href="https://space.bilibili.com/208259">https://space.bilibili.com/208259</a>‘;<br>        &#125;<br>    &#125;<br>&#125;</p>
+<p>&#x2F;&#x2F; 去充电列表（叔叔的跳过按钮越做越小了，就尼玛离谱）<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.elecFullInfo) &#123;<br>    delete unsafeWindow.<strong>INITIAL_STATE</strong>.elecFullInfo;<br>&#125;</p>
+<p>&#x2F;&#x2F; 修复文章区复制<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/read/cv">https://www.bilibili.com/read/cv</a>‘)) &#123;<br>    unsafeWindow.original.reprint &#x3D; “1”;<br>    document.querySelector(‘.article-holder’).classList.remove(“unable-reprint”);<br>    document.querySelector(‘.article-holder’).addEventListener(‘copy’, e &#x3D;&gt; e.stopImmediatePropagation(), true);<br>&#125;</p>
+<p>&#x2F;&#x2F; 真·原画直播<br>if (location.href.startsWith(‘<a href="https://live.bilibili.com/">https://live.bilibili.com/</a>‘)) &#123;<br>    unsafeWindow.forceHighestQuality &#x3D; true;<br>    let recentErrors &#x3D; 0;<br>    setInterval(() &#x3D;&gt; recentErrors &gt; 0 ? recentErrors &#x2F; 2 : null, 10000);</p>
+<pre><code>const oldFetch = unsafeWindow.fetch;
+unsafeWindow.fetch = function (url) &#123;
+    try &#123;
+        const mcdnRegexp = /[xy0-9]+\.mcdn\.bilivideo\.cn:\d+/
+        const qualityRegexp = /(live-bvc\/\d+\/live_\d+_\d+)_\w+/;
+        if (mcdnRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.disableMcdn) &#123;
+            return Promise.reject();
+        &#125;
+        if (qualityRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
+            arguments[0] = arguments[0]
+                .replace(qualityRegexp, &#39;$1&#39;)
+                .replace(/(\d+)_(mini|pro)hevc/g, &#39;$1&#39;);
+        &#125;
+        const promise = oldFetch.apply(this, arguments);
+        promise.then(response =&gt; &#123;
+            if (!url.match(/\.(m3u8|m4s)/)) return;
+            if ([403, 404].includes(response.status)) recentErrors++;
+            if (recentErrors &gt;= 5 &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
+                recentErrors = 0;
+                unsafeWindow.forceHighestQuality = false;
+                GM_notification(&#123; title: &#39;最高清晰度可能不可用&#39;, text: &#39;已为您自动切换至播放器上选择的清晰度.&#39;, timeout: 3000, silent: true &#125;);
+            &#125;
+        &#125;);
+        return promise;
+    &#125; catch (e) &#123; &#125;
+    return oldFetch.apply(this, arguments);
+&#125;
+</code></pre>
+<p>}</p>
+<p>&#x2F;&#x2F; 视频裁切<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a>‘)) {<br>    GM_addStyle(“body[video-fit] #bilibili-player video { object-fit: cover; } .bpx-player-ctrl-setting-fit-mode { display: flex;width: 100%;height: 32px;line-height: 32px; } .bpx-player-ctrl-setting-box .bui-panel-wrap, .bpx-player-ctrl-setting-box .bui-panel-item { min-height: 172px !important; }”);<br>    let timer;<br>    function toggleMode(enabled) {<br>        if (enabled) {<br>            document.body.setAttribute(‘video-fit’, ‘’);<br>        } else {<br>            document.body.removeAttribute(‘video-fit’);<br>        }<br>    }<br>    function injectButton() {<br>        if (!document.querySelector(‘.bpx-player-ctrl-setting-menu-left’)) {<br>            return;<br>        }<br>        clearInterval(timer);<br>        const parent &#x3D; document.querySelector(‘.bpx-player-ctrl-setting-menu-left’);<br>        const item &#x3D; document.createElement(‘div’);<br>        item.className &#x3D; ‘bpx-player-ctrl-setting-fit-mode bui bui-switch’;<br>        item.innerHTML &#x3D; ‘<input class="bui-switch-input" type="checkbox"><label class="bui-switch-label"><span class="bui-switch-name">裁切模式</span><span class="bui-switch-body"><span class="bui-switch-dot"><span></span></span></span></label>‘;<br>        parent.insertBefore(item, document.querySelector(‘.bpx-player-ctrl-setting-more’));<br>        document.querySelector(‘.bpx-player-ctrl-setting-fit-mode input’).addEventListener(‘change’, e &#x3D;&gt; toggleMode(e.target.checked));<br>        document.querySelector(‘.bpx-player-ctrl-setting-box .bui-panel-item’).style.height &#x3D; ‘’;<br>    }<br>    timer &#x3D; setInterval(injectButton, 200);<br>}</p>
+<p>&#x2F;&#x2F; 去除地址栏多余参数<br>unsafeWindow.history.replaceState(undefined, undefined, removeTracking(location.href));<br>const pushState &#x3D; unsafeWindow.history.pushState;<br>unsafeWindow.history.pushState &#x3D; function (state, unused, url) {<br>    return pushState.apply(this, [state, unused, removeTracking(url)]);<br>}<br>const replaceState &#x3D; unsafeWindow.history.replaceState;<br>unsafeWindow.history.replaceState &#x3D; function (state, unused, url) {<br>    return replaceState.apply(this, [state, unused, removeTracking(url)]);<br>}</p>
+<p>function removeTracking(url) {<br>    if (!url) return url;<br>    try {<br>        const [base, search] &#x3D; url.split(‘?’);<br>        if (!search) return url;<br>        const searchParams &#x3D; new URLSearchParams(‘?’ + search);<br>        const keys &#x3D; Array.from(searchParams.keys());<br>        for (const key of keys) {<br>            uselessUrlParams.forEach(item &#x3D;&gt; {<br>                if (typeof item &#x3D;&#x3D;&#x3D; ‘string’) {<br>                    if (item &#x3D;&#x3D;&#x3D; key) searchParams.delete(key);<br>                } else if (item instanceof RegExp) {<br>                    if (item.test(key)) searchParams.delete(key);<br>                }<br>            });<br>        }<br>        if (location.pathname &#x3D;&#x3D;&#x3D; base &amp;&amp; !searchParams.size) return;<br>        return [base, searchParams.toString()].filter(Boolean).join(‘?’);<br>    } catch (e) {<br>        return url;<br>    }<br>}</p>
+<p>&#x2F;&#x2F; 去掉 B 站的傻逼上报<br>!function () {<br>    const oldFetch &#x3D; unsafeWindow.fetch;<br>    unsafeWindow.fetch &#x3D; function (url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’))<br>            return Promise.resolve(new Response());<br>        return oldFetch.apply(this, arguments);<br>    }<br>    const oldSend &#x3D; unsafeWindow.XMLHttpRequest.prototype.open;<br>    unsafeWindow.XMLHttpRequest.prototype.open &#x3D; function (method, url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’)) {<br>            this.send &#x3D; function () { };<br>            return;<br>        }<br>        return oldSend.apply(this, arguments);<br>    }<br>    unsafeWindow.navigator.sendBeacon &#x3D; () &#x3D;&gt; Promise.resolve();</p>
+<pre><code>unsafeWindow.MReporter = function () &#123; &#125;;
+unsafeWindow.MReporter.appear = function () &#123; &#125;;
+unsafeWindow.MReporter.click = function () &#123; &#125;;
+unsafeWindow.MReporter.tech = function () &#123; &#125;;
+unsafeWindow.MReporter.pv = function () &#123; &#125;;
+unsafeWindow.MReporter.import = &#123; auto() &#123; &#125; &#125;;
+
+const sentryHub = class &#123; bindClient() &#123; &#125; &#125;
+const fakeSentry = &#123;
+    SDK_NAME: &#39;sentry.javascript.browser&#39;,
+    SDK_VERSION: &#39;0.0.0&#39;,
+    BrowserClient: class &#123; &#125;,
+    Hub: sentryHub,
+    Integrations: &#123;
+        Vue: class &#123; &#125;,
+        GlobalHandlers: class &#123; &#125;,
+        InboundFilters: class &#123; &#125;,
+    &#125;,
+    init() &#123; &#125;,
+    configureScope() &#123; &#125;,
+    getCurrentHub: () =&gt; new sentryHub(),
+    setContext() &#123; &#125;,
+    setExtra() &#123; &#125;,
+    setExtras() &#123; &#125;,
+    setTag() &#123; &#125;,
+    setTags() &#123; &#125;,
+    setUser() &#123; &#125;,
+    wrap() &#123; &#125;,
+&#125;
+if (!unsafeWindow.Sentry || unsafeWindow.Sentry.SDK_VERSION !== fakeSentry.SDK_VERSION) &#123;
+    if (unsafeWindow.Sentry) &#123; delete unsafeWindow.Sentry &#125;
+    Object.defineProperty(unsafeWindow, &#39;Sentry&#39;, &#123; value: fakeSentry, enumerable: false, writable: false &#125;);
+&#125;
+Object.defineProperty(unsafeWindow, &#39;ReporterPb&#39;, &#123; value: class &#123; click() &#123; &#125; custom() &#123; &#125; exposure() &#123; &#125; report() &#123; &#125; tech() &#123; &#125; pv() &#123; &#125; &#125;, enumerable: false, writable: false &#125;);
+
+Object.defineProperty(unsafeWindow, &#39;__biliUserFp__&#39;, &#123;
+    get() &#123; return &#123; init() &#123; &#125;, queryUserLog() &#123; return [] &#125; &#125; &#125;,
+    set() &#123; &#125;,
+&#125;);
+Object.defineProperty(unsafeWindow, &#39;__USER_FP_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
+Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
+</code></pre>
+<p>}()<br>  </code></pre></p>
+</details>
+
+<p>大家可以去看看<a href="https://mymuwu.net/?p=1427">大佬文章的说明</a>，我这就不贴了</p>
+]]></content>
+      <tags>
+        <tag>BiliBili</tag>
         <tag>Mihomo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 折腾</title>
+    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
+<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
+<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
+<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
+<ul>
+<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
+<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
+<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
+<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
+<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
+<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
+</ul>
+<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
+<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
+<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
+<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
+<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
+]]></content>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>syslog、daemon.log 占用大量空间</title>
+    <url>/2025/03/17/syslog,daemon.log/</url>
+    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
+<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
+
+<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
+<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
+<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
+<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
+<p><strong>修改方法</strong>：</p>
+<ul>
+<li><p>**对于 <code>syslog</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
+</li>
+<li><p>**对于 <code>daemon.log</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
+<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此配置可避免单个日志文件过大</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Bose QC Ultra 和 Sony XM5</title>
+    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
+    <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
+<span id="more"></span>
+
+<p>我的耳朵长时间佩戴入耳式耳机不是很舒服，而且发过炎症（三星 Buds Pro 老用户），准备入一款头戴式玩玩，四个选择</p>
+<ol>
+<li><p>Sony WH 1000-XM5（朋友有一个，能借来用）</p>
+</li>
+<li><p>Bose QC Ultra</p>
+</li>
+<li><p>Sennheiser MOMENTUM 4（木馒头4）（看测评不适合我）</p>
+</li>
+<li><p>Airports Max（不考虑，太重了，舍友有一个，体验过一段时间）</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/1a888c1e2140222ae453245b0d8ecbae.jpeg"></p>
+</li>
+</ol>
+<p>借朋友的XM5、买了一个Bose QC Ultra开始体验，看看留下谁</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/e9eca987d5bd8842075890dfb7a2d4db.jpeg"></p>
+<p>最后留下了Bose，就是因为<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>，能折叠，个人觉得比XM5好看，就没了，其他全是缺点</p>
+<p>来列一下与XM5对比，Bose的缺点</p>
+<ol>
+<li>EQ不能保存多个，可以调节的少</li>
+<li>不能快速切换降噪和通透，必须通过模式来切换</li>
+<li>没有XM5长按右耳罩，快速减少音量，关闭降噪的功能（Bose的交互比XM5烂很多）</li>
+<li>查询电池电量只能通过蓝牙，或者自定义音量条的“快捷方式”（我用来调节“沉浸式音频”了），但耳机开机的时候会报一下电量</li>
+<li>开机的时候如果连接了多设备，会把设备的名字都念一遍（能关闭）</li>
+<li>充电速度慢，电池没有XM5的大</li>
+<li>蓝牙的音质是比xm5差点（我能听出来），但是有线的情况下不分伯仲（说Bose会更好，我听不出来）</li>
+<li>音频线是2.5mm和3.5mm的，而且送的线比Sony的短</li>
+<li>没有防水，下雨不要戴</li>
+<li>用耳机上的滑块把音量调到最大。每次通过 3.5mm 线连接时，音量都会自动变成 50%，说是为了保护听力。所以你得在两个地方调音量（耳机和设备上）</li>
+<li>Bose 的品控差，售后特别烂，我的暂时还没问题</li>
+<li>折腾Bose的人少，Sony的还可以刷刷固件折玩</li>
+</ol>
+<p>另外朋友的XM5用的挺久了，耳机涂层脱落，手感差，且有油光，看起来变廉价了</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/6f5a141e3dc24de32522f0bc9c895b0f.jpeg"></p>
+]]></content>
+      <tags>
+        <tag>耳机</tag>
       </tags>
   </entry>
   <entry>
@@ -1417,136 +1808,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
-<ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
-</ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
-<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
-<ul>
-<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
-<li>UDP(<strong>21116</strong>)</li>
-</ul>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
-]]></content>
-      <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android 折腾</title>
-    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
-<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
-<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
-<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
-<ul>
-<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
-<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
-<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
-<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
-<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
-<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
-</ul>
-<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
-<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
-<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
-<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
-<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
-]]></content>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>哪吒监控v1</title>
-    <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
-<h1 id="安装-Dashboard"><a href="#安装-Dashboard" class="headerlink" title="安装 Dashboard"></a>安装 Dashboard</h1><p><a href="https://nezha.wiki/guide/dashboard.html">官方面板安装教程</a></p>
-<p>安装脚本：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/main/install.sh -o nezha.sh &amp;&amp; <span class="built_in">chmod</span> +x nezha.sh &amp;&amp; <span class="built_in">sudo</span> ./nezha.sh</span><br></pre></td></tr></table></figure>
-
-<p>首次登录的默认用户名和密码均为 <code>admin</code>，记得及时改密码</p>
-<p>使用一个域名开启 CDN 用作访问，另一个域名不开启 CDN 来用于 agent 通信</p>
-<p>去面板设置把 <code>Agent对接地址【域名/IP:端口】</code> 改为<strong>不套CDN</strong>的地址+<strong>端口</strong></p>
-<h1 id="安装-Nginx-反代"><a href="#安装-Nginx-反代" class="headerlink" title="安装 Nginx 反代"></a>安装 Nginx 反代</h1><p>只需要反代面板域名，(开启 CDN 的即可)</p>
-<p>推荐使用 科技lion 的脚本（还有很多其他好用的功能）</p>
-<p>脚本的 Nginx 使用：<a href="https://www.youtube.com/watch?v=rcLgEzdM2Tc">https://www.youtube.com/watch?v=rcLgEzdM2Tc</a></p>
-<h1 id="安装-Agent"><a href="#安装-Agent" class="headerlink" title="安装 Agent"></a>安装 Agent</h1><p>在 Dashboard 中直接复制安装命令</p>
-<h2 id="卸载（来自官方）"><a href="#卸载（来自官方）" class="headerlink" title="卸载（来自官方）"></a>卸载（来自官方）</h2><p>卸载 Agent 包括停止服务、卸载服务，以及删除相关文件。以下是 Ubuntu 系统的卸载步骤：</p>
-<ol>
-<li><p>停止并卸载服务：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/nezha/agent/</span><br><span class="line">./nezha-agent service uninstall</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除 Agent 文件夹：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /opt/nezha/agent/</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>如果安装了多个服务并想要全部卸载，可以使用 Agent 安装脚本的卸载功能：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./agent.sh uninstall</span><br></pre></td></tr></table></figure>
-
-<h1 id="serv00-安装哪咤监控"><a href="#serv00-安装哪咤监控" class="headerlink" title="serv00 安装哪咤监控"></a>serv00 安装哪咤监控</h1><p>市面上有挺多的脚本的，我推荐这个作者的<br><a href="https://github.com/vfhky/serv00_ct8_nezha">https://github.com/vfhky/serv00_ct8_nezha</a></p>
-<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1、下载脚本</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vfhky/serv00_ct8_nezha.git</span><br><span class="line"></span><br><span class="line">2、进入项目</span><br><span class="line"><span class="built_in">cd</span> serv00_ct8_nezha</span><br><span class="line"></span><br><span class="line">3、修改配置（非必须的操作</span><br><span class="line">vim config/host.eg</span><br><span class="line"></span><br><span class="line">4、开始安装</span><br><span class="line">python3 main.py</span><br></pre></td></tr></table></figure>
-
-<p>作者的博客：<br><a href="https://typecodes.com/python/serv00ct8nezhav1.html">https://typecodes.com/python/serv00ct8nezhav1.html</a></p>
-<p>注意，该作者的脚本做的保活面板，只需要ssh登录一次即可，不需要特意用作者的脚本，我的保活脚本可以继续使用</p>
-<p>该项目的<code>utils.sh</code>使用：<a href="https://typecodes.com/python/serv00ct8nezha4.html">https://typecodes.com/python/serv00ct8nezha4.html</a></p>
-<p>常用</p>
-<ol>
-<li><p>重新 serv00 或者 ct8 主机的系统。脚本会删除用户目录除了 backup 外的所有文件或者目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh restore</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>卸载已经安装的哪吒探针的dashboard和agent 并删除 crontab中的哪吒探针心跳(heart_beat_entry.sh)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh uninstall</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="数据迁移、备份恢复"><a href="#数据迁移、备份恢复" class="headerlink" title="数据迁移、备份恢复"></a>数据迁移、备份恢复</h1><p>来自官方：<a href="https://nezha.wiki/guide/q5.html">https://nezha.wiki/guide/q5.html</a></p>
-<p><strong>停止面板服务</strong><br>在旧服务器中运行一键脚本，选择 <code>停止面板</code>。</p>
-<p><strong>备份数据</strong><br>打包旧服务器中的 <code>/opt/nezha</code> 文件夹，并将其复制到新服务器相同位置。</p>
-<p><strong>恢复数据</strong><br>在新服务器中解压 <code>/opt/nezha</code> 文件夹至相同路径。</p>
-<p><strong>启动面板服务</strong><br>在新服务器中运行一键脚本，选择 <code>启动面板</code>。</p>
-<p>注意事项</p>
-<ul>
-<li>确保 <code>/opt/nezha</code> 文件夹及其内容的权限和所有权在新服务器上正确设置。</li>
-<li>数据迁移完成后，可以通过访问 Dashboard 界面验证迁移是否成功。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>搭建越狱软件源</title>
     <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
@@ -1641,6 +1902,83 @@
 ]]></content>
       <tags>
         <tag>青龙面板</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mihomo 链式代理</title>
+    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
+<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
+<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
+<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
+<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
+<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
+<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>Mihomo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>青龙面板保活Serv00并启用TG推送</title>
+    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
+    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
+<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
+<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
+<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
+<ol>
+<li>多账号添加更方便;</li>
+<li>设置了ssh超时,避免了脚本卡死;</li>
+<li>电报消息可以提示哪些账号出错。</li>
+</ol>
+<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>附telegram的通知截图<br><img src="https://85d8ba7.webp.li/2024/12/e40e393a90e4ca1d48f5dcb663e0c56a.png" width=50% height=50% /></p>
+<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
+<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
+<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
+<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
+<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
+<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
+<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
+<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>青龙面板</tag>
+        <tag>Serv00</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转换GitHub Raw 链接</title>
+    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
+    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
+<p>sh脚本：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
+
+<p>js脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
+]]></content>
+      <tags>
+        <tag>GitHub</tag>
+        <tag>小脚本</tag>
       </tags>
   </entry>
   <entry>
@@ -1837,361 +2175,25 @@
       </tags>
   </entry>
   <entry>
-    <title>转换GitHub Raw 链接</title>
-    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
-    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
-<p>sh脚本：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
-
-<p>js脚本：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
-]]></content>
-      <tags>
-        <tag>GitHub</tag>
-        <tag>小脚本</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Bose QC Ultra 和 Sony XM5</title>
-    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
-    <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
-<span id="more"></span>
-
-<p>我的耳朵长时间佩戴入耳式耳机不是很舒服，而且发过炎症（三星 Buds Pro 老用户），准备入一款头戴式玩玩，四个选择</p>
+    <title>浏览器扩展：将YouTube缩略图改回每行6个</title>
+    <url>/2025/04/06/Youtube%E5%B8%83%E5%B1%80/</url>
+    <content><![CDATA[<p>在用电脑上面使用 YouTube 时，我有账号每行4个视频缩略图，有账号3个，感觉都太大了<span id="more"></span>，在Reddit上面发现了两个帖子</p>
 <ol>
-<li><p>Sony WH 1000-XM5（朋友有一个，能借来用）</p>
-</li>
-<li><p>Bose QC Ultra</p>
-</li>
-<li><p>Sennheiser MOMENTUM 4（木馒头4）（看测评不适合我）</p>
-</li>
-<li><p>Airports Max（不考虑，太重了，舍友有一个，体验过一段时间）</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/1a888c1e2140222ae453245b0d8ecbae.jpeg"></p>
-</li>
+<li><del><a href="https://www.reddit.com/r/youtube/comments/qx8lfa/youtube_has_recently_changed_the_way_they_render">https://www.reddit.com/r/youtube/comments/qx8lfa/youtube_has_recently_changed_the_way_they_render</a></del></li>
+<li><del><a href="https://www.reddit.com/r/youtube/comments/cur4bl/why_are_thumbnails_so_big_anyone_know_how_to_fix">https://www.reddit.com/r/youtube/comments/cur4bl/why_are_thumbnails_so_big_anyone_know_how_to_fix</a></del></li>
 </ol>
-<p>借朋友的XM5、买了一个Bose QC Ultra开始体验，看看留下谁</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/e9eca987d5bd8842075890dfb7a2d4db.jpeg"></p>
-<p>最后留下了Bose，就是因为<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>，能折叠，个人觉得比XM5好看，就没了，其他全是缺点</p>
-<p>来列一下与XM5对比，Bose的缺点</p>
-<ol>
-<li>EQ不能保存多个，可以调节的少</li>
-<li>不能快速切换降噪和通透，必须通过模式来切换</li>
-<li>没有XM5长按右耳罩，快速减少音量，关闭降噪的功能（Bose的交互比XM5烂很多）</li>
-<li>查询电池电量只能通过蓝牙，或者自定义音量条的“快捷方式”（我用来调节“沉浸式音频”了），但耳机开机的时候会报一下电量</li>
-<li>开机的时候如果连接了多设备，会把设备的名字都念一遍（能关闭）</li>
-<li>充电速度慢，电池没有XM5的大</li>
-<li>蓝牙的音质是比xm5差点（我能听出来），但是有线的情况下不分伯仲（说Bose会更好，我听不出来）</li>
-<li>音频线是2.5mm和3.5mm的，而且送的线比Sony的短</li>
-<li>没有防水，下雨不要戴</li>
-<li>用耳机上的滑块把音量调到最大。每次通过 3.5mm 线连接时，音量都会自动变成 50%，说是为了保护听力。所以你得在两个地方调音量（耳机和设备上）</li>
-<li>Bose 的品控差，售后特别烂，我的暂时还没问题</li>
-<li>折腾Bose的人少，Sony的还可以刷刷固件折玩</li>
-</ol>
-<p>另外朋友的XM5用的挺久了，耳机涂层脱落，手感差，且有油光，看起来变廉价了</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/6f5a141e3dc24de32522f0bc9c895b0f.jpeg"></p>
+<p><del>发现这个插件可以解决</del></p>
+<p><del>Youtube thumbnail resizer by iAlen：</del></p>
+<p><del>YouTube缩略图resizer将6个缩略图带回去，而不是4个缩略图 这是YouTube的简单扩展。它连续将新的4个缩略图调整到连续6个旧的6。</del></p>
+<p><del>下载地址：<a href="https://wwcp.lanzout.com/iMah22stv0wd">https://wwcp.lanzout.com/iMah22stv0wd</a></del></p>
+<p><del>也可在下面的网站下载</del></p>
+<p><del><a href="https://www.crxsoso.com/addon/detail/ipgmfobgnagjpilonpeccpmglemaimge">https://www.crxsoso.com/addon/detail/ipgmfobgnagjpilonpeccpmglemaimge</a></del></p>
+<p>本来想把他改成  “manifest_version”: 3，后面发现用油猴脚本更简单</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         YouTube缩略图调整器</span></span><br><span class="line"><span class="comment">// @namespace    http://tampermonkey.net/</span></span><br><span class="line"><span class="comment">// @version      1.3</span></span><br><span class="line"><span class="comment">// @description  将YouTube缩略图调整为每行6个而非4个，同时解决布局问题</span></span><br><span class="line"><span class="comment">// @author       Tune</span></span><br><span class="line"><span class="comment">// @match        https://www.youtube.com/*</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// @run-at       document-start</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建样式元素</span></span><br><span class="line">    <span class="keyword">const</span> style = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;style&#x27;</span>);</span><br><span class="line">    style.<span class="property">textContent</span> = <span class="string">`</span></span><br><span class="line"><span class="string">        /* 设置视频网格为6个一行 */</span></span><br><span class="line"><span class="string">        .ytd-rich-grid-renderer &#123;</span></span><br><span class="line"><span class="string">            --ytd-rich-grid-items-per-row: 6 !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 隐藏视频上传者头像 */</span></span><br><span class="line"><span class="string">        #avatar-link.ytd-rich-grid-video-renderer &#123;</span></span><br><span class="line"><span class="string">            display: none;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 调整内容区域宽度，确保能完整显示6个缩略图 */</span></span><br><span class="line"><span class="string">        #primary.ytd-two-column-browse-results-renderer &#123;</span></span><br><span class="line"><span class="string">            max-width: none !important;</span></span><br><span class="line"><span class="string">            width: calc(100% - 240px) !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 收起侧边栏时的宽度调整 */</span></span><br><span class="line"><span class="string">        ytd-page-manager.ytd-app ytd-browse[page-subtype=&quot;home&quot;] #primary.ytd-two-column-browse-results-renderer,</span></span><br><span class="line"><span class="string">        ytd-page-manager.ytd-app[mini-guide-visible] ytd-browse[page-subtype=&quot;home&quot;] #primary.ytd-two-column-browse-results-renderer &#123;</span></span><br><span class="line"><span class="string">            width: calc(100% - 72px) !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        /* 确保页面本身不出现横向滚动条 */</span></span><br><span class="line"><span class="string">        html &#123;</span></span><br><span class="line"><span class="string">            overflow-x: hidden !important;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 添加样式到文档</span></span><br><span class="line">    (<span class="variable language_">document</span>.<span class="property">head</span> || <span class="variable language_">document</span>.<span class="property">documentElement</span>).<span class="title function_">appendChild</span>(style);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 动态调整布局的功能</span></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">adjustLayout</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> contentElem = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;content&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (contentElem) &#123;</span><br><span class="line">            <span class="comment">// 确保内容区域有足够宽度</span></span><br><span class="line">            contentElem.<span class="property">style</span>.<span class="property">maxWidth</span> = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始调整</span></span><br><span class="line">    <span class="title function_">adjustLayout</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 监听DOM变化以持续调整布局</span></span><br><span class="line">    <span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="title class_">MutationObserver</span>(adjustLayout);</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        observer.<span class="title function_">observe</span>(<span class="variable language_">document</span>.<span class="property">body</span>, &#123; <span class="attr">childList</span>: <span class="literal">true</span>, <span class="attr">subtree</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 控制台显示脚本已加载</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;YouTube缩略图调整器已加载&quot;</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
-        <tag>耳机</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>青龙面板保活Serv00并启用TG推送</title>
-    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
-    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
-<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
-<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
-<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
-<ol>
-<li>多账号添加更方便;</li>
-<li>设置了ssh超时,避免了脚本卡死;</li>
-<li>电报消息可以提示哪些账号出错。</li>
-</ol>
-<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<p>附telegram的通知截图<br><img src="https://85d8ba7.webp.li/2024/12/e40e393a90e4ca1d48f5dcb663e0c56a.png" width=50% height=50% /></p>
-<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
-<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
-<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
-<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
-<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
-<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
-<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
-<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>青龙面板</tag>
-        <tag>Serv00</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>macOS 本地部署 Zashboard</title>
-    <url>/2025/12/16/macOS%20%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%20Zashboard/</url>
-    <content><![CDATA[<p>最近 macOS 平台新出的代理客户端 <a href="https://github.com/666OS/ClashMac">ClashMac</a> 关注度颇高（此前我使用的是 <a href="https://github.com/xishang0128/sparkle">Sparkle</a>）。由于该软件支持外部 UI 管理，我决定在本地部署 Zashboard 面板，实现更统一的管理体验。</p>
-<span id="more"></span>
-
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个习惯手写 YAML 配置文件的用户，ClashMac非常适合我（虽然Sparkle开启轻量化模式占用更低，但是不能使用Zashboard管理）</p>
-<p>附上一份官方收录的第三方Mihomo工具：<a href="https://wiki.metacubex.one/startup/client/client/">https://wiki.metacubex.one/startup/client/client/</a></p>
-<p>想起Zashboard是分为前端和后端的，那我不就可以让常驻在我的Dock栏上的Zashboard Web App同时管理在家和在外的了</p>
-<p>起初我尝试使用官方提供的在线前端（<a href="https://board.zash.run.place/">https://board.zash.run.place</a> ），但遇到了两个问题：</p>
-<ol>
-<li>当通过 HTTPS 访问在线面板并导出为 Safari Web App 时，浏览器会因安全策略阻止其访问本地的 HTTP 后端接口。</li>
-<li>如果改用 HTTP 协议访问在线面板，浏览器地址栏会常驻“不安全”的红色警告，且加载速度受网络环境影响较大（官方的是通过GitHub部署的）。</li>
-</ol>
-<p>因此，在本地部署一个轻量级的前端服务成为了最佳解决方案。</p>
-<h1 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h1><h2 id="1-下载静态文件"><a href="#1-下载静态文件" class="headerlink" title="1. 下载静态文件"></a>1. 下载静态文件</h2><p>直接从 GitHub Releases 下载构建好的静态文件：</p>
-<ul>
-<li><a href="https://github.com/Zephyruso/zashboard/releases">https://github.com/Zephyruso/zashboard/releases</a></li>
-</ul>
-<p>下载最新的 <code>dist.zip</code> 或适合你的（官方有说明），解压后将其放置在一个你习惯的目录下（要一直保留，不能删除）</p>
-<h2 id="2-选择-Web-服务器"><a href="#2-选择-Web-服务器" class="headerlink" title="2. 选择 Web 服务器"></a>2. 选择 Web 服务器</h2><p>虽然 Node.js、Nginx、Caddy 甚至 Python都行 ，但为了追求极致的低资源占用，这里推荐使用 **Static Web Server (SWS)**。它基于 Rust 编写，内存占用极低且对 SPA（单页应用）支持良好。</p>
-<p><strong>安装服务器</strong></p>
-<p>使用 Homebrew 安装：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install static-web-server</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，可执行 <code>which static-web-server</code> 确认路径（通常位于 <code>/opt/homebrew/bin/static-web-server</code>）。</p>
-<h2 id="3-配置开机自启-Launchd"><a href="#3-配置开机自启-Launchd" class="headerlink" title="3. 配置开机自启 (Launchd)"></a>3. 配置开机自启 (Launchd)</h2><p>我们将使用 macOS 原生的 Launchd 来管理服务。</p>
-<p>在终端输入以下命令创建配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nano ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
-
-<p>粘贴以下内容。<strong>注意：请务必将下方代码中的 <code>/Users/your_username/...</code> 替换为你实际的文件路径。</strong>或者叫AI帮你写</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">plist</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;[http://www.apple.com/DTDs/PropertyList-1.0.dtd](http://www.apple.com/DTDs/PropertyList-1.0.dtd)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>com.user.zashboard<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin/static-web-server<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--port<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>3824<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--root<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--page404<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist/index.html<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--log-level<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>error<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>EnvironmentVariables<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>PATH<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.err<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.out<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>按 <code>Ctrl + O</code> 保存，<code>Ctrl + X</code> 退出。</p>
-<h2 id="4-启动服务"><a href="#4-启动服务" class="headerlink" title="4. 启动服务"></a>4. 启动服务</h2><p>执行以下命令加载配置并启动服务：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 卸载可能存在的旧服务（忽略报错）</span></span><br><span class="line">launchctl unload ~/Library/LaunchAgents/com.user.zashboard.plist 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 加载新服务</span></span><br><span class="line">launchctl load ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
-
-<p>此时访问 <code>http://localhost:3824</code> 即可看到面板。</p>
-<p>相比于 Node.js 动辄 50MB+ 的内存占用，Static Web Server 在我本地的运行占用仅维持在 <strong>5MB</strong> 左右，非常轻量。</p>
-]]></content>
-      <tags>
-        <tag>Mihomo</tag>
-        <tag>Web</tag>
-        <tag>macOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>屏蔽 BiliBili PCDN</title>
-    <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
-<p><a href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
-<p>B 站的 video host 有四种类型：（我将其添加个称呼好标注，非官方称呼）<br><a href="http://upos-sz-mirrorkodo.bilivideo.com/">upos-sz-mirrorkodo.bilivideo.com</a> &#x2F; <a href="http://upos-sz-mirrorcos.bilivideo.com/">upos-sz-mirrorcos.bilivideo.com</a> &#x2F; Mirror 型<br><a href="http://cn-gdgz4-cmcc-v-09.bilivideo.com/">cn-gdgz4-cmcc-v-09.bilivideo.com</a> &#x2F; <a href="http://cn-gdst-cmcc-bcache-02.bilivideo.com/">cn-gdst-cmcc-bcache-02.bilivideo.com</a> &#x2F; Cache 型<br><a href="http://xy112x48x59x98xy.mcdn.bilivideo.cn/">xy112x48x59x98xy.mcdn.bilivideo.cn</a> &#x2F; <a href="http://xy110x85x55x73xy.mcdn.bilivideo.cn/">xy110x85x55x73xy.mcdn.bilivideo.cn</a> &#x2F; MCDN 型<br><a href="http://a93lt21v.v1d.szbdyd.com/">a93lt21v.v1d.szbdyd.com</a> &#x2F; <a href="http://hz6xy5t6.v1d.szbdyd.com/">hz6xy5t6.v1d.szbdyd.com</a> &#x2F; PCDN 型<br>以上几种是在广东移动的场景下测的，其他运营商应该也差不多。</p>
-<p>B 站官方测速地址</p>
-<p><a href="https://www.bilibili.com/blackboard/app-speed-test.html">https://www.bilibili.com/blackboard/app-speed-test.html</a></p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
-<li><p><a href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
-<p><a href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
-</li>
-<li><p><a href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
-</li>
-</ol>
-<p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来，那我就直接用了😁</p>
-<p>又找到一个佬关于B站 PCDN 的规则</p>
-<p><a href="https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml">https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml</a></p>
-<p>Noodseek：<a href="https://www.nodeseek.com/post-139229-1">https://www.nodeseek.com/post-139229-1</a></p>
-<p>anti-AD：<a href="https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt">https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt</a></p>
-<h2 id="Mosdns（推荐）"><a href="#Mosdns（推荐）" class="headerlink" title="Mosdns（推荐）"></a>Mosdns（推荐）</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
-<details>
-  <summary>点我展开看废弃代码</summary>
-  <pre><code>
-domain:gjfzpt.cn
-domain:szbdyd.com
-domain:bsccdn.net
-domain:pkoplink.com
-domain:saxysec.com
-domain:uhabo.com
-domain:xycdn.com
-domain:kuiniuca.com
-domain:onethingpcs.com
-domain:jomodns.cn
-domain:p2p.huya.com
-domain:stun.douyucdn.cn
-domain:stun.hitv.com
-domain:stun1.douyucdn.cn
-domain:mcdn.bilivideo.cn
-domain:tpa-hcdn.iqiyi.com
-domain:pcdn.xmcdn.com
-domain:pcdn.yximgs.com
-domain:dyp2p-ali.douyucdn.cn
-domain:dyp2p-hw.douyucdn.cn
-domain:p2p-ali.douyucdn.cn
-domain:p2p.qq.com
-domain:p2pchunk-hw.douyucdn.cn
-domain:p2pchunk-table.douyucdn.cn
-domain:p2pchunk-ws.douyucdn.cn
-domain:p2perrorlog.douyucdn.cn
-domain:p2plive-ali.douyucdn.cn
-domain:p2plive-ws.douyucdn.cn
-domain:p2plog.douyucdn.cn
-domain:p2ptun.qq.com
-domain:p2pupdate.gamedl.qq.com
-domain:p2pupgrade.gamedl.qq.com
-domain:p2pvod-ws.douyucdn.cn
-regexp:.*pcdn.*biliapi\.net
-regexp:.*pcdn.*youku\.com
-regexp:.*p2p.*douyucdn\.cn
-regexp:.*p2p.*qq\.com
-regexp:.*pcdn.*biliapi\.net
-regexp:.*pcdn.*youku\.com
-regexp:cn-.*\.bilivideo\.com            #屏蔽这个会导致看不了直播
-  </code></pre>
-</details>
-
-<p>由于旧版误伤过多，所以精简了很多</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi.net</span><br><span class="line">regexp:.*pcdn.*youku.com</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>使用 Clash 规则时，需要<strong>添加好对应的端口</strong>，例如：</p>
-<p>xy111x51x181x119xy.mcdn.bilivideo.cn:4483，使用的是京东云，在clash的代理端口上需要把对应的TCP 端口加上 4483 8082，有点麻烦</p>
-<p><a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
-<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
-<details>
-  <summary>点我展开</summary>
-  <pre><code>
-// ==UserScript==
-// @name         Make BiliBili Great Again
-// @namespace    https://www.kookxiang.com/
-// @version      1.5.5
-// @description  useful tweaks for bilibili.com
-// @author       kookxiang
-// @match        https://*.bilibili.com/*
-// @run-at       document-body
-// @grant        unsafeWindow
-// @grant        GM_addStyle
-// @grant        GM_notification
-// @downloadURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.user.js
-// @updateURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.meta.js
-// ==/UserScript==
-// 去掉叔叔去世时的全站黑白效果
-GM_addStyle("html, body &#123; -webkit-filter: none !important; filter: none !important; &#125;");
-
-<p>&#x2F;&#x2F; 没用的 URL 参数<br>const uselessUrlParams &#x3D; [<br>    ‘buvid’,<br>    ‘is_story_h5’,<br>    ‘launch_id’,<br>    ‘live_from’,<br>    ‘mid’,<br>    ‘session_id’,<br>    ‘timestamp’,<br>    ‘up_id’,<br>    ‘vd_source’,<br>    &#x2F;^share&#x2F;,<br>    &#x2F;^spm&#x2F;,<br>];</p>
-<p>&#x2F;&#x2F; Block WebRTC，CNM 陈睿你就缺这点棺材钱？<br>try &#123;<br>    Object.defineProperty(unsafeWindow, ‘webkitRTCPeerConnection’, &#123; value: undefined, enumerable: false, writable: false &#125;);<br>&#125; catch (e) &#123; &#125;</p>
-<p>&#x2F;&#x2F; 移除鸿蒙字体，系统自带它不香吗？<br>window.addEventListener(‘load’, function () &#123;<br>    document.body.classList.remove(‘harmony-font’);<br>&#125;)</p>
-<p>&#x2F;&#x2F; 首页优化<br>if (location.host &#x3D;&#x3D;&#x3D; “<a href="http://www.bilibili.com/">www.bilibili.com</a>“) &#123;<br>    GM_addStyle(‘.feed2 .feed-card:has(a[href*&#x3D;”cm.bilibili.com”]) &#123; display: none &#125; .feed2 .container &gt; * &#123; margin-top: 0 !important &#125;’);<br>&#125;</p>
-<p>&#x2F;&#x2F; 动态页面优化<br>if (location.host &#x3D;&#x3D;&#x3D; “t.bilibili.com”) &#123;<br>    GM_addStyle(“html[wide] #app &#123; display: flex; &#125; html[wide] .bili-dyn-home–member &#123; box-sizing: border-box;padding: 0 10px;width: 100%;flex: 1; &#125; html[wide] .bili-dyn-content &#123; width: initial; &#125; html[wide] main &#123; margin: 0 8px;flex: 1;overflow: hidden;width: initial; &#125; #wide-mode-switch &#123; margin-left: 0;margin-right: 20px; &#125; .bili-dyn-list__item:has(.bili-dyn-card-goods), .bili-dyn-list__item:has(.bili-rich-text-module.goods) &#123; display: none !important &#125;”);<br>    if (!localStorage.WIDE_OPT_OUT) &#123;<br>        document.documentElement.setAttribute(‘wide’, ‘wide’);<br>    &#125;<br>    window.addEventListener(‘load’, function () &#123;<br>        const tabContainer &#x3D; document.querySelector(‘.bili-dyn-list-tabs__list’);<br>        const placeHolder &#x3D; document.createElement(‘div’);<br>        placeHolder.style.flex &#x3D; 1;<br>        const switchButton &#x3D; document.createElement(‘a’);<br>        switchButton.id &#x3D; ‘wide-mode-switch’;<br>        switchButton.className &#x3D; ‘bili-dyn-list-tabs__item’;<br>        switchButton.textContent &#x3D; ‘宽屏模式’;<br>        switchButton.addEventListener(‘click’, function (e) &#123;<br>            e.preventDefault();<br>            if (localStorage.WIDE_OPT_OUT) &#123;<br>                localStorage.removeItem(‘WIDE_OPT_OUT’);<br>                document.documentElement.setAttribute(‘wide’, ‘wide’);<br>            &#125; else &#123;<br>                localStorage.setItem(‘WIDE_OPT_OUT’, ‘1’);<br>                document.documentElement.removeAttribute(‘wide’);<br>            &#125;<br>        &#125;)<br>        tabContainer.appendChild(placeHolder);<br>        tabContainer.appendChild(switchButton);<br>    &#125;)<br>&#125;</p>
-<p>&#x2F;&#x2F; 去广告<br>GM_addStyle(‘.ad-report, a[href*&#x3D;”cm.bilibili.com”] &#123; display: none !important; &#125;’);<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.adData) &#123;<br>    for (const key in unsafeWindow.<strong>INITIAL_STATE</strong>.adData) &#123;<br>        if (!Array.isArray(unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key])) continue;<br>        for (const item of unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key]) &#123;<br>            item.name &#x3D; ‘B 站未来有可能会倒闭，但绝不会变质’;<br>            item.pic &#x3D; ‘<a href="https://static.hdslb.com/images/transparent.gif">https://static.hdslb.com/images/transparent.gif</a>‘;<br>            item.url &#x3D; ‘<a href="https://space.bilibili.com/208259">https://space.bilibili.com/208259</a>‘;<br>        &#125;<br>    &#125;<br>&#125;</p>
-<p>&#x2F;&#x2F; 去充电列表（叔叔的跳过按钮越做越小了，就尼玛离谱）<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.elecFullInfo) &#123;<br>    delete unsafeWindow.<strong>INITIAL_STATE</strong>.elecFullInfo;<br>&#125;</p>
-<p>&#x2F;&#x2F; 修复文章区复制<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/read/cv">https://www.bilibili.com/read/cv</a>‘)) &#123;<br>    unsafeWindow.original.reprint &#x3D; “1”;<br>    document.querySelector(‘.article-holder’).classList.remove(“unable-reprint”);<br>    document.querySelector(‘.article-holder’).addEventListener(‘copy’, e &#x3D;&gt; e.stopImmediatePropagation(), true);<br>&#125;</p>
-<p>&#x2F;&#x2F; 真·原画直播<br>if (location.href.startsWith(‘<a href="https://live.bilibili.com/">https://live.bilibili.com/</a>‘)) &#123;<br>    unsafeWindow.forceHighestQuality &#x3D; true;<br>    let recentErrors &#x3D; 0;<br>    setInterval(() &#x3D;&gt; recentErrors &gt; 0 ? recentErrors &#x2F; 2 : null, 10000);</p>
-<pre><code>const oldFetch = unsafeWindow.fetch;
-unsafeWindow.fetch = function (url) &#123;
-    try &#123;
-        const mcdnRegexp = /[xy0-9]+\.mcdn\.bilivideo\.cn:\d+/
-        const qualityRegexp = /(live-bvc\/\d+\/live_\d+_\d+)_\w+/;
-        if (mcdnRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.disableMcdn) &#123;
-            return Promise.reject();
-        &#125;
-        if (qualityRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
-            arguments[0] = arguments[0]
-                .replace(qualityRegexp, &#39;$1&#39;)
-                .replace(/(\d+)_(mini|pro)hevc/g, &#39;$1&#39;);
-        &#125;
-        const promise = oldFetch.apply(this, arguments);
-        promise.then(response =&gt; &#123;
-            if (!url.match(/\.(m3u8|m4s)/)) return;
-            if ([403, 404].includes(response.status)) recentErrors++;
-            if (recentErrors &gt;= 5 &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
-                recentErrors = 0;
-                unsafeWindow.forceHighestQuality = false;
-                GM_notification(&#123; title: &#39;最高清晰度可能不可用&#39;, text: &#39;已为您自动切换至播放器上选择的清晰度.&#39;, timeout: 3000, silent: true &#125;);
-            &#125;
-        &#125;);
-        return promise;
-    &#125; catch (e) &#123; &#125;
-    return oldFetch.apply(this, arguments);
-&#125;
-</code></pre>
-<p>}</p>
-<p>&#x2F;&#x2F; 视频裁切<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a>‘)) {<br>    GM_addStyle(“body[video-fit] #bilibili-player video { object-fit: cover; } .bpx-player-ctrl-setting-fit-mode { display: flex;width: 100%;height: 32px;line-height: 32px; } .bpx-player-ctrl-setting-box .bui-panel-wrap, .bpx-player-ctrl-setting-box .bui-panel-item { min-height: 172px !important; }”);<br>    let timer;<br>    function toggleMode(enabled) {<br>        if (enabled) {<br>            document.body.setAttribute(‘video-fit’, ‘’);<br>        } else {<br>            document.body.removeAttribute(‘video-fit’);<br>        }<br>    }<br>    function injectButton() {<br>        if (!document.querySelector(‘.bpx-player-ctrl-setting-menu-left’)) {<br>            return;<br>        }<br>        clearInterval(timer);<br>        const parent &#x3D; document.querySelector(‘.bpx-player-ctrl-setting-menu-left’);<br>        const item &#x3D; document.createElement(‘div’);<br>        item.className &#x3D; ‘bpx-player-ctrl-setting-fit-mode bui bui-switch’;<br>        item.innerHTML &#x3D; ‘<input class="bui-switch-input" type="checkbox"><label class="bui-switch-label"><span class="bui-switch-name">裁切模式</span><span class="bui-switch-body"><span class="bui-switch-dot"><span></span></span></span></label>‘;<br>        parent.insertBefore(item, document.querySelector(‘.bpx-player-ctrl-setting-more’));<br>        document.querySelector(‘.bpx-player-ctrl-setting-fit-mode input’).addEventListener(‘change’, e &#x3D;&gt; toggleMode(e.target.checked));<br>        document.querySelector(‘.bpx-player-ctrl-setting-box .bui-panel-item’).style.height &#x3D; ‘’;<br>    }<br>    timer &#x3D; setInterval(injectButton, 200);<br>}</p>
-<p>&#x2F;&#x2F; 去除地址栏多余参数<br>unsafeWindow.history.replaceState(undefined, undefined, removeTracking(location.href));<br>const pushState &#x3D; unsafeWindow.history.pushState;<br>unsafeWindow.history.pushState &#x3D; function (state, unused, url) {<br>    return pushState.apply(this, [state, unused, removeTracking(url)]);<br>}<br>const replaceState &#x3D; unsafeWindow.history.replaceState;<br>unsafeWindow.history.replaceState &#x3D; function (state, unused, url) {<br>    return replaceState.apply(this, [state, unused, removeTracking(url)]);<br>}</p>
-<p>function removeTracking(url) {<br>    if (!url) return url;<br>    try {<br>        const [base, search] &#x3D; url.split(‘?’);<br>        if (!search) return url;<br>        const searchParams &#x3D; new URLSearchParams(‘?’ + search);<br>        const keys &#x3D; Array.from(searchParams.keys());<br>        for (const key of keys) {<br>            uselessUrlParams.forEach(item &#x3D;&gt; {<br>                if (typeof item &#x3D;&#x3D;&#x3D; ‘string’) {<br>                    if (item &#x3D;&#x3D;&#x3D; key) searchParams.delete(key);<br>                } else if (item instanceof RegExp) {<br>                    if (item.test(key)) searchParams.delete(key);<br>                }<br>            });<br>        }<br>        if (location.pathname &#x3D;&#x3D;&#x3D; base &amp;&amp; !searchParams.size) return;<br>        return [base, searchParams.toString()].filter(Boolean).join(‘?’);<br>    } catch (e) {<br>        return url;<br>    }<br>}</p>
-<p>&#x2F;&#x2F; 去掉 B 站的傻逼上报<br>!function () {<br>    const oldFetch &#x3D; unsafeWindow.fetch;<br>    unsafeWindow.fetch &#x3D; function (url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’))<br>            return Promise.resolve(new Response());<br>        return oldFetch.apply(this, arguments);<br>    }<br>    const oldSend &#x3D; unsafeWindow.XMLHttpRequest.prototype.open;<br>    unsafeWindow.XMLHttpRequest.prototype.open &#x3D; function (method, url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’)) {<br>            this.send &#x3D; function () { };<br>            return;<br>        }<br>        return oldSend.apply(this, arguments);<br>    }<br>    unsafeWindow.navigator.sendBeacon &#x3D; () &#x3D;&gt; Promise.resolve();</p>
-<pre><code>unsafeWindow.MReporter = function () &#123; &#125;;
-unsafeWindow.MReporter.appear = function () &#123; &#125;;
-unsafeWindow.MReporter.click = function () &#123; &#125;;
-unsafeWindow.MReporter.tech = function () &#123; &#125;;
-unsafeWindow.MReporter.pv = function () &#123; &#125;;
-unsafeWindow.MReporter.import = &#123; auto() &#123; &#125; &#125;;
-
-const sentryHub = class &#123; bindClient() &#123; &#125; &#125;
-const fakeSentry = &#123;
-    SDK_NAME: &#39;sentry.javascript.browser&#39;,
-    SDK_VERSION: &#39;0.0.0&#39;,
-    BrowserClient: class &#123; &#125;,
-    Hub: sentryHub,
-    Integrations: &#123;
-        Vue: class &#123; &#125;,
-        GlobalHandlers: class &#123; &#125;,
-        InboundFilters: class &#123; &#125;,
-    &#125;,
-    init() &#123; &#125;,
-    configureScope() &#123; &#125;,
-    getCurrentHub: () =&gt; new sentryHub(),
-    setContext() &#123; &#125;,
-    setExtra() &#123; &#125;,
-    setExtras() &#123; &#125;,
-    setTag() &#123; &#125;,
-    setTags() &#123; &#125;,
-    setUser() &#123; &#125;,
-    wrap() &#123; &#125;,
-&#125;
-if (!unsafeWindow.Sentry || unsafeWindow.Sentry.SDK_VERSION !== fakeSentry.SDK_VERSION) &#123;
-    if (unsafeWindow.Sentry) &#123; delete unsafeWindow.Sentry &#125;
-    Object.defineProperty(unsafeWindow, &#39;Sentry&#39;, &#123; value: fakeSentry, enumerable: false, writable: false &#125;);
-&#125;
-Object.defineProperty(unsafeWindow, &#39;ReporterPb&#39;, &#123; value: class &#123; click() &#123; &#125; custom() &#123; &#125; exposure() &#123; &#125; report() &#123; &#125; tech() &#123; &#125; pv() &#123; &#125; &#125;, enumerable: false, writable: false &#125;);
-
-Object.defineProperty(unsafeWindow, &#39;__biliUserFp__&#39;, &#123;
-    get() &#123; return &#123; init() &#123; &#125;, queryUserLog() &#123; return [] &#125; &#125; &#125;,
-    set() &#123; &#125;,
-&#125;);
-Object.defineProperty(unsafeWindow, &#39;__USER_FP_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
-Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
-</code></pre>
-<p>}()<br>  </code></pre></p>
-</details>
-
-<p>大家可以去看看<a href="https://mymuwu.net/?p=1427">大佬文章的说明</a>，我这就不贴了</p>
-]]></content>
-      <tags>
-        <tag>BiliBili</tag>
-        <tag>Mihomo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mihomo 链式代理</title>
-    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
-<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
-<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
-<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
-<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
-<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
-<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
-]]></content>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>Mihomo</tag>
+        <tag>Extensions</tag>
       </tags>
   </entry>
 </search>
