@@ -292,6 +292,28 @@
       </tags>
   </entry>
   <entry>
+    <title>FRP + SAAS 回源</title>
+    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
+    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
+<ol>
+<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
+<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
+</ol>
+<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
+<li>回源域名开启小黄云指向服务器IP</li>
+<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
+<li>服务器上面自签证书用 主力域名（访问域名）</li>
+<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
+</ol>
+<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker 搭建 Sub-Store</title>
     <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
@@ -329,28 +351,6 @@
 ]]></content>
       <tags>
         <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FRP + SAAS 回源</title>
-    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
-    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
-<ol>
-<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
-<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
-</ol>
-<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
-<li>回源域名开启小黄云指向服务器IP</li>
-<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
-<li>服务器上面自签证书用 主力域名（访问域名）</li>
-<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
-</ol>
-<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
-]]></content>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>FRP</tag>
       </tags>
   </entry>
   <entry>
@@ -482,6 +482,26 @@
 ]]></content>
       <tags>
         <tag>折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 小技巧</title>
+    <url>/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<p>一些小技巧<span id="more"></span></p>
+<h1 id="重置-DNS-缓存"><a href="#重置-DNS-缓存" class="headerlink" title="重置 DNS 缓存"></a>重置 DNS 缓存</h1><p>打开终端，输入如下命令来重置 DNS 缓存，适用于 macOS 10.15 至 14.x:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> killall -HUP mDNSResponder; <span class="built_in">sudo</span> dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
+
+<h1 id="重新配置-power10k"><a href="#重新配置-power10k" class="headerlink" title="重新配置 power10k"></a>重新配置 power10k</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">p10k configure</span><br></pre></td></tr></table></figure>
+
+<h1 id="重装mac制作U盘"><a href="#重装mac制作U盘" class="headerlink" title="重装mac制作U盘"></a>重装mac制作U盘</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 查看挂载了哪些盘</span><br><span class="line"><span class="built_in">ls</span> /volumes</span><br><span class="line"></span><br><span class="line">// 找到对应的路径 可以 tab 补全 </span><br><span class="line">/volumes/&lt;U盘名&gt;/Install\ macOS\ &lt;对应的系统&gt;.app/Contents/MacOS/InstallAssistant</span><br></pre></td></tr></table></figure>
+
+<h1 id="清除更新标记（数字角标）"><a href="#清除更新标记（数字角标）" class="headerlink" title="清除更新标记（数字角标）"></a>清除更新标记（数字角标）</h1><p>如果已经检测到更新，App Store 图标上出现红点数字，打开终端执行如下命令可以清除：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write com.apple.appstored.plist BadgeCount 0</span><br><span class="line"></span><br><span class="line">Killall Dock</span><br></pre></td></tr></table></figure>
+
+<p>App Store 左侧的更新条目通知也会清空。</p>
+<h1 id="Mac电脑窗口拖动"><a href="#Mac电脑窗口拖动" class="headerlink" title="Mac电脑窗口拖动"></a>Mac电脑窗口拖动</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -777,26 +797,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 小技巧</title>
-    <url>/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<p>一些小技巧<span id="more"></span></p>
-<h1 id="重置-DNS-缓存"><a href="#重置-DNS-缓存" class="headerlink" title="重置 DNS 缓存"></a>重置 DNS 缓存</h1><p>打开终端，输入如下命令来重置 DNS 缓存，适用于 macOS 10.15 至 14.x:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> killall -HUP mDNSResponder; <span class="built_in">sudo</span> dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
-
-<h1 id="重新配置-power10k"><a href="#重新配置-power10k" class="headerlink" title="重新配置 power10k"></a>重新配置 power10k</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">p10k configure</span><br></pre></td></tr></table></figure>
-
-<h1 id="重装mac制作U盘"><a href="#重装mac制作U盘" class="headerlink" title="重装mac制作U盘"></a>重装mac制作U盘</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 查看挂载了哪些盘</span><br><span class="line"><span class="built_in">ls</span> /volumes</span><br><span class="line"></span><br><span class="line">// 找到对应的路径 可以 tab 补全 </span><br><span class="line">/volumes/&lt;U盘名&gt;/Install\ macOS\ &lt;对应的系统&gt;.app/Contents/MacOS/InstallAssistant</span><br></pre></td></tr></table></figure>
-
-<h1 id="清除更新标记（数字角标）"><a href="#清除更新标记（数字角标）" class="headerlink" title="清除更新标记（数字角标）"></a>清除更新标记（数字角标）</h1><p>如果已经检测到更新，App Store 图标上出现红点数字，打开终端执行如下命令可以清除：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write com.apple.appstored.plist BadgeCount 0</span><br><span class="line"></span><br><span class="line">Killall Dock</span><br></pre></td></tr></table></figure>
-
-<p>App Store 左侧的更新条目通知也会清空。</p>
-<h1 id="Mac电脑窗口拖动"><a href="#Mac电脑窗口拖动" class="headerlink" title="Mac电脑窗口拖动"></a>Mac电脑窗口拖动</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac 查询 NAT 类型</title>
     <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
@@ -923,6 +923,34 @@
 ]]></content>
       <tags>
         <tag>PVE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我听Podcast的历史</title>
+    <url>/2026/01/20/Podcast/</url>
+    <content><![CDATA[<p>哔哩哔哩 2025 年年度新人奖的颁奖嘉宾是罗永浩和于谦。2025 年，中国大陆的视频播客赛道迎来了爆发，众多创作者蜂拥而入。趁着这个机会，我也来回顾一下自己听 Podcast 的历史。</p>
+<span id="more"></span>
+
+<h1 id="启蒙"><a href="#启蒙" class="headerlink" title="启蒙"></a>启蒙</h1><p>把我领入Podcast大门的，是 YouTuber <a href="https://www.youtube.com/@AkilaZhang"><strong>电丸科技 AK</strong></a>。</p>
+<p>很多从中国大陆 “翻墙” 出来的用户，在观看 YouTube 时，应该都被算法推荐过这位博主。起初，我也是为了学习翻墙知识，一口气把他的<a href="https://www.youtube.com/playlist?list=PLqybz7NWybwUgR-S6m78tfd-lV4sBvGFG">Playlist</a>都看完了。</p>
+<p>后来发现，他的主页里还有许多关于科技的深度知识讲解，时长都很长。当时闲暇之余，我就在家挂着视频听。那时我还没有“Podcast”的概念，直到发现了 AK 的《<strong>SIGNOW 科技周报</strong>》——他们在 Apple Podcast 上也同步了这一系列节目。</p>
+<p>从那之后，我正式步入了 Podcast 的世界。</p>
+<p>最开始每天洗澡就听《<strong>SIGNOW</strong>》，把这个系列听完后，平常闲的时候就听他的长视频内容。AK 的内容让我受益匪浅，接触到了许多科技数码领域的深度知识，收益匪浅。另外说一下 AK 的频道本以 YouTube 为主，不过现在重心似乎转向了 B 站。内容也是转向了XR，可能是科技方面的只是讲的差不多了吧。</p>
+<h1 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h1><p>在听完 AK 的内容后，我开始寻找新的博主。Podcast 平台上其实有很多优质内容，比如生动活泼旗下的《生动早咖啡》、《<strong>声东击西</strong>》，以及《<strong>科技早知道</strong>》、《<strong>思文，败类</strong>》、《<strong>天真不天真</strong>》等等。</p>
+<p>同时，我也在哔哩哔哩找到了一些讲科技数码的优质 UP 主，比如 <strong>林亦LYi</strong>、<strong>两颗皮蛋</strong>、<strong>老蒋巨靠谱</strong> 等。</p>
+<h1 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h1><p>听腻了科技数码类播客后，我开始涉猎“键政”类视频。</p>
+<p>尤其是 <strong>翟山鹰</strong> 的直播切片，听起来非常有意思。但三个星期前，翟老师的 IP 突然被买断，所有做切片的博主视频都被下架了。我这才知道：YouTube上面两三天出一个他的新号，原来是别人做的，我还以为是这个人想钱想疯了，自己开那么多小号。</p>
+<p>2025 年上半年，我入坑了 Crypto（加密货币），并发现了一个博主——<a href="https://www.youtube.com/@blockchaindailynews"><strong>區塊鏈日報</strong></a>。</p>
+<p>在他这里，我不仅了解到了 Crypto 的资讯，更重要的是学到了很多心态方面的知识，这让我受益良多。直到现在，听他的影片依然是我每天洗澡时的固定节目。虽然他有很多 Hater，但他更新影片的速度实在值得敬佩——连续三年，每周一到周五北京时间早上 8 点准时更新。现在他开通了频道会员，想每天观看他的影片，只能开会员了，这也是我第一次在油管花钱，不过也见到他的粉丝黏度很高，我感觉会员转化率比老高还高。</p>
+<p>2025 年暑假，我在美国待了 3 个月。那段时间，每天做饭的时候特别无聊，放歌听又觉得差点意思。于是，《<strong>生动早咖啡</strong>》成了我的最佳陪伴，让我即使身在国外，也不会与国内的各种新闻脱轨。</p>
+<h1 id="爆发"><a href="#爆发" class="headerlink" title="爆发"></a>爆发</h1><p>暑假期间，<strong>罗永浩的十字路口</strong>上线了，王自如也回归了大众视野。这让我能听的内容一下子丰富了起来。</p>
+<p>特别是罗永浩的播客，内容太棒了。他确实是最适合干这一行的人，走上这个赛道后成绩斐然，年底还办了一场年度创新大赛。在<a href="https://www.bilibili.com/video/BV1esm5BJEC8">极客公园创新大会</a>上，他也分享了创立这个播客背后的故事。</p>
+<p>这让我不得不期待，他以后把国内各行业的大佬都聊个遍，让我们了解到这些大佬创业成功背后的故事。每期视频结尾都会要嘉宾推荐三个人，这让我想起那个典故：<strong>只需要认识三个人，就可以认识世界上的所有人。</strong></p>
+<p>后来我发现，国内做视频播客的人越来越多了。鲁豫（《<strong>鲁豫有约</strong>》）、<strong>于谦</strong> 等大佬都来到了这个赛道。看来以后是真不愁没有节目听了，哈哈。</p>
+<p>听了这么多谈话类播客，不知道自己什么时候也能有机会，和别人坐下来深入地聊一聊。</p>
+]]></content>
+      <tags>
+        <tag>Podcast</tag>
       </tags>
   </entry>
   <entry>
@@ -1638,6 +1666,103 @@
       </tags>
   </entry>
   <entry>
+    <title>搭建越狱软件源</title>
+    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
+<p>环境：</p>
+<ul>
+<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
+<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
+<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
+</li>
+<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
+</li>
+<li><p>Mac OS X：<code>brew install dpkg</code></p>
+</li>
+<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
+</li>
+</ul>
+<p>插件来源：</p>
+<ol>
+<li><p>Telegram、QQ等社交软件</p>
+</li>
+<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
+<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
+</li>
+<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
+</li>
+</ol>
+<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>可选（可直接略过）：</strong></p>
+<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
+<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
+<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>Terminal</code> 打开所在文件夹</p>
+<p>将位于debs目录的所有deb包扫描并生成Packages</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
+
+<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
+
+<p>为什么需要压缩文件？</p>
+<p>Cydia添加源时大致行为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
+
+<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
+<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
+<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
+<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
+<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
+<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
+<p>步骤：</p>
+<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
+<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
+<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
+<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
+<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
+<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
+<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>越狱</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>百度网盘青龙面板会员签到</title>
+    <url>/2025/03/16/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BC%9A%E5%91%98%E7%AD%BE%E5%88%B0/</url>
+    <content><![CDATA[<p>GitHub地址：<a href="https://github.com/tunecc/DuPan">https://github.com/tunecc/DuPan</a> <span id="more"></span></p>
+<h1 id="为什么要签到答题？"><a href="#为什么要签到答题？" class="headerlink" title="为什么要签到答题？"></a>为什么要签到答题？</h1><p>坚持签到和答题一年17*365&#x3D;6205成长值，相当于开三年会员赠送的成长值，再算上svip每天30（一年10950）的成长值，只要成长值到10w，减去1.5万开通v10，可以实现正常续费无限v10（引用自：<a href="https://hostloc.com/thread-1392878-1-1.html">https://hostloc.com/thread-1392878-1-1.html</a> ）</p>
+<h1 id="为什么有这个项目"><a href="#为什么有这个项目" class="headerlink" title="为什么有这个项目"></a>为什么有这个项目</h1><p>因为上面说的，所以我一直有签到的需求，最开始发现 <a href="https://github.com/qd-today/qd">qd</a> 上面有现成的，用起来觉得不够方便，又在网上搜寻一番找到了</p>
+<p><a href="https://www.blueskyxn.com/202410/7228.html">https://www.blueskyxn.com/202410/7228.html</a> 这一篇博文，里面有现成的代码，能在ql上面使用，就拿过来叫大模型改了改。</p>
+<h1 id="Cookie获取"><a href="#Cookie获取" class="headerlink" title="Cookie获取"></a>Cookie获取</h1><p>打开：<a href="https://pan.baidu.com/">https://pan.baidu.com</a> ，F12，网络，main文档里面把cookie，全部弄到变量里面，我的变量为 <code>XFI=***ndut_fmt=***</code>（只列出了开头和结尾两个变量）</p>
+<p>这个 <a href="https://gist.github.com/RunwangGuo/48d98ff5763c9a3883907e9a593e18fb">fork</a> 的修改应该是只需要 <code> &quot;BDUSS=xxxx; BAIDUID=xxxx;&quot;</code> 但是我找不到 BAIDUID 这个变量</p>
+<h1 id="TG通知示例"><a href="#TG通知示例" class="headerlink" title="TG通知示例"></a>TG通知示例</h1><p>当天第一次成功签到</p>
+<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/first.jpg" alt="image"></p>
+<p>当天重复签到</p>
+<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/repeat.jpg" alt="image"></p>
+<h1 id="注意（引用自原文）"><a href="#注意（引用自原文）" class="headerlink" title="注意（引用自原文）"></a>注意（<a href="https://www.blueskyxn.com/202410/7228.html">引用自原文</a>）</h1><p>基于Python，需要Cookie</p>
+<p>建议在本地或固定登录百度网盘的设备（包括Windows服务器、Alist）使用，避免多IP风控。</p>
+<p>不建议使用云函数，因为动态IP。</p>
+<p>虽然百度的大部分风控不影响签到，但是会影响你下载。</p>
+]]></content>
+      <tags>
+        <tag>青龙面板</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>屏蔽 BiliBili PCDN</title>
     <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
@@ -1830,78 +1955,45 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>搭建越狱软件源</title>
-    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
-<p>环境：</p>
-<ul>
-<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
-<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
-<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
-</li>
-<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
-</li>
-<li><p>Mac OS X：<code>brew install dpkg</code></p>
-</li>
-<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
-</li>
-</ul>
-<p>插件来源：</p>
-<ol>
-<li><p>Telegram、QQ等社交软件</p>
-</li>
-<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
-<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
-</li>
-<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
-</li>
-</ol>
-<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
+    <title>转换GitHub Raw 链接</title>
+    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
+    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
+<p>sh脚本：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
 
-<p><strong>可选（可直接略过）：</strong></p>
-<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
-<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
-<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
+<p>js脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>使用 <code>Terminal</code> 打开所在文件夹</p>
-<p>将位于debs目录的所有deb包扫描并生成Packages</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
-
-<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
-
-<p>为什么需要压缩文件？</p>
-<p>Cydia添加源时大致行为如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
-
-<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
-<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
-<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
-<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
-<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
-<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
-<p>步骤：</p>
-<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
-<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
-<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
-<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
-<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
-<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
-<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
-<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
-</ol>
+<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
 ]]></content>
       <tags>
-        <tag>越狱</tag>
+        <tag>GitHub</tag>
+        <tag>小脚本</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mihomo 链式代理</title>
+    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
+<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
+<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
+<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
+<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
+<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
+<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>Mihomo</tag>
       </tags>
   </entry>
   <entry>
@@ -2098,48 +2190,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>转换GitHub Raw 链接</title>
-    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
-    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
-<p>sh脚本：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
-
-<p>js脚本：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
-]]></content>
-      <tags>
-        <tag>GitHub</tag>
-        <tag>小脚本</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mihomo 链式代理</title>
-    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
-<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
-<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
-<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
-<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
-<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
-<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
-]]></content>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>Mihomo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>青龙面板保活Serv00并启用TG推送</title>
     <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
     <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
@@ -2172,28 +2222,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       <tags>
         <tag>青龙面板</tag>
         <tag>Serv00</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>百度网盘青龙面板会员签到</title>
-    <url>/2025/03/16/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BC%9A%E5%91%98%E7%AD%BE%E5%88%B0/</url>
-    <content><![CDATA[<p>GitHub地址：<a href="https://github.com/tunecc/DuPan">https://github.com/tunecc/DuPan</a> <span id="more"></span></p>
-<h1 id="为什么要签到答题？"><a href="#为什么要签到答题？" class="headerlink" title="为什么要签到答题？"></a>为什么要签到答题？</h1><p>坚持签到和答题一年17*365&#x3D;6205成长值，相当于开三年会员赠送的成长值，再算上svip每天30（一年10950）的成长值，只要成长值到10w，减去1.5万开通v10，可以实现正常续费无限v10（引用自：<a href="https://hostloc.com/thread-1392878-1-1.html">https://hostloc.com/thread-1392878-1-1.html</a> ）</p>
-<h1 id="为什么有这个项目"><a href="#为什么有这个项目" class="headerlink" title="为什么有这个项目"></a>为什么有这个项目</h1><p>因为上面说的，所以我一直有签到的需求，最开始发现 <a href="https://github.com/qd-today/qd">qd</a> 上面有现成的，用起来觉得不够方便，又在网上搜寻一番找到了</p>
-<p><a href="https://www.blueskyxn.com/202410/7228.html">https://www.blueskyxn.com/202410/7228.html</a> 这一篇博文，里面有现成的代码，能在ql上面使用，就拿过来叫大模型改了改。</p>
-<h1 id="Cookie获取"><a href="#Cookie获取" class="headerlink" title="Cookie获取"></a>Cookie获取</h1><p>打开：<a href="https://pan.baidu.com/">https://pan.baidu.com</a> ，F12，网络，main文档里面把cookie，全部弄到变量里面，我的变量为 <code>XFI=***ndut_fmt=***</code>（只列出了开头和结尾两个变量）</p>
-<p>这个 <a href="https://gist.github.com/RunwangGuo/48d98ff5763c9a3883907e9a593e18fb">fork</a> 的修改应该是只需要 <code> &quot;BDUSS=xxxx; BAIDUID=xxxx;&quot;</code> 但是我找不到 BAIDUID 这个变量</p>
-<h1 id="TG通知示例"><a href="#TG通知示例" class="headerlink" title="TG通知示例"></a>TG通知示例</h1><p>当天第一次成功签到</p>
-<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/first.jpg" alt="image"></p>
-<p>当天重复签到</p>
-<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/repeat.jpg" alt="image"></p>
-<h1 id="注意（引用自原文）"><a href="#注意（引用自原文）" class="headerlink" title="注意（引用自原文）"></a>注意（<a href="https://www.blueskyxn.com/202410/7228.html">引用自原文</a>）</h1><p>基于Python，需要Cookie</p>
-<p>建议在本地或固定登录百度网盘的设备（包括Windows服务器、Alist）使用，避免多IP风控。</p>
-<p>不建议使用云函数，因为动态IP。</p>
-<p>虽然百度的大部分风控不影响签到，但是会影响你下载。</p>
-]]></content>
-      <tags>
-        <tag>青龙面板</tag>
       </tags>
   </entry>
 </search>
