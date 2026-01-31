@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>八年 Apple 账号被封与奇迹解封的经历</title>
+    <url>/2025/11/14/Apple%20ID%E5%B0%81%E7%A6%81/</url>
+    <content><![CDATA[<p>   好久没写博客了，这两天刚好发生了件让我心态彻底崩了的事，记录一下。</p>
+<span id="more"></span>
+
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>   这账号是 2017 年初注册的，用了 8 年。</p>
+<p>   2025 年 2 月，为了体验完整的 Apple 服务，也为了省钱（这才是重点），我把区转到了<strong>土耳其</strong>。我也没搞什么黑卡，用自己名下的信用卡在 Oyunfor 买礼品卡充值，2 月到 4 月陆续充了 <strong>8,675 TL</strong>（约 1500 RMB）。</p>
+<img src="https://85d8ba7.webp.li/2025/11/e9935b144f79c51c66bdd5d092992256.webp" width=100% height=100% />
+
+<p>   平时就拿来付 iCloud 2TB 和 Apple Music 家庭组，一直相安无事。</p>
+<p>   直到 <strong>2025 年 10 月 27 日</strong>，因为刚需，我内购订阅了一个 <strong>ChatGPT Plus</strong>。</p>
+<p>   噩梦开始了：</p>
+<ul>
+<li><strong>10.29</strong>：家庭组有人说 Apple Music 用不了了。我当时也没当回事，以为是网络波动。</li>
+<li><strong>10.30</strong>：打开 App Store 更新软件，更新界面打不开。紧接着弹窗：**此账户已被禁用 (Your Account has been disabled)**。</li>
+</ul>
+<p>   心里咯噔一下，完了。</p>
+<p>   <img src="https://85d8ba7.webp.li/2025/11/1f78ae79aaa5c4234f1a3eb10b43ee38.webp"></p>
+<h1 id="绝望"><a href="#绝望" class="headerlink" title="绝望"></a>绝望</h1><p>   尝试点解封链接，提交申请，<strong>秒拒</strong>。<br>   找在线客服，查了一下，直接告诉我：<strong>永久封禁，无法解封</strong>。</p>
+<p>   我不信邪，让人工客服打电话给我。<br>   接通的是英文客服，我英语不行，转接到了中文客服（听口音是香港的）。这通电话打完，我心凉了一半：</p>
+<ol>
+<li>他没有权限看海外账号详情。</li>
+<li>他问了后台，说已经有人尝试解封被拒了（就是刚才那个在线客服干的）。</li>
+<li>他直接建议我：<strong>“重新注册一个账号使用吧。”</strong></li>
+</ol>
+<p>   听到这句话我是真的愣住了。<br>   以前在 V2EX 看到别人说外区账号被封、维权无门，我总觉得自己不会那么倒霉，忘了自己本来就是一个运气很差的人。</p>
+<p>   我问是永久封禁吗？他说虽然我看不到状态，但既然海外团队都这么说了，那就是了。<br>   他还好心“安慰”我：以后肉身在哪就用哪的账号，赶紧把 iCloud 数据下载下来，设备退登，免得变砖。</p>
+<p>   8 年的使用记录，内购的软件，剩的 1000 多块钱余额，说没就没了。<br>   没有预兆，没有理由，申诉无门。</p>
+<p>   挂了电话，我已经在看三星和 Pixel 了，甚至想着用回 Windows 算了。Apple 要失去一名忠实用户了，但这对他来说又有什么影响呢？</p>
+<h1 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h1><p>   我不甘心。还没和真正的海外客服对上话，就被判死刑了？<br>   过了几个小时，我又打了一通电话。</p>
+<p>   这次运气好，转到了一个<strong>台湾口音</strong>的海外客服。<br>   我也没这就坦白局了，如实回答：</p>
+<ul>
+<li>最近操作？订阅了 ChatGPT Plus。</li>
+<li>人是不是在大陆？是。</li>
+<li>家庭组其他人也在大陆？是。</li>
+<li>礼品卡哪买的？土耳其官网渠道，自己信用卡付的。</li>
+</ul>
+<p>   她查了一圈，说系统显示确实没办法重新启用了。<br>   但她了解完我的情况，说可以帮我<strong>向专属团队再申请一次</strong>。留了个电话，说后天回电。</p>
+<p>   挂了电话，我其实没抱希望。毕竟是我违反条例在先，论坛上人在当地都被封的例子也不少。我已经开始闲鱼挂设备，准备彻底脱粉 Apple 了。</p>
+<h1 id="复活"><a href="#复活" class="headerlink" title="复活"></a>复活</h1><p>   可能是老天觉得我这辈子吃苦吃够了，偶尔眷顾一下？<br>   当天晚些时候，我随手试了一下 App Store，<strong>居然可以下载软件了！</strong><br>   各项功能全部恢复正常。<br>   我都怀疑是回光返照，直到周六接到那个台湾客服的回电。</p>
+<p>   她确认我的账号解封了。<br>   至于为什么封？<strong>不知道。</strong><br>   为什么解？<strong>也不清楚。</strong><br>   她告诉我，这种被系统判定永久封禁的，**申诉成功的概率不到 30%**。</p>
+<h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><p>   虽然账号回来了，设备也不卖了（电子产品贬值太恐怖了，卖了亏太多），但这次是真的被吓到了。</p>
+<p>   复盘整件事，看着那几通通话记录，才知道这次解封有多侥幸。<br>   不管是 Apple 还是哪个大厂，<strong>数据抓在自己手里才是最安全的</strong>。</p>
+<p>   以此文章，警钟长鸣。</p>
+<hr>
+<p>各种被封禁的帖子：</p>
+<ol>
+<li><a href="https://b23.tv/3laxs81">那岩 Apple ID 被封（动态已删，估计私下解了）</a></li>
+<li><a href="https://v2ex.com/t/1172286">Apple 账号被锁定</a></li>
+<li><a href="https://v2ex.com/t/1121224">用了20年的国区号被封</a></li>
+<li><a href="https://v2ex.com/t/1138834">Apple 账户毫无原由被禁用，如何解除或维权？</a></li>
+<li><a href="https://www.v2ex.com/t/1121763">10 年的 AppleID 被封，不理解苹果的封号逻辑</a></li>
+<li><a href="https://www.v2ex.com/t/1105001">为什么你不应该使用 Apple Account</a></li>
+<li><a href="https://www.uscardforum.com/t/topic/100597">肉身在美国使用美区账号也被封</a></li>
+<li><a href="https://hey.paris/posts/appleid/">25年老用户被封</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Apple</tag>
+        <tag>Apple ID</tag>
+        <tag>技术</tag>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2025 年终总结</title>
     <url>/2025/12/31/2025%E6%80%BB%E7%BB%932/</url>
     <content><![CDATA[<p>今年这一年，可谓是我人生中最精彩，也最疯狂的一年。</p>
@@ -74,71 +139,6 @@
 ]]></content>
       <tags>
         <tag>年终总结</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>八年 Apple 账号被封与奇迹解封的经历</title>
-    <url>/2025/11/14/Apple%20ID%E5%B0%81%E7%A6%81/</url>
-    <content><![CDATA[<p>   好久没写博客了，这两天刚好发生了件让我心态彻底崩了的事，记录一下。</p>
-<span id="more"></span>
-
-<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>   这账号是 2017 年初注册的，用了 8 年。</p>
-<p>   2025 年 2 月，为了体验完整的 Apple 服务，也为了省钱（这才是重点），我把区转到了<strong>土耳其</strong>。我也没搞什么黑卡，用自己名下的信用卡在 Oyunfor 买礼品卡充值，2 月到 4 月陆续充了 <strong>8,675 TL</strong>（约 1500 RMB）。</p>
-<img src="https://85d8ba7.webp.li/2025/11/e9935b144f79c51c66bdd5d092992256.webp" width=100% height=100% />
-
-<p>   平时就拿来付 iCloud 2TB 和 Apple Music 家庭组，一直相安无事。</p>
-<p>   直到 <strong>2025 年 10 月 27 日</strong>，因为刚需，我内购订阅了一个 <strong>ChatGPT Plus</strong>。</p>
-<p>   噩梦开始了：</p>
-<ul>
-<li><strong>10.29</strong>：家庭组有人说 Apple Music 用不了了。我当时也没当回事，以为是网络波动。</li>
-<li><strong>10.30</strong>：打开 App Store 更新软件，更新界面打不开。紧接着弹窗：**此账户已被禁用 (Your Account has been disabled)**。</li>
-</ul>
-<p>   心里咯噔一下，完了。</p>
-<p>   <img src="https://85d8ba7.webp.li/2025/11/1f78ae79aaa5c4234f1a3eb10b43ee38.webp"></p>
-<h1 id="绝望"><a href="#绝望" class="headerlink" title="绝望"></a>绝望</h1><p>   尝试点解封链接，提交申请，<strong>秒拒</strong>。<br>   找在线客服，查了一下，直接告诉我：<strong>永久封禁，无法解封</strong>。</p>
-<p>   我不信邪，让人工客服打电话给我。<br>   接通的是英文客服，我英语不行，转接到了中文客服（听口音是香港的）。这通电话打完，我心凉了一半：</p>
-<ol>
-<li>他没有权限看海外账号详情。</li>
-<li>他问了后台，说已经有人尝试解封被拒了（就是刚才那个在线客服干的）。</li>
-<li>他直接建议我：<strong>“重新注册一个账号使用吧。”</strong></li>
-</ol>
-<p>   听到这句话我是真的愣住了。<br>   以前在 V2EX 看到别人说外区账号被封、维权无门，我总觉得自己不会那么倒霉，忘了自己本来就是一个运气很差的人。</p>
-<p>   我问是永久封禁吗？他说虽然我看不到状态，但既然海外团队都这么说了，那就是了。<br>   他还好心“安慰”我：以后肉身在哪就用哪的账号，赶紧把 iCloud 数据下载下来，设备退登，免得变砖。</p>
-<p>   8 年的使用记录，内购的软件，剩的 1000 多块钱余额，说没就没了。<br>   没有预兆，没有理由，申诉无门。</p>
-<p>   挂了电话，我已经在看三星和 Pixel 了，甚至想着用回 Windows 算了。Apple 要失去一名忠实用户了，但这对他来说又有什么影响呢？</p>
-<h1 id="转机"><a href="#转机" class="headerlink" title="转机"></a>转机</h1><p>   我不甘心。还没和真正的海外客服对上话，就被判死刑了？<br>   过了几个小时，我又打了一通电话。</p>
-<p>   这次运气好，转到了一个<strong>台湾口音</strong>的海外客服。<br>   我也没这就坦白局了，如实回答：</p>
-<ul>
-<li>最近操作？订阅了 ChatGPT Plus。</li>
-<li>人是不是在大陆？是。</li>
-<li>家庭组其他人也在大陆？是。</li>
-<li>礼品卡哪买的？土耳其官网渠道，自己信用卡付的。</li>
-</ul>
-<p>   她查了一圈，说系统显示确实没办法重新启用了。<br>   但她了解完我的情况，说可以帮我<strong>向专属团队再申请一次</strong>。留了个电话，说后天回电。</p>
-<p>   挂了电话，我其实没抱希望。毕竟是我违反条例在先，论坛上人在当地都被封的例子也不少。我已经开始闲鱼挂设备，准备彻底脱粉 Apple 了。</p>
-<h1 id="复活"><a href="#复活" class="headerlink" title="复活"></a>复活</h1><p>   可能是老天觉得我这辈子吃苦吃够了，偶尔眷顾一下？<br>   当天晚些时候，我随手试了一下 App Store，<strong>居然可以下载软件了！</strong><br>   各项功能全部恢复正常。<br>   我都怀疑是回光返照，直到周六接到那个台湾客服的回电。</p>
-<p>   她确认我的账号解封了。<br>   至于为什么封？<strong>不知道。</strong><br>   为什么解？<strong>也不清楚。</strong><br>   她告诉我，这种被系统判定永久封禁的，**申诉成功的概率不到 30%**。</p>
-<h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><p>   虽然账号回来了，设备也不卖了（电子产品贬值太恐怖了，卖了亏太多），但这次是真的被吓到了。</p>
-<p>   复盘整件事，看着那几通通话记录，才知道这次解封有多侥幸。<br>   不管是 Apple 还是哪个大厂，<strong>数据抓在自己手里才是最安全的</strong>。</p>
-<p>   以此文章，警钟长鸣。</p>
-<hr>
-<p>各种被封禁的帖子：</p>
-<ol>
-<li><a href="https://b23.tv/3laxs81">那岩 Apple ID 被封（动态已删，估计私下解了）</a></li>
-<li><a href="https://v2ex.com/t/1172286">Apple 账号被锁定</a></li>
-<li><a href="https://v2ex.com/t/1121224">用了20年的国区号被封</a></li>
-<li><a href="https://v2ex.com/t/1138834">Apple 账户毫无原由被禁用，如何解除或维权？</a></li>
-<li><a href="https://www.v2ex.com/t/1121763">10 年的 AppleID 被封，不理解苹果的封号逻辑</a></li>
-<li><a href="https://www.v2ex.com/t/1105001">为什么你不应该使用 Apple Account</a></li>
-<li><a href="https://www.uscardforum.com/t/topic/100597">肉身在美国使用美区账号也被封</a></li>
-<li><a href="https://hey.paris/posts/appleid/">25年老用户被封</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Apple</tag>
-        <tag>Apple ID</tag>
-        <tag>技术</tag>
-        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -292,28 +292,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FRP + SAAS 回源</title>
-    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
-    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
-<ol>
-<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
-<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
-</ol>
-<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
-<li>回源域名开启小黄云指向服务器IP</li>
-<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
-<li>服务器上面自签证书用 主力域名（访问域名）</li>
-<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
-</ol>
-<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
-]]></content>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker 搭建 Sub-Store</title>
     <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
@@ -351,6 +329,28 @@
 ]]></content>
       <tags>
         <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FRP + SAAS 回源</title>
+    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
+    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
+<ol>
+<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
+<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
+</ol>
+<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
+<li>回源域名开启小黄云指向服务器IP</li>
+<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
+<li>服务器上面自签证书用 主力域名（访问域名）</li>
+<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
+</ol>
+<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>FRP</tag>
       </tags>
   </entry>
   <entry>
@@ -485,21 +485,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 小技巧</title>
-    <url>/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<p>一些小技巧<span id="more"></span></p>
-<h1 id="重置-DNS-缓存"><a href="#重置-DNS-缓存" class="headerlink" title="重置 DNS 缓存"></a>重置 DNS 缓存</h1><p>打开终端，输入如下命令来重置 DNS 缓存，适用于 macOS 10.15 至 14.x:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> killall -HUP mDNSResponder; <span class="built_in">sudo</span> dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
 
-<h1 id="重新配置-power10k"><a href="#重新配置-power10k" class="headerlink" title="重新配置 power10k"></a>重新配置 power10k</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">p10k configure</span><br></pre></td></tr></table></figure>
-
-<h1 id="重装mac制作U盘"><a href="#重装mac制作U盘" class="headerlink" title="重装mac制作U盘"></a>重装mac制作U盘</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 查看挂载了哪些盘</span><br><span class="line"><span class="built_in">ls</span> /volumes</span><br><span class="line"></span><br><span class="line">// 找到对应的路径 可以 tab 补全 </span><br><span class="line">/volumes/&lt;U盘名&gt;/Install\ macOS\ &lt;对应的系统&gt;.app/Contents/MacOS/InstallAssistant</span><br></pre></td></tr></table></figure>
-
-<h1 id="清除更新标记（数字角标）"><a href="#清除更新标记（数字角标）" class="headerlink" title="清除更新标记（数字角标）"></a>清除更新标记（数字角标）</h1><p>如果已经检测到更新，App Store 图标上出现红点数字，打开终端执行如下命令可以清除：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write com.apple.appstored.plist BadgeCount 0</span><br><span class="line"></span><br><span class="line">Killall Dock</span><br></pre></td></tr></table></figure>
-
-<p>App Store 左侧的更新条目通知也会清空。</p>
-<h1 id="Mac电脑窗口拖动"><a href="#Mac电脑窗口拖动" class="headerlink" title="Mac电脑窗口拖动"></a>Mac电脑窗口拖动</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
+]]></content>
       <tags>
         <tag>Mac</tag>
       </tags>
@@ -774,24 +777,21 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
+    <title>Mac 小技巧</title>
+    <url>/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<p>一些小技巧<span id="more"></span></p>
+<h1 id="重置-DNS-缓存"><a href="#重置-DNS-缓存" class="headerlink" title="重置 DNS 缓存"></a>重置 DNS 缓存</h1><p>打开终端，输入如下命令来重置 DNS 缓存，适用于 macOS 10.15 至 14.x:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> killall -HUP mDNSResponder; <span class="built_in">sudo</span> dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
 
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
+<h1 id="重新配置-power10k"><a href="#重新配置-power10k" class="headerlink" title="重新配置 power10k"></a>重新配置 power10k</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">p10k configure</span><br></pre></td></tr></table></figure>
+
+<h1 id="重装mac制作U盘"><a href="#重装mac制作U盘" class="headerlink" title="重装mac制作U盘"></a>重装mac制作U盘</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 查看挂载了哪些盘</span><br><span class="line"><span class="built_in">ls</span> /volumes</span><br><span class="line"></span><br><span class="line">// 找到对应的路径 可以 tab 补全 </span><br><span class="line">/volumes/&lt;U盘名&gt;/Install\ macOS\ &lt;对应的系统&gt;.app/Contents/MacOS/InstallAssistant</span><br></pre></td></tr></table></figure>
+
+<h1 id="清除更新标记（数字角标）"><a href="#清除更新标记（数字角标）" class="headerlink" title="清除更新标记（数字角标）"></a>清除更新标记（数字角标）</h1><p>如果已经检测到更新，App Store 图标上出现红点数字，打开终端执行如下命令可以清除：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write com.apple.appstored.plist BadgeCount 0</span><br><span class="line"></span><br><span class="line">Killall Dock</span><br></pre></td></tr></table></figure>
+
+<p>App Store 左侧的更新条目通知也会清空。</p>
+<h1 id="Mac电脑窗口拖动"><a href="#Mac电脑窗口拖动" class="headerlink" title="Mac电脑窗口拖动"></a>Mac电脑窗口拖动</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>Mac</tag>
       </tags>
@@ -932,7 +932,7 @@
 <span id="more"></span>
 
 <h1 id="启蒙"><a href="#启蒙" class="headerlink" title="启蒙"></a>启蒙</h1><p>把我领入Podcast大门的，是 YouTuber <a href="https://www.youtube.com/@AkilaZhang"><strong>电丸科技 AK</strong></a>。</p>
-<p>很多从中国大陆 “翻墙” 出来的用户，在观看 YouTube 时，应该都被算法推荐过这位博主。起初，我也是为了学习翻墙知识，一口气把他的<a href="https://www.youtube.com/playlist?list=PLqybz7NWybwUgR-S6m78tfd-lV4sBvGFG">Playlist</a>都看完了。</p>
+<p>很多从中国大陆 “翻墙” 出来的用户，在观看 YouTube 时，应该都被演算法推荐过这位博主。起初，我也是为了学习翻墙知识，一口气把他的<a href="https://www.youtube.com/playlist?list=PLqybz7NWybwUgR-S6m78tfd-lV4sBvGFG">Playlist</a>都看完了。</p>
 <p>后来发现，他的主页里还有许多关于科技的深度知识讲解，时长都很长。当时闲暇之余，我就在家挂着视频听。那时我还没有“Podcast”的概念，直到发现了 AK 的《<strong>SIGNOW 科技周报</strong>》——他们在 Apple Podcast 上也同步了这一系列节目。</p>
 <p>从那之后，我正式步入了 Podcast 的世界。</p>
 <p>最开始每天洗澡就听《<strong>SIGNOW</strong>》，把这个系列听完后，平常闲的时候就听他的长视频内容。AK 的内容让我受益匪浅，接触到了许多科技数码领域的深度知识，收益匪浅。另外说一下 AK 的频道本以 YouTube 为主，不过现在重心似乎转向了 B 站。内容也是转向了XR，可能是科技方面的只是讲的差不多了吧。</p>
@@ -973,6 +973,95 @@
 ]]></content>
       <tags>
         <tag>Extensions</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>macOS 本地部署 Zashboard</title>
+    <url>/2025/12/16/macOS%20%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%20Zashboard/</url>
+    <content><![CDATA[<p>最近 macOS 平台新出的代理客户端 <a href="https://github.com/666OS/ClashMac">ClashMac</a> 关注度颇高（此前我使用的是 <a href="https://github.com/xishang0128/sparkle">Sparkle</a>）。由于该软件支持外部 UI 管理，我决定在本地部署 Zashboard 面板，实现更统一的管理体验。</p>
+<span id="more"></span>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个习惯手写 YAML 配置文件的用户，ClashMac非常适合我（虽然Sparkle开启轻量化模式占用更低，但是不能使用Zashboard管理）</p>
+<p>附上一份官方收录的第三方Mihomo工具：<a href="https://wiki.metacubex.one/startup/client/client/">https://wiki.metacubex.one/startup/client/client/</a></p>
+<p>想起Zashboard是分为前端和后端的，那我不就可以让常驻在我的Dock栏上的Zashboard Web App同时管理在家和在外的了</p>
+<p>起初我尝试使用官方提供的在线前端（<a href="https://board.zash.run.place/">https://board.zash.run.place</a> ），但遇到了两个问题：</p>
+<ol>
+<li>当通过 HTTPS 访问在线面板并导出为 Safari Web App 时，浏览器会因安全策略阻止其访问本地的 HTTP 后端接口。</li>
+<li>如果改用 HTTP 协议访问在线面板，浏览器地址栏会常驻“不安全”的红色警告，且加载速度受网络环境影响较大（官方的是通过GitHub部署的）。</li>
+</ol>
+<p>因此，在本地部署一个轻量级的前端服务成为了最佳解决方案。</p>
+<h1 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h1><h2 id="1-下载静态文件"><a href="#1-下载静态文件" class="headerlink" title="1. 下载静态文件"></a>1. 下载静态文件</h2><p>直接从 GitHub Releases 下载构建好的静态文件：</p>
+<ul>
+<li><a href="https://github.com/Zephyruso/zashboard/releases">https://github.com/Zephyruso/zashboard/releases</a></li>
+</ul>
+<p>下载最新的 <code>dist.zip</code> 或适合你的（官方有说明），解压后将其放置在一个你习惯的目录下（要一直保留，不能删除）</p>
+<h2 id="2-选择-Web-服务器"><a href="#2-选择-Web-服务器" class="headerlink" title="2. 选择 Web 服务器"></a>2. 选择 Web 服务器</h2><p>虽然 Node.js、Nginx、Caddy 甚至 Python都行 ，但为了追求极致的低资源占用，这里推荐使用 **Static Web Server (SWS)**。它基于 Rust 编写，内存占用极低且对 SPA（单页应用）支持良好。</p>
+<p><strong>安装服务器</strong></p>
+<p>使用 Homebrew 安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install static-web-server</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，可执行 <code>which static-web-server</code> 确认路径（通常位于 <code>/opt/homebrew/bin/static-web-server</code>）。</p>
+<h2 id="3-配置开机自启-Launchd"><a href="#3-配置开机自启-Launchd" class="headerlink" title="3. 配置开机自启 (Launchd)"></a>3. 配置开机自启 (Launchd)</h2><p>我们将使用 macOS 原生的 Launchd 来管理服务。</p>
+<p>在终端输入以下命令创建配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nano ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
+
+<p>粘贴以下内容。<strong>注意：请务必将下方代码中的 <code>/Users/your_username/...</code> 替换为你实际的文件路径。</strong>或者叫AI帮你写</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">plist</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;[http://www.apple.com/DTDs/PropertyList-1.0.dtd](http://www.apple.com/DTDs/PropertyList-1.0.dtd)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>com.user.zashboard<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin/static-web-server<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--port<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>3824<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--root<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--page404<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist/index.html<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--log-level<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>error<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>EnvironmentVariables<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>PATH<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.err<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.out<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>按 <code>Ctrl + O</code> 保存，<code>Ctrl + X</code> 退出。</p>
+<h2 id="4-启动服务"><a href="#4-启动服务" class="headerlink" title="4. 启动服务"></a>4. 启动服务</h2><p>执行以下命令加载配置并启动服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 卸载可能存在的旧服务（忽略报错）</span></span><br><span class="line">launchctl unload ~/Library/LaunchAgents/com.user.zashboard.plist 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 加载新服务</span></span><br><span class="line">launchctl load ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
+
+<p>此时访问 <code>http://localhost:3824</code> 即可看到面板。</p>
+<p>相比于 Node.js 动辄 50MB+ 的内存占用，Static Web Server 在我本地的运行占用仅维持在 <strong>5MB</strong> 左右，非常轻量。</p>
+]]></content>
+      <tags>
+        <tag>Mihomo</tag>
+        <tag>Web</tag>
+        <tag>macOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>syslog、daemon.log 占用大量空间</title>
+    <url>/2025/03/17/syslog,daemon.log/</url>
+    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
+<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
+
+<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
+<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
+<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
+<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
+<p><strong>修改方法</strong>：</p>
+<ul>
+<li><p>**对于 <code>syslog</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
+</li>
+<li><p>**对于 <code>daemon.log</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
+<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此配置可避免单个日志文件过大</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1274,225 +1363,6 @@
       </tags>
   </entry>
   <entry>
-    <title>macOS 本地部署 Zashboard</title>
-    <url>/2025/12/16/macOS%20%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%20Zashboard/</url>
-    <content><![CDATA[<p>最近 macOS 平台新出的代理客户端 <a href="https://github.com/666OS/ClashMac">ClashMac</a> 关注度颇高（此前我使用的是 <a href="https://github.com/xishang0128/sparkle">Sparkle</a>）。由于该软件支持外部 UI 管理，我决定在本地部署 Zashboard 面板，实现更统一的管理体验。</p>
-<span id="more"></span>
-
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个习惯手写 YAML 配置文件的用户，ClashMac非常适合我（虽然Sparkle开启轻量化模式占用更低，但是不能使用Zashboard管理）</p>
-<p>附上一份官方收录的第三方Mihomo工具：<a href="https://wiki.metacubex.one/startup/client/client/">https://wiki.metacubex.one/startup/client/client/</a></p>
-<p>想起Zashboard是分为前端和后端的，那我不就可以让常驻在我的Dock栏上的Zashboard Web App同时管理在家和在外的了</p>
-<p>起初我尝试使用官方提供的在线前端（<a href="https://board.zash.run.place/">https://board.zash.run.place</a> ），但遇到了两个问题：</p>
-<ol>
-<li>当通过 HTTPS 访问在线面板并导出为 Safari Web App 时，浏览器会因安全策略阻止其访问本地的 HTTP 后端接口。</li>
-<li>如果改用 HTTP 协议访问在线面板，浏览器地址栏会常驻“不安全”的红色警告，且加载速度受网络环境影响较大（官方的是通过GitHub部署的）。</li>
-</ol>
-<p>因此，在本地部署一个轻量级的前端服务成为了最佳解决方案。</p>
-<h1 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h1><h2 id="1-下载静态文件"><a href="#1-下载静态文件" class="headerlink" title="1. 下载静态文件"></a>1. 下载静态文件</h2><p>直接从 GitHub Releases 下载构建好的静态文件：</p>
-<ul>
-<li><a href="https://github.com/Zephyruso/zashboard/releases">https://github.com/Zephyruso/zashboard/releases</a></li>
-</ul>
-<p>下载最新的 <code>dist.zip</code> 或适合你的（官方有说明），解压后将其放置在一个你习惯的目录下（要一直保留，不能删除）</p>
-<h2 id="2-选择-Web-服务器"><a href="#2-选择-Web-服务器" class="headerlink" title="2. 选择 Web 服务器"></a>2. 选择 Web 服务器</h2><p>虽然 Node.js、Nginx、Caddy 甚至 Python都行 ，但为了追求极致的低资源占用，这里推荐使用 **Static Web Server (SWS)**。它基于 Rust 编写，内存占用极低且对 SPA（单页应用）支持良好。</p>
-<p><strong>安装服务器</strong></p>
-<p>使用 Homebrew 安装：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install static-web-server</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，可执行 <code>which static-web-server</code> 确认路径（通常位于 <code>/opt/homebrew/bin/static-web-server</code>）。</p>
-<h2 id="3-配置开机自启-Launchd"><a href="#3-配置开机自启-Launchd" class="headerlink" title="3. 配置开机自启 (Launchd)"></a>3. 配置开机自启 (Launchd)</h2><p>我们将使用 macOS 原生的 Launchd 来管理服务。</p>
-<p>在终端输入以下命令创建配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nano ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
-
-<p>粘贴以下内容。<strong>注意：请务必将下方代码中的 <code>/Users/your_username/...</code> 替换为你实际的文件路径。</strong>或者叫AI帮你写</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">plist</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;[http://www.apple.com/DTDs/PropertyList-1.0.dtd](http://www.apple.com/DTDs/PropertyList-1.0.dtd)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>com.user.zashboard<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin/static-web-server<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--port<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>3824<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--root<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--page404<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist/index.html<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--log-level<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>error<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>EnvironmentVariables<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>PATH<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.err<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.out<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>按 <code>Ctrl + O</code> 保存，<code>Ctrl + X</code> 退出。</p>
-<h2 id="4-启动服务"><a href="#4-启动服务" class="headerlink" title="4. 启动服务"></a>4. 启动服务</h2><p>执行以下命令加载配置并启动服务：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 卸载可能存在的旧服务（忽略报错）</span></span><br><span class="line">launchctl unload ~/Library/LaunchAgents/com.user.zashboard.plist 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 加载新服务</span></span><br><span class="line">launchctl load ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
-
-<p>此时访问 <code>http://localhost:3824</code> 即可看到面板。</p>
-<p>相比于 Node.js 动辄 50MB+ 的内存占用，Static Web Server 在我本地的运行占用仅维持在 <strong>5MB</strong> 左右，非常轻量。</p>
-]]></content>
-      <tags>
-        <tag>Mihomo</tag>
-        <tag>Web</tag>
-        <tag>macOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>syslog、daemon.log 占用大量空间</title>
-    <url>/2025/03/17/syslog,daemon.log/</url>
-    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
-<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
-
-<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
-<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
-<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
-<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
-<p><strong>修改方法</strong>：</p>
-<ul>
-<li><p>**对于 <code>syslog</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
-</li>
-<li><p>**对于 <code>daemon.log</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
-<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此配置可避免单个日志文件过大</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安装Theos和Monkeydev</title>
-    <url>/2025/01/21/theos%E5%92%8Cmonkeydev%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p>认真玩越狱一年了，想学习开发插件，总结一下工具的安装<span id="more"></span></p>
-<h1 id="Theos"><a href="#Theos" class="headerlink" title="Theos"></a>Theos</h1><p><a href="https://theos.dev/docs/installation-macos">macOS官方安装教程</a></p>
-<p>我更推荐用<a href="https://github.com/AloneMonkey/MonkeyDev/wiki/%E5%AE%89%E8%A3%85">MonkeyDev写的安装方法</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> --recursive https://github.com/theos/theos.git /opt/theos</span><br></pre></td></tr></table></figure>
-
-<p>在用户目录下的<code>.zprofile</code>文件内添加如下内容</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> THEOS=/opt/theos</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$THEOS</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-
-<p>在 Terminal 中运行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nic.pl</span><br></pre></td></tr></table></figure>
-
-<p>有如下提示即为成功</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> ~  nic.pl                                                                  ✔</span><br><span class="line">NIC 2.0 - New Instance Creator</span><br><span class="line">------------------------------</span><br><span class="line">  [1.] iphone/activator_event</span><br><span class="line">  [2.] iphone/activator_listener</span><br><span class="line">  [3.] iphone/application</span><br><span class="line">  [4.] iphone/application_swift</span><br><span class="line">  [5.] iphone/application_swiftui</span><br><span class="line">  [6.] iphone/control_center_module-11up</span><br><span class="line">  [7.] iphone/cydget</span><br><span class="line">  [8.] iphone/flipswitch_switch</span><br><span class="line">  [9.] iphone/framework</span><br><span class="line">  [10.] iphone/library</span><br><span class="line">  [11.] iphone/notification_center_widget</span><br><span class="line">  [12.] iphone/notification_center_widget-7up</span><br><span class="line">  [13.] iphone/null</span><br><span class="line">  [14.] iphone/preference_bundle</span><br><span class="line">  [15.] iphone/preference_bundle_swift</span><br><span class="line">  [16.] iphone/theme</span><br><span class="line">  [17.] iphone/tool</span><br><span class="line">  [18.] iphone/tool_swift</span><br><span class="line">  [19.] iphone/tweak</span><br><span class="line">  [20.] iphone/tweak_swift</span><br><span class="line">  [21.] iphone/tweak_with_simple_preferences</span><br><span class="line">  [22.] iphone/xpc_service</span><br><span class="line">  [23.] iphone/xpc_service_modern</span><br><span class="line">Choose a Template (required):</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="MonkeyDev"><a href="#MonkeyDev" class="headerlink" title="MonkeyDev"></a>MonkeyDev</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> https://github.com/AloneMonkey/MonkeyDev.git /opt/MonkeyDev</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> MonkeyDev/bin</span><br><span class="line"><span class="built_in">sudo</span> ./md-install</span><br></pre></td></tr></table></figure>
-
-<h2 id="报错：-File-xxx-IDEiOSSupportCore-ideplugin-xxx-Embedded-Device-xcspec-not-found"><a href="#报错：-File-xxx-IDEiOSSupportCore-ideplugin-xxx-Embedded-Device-xcspec-not-found" class="headerlink" title="报错： File &#x2F;xxx&#x2F;IDEiOSSupportCore.ideplugin&#x2F;xxx&#x2F;Embedded-Device.xcspec not found"></a>报错： File &#x2F;xxx&#x2F;IDEiOSSupportCore.ideplugin&#x2F;xxx&#x2F;Embedded-Device.xcspec not found</h2><p>macOS 14.5报错如下</p>
-<figure class="highlight plaintext"><figcaption><span>bin sudo bash md-install</span></figcaption><table><tr><td class="code"><pre><span class="line">➜  bin sudo ./md-install</span><br><span class="line">...</span><br><span class="line">File /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/Embedded-Device.xcspec not found</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>原因：<code>Xcode 13+</code>之后，部分路径变化了，所以找不到对应路径</li>
-<li>解决办法：从Xcode中搜索到Embedded-Device.xcspec的实际位置，然后拷贝到报错的路径（如果不存在，先创建对应目录）即可</li>
-<li>具体步骤</li>
-</ul>
-<p>（1）找到Embedded-Device.xcspec</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cd</span> /Applications/Xcode.app/Contents</span><br><span class="line">➜  Contents find . -name Embedded-Device.xcspec</span><br><span class="line">./Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec</span><br></pre></td></tr></table></figure>
-
-<p>找到：</p>
-<ul>
-<li><code>/Applications/Xcode.app/Contents/Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec</code></li>
-</ul>
-<p>（2）拷贝到报错目录</p>
-<p>先新建该目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br></pre></td></tr></table></figure>
-
-<p>再去拷贝：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /Applications/Xcode.app/Contents/Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br></pre></td></tr></table></figure>
-
-<p>确认文件的确存在：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  PlugIns ll /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br><span class="line">total 8</span><br><span class="line">-rw-r--r--@ 1 root  wheel   437B 10 12 15:34 Embedded-Device.xcspec</span><br></pre></td></tr></table></figure>
-
-<p>最后重新去操作：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./md-install</span><br></pre></td></tr></table></figure>
-
-<h2 id="报错：File-xxx-Specifications-MacOSX-Package-Types-xcspec-not-found"><a href="#报错：File-xxx-Specifications-MacOSX-Package-Types-xcspec-not-found" class="headerlink" title="报错：File &#x2F;xxx&#x2F;Specifications&#x2F;MacOSX Package Types.xcspec not found"></a>报错：File &#x2F;xxx&#x2F;Specifications&#x2F;MacOSX Package Types.xcspec not found</h2><p>报错如下</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">  bin <span class="built_in">sudo</span> bash md-install</span><br><span class="line">...</span><br><span class="line">File /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Specifications/MacOSX Package Types.xcspec not found</span><br></pre></td></tr></table></figure>
-
-<p>解决办法：</p>
-<ul>
-<li><p>Xcode &lt;13</p>
-<ul>
-<li>背景：存在<code>MacOSX Package Types.xcspec</code>，只是路径不对</li>
-<li>解决办法：改动路径或换用软链接</li>
-</ul>
-</li>
-<li><p>Xcode 13+</p>
-<ul>
-<li><p>背景：不存在</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MacOSX Package Types.xcspec</span><br></pre></td></tr></table></figure>
-
-<p>（和</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MacOSX Product Types.xcspec</span><br></pre></td></tr></table></figure>
-
-<p>），所以要去网上下载后，再去：改动路径或换用软链接</p>
-<ul>
-<li><p>下载</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MacOSX Package Types.xcspec</span><br></pre></td></tr></table></figure>
-
-<p>和</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MacOSX Product Types.xcspec</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>qbs&#x2F;share&#x2F;qbs&#x2F;modules&#x2F;bundle at master · qbs&#x2F;qbs</p>
-<p>中，下载</p>
-<ul>
-<li><a href="https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Package-Types.xcspec">https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Package-Types.xcspec</a><ul>
-<li>保存为：<code>MacOSX Package Types.xcspec</code></li>
-</ul>
-</li>
-<li><a href="https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Product-Types.xcspec">https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Product-Types.xcspec</a><ul>
-<li>保存为：<code>MacOSX Product Types.xcspec</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>拷贝到（旧版Xcode中对应的）目录：<code>/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources</code></p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>然后继续去操作：</p>
-<ul>
-<li><p>【推荐】方法1：使用软链接</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Specifications</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>方法2：（修改<code>md-install</code>脚本）改动路径</p>
-<p>修改<code>/opt/MonkeyDev/bin/md-install</code></p>
-<p>修改路径，改为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># macosxSDKSpecificationsPath=$macosSdkPlatformPath/Developer/Library/Xcode/Specifications</span></span><br><span class="line"><span class="comment"># packageTypesForMacOSXPath=&quot;$macosxSDKSpecificationsPath/MacOSX Package Types.xcspec&quot;</span></span><br><span class="line"><span class="comment"># productTypesForMacOSXPath=&quot;$macosxSDKSpecificationsPath/MacOSX Product Types.xcspec&quot;</span></span><br><span class="line">macosxSDKSpecificationsPath=<span class="variable">$macosSdkPlatformPath</span>/Developer/Library/Xcode/PrivatePlugIns</span><br><span class="line">packageTypesForMacOSXPath=<span class="string">&quot;<span class="variable">$macosxSDKSpecificationsPath</span>/IDEOSXSupportCore.ideplugin/Contents/Resources/MacOSX Package Types.xcspec&quot;</span></span><br><span class="line">productTypesForMacOSXPath=<span class="string">&quot;<span class="variable">$macosxSDKSpecificationsPath</span>/IDEOSXSupportCore.ideplugin/Contents/Resources/MacOSX Product Types.xcspec&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>最后重新运行：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./md-install</span><br></pre></td></tr></table></figure>
-
-<p>即可</p>
-</li>
-</ul>
-<p>以上两种错误都是来自我遇到的报错，并且解决方法来自于<a href="https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html">这里</a>，原文里面还有其他的解决方法，我就不贴了</p>
-<p>有佬 fork 了 MonkeyDev 并且适配了 Rootless，在现在这个环境，推荐使用这个，按照readme的安装就好</p>
-<p><a href="https://github.com/BigCatGit/MonkeyDev">https://github.com/BigCatGit/MonkeyDev</a></p>
-<h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><p>解决 Xcode 报 library not found for -lstdc++ 问题</p>
-<p><a href="https://github.com/devdawei/libstdc-">https://github.com/devdawei/libstdc-</a></p>
-<h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>视频最后的编译可以试一试，安装还是参考上文</p>
-<p><a href="https://www.bilibili.com/video/BV1ovejeXEUU?t=296">https://www.bilibili.com/video/BV1ovejeXEUU?t=296</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-        <tag>越狱</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Bose QC Ultra 和 Sony XM5</title>
     <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
     <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
@@ -1533,6 +1403,124 @@
 ]]></content>
       <tags>
         <tag>耳机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装Theos和Monkeydev</title>
+    <url>/2025/01/21/theos%E5%92%8Cmonkeydev%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p>认真玩越狱一年了，想学习开发插件，总结一下工具的安装<span id="more"></span></p>
+<h1 id="Theos"><a href="#Theos" class="headerlink" title="Theos"></a>Theos</h1><p><a href="https://theos.dev/docs/installation-macos">macOS官方安装教程</a></p>
+<p>我更推荐用<a href="https://github.com/AloneMonkey/MonkeyDev/wiki/%E5%AE%89%E8%A3%85">MonkeyDev写的安装方法</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> --recursive https://github.com/theos/theos.git /opt/theos</span><br></pre></td></tr></table></figure>
+
+<p>在用户目录下的<code>.zshrc</code>文件内添加如下内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> THEOS=/opt/theos</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$THEOS</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Terminal 中运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nic.pl</span><br></pre></td></tr></table></figure>
+
+<p>有如下提示即为成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> ~  nic.pl                                                                  ✔</span><br><span class="line">NIC 2.0 - New Instance Creator</span><br><span class="line">------------------------------</span><br><span class="line">  [1.] iphone/activator_event</span><br><span class="line">  [2.] iphone/activator_listener</span><br><span class="line">  [3.] iphone/application</span><br><span class="line">  [4.] iphone/application_swift</span><br><span class="line">  [5.] iphone/application_swiftui</span><br><span class="line">  [6.] iphone/control_center_module-11up</span><br><span class="line">  [7.] iphone/cydget</span><br><span class="line">  [8.] iphone/flipswitch_switch</span><br><span class="line">  [9.] iphone/framework</span><br><span class="line">  [10.] iphone/library</span><br><span class="line">  [11.] iphone/notification_center_widget</span><br><span class="line">  [12.] iphone/notification_center_widget-7up</span><br><span class="line">  [13.] iphone/null</span><br><span class="line">  [14.] iphone/preference_bundle</span><br><span class="line">  [15.] iphone/preference_bundle_swift</span><br><span class="line">  [16.] iphone/theme</span><br><span class="line">  [17.] iphone/tool</span><br><span class="line">  [18.] iphone/tool_swift</span><br><span class="line">  [19.] iphone/tweak</span><br><span class="line">  [20.] iphone/tweak_swift</span><br><span class="line">  [21.] iphone/tweak_with_simple_preferences</span><br><span class="line">  [22.] iphone/xpc_service</span><br><span class="line">  [23.] iphone/xpc_service_modern</span><br><span class="line">Choose a Template (required):</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="MonkeyDev"><a href="#MonkeyDev" class="headerlink" title="MonkeyDev"></a>MonkeyDev</h1><h2 id="下载（原版）"><a href="#下载（原版）" class="headerlink" title="下载（原版）"></a>下载（原版）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> https://github.com/AloneMonkey/MonkeyDev.git /opt/MonkeyDev</span><br></pre></td></tr></table></figure>
+<h2 id="下载（改版支持无根）"><a href="#下载（改版支持无根）" class="headerlink" title="下载（改版支持无根）"></a>下载（<a href="https://github.com/BigCatGit/MonkeyDev">改版支持无根</a>）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> https://github.com/BigCatGit/MonkeyDev.git /opt/MonkeyDev</span><br></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /opt/MonkeyDev/bin/md-install</span><br></pre></td></tr></table></figure>
+
+<h2 id="报错：-File-xxx-IDEiOSSupportCore-ideplugin-xxx-Embedded-Device-xcspec-not-found"><a href="#报错：-File-xxx-IDEiOSSupportCore-ideplugin-xxx-Embedded-Device-xcspec-not-found" class="headerlink" title="报错： File &#x2F;xxx&#x2F;IDEiOSSupportCore.ideplugin&#x2F;xxx&#x2F;Embedded-Device.xcspec not found"></a>报错： File &#x2F;xxx&#x2F;IDEiOSSupportCore.ideplugin&#x2F;xxx&#x2F;Embedded-Device.xcspec not found</h2><p>Xcode16又不能使用下面的解决了，这个仓库有大佬改了安装脚本：<a href="https://github.com/shadow-boy/MonkeyDev/tree/master/bin%EF%BC%8C%E6%88%91%E5%8F%88fork%E6%94%B9%E4%BA%86%E4%B8%80%E4%B8%8B">https://github.com/shadow-boy/MonkeyDev/tree/master/bin，我又fork改了一下</a></p>
+<p>Xcode16直接用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /bin/sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/tunecc/MonkeyDev/refs/heads/master/bin/md-install_xcode16fix)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>没报错可以不用看后面的了</p>
+<p>想手搓的可以看看这里，下面的都来自这里：<a href="https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html">https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html</a></p>
+<p>macOS 14.5报错如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  bin <span class="built_in">sudo</span> ./md-install</span><br><span class="line">...</span><br><span class="line">File /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/Embedded-Device.xcspec not found</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>原因：<code>Xcode 13+</code>之后，部分路径变化了，所以找不到对应路径</li>
+<li>解决办法：从Xcode中搜索到Embedded-Device.xcspec的实际位置，然后拷贝到报错的路径（如果不存在，先创建对应目录）即可</li>
+<li>具体步骤</li>
+</ul>
+<p>（1）找到Embedded-Device.xcspec</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cd</span> /Applications/Xcode.app/Contents</span><br><span class="line">➜  Contents find . -name Embedded-Device.xcspec</span><br><span class="line">./Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec</span><br></pre></td></tr></table></figure>
+
+<p>找到：</p>
+<ul>
+<li><code>/Applications/Xcode.app/Contents/Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec</code></li>
+</ul>
+<p>（2）拷贝到报错目录</p>
+<p>先新建该目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br></pre></td></tr></table></figure>
+
+<p>再去拷贝：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /Applications/Xcode.app/Contents/Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br></pre></td></tr></table></figure>
+
+<p>确认文件的确存在：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  PlugIns ll /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br><span class="line">total 8</span><br><span class="line">-rw-r--r--@ 1 root  wheel   437B 10 12 15:34 Embedded-Device.xcspec</span><br></pre></td></tr></table></figure>
+
+<p>最后重新去操作：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /opt/MonkeyDev/bin/md-install</span><br></pre></td></tr></table></figure>
+
+<h2 id="报错：File-xxx-Specifications-MacOSX-Package-Types-xcspec-not-found"><a href="#报错：File-xxx-Specifications-MacOSX-Package-Types-xcspec-not-found" class="headerlink" title="报错：File &#x2F;xxx&#x2F;Specifications&#x2F;MacOSX Package Types.xcspec not found"></a>报错：File &#x2F;xxx&#x2F;Specifications&#x2F;MacOSX Package Types.xcspec not found</h2><p>报错如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">  bin <span class="built_in">sudo</span> bash md-install</span><br><span class="line">...</span><br><span class="line">File /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Specifications/MacOSX Package Types.xcspec not found</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：</p>
+<ul>
+<li><p>Xcode &lt;13</p>
+<ul>
+<li>背景：存在<code>MacOSX Package Types.xcspec</code>，只是路径不对</li>
+<li>解决办法：改动路径或换用软链接</li>
+</ul>
+</li>
+<li><p>Xcode 13+</p>
+<ul>
+<li><p>背景：不存在<code>MacOSX Package Types.xcspec </code>和<code>MacOSX Product Types.xcspec</code>，所以要去网上下载后，再去：改动路径或换用软链接</p>
+<ul>
+<li><p>下载<code>MacOSX Package Types.xcspec </code>和<code>MacOSX Product Types.xcspec</code></p>
+</li>
+<li><p><a href="https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Package-Types.xcspec">https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Package-Types.xcspec</a></p>
+</li>
+<li><p>保存为：<code>MacOSX Package Types.xcspec</code></p>
+</li>
+<li><p><a href="https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Product-Types.xcspec">https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Product-Types.xcspec</a></p>
+</li>
+<li><p>保存为：<code>MacOSX Product Types.xcspec</code></p>
+</li>
+<li><p>拷贝到（旧版Xcode中对应的）目录：<code>/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>然后继续去操作：</p>
+<ul>
+<li><p>【推荐】方法1：使用软链接</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Specifications</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法2：（修改<code>md-install</code>脚本）改动路径</p>
+<p>修改<code>/opt/MonkeyDev/bin/md-install</code></p>
+<p>修改路径，改为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># macosxSDKSpecificationsPath=$macosSdkPlatformPath/Developer/Library/Xcode/Specifications</span></span><br><span class="line"><span class="comment"># packageTypesForMacOSXPath=&quot;$macosxSDKSpecificationsPath/MacOSX Package Types.xcspec&quot;</span></span><br><span class="line"><span class="comment"># productTypesForMacOSXPath=&quot;$macosxSDKSpecificationsPath/MacOSX Product Types.xcspec&quot;</span></span><br><span class="line">macosxSDKSpecificationsPath=<span class="variable">$macosSdkPlatformPath</span>/Developer/Library/Xcode/PrivatePlugIns</span><br><span class="line">packageTypesForMacOSXPath=<span class="string">&quot;<span class="variable">$macosxSDKSpecificationsPath</span>/IDEOSXSupportCore.ideplugin/Contents/Resources/MacOSX Package Types.xcspec&quot;</span></span><br><span class="line">productTypesForMacOSXPath=<span class="string">&quot;<span class="variable">$macosxSDKSpecificationsPath</span>/IDEOSXSupportCore.ideplugin/Contents/Resources/MacOSX Product Types.xcspec&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>最后重新运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./md-install</span><br></pre></td></tr></table></figure>
+
+<p>即可</p>
+</li>
+</ul>
+<p>以上两种错误都是来自我遇到的报错，并且解决方法来自于<a href="https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html">这里</a>，原文里面还有其他的解决方法，我就不贴了</p>
+<p>有佬 fork 了 MonkeyDev 并且适配了 Rootless，在现在这个环境，推荐使用这个，按照readme的安装就好</p>
+<p><a href="https://github.com/BigCatGit/MonkeyDev">https://github.com/BigCatGit/MonkeyDev</a></p>
+<h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><p>解决 Xcode 报 library not found for -lstdc++ 问题</p>
+<p><a href="https://github.com/devdawei/libstdc-">https://github.com/devdawei/libstdc-</a></p>
+<h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>视频最后的编译可以试一试，安装还是参考上文</p>
+<p><a href="https://www.bilibili.com/video/BV1ovejeXEUU?t=296">https://www.bilibili.com/video/BV1ovejeXEUU?t=296</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+        <tag>越狱</tag>
       </tags>
   </entry>
   <entry>
@@ -1663,103 +1651,6 @@
 ]]></content>
       <tags>
         <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建越狱软件源</title>
-    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
-<p>环境：</p>
-<ul>
-<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
-<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
-<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
-</li>
-<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
-</li>
-<li><p>Mac OS X：<code>brew install dpkg</code></p>
-</li>
-<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
-</li>
-</ul>
-<p>插件来源：</p>
-<ol>
-<li><p>Telegram、QQ等社交软件</p>
-</li>
-<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
-<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
-</li>
-<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
-</li>
-</ol>
-<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
-
-<p><strong>可选（可直接略过）：</strong></p>
-<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
-<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
-<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>Terminal</code> 打开所在文件夹</p>
-<p>将位于debs目录的所有deb包扫描并生成Packages</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
-
-<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
-
-<p>为什么需要压缩文件？</p>
-<p>Cydia添加源时大致行为如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
-
-<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
-<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
-<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
-<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
-<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
-<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
-<p>步骤：</p>
-<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
-<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
-<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
-<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
-<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
-<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
-<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
-<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>越狱</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>百度网盘青龙面板会员签到</title>
-    <url>/2025/03/16/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BC%9A%E5%91%98%E7%AD%BE%E5%88%B0/</url>
-    <content><![CDATA[<p>GitHub地址：<a href="https://github.com/tunecc/DuPan">https://github.com/tunecc/DuPan</a> <span id="more"></span></p>
-<h1 id="为什么要签到答题？"><a href="#为什么要签到答题？" class="headerlink" title="为什么要签到答题？"></a>为什么要签到答题？</h1><p>坚持签到和答题一年17*365&#x3D;6205成长值，相当于开三年会员赠送的成长值，再算上svip每天30（一年10950）的成长值，只要成长值到10w，减去1.5万开通v10，可以实现正常续费无限v10（引用自：<a href="https://hostloc.com/thread-1392878-1-1.html">https://hostloc.com/thread-1392878-1-1.html</a> ）</p>
-<h1 id="为什么有这个项目"><a href="#为什么有这个项目" class="headerlink" title="为什么有这个项目"></a>为什么有这个项目</h1><p>因为上面说的，所以我一直有签到的需求，最开始发现 <a href="https://github.com/qd-today/qd">qd</a> 上面有现成的，用起来觉得不够方便，又在网上搜寻一番找到了</p>
-<p><a href="https://www.blueskyxn.com/202410/7228.html">https://www.blueskyxn.com/202410/7228.html</a> 这一篇博文，里面有现成的代码，能在ql上面使用，就拿过来叫大模型改了改。</p>
-<h1 id="Cookie获取"><a href="#Cookie获取" class="headerlink" title="Cookie获取"></a>Cookie获取</h1><p>打开：<a href="https://pan.baidu.com/">https://pan.baidu.com</a> ，F12，网络，main文档里面把cookie，全部弄到变量里面，我的变量为 <code>XFI=***ndut_fmt=***</code>（只列出了开头和结尾两个变量）</p>
-<p>这个 <a href="https://gist.github.com/RunwangGuo/48d98ff5763c9a3883907e9a593e18fb">fork</a> 的修改应该是只需要 <code> &quot;BDUSS=xxxx; BAIDUID=xxxx;&quot;</code> 但是我找不到 BAIDUID 这个变量</p>
-<h1 id="TG通知示例"><a href="#TG通知示例" class="headerlink" title="TG通知示例"></a>TG通知示例</h1><p>当天第一次成功签到</p>
-<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/first.jpg" alt="image"></p>
-<p>当天重复签到</p>
-<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/repeat.jpg" alt="image"></p>
-<h1 id="注意（引用自原文）"><a href="#注意（引用自原文）" class="headerlink" title="注意（引用自原文）"></a>注意（<a href="https://www.blueskyxn.com/202410/7228.html">引用自原文</a>）</h1><p>基于Python，需要Cookie</p>
-<p>建议在本地或固定登录百度网盘的设备（包括Windows服务器、Alist）使用，避免多IP风控。</p>
-<p>不建议使用云函数，因为动态IP。</p>
-<p>虽然百度的大部分风控不影响签到，但是会影响你下载。</p>
-]]></content>
-      <tags>
-        <tag>青龙面板</tag>
       </tags>
   </entry>
   <entry>
@@ -1955,45 +1846,100 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>转换GitHub Raw 链接</title>
-    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
-    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
-<p>sh脚本：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
+    <title>搭建越狱软件源</title>
+    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
+<p>环境：</p>
+<ul>
+<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
+<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
+<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
+</li>
+<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
+</li>
+<li><p>Mac OS X：<code>brew install dpkg</code></p>
+</li>
+<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
+</li>
+</ul>
+<p>插件来源：</p>
+<ol>
+<li><p>Telegram、QQ等社交软件</p>
+</li>
+<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
+<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
+</li>
+<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
+</li>
+</ol>
+<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
 
-<p>js脚本：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可选（可直接略过）：</strong></p>
+<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
+<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
+<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
 
-<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
+<p>使用 <code>Terminal</code> 打开所在文件夹</p>
+<p>将位于debs目录的所有deb包扫描并生成Packages</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
+
+<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
+
+<p>为什么需要压缩文件？</p>
+<p>Cydia添加源时大致行为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
+
+<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
+<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
+<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
+<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
+<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
+<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
+<p>步骤：</p>
+<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
+<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
+<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
+<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
+<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
+<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
+<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
+</ol>
 ]]></content>
       <tags>
-        <tag>GitHub</tag>
-        <tag>小脚本</tag>
+        <tag>越狱</tag>
       </tags>
   </entry>
   <entry>
-    <title>Mihomo 链式代理</title>
-    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
-<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
-<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
-<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
-<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
-<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
-<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
+    <title>百度网盘青龙面板会员签到</title>
+    <url>/2025/03/16/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BC%9A%E5%91%98%E7%AD%BE%E5%88%B0/</url>
+    <content><![CDATA[<p>GitHub地址：<a href="https://github.com/tunecc/DuPan">https://github.com/tunecc/DuPan</a> <span id="more"></span></p>
+<h1 id="为什么要签到答题？"><a href="#为什么要签到答题？" class="headerlink" title="为什么要签到答题？"></a>为什么要签到答题？</h1><p>坚持签到和答题一年17*365&#x3D;6205成长值，相当于开三年会员赠送的成长值，再算上svip每天30（一年10950）的成长值，只要成长值到10w，减去1.5万开通v10，可以实现正常续费无限v10（引用自：<a href="https://hostloc.com/thread-1392878-1-1.html">https://hostloc.com/thread-1392878-1-1.html</a> ）</p>
+<h1 id="为什么有这个项目"><a href="#为什么有这个项目" class="headerlink" title="为什么有这个项目"></a>为什么有这个项目</h1><p>因为上面说的，所以我一直有签到的需求，最开始发现 <a href="https://github.com/qd-today/qd">qd</a> 上面有现成的，用起来觉得不够方便，又在网上搜寻一番找到了</p>
+<p><a href="https://www.blueskyxn.com/202410/7228.html">https://www.blueskyxn.com/202410/7228.html</a> 这一篇博文，里面有现成的代码，能在ql上面使用，就拿过来叫大模型改了改。</p>
+<h1 id="Cookie获取"><a href="#Cookie获取" class="headerlink" title="Cookie获取"></a>Cookie获取</h1><p>打开：<a href="https://pan.baidu.com/">https://pan.baidu.com</a> ，F12，网络，main文档里面把cookie，全部弄到变量里面，我的变量为 <code>XFI=***ndut_fmt=***</code>（只列出了开头和结尾两个变量）</p>
+<p>这个 <a href="https://gist.github.com/RunwangGuo/48d98ff5763c9a3883907e9a593e18fb">fork</a> 的修改应该是只需要 <code> &quot;BDUSS=xxxx; BAIDUID=xxxx;&quot;</code> 但是我找不到 BAIDUID 这个变量</p>
+<h1 id="TG通知示例"><a href="#TG通知示例" class="headerlink" title="TG通知示例"></a>TG通知示例</h1><p>当天第一次成功签到</p>
+<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/first.jpg" alt="image"></p>
+<p>当天重复签到</p>
+<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/repeat.jpg" alt="image"></p>
+<h1 id="注意（引用自原文）"><a href="#注意（引用自原文）" class="headerlink" title="注意（引用自原文）"></a>注意（<a href="https://www.blueskyxn.com/202410/7228.html">引用自原文</a>）</h1><p>基于Python，需要Cookie</p>
+<p>建议在本地或固定登录百度网盘的设备（包括Windows服务器、Alist）使用，避免多IP风控。</p>
+<p>不建议使用云函数，因为动态IP。</p>
+<p>虽然百度的大部分风控不影响签到，但是会影响你下载。</p>
 ]]></content>
       <tags>
-        <tag>OpenWrt</tag>
-        <tag>Mihomo</tag>
+        <tag>青龙面板</tag>
       </tags>
   </entry>
   <entry>
@@ -2187,6 +2133,48 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 ]]></content>
       <tags>
         <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转换GitHub Raw 链接</title>
+    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
+    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
+<p>sh脚本：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
+
+<p>js脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
+]]></content>
+      <tags>
+        <tag>GitHub</tag>
+        <tag>小脚本</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mihomo 链式代理</title>
+    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
+<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
+<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
+<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
+<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
+<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
+<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>Mihomo</tag>
       </tags>
   </entry>
   <entry>
