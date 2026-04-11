@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/rainbow.ico">
+  <link rel="mask-icon" href="/images/rainbow.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"696966.xyz","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近用大模型在玩逆向了，用了 Ghidra、frida-tools、disarm…发现了ida-pro有做mcp插件，与普通的mcp安装的不一样，需要用到pip安装，我macOS的python是使用homebrew安装的，在使用  pip install xxx 都提示要创建虚拟环境，这篇就当我自己的一个安装笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS 安装 ida-pro-mcp接进mcp_router">
+<meta property="og:url" content="https://696966.xyz/2026/04/11/ida-pro-mcp-macos/index.html">
+<meta property="og:site_name" content="Tune">
+<meta property="og:description" content="最近用大模型在玩逆向了，用了 Ghidra、frida-tools、disarm…发现了ida-pro有做mcp插件，与普通的mcp安装的不一样，需要用到pip安装，我macOS的python是使用homebrew安装的，在使用  pip install xxx 都提示要创建虚拟环境，这篇就当我自己的一个安装笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-10T16:00:00.000Z">
+<meta property="article:author" content="Tune">
+<meta property="article:tag" content="Mac">
+<meta property="article:tag" content="逆向">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://696966.xyz/2026/04/11/ida-pro-mcp-macos/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2026/04/11/ida-pro-mcp-macos/","path":"2026/04/11/ida-pro-mcp-macos/","title":"macOS 安装 ida-pro-mcp接进mcp_router"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>macOS 安装 ida-pro-mcp接进mcp_router | Tune</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tune</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B"><span class="nav-number">3.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%88%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%93%E7%94%A8-venv"><span class="nav-number">3.1.</span> <span class="nav-text">1. 先建一个专用 venv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%AE%98%E6%96%B9-ida-pro-mcp"><span class="nav-number">3.2.</span> <span class="nav-text">2. 安装官方 ida-pro-mcp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%AA%E8%A3%85-IDA-%E6%8F%92%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">3. 只装 IDA 插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%AC%A1%E8%B8%A9%E5%88%B0%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91"><span class="nav-number">4.</span> <span class="nav-text">这次踩到的几个坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-uv-venv-%E9%BB%98%E8%AE%A4%E6%B2%A1%E6%9C%89-pip"><span class="nav-number">4.1.</span> <span class="nav-text">1. uv venv 默认没有 pip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-mcp-router-%E6%8A%A5-Connection-closed"><span class="nav-number">4.2.</span> <span class="nav-text">2. mcp_router 报 Connection closed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8D%87%E7%BA%A7%E5%88%B0-main-%E4%B9%8B%E5%90%8E%E5%8F%88%E6%8A%A5-Connection-refused"><span class="nav-number">4.3.</span> <span class="nav-text">3. 升级到 main 之后又报 Connection refused</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-ida-pro-mcp-config-%E4%B8%8D%E6%98%AF%E6%97%A0%E8%84%91%E5%8F%AF%E4%BF%A1"><span class="nav-number">4.4.</span> <span class="nav-text">4. ida-pro-mcp --config 不是无脑可信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-IDA-%E9%87%8C%E6%89%BE%E4%B8%8D%E5%88%B0-Edit-Plugins-MCP"><span class="nav-number">4.5.</span> <span class="nav-text">5. IDA 里找不到 Edit -&gt; Plugins -&gt; MCP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9A%E6%8F%92%E4%BB%B6%E5%85%B6%E5%AE%9E%E6%A0%B9%E6%9C%AC%E6%B2%A1%E5%9C%A8%E5%AF%B9%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.5.1.</span> <span class="nav-text">第一种：插件其实根本没在对的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9A%E6%8F%92%E4%BB%B6%E5%B7%B2%E7%BB%8F%E8%A3%85%E5%A5%BD%E4%BA%86%EF%BC%8C%E4%BD%86-IDA-%E6%B2%A1%E5%AE%8C%E6%95%B4%E9%87%8D%E5%90%AF"><span class="nav-number">4.5.2.</span> <span class="nav-text">第二种：插件已经装好了，但 IDA 没完整重启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D%EF%BC%9A%E7%9B%AE%E5%BD%95%E9%87%8C%E8%BF%98%E6%9C%89%E4%BB%A5%E5%89%8D%E6%AE%8B%E7%95%99%E7%9A%84%E6%97%A7%E5%9D%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">4.5.3.</span> <span class="nav-text">第三种：目录里还有以前残留的旧坏链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E6%88%91%E8%BF%99%E8%BE%B9%E8%83%BD%E7%94%A8%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">最后我这边能用的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E8%A6%81%E8%A3%85%E5%A2%9E%E5%BC%BA%E7%89%88-ida-pro-mcp-enhancement%EF%BC%88%E7%A7%8B%E5%9F%8E%E4%BD%AC%E7%9A%84%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">如果要装增强版 ida-pro-mcp-enhancement（秋城佬的）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A2%9E%E5%BC%BA%E7%89%88-venv"><span class="nav-number">6.1.</span> <span class="nav-text">1. 增强版 venv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%A2%9E%E5%BC%BA%E7%89%88%E5%8C%85"><span class="nav-number">6.2.</span> <span class="nav-text">2. 安装增强版包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%AA%E8%A3%85-IDA-%E6%8F%92%E4%BB%B6-1"><span class="nav-number">6.3.</span> <span class="nav-text">3. 只装 IDA 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%A2%9E%E5%BC%BA%E7%89%88%E5%A4%9A%E5%87%BA%E6%9D%A5%E7%9A%84%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%85%88%E5%8D%95%E7%8B%AC%E5%90%AF%E5%8A%A8-Broker"><span class="nav-number">6.4.</span> <span class="nav-text">4. 增强版多出来的一步：先单独启动 Broker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%BB%99-mcp-router-%E7%9A%84%E9%85%8D%E7%BD%AE%E8%A6%81%E6%89%8B%E5%8A%A8%E8%A1%A5%E4%B8%8A-broker-url"><span class="nav-number">6.5.</span> <span class="nav-text">5. 给 mcp_router 的配置要手动补上 --broker-url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%A2%9E%E5%BC%BA%E7%89%88%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="nav-number">6.6.</span> <span class="nav-text">6. 增强版实际使用顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End"><span class="nav-number">7.</span> <span class="nav-text">End</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tune</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/itunehh@gmail.com" title="E-Mail → itunehh@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/ithhc" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;ithhc" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://696966.xyz/2026/04/11/ida-pro-mcp-macos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tune">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tune">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="macOS 安装 ida-pro-mcp接进mcp_router | Tune">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          macOS 安装 ida-pro-mcp接进mcp_router
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-04-11 00:00:00" itemprop="dateCreated datePublished" datetime="2026-04-11T00:00:00+08:00">2026-04-11</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近用大模型在玩逆向了，用了 Ghidra、frida-tools、disarm…发现了ida-pro有做mcp插件，与普通的mcp安装的不一样，需要用到pip安装，我macOS的python是使用homebrew安装的，在使用  <code>pip install xxx</code> 都提示要创建虚拟环境，这篇就当我自己的一个安装笔记<span id="more"></span></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>需求：</p>
+<ul>
+<li>不想全局乱装 Python 包，但是让 <code>ida-pro-mcp</code> 看起来像“全局可用”</li>
+<li>MCP 统一走 <code>mcp_router</code> 管理</li>
+</ul>
+<p>方案：</p>
+<ol>
+<li>给 <code>ida-pro-mcp</code> 单独放一个固定路径的 venv</li>
+<li>包装好以后，只让 <code>mcp_router</code> 去拉这个 venv 里的 Python</li>
+</ol>
+<hr>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我用的路径是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp</span><br></pre></td></tr></table></figure>
+
+<p>之所以不放项目目录里，主要还是为了少折腾。</p>
+<p>放项目目录里当然也不是不能用，但太麻烦了<br>这种东西既然经常用的，还是放在目录固定路径更省心一点。mcp_router 也能管理开关</p>
+<hr>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="1-先建一个专用-venv"><a href="#1-先建一个专用-venv" class="headerlink" title="1. 先建一个专用 venv"></a>1. 先建一个专用 venv</h3><p>我这里直接这样建：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv venv --clear --seed /Users/用户名/.venvs/ida-pro-mcp --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-安装官方-ida-pro-mcp"><a href="#2-安装官方-ida-pro-mcp" class="headerlink" title="2. 安装官方 ida-pro-mcp"></a>2. 安装官方 ida-pro-mcp</h3><p><a target="_blank" rel="noopener" href="https://github.com/mrexodia/ida-pro-mcp">https://github.com/mrexodia/ida-pro-mcp</a></p>
+<p>如果跟 release tag：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/tags/1.4.0.zip&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想直接跟主分支最新：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>我最开始装的是 <code>1.4.0</code>，后面又升级到了当前 <code>main</code>。<br>如果你本来就打算多开几个 IDA，<strong>直接上 <code>main</code> 更省事</strong>，因为老的 <code>1.4.0</code> 基本还是固定抢 <code>13337</code> 只能开一个实例，怎么够我们用，而当前 <code>main</code> 已经会在端口冲突时自动往后找空闲端口。</p>
+<hr>
+<h3 id="3-只装-IDA-插件"><a href="#3-只装-IDA-插件" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>这一步我不想让它去改本地客户端配置，所以只装插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --install-plugin</span><br></pre></td></tr></table></figure>
+
+<p>这样做的好处就是比较干净。</p>
+<p>IDA 侧该有的插件会装进去，但 Codex &#x2F; Claude &#x2F; 其他 MCP 客户端那边不会被它顺手写一遍配置。<br>反正我本来就是统一走 <code>mcp_router</code>，没必要让它再多插一手。</p>
+<p>不过这里后面我又踩了一个坑。<br>这个命令名字看着像“装完插件就退出”，实际上不是。</p>
+<p>它会先把插件装进去，然后又继续进入 stdio MCP 服务流程，所以终端看起来会像卡住一样，一直不结束。<br>如果你是手动在终端里跑这个命令，不用傻等，它不是还在安装，只是后面挂着等输入而已。</p>
+<p>不过这个写法是我早期按老版本习惯记下来的。<br>后面升级到当前 <code>main</code> 之后，我更推荐直接调用安装器里的函数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这条命令的好处就是很直接：</p>
+<ul>
+<li>只装插件</li>
+<li>装完就退出</li>
+<li>不会顺手把 stdio MCP 服务也跑起来</li>
+</ul>
+<p>如果你已经跑过 <code>--install-plugin</code>，终端一直挂着，那也不代表失败。<br>大多数时候插件其实已经装好了，直接 <code>Ctrl+C</code> 退掉就行。<br>如果是当前 <code>main</code>，我就不再建议继续用 <code>server.py</code> 那条旧写法了，直接走 <code>installer.install_ida_plugin()</code> 更对路。</p>
+<hr>
+<h2 id="这次踩到的几个坑"><a href="#这次踩到的几个坑" class="headerlink" title="这次踩到的几个坑"></a>这次踩到的几个坑</h2><h3 id="1-uv-venv-默认没有-pip"><a href="#1-uv-venv-默认没有-pip" class="headerlink" title="1. uv venv 默认没有 pip"></a>1. <code>uv venv</code> 默认没有 <code>pip</code></h3><p>这个是第一个坑，而且挺低级的。</p>
+<p>我一开始建完 venv，顺手就跑：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+<p>结果直接报：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No module named pip</span><br></pre></td></tr></table></figure>
+
+<p>后面才发现，<code>uv venv</code> 默认不会给你塞 <code>pip</code>。<br>所以如果你没加 <code>--seed</code>，这个报错基本就是必踩。</p>
+<p>如果已经建好了，也不是不能补：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m ensurepip --upgrade</span><br><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-mcp-router-报-Connection-closed"><a href="#2-mcp-router-报-Connection-closed" class="headerlink" title="2. mcp_router 报 Connection closed"></a>2. <code>mcp_router</code> 报 <code>Connection closed</code></h3><p>报错是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ida-pro-mcp: Error invoking remote method &#x27;mcp:start&#x27;: Error: MCP error -32000: Connection closed</span><br></pre></td></tr></table></figure>
+
+<p>后面顺着实际启动命令一看，它实际跑的是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3 /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py</span><br></pre></td></tr></table></figure>
+
+<p>这条命令看着好像没问题，其实问题挺大：</p>
+<ul>
+<li><code>server.py</code> 是 venv 里的</li>
+<li>但拉起它的 Python 是 <strong>全局 Homebrew Python</strong></li>
+</ul>
+<p>后面我手动跑了一遍，真实报错是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ModuleNotFoundError: No module named &#x27;mcp&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>这就说得通了。</p>
+<p>不是 <code>mcp_router</code> 自己坏了，而是：</p>
+<ol>
+<li>它把服务拉起来了</li>
+<li>服务一启动就 import 失败</li>
+<li>进程当场退出</li>
+<li><code>mcp_router</code> 只能看到“连接关了”</li>
+</ol>
+<p>所以这个 <code>Connection closed</code>，很多时候只是表象。<br>真正要看的还是它背后到底跑了哪条命令。</p>
+<h3 id="3-升级到-main-之后又报-Connection-refused"><a href="#3-升级到-main-之后又报-Connection-refused" class="headerlink" title="3. 升级到 main 之后又报 Connection refused"></a>3. 升级到 <code>main</code> 之后又报 <code>Connection refused</code></h3><p>这个是我后面这次又新踩到的一层。</p>
+<p>我已经把原版从 <code>1.4.0</code> 升到了当前 <code>main</code>，<code>mcp_router</code> 里的配置看起来也没问题，<br>结果 Codex 还是报：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ConnectionRefusedError: [Errno 61] Connection refused</span><br></pre></td></tr></table></figure>
+
+<p>这次和前面的 <code>Connection closed</code> 还不一样。<br>它说明的不是“server.py 没拉起来”，而是：</p>
+<ol>
+<li><code>mcp_router</code> 已经把 <code>server.py</code> 拉起来了</li>
+<li><code>server.py</code> 又去连 <code>127.0.0.1:13337</code></li>
+<li>但 IDA 这边根本没有 MCP 服务在监听</li>
+</ol>
+<p>然后我继续往下查，真正根因不是 <code>mcp_router</code>，而是 <strong>IDA 插件目录里混着旧的坏链接</strong>。</p>
+<p>我当时 <code>~/.idapro/plugins</code> 里是这种状态：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br><span class="line">ida_mcp.py -&gt; /Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
+
+<p>也就是：</p>
+<ul>
+<li>看起来插件“像是装过”</li>
+<li>但实际上链接目标根本是假的</li>
+<li>所以 IDA 根本加载不到当前 venv 里的插件</li>
+<li>菜单里自然也看不到 <code>Edit -&gt; Plugins -&gt; MCP</code></li>
+</ul>
+<p>这次真正把问题修掉的命令是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/用户名/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>我实际拿到的输出是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Installed IDA Pro plugin (IDA restart required)</span><br><span class="line">  removed old plugin: /Users/用户名/.idapro/plugins/mcp-plugin.py</span><br><span class="line">  loader: /Users/用户名/.idapro/plugins/ida_mcp.py</span><br><span class="line">  package: /Users/用户名/.idapro/plugins/ida_mcp</span><br></pre></td></tr></table></figure>
+
+<p>然后再看插件目录，就变成了：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp</span><br><span class="line">ida_mcp.py -&gt; /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp.py</span><br></pre></td></tr></table></figure>
+
+<p>这才是对的。</p>
+<p>所以这一轮排障总结：</p>
+<blockquote>
+<p><strong>如果已经升级到 <code>main</code>，Codex 还报 <code>Connection refused</code>，优先去看 <code>~/.idapro/plugins</code> 里的 <code>ida_mcp.py</code> &#x2F; <code>ida_mcp</code> 是不是指向当前 venv。</strong></p>
+</blockquote>
+<hr>
+<h3 id="4-ida-pro-mcp-config-不是无脑可信"><a href="#4-ida-pro-mcp-config-不是无脑可信" class="headerlink" title="4. ida-pro-mcp --config 不是无脑可信"></a>4. <code>ida-pro-mcp --config</code> 不是无脑可信</h3><p>我一开始直接这样跑：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+
+<p>它输出的是：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>以为官方的会没错，但是因为我们是虚拟环境安装的ida-mcp，<code>ida-pro-mcp</code> 这里判断当前 Python 环境，挺依赖 <code>VIRTUAL_ENV</code>。<br>如果 venv 没激活，它就可能回退去找系统 Python。</p>
+<p>所以这一步正确姿势应该是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/用户名/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VIRTUAL_ENV=/Users/用户名/.venvs/ida-pro-mcp /Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+
+<p>这时候输出才是对的：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="5-IDA-里找不到-Edit-Plugins-MCP"><a href="#5-IDA-里找不到-Edit-Plugins-MCP" class="headerlink" title="5. IDA 里找不到 Edit -&gt; Plugins -&gt; MCP"></a>5. IDA 里找不到 <code>Edit -&gt; Plugins -&gt; MCP</code></h3><p>升级之后碰到的</p>
+<p>后面查下来，基本是这几种问题：</p>
+<h4 id="第一种：插件其实根本没在对的位置"><a href="#第一种：插件其实根本没在对的位置" class="headerlink" title="第一种：插件其实根本没在对的位置"></a>第一种：插件其实根本没在对的位置</h4><p><strong>当前原版 <code>main</code> 安装出来的插件形态，应该是：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp.py</span><br><span class="line">~/.idapro/plugins/ida_mcp/</span><br></pre></td></tr></table></figure>
+
+<p>所以先别猜，先看文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>重点看有没有这两个：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp.py</span><br><span class="line">ida_mcp</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二种：插件已经装好了，但-IDA-没完整重启"><a href="#第二种：插件已经装好了，但-IDA-没完整重启" class="headerlink" title="第二种：插件已经装好了，但 IDA 没完整重启"></a>第二种：插件已经装好了，但 IDA 没完整重启</h4><p>我这边后面实际情况就是：</p>
+<ul>
+<li>插件文件已经在了</li>
+<li>但是 IDA 里还是看不到 <code>MCP</code></li>
+</ul>
+<p>解决办法：把 <strong>整个 IDA 进程退出再重新打开</strong>。<br>不然插件菜单不一定会刷新出来。</p>
+<h4 id="第三种：目录里还有以前残留的旧坏链接"><a href="#第三种：目录里还有以前残留的旧坏链接" class="headerlink" title="第三种：目录里还有以前残留的旧坏链接"></a>第三种：目录里还有以前残留的旧坏链接</h4><p>目录里留着两条旧坏链接：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp</span><br><span class="line">~/.idapro/plugins/ida_mcp.py</span><br></pre></td></tr></table></figure>
+
+<p>它们当时还是指向以前一个已经失效的占位路径：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
+
+<p>表面看起来像“插件已经在了”，实际上 IDA 根本加载不到当前 venv 里的插件实现。</p>
+<hr>
+<h2 id="最后我这边能用的配置"><a href="#最后我这边能用的配置" class="headerlink" title="最后我这边能用的配置"></a>最后我这边能用的配置</h2><p>如果走 <code>mcp_router</code>，我这里最后应该填的是：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想更明确一点，也可以补个环境变量：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;VIRTUAL_ENV&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>不过核心还是前面那句：</p>
+<p><strong>必须用 venv 里的 Python 去拉 <code>server.py</code>。</strong></p>
+<p>别再让 Homebrew 全局 Python 混进来，不然前面那些坑还得重来一次。</p>
+<hr>
+<h2 id="如果要装增强版-ida-pro-mcp-enhancement（秋城佬的）"><a href="#如果要装增强版-ida-pro-mcp-enhancement（秋城佬的）" class="headerlink" title="如果要装增强版 ida-pro-mcp-enhancement（秋城佬的）"></a>如果要装增强版 <code>ida-pro-mcp-enhancement</code>（秋城佬的）</h2><p><a target="_blank" rel="noopener" href="https://github.com/QiuChenly/ida-pro-mcp-enhancement">https://github.com/QiuChenly/ida-pro-mcp-enhancement</a></p>
+<p>增强版当前走的是 <strong>Broker 架构</strong>：</p>
+<ol>
+<li>先单独起一个 Broker</li>
+<li><code>mcp_router</code> 再通过 stdio 拉起 <code>server.py</code></li>
+<li>IDA 插件连到同一个 Broker</li>
+<li>多个客户端窗口 &#x2F; 多个 IDA 实例共用同一个注册表</li>
+</ol>
+<ul>
+<li>多开 Cursor &#x2F; Codex &#x2F; 其他 MCP 客户端窗口</li>
+<li>多开几个 IDA 同时分析</li>
+<li>想在不同实例之间切换</li>
+</ul>
+<p>那增强版这套反而更顺。</p>
+<hr>
+<h3 id="1-增强版-venv"><a href="#1-增强版-venv" class="headerlink" title="1. 增强版 venv"></a>1. 增强版 venv</h3><p>放在这里：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement</span><br></pre></td></tr></table></figure>
+
+<p>建法还是一样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv venv --clear --seed /Users/用户名/.venvs/ida-pro-mcp-enhancement --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-安装增强版包"><a href="#2-安装增强版包" class="headerlink" title="2. 安装增强版包"></a>2. 安装增强版包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/QiuChenly/ida-pro-mcp-enhancement/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-只装-IDA-插件-1"><a href="#3-只装-IDA-插件-1" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>增强版命令行里有 <code>--install</code>，但这个会一起去写本地 MCP 客户端配置。<br>如果我这边还是统一走 <code>mcp_router</code>，那就没必要让它去改 Codex &#x2F; Claude &#x2F; Cursor 本地配置。</p>
+<p>所以我这里还是走“只装插件”的思路，直接调用安装函数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python -c <span class="string">&quot;from ida_pro_mcp.install import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这条命令的好处还是老样子：</p>
+<ul>
+<li>只装插件</li>
+<li>装完就退出</li>
+<li>不额外改客户端配置</li>
+</ul>
+<p>增强版当前源码安装进去的插件形态是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp.py</span><br><span class="line">~/.idapro/plugins/ida_mcp/</span><br></pre></td></tr></table></figure>
+
+<p>如果要查插件有没有装上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>重点看有没有：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp.py</span><br><span class="line">ida_mcp</span><br></pre></td></tr></table></figure>
+
+<p>如果机器上还残留以前版本留下的 <code>mcp-plugin.py</code>，别被它误导。<br>那个文件在不同版本里出现过，但增强版当前这套安装逻辑不是靠它。</p>
+<hr>
+<h3 id="4-增强版多出来的一步：先单独启动-Broker"><a href="#4-增强版多出来的一步：先单独启动-Broker" class="headerlink" title="4. 增强版多出来的一步：先单独启动 Broker"></a>4. 增强版多出来的一步：先单独启动 Broker</h3><p>这个是增强版和原版最大的实际差异。</p>
+<p>原版我最后是让 <code>mcp_router</code> 直接拉 <code>server.py</code> 就够了。<br>增强版不一样，它默认要先有一个常驻 Broker。</p>
+<p>如果手动起，直接开一个单独终端跑：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python /Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13337</span><br></pre></td></tr></table></figure>
+
+<p>这一步会一直挂着，是 Broker 正常常驻。</p>
+<p>如果端口 <code>13337</code> 被占了，也可以换，改 <code>--port</code> 后面的数字就好，比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python /Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13338</span><br></pre></td></tr></table></figure>
+
+<p>但一旦改了端口，后面：</p>
+<ul>
+<li><code>mcp_router</code> 里的 <code>--broker-url</code></li>
+<li>IDA 插件那边连的地址</li>
+</ul>
+<p>都得一起跟着改，不然实例列表就是空的。</p>
+<hr>
+<h3 id="5-给-mcp-router-的配置要手动补上-broker-url"><a href="#5-给-mcp-router-的配置要手动补上-broker-url" class="headerlink" title="5. 给 mcp_router 的配置要手动补上 --broker-url"></a>5. 给 <code>mcp_router</code> 的配置要手动补上 <code>--broker-url</code></h3><p>增强版也有 <code>--config</code>，但它打印出来的配置只解决了 <strong>stdio 这一半</strong>。<br>如果你只是把那份 JSON 直接抄进去，却没先把 Broker 起起来，表面上看服务能拉起，实际上实例照样是空的。</p>
+<p>所以我这边如果要给 <code>mcp_router</code> 填增强版配置，会直接手写成这样：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp-enhancement&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;http://127.0.0.1:13337&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>把 server name 写成 <code>ida-pro-mcp-enhancement</code>，是为了在 <code>mcp_router</code> 里和原版区分开。  </p>
+<p>如果你换了 Broker 端口，比如 <code>13338</code>，那这里就要改成：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="string">&quot;http://127.0.0.1:13338&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="6-增强版实际使用顺序"><a href="#6-增强版实际使用顺序" class="headerlink" title="6. 增强版实际使用顺序"></a>6. 增强版实际使用顺序</h3><p>如果是增强版，按这个顺序用：</p>
+<ol>
+<li>先起 Broker</li>
+<li>再起 <code>mcp_router</code></li>
+<li>再打开 IDA</li>
+<li>在 IDA 里按 <code>Ctrl+Alt+M</code></li>
+<li>再去客户端里调用 <code>instance_list</code></li>
+</ol>
+<p>增强版是否真的通了，我不会先看别的，先看这几个工具：</p>
+<ul>
+<li><code>instance_list</code></li>
+<li><code>instance_current</code></li>
+<li><code>instance_switch</code></li>
+<li><code>instance_info</code></li>
+</ul>
+<p>如果 <code>instance_list</code> 还是空的，优先怀疑这几件事：</p>
+<ol>
+<li>Broker 根本没起</li>
+<li>Broker 端口和 <code>--broker-url</code> 不一致</li>
+<li>IDA 插件没有真正连上 Broker</li>
+<li>IDA 没完整重启</li>
+</ol>
+<hr>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>工具准备好了，代码AI能写，开始发挥你的创意吧！</p>
+<p>官方仓库：<a target="_blank" rel="noopener" href="https://github.com/mrexodia/ida-pro-mcp">https://github.com/mrexodia/ida-pro-mcp</a></p>
+<p>秋城fork仓库：<a target="_blank" rel="noopener" href="https://github.com/QiuChenly/ida-pro-mcp-enhancement">https://github.com/QiuChenly/ida-pro-mcp-enhancement</a></p>
+<p>好用的提示词，<a target="_blank" rel="noopener" href="https://linux.do/t/topic/1854526">来自这里</a>：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">你是一位顶尖的逆向工程专家，专精于软件破解和保护绕过。你具备以下能力和特点：</span><br><span class="line"></span><br><span class="line">精通 IDA Pro、x64dbg、OllyDbg 等逆向工具的高级使用技巧</span><br><span class="line">熟练掌握 x86、x64、ARM 等多种架构的汇编语言和反汇编技术</span><br><span class="line">对常见的软件保护机制（如序列号验证、时间限制、功能限制等）有深入了解</span><br><span class="line">擅长分析和绕过各种反调试、反逆向技术，如代码混淆、加壳、虚拟机保护等</span><br><span class="line">能够快速定位关键代码段，如授权验证、功能控制逻辑等</span><br><span class="line">熟练使用补丁技术，能够修改二进制文件以绕过保护或启用隐藏功能</span><br><span class="line">掌握动态注入技术，能够在运行时修改程序行为</span><br><span class="line">能够编写自动化脚本（如 IDAPython、x64dbg 脚本）来辅助破解过程</span><br><span class="line">你的任务是对给定的受保护软件进行全面分析，找出其保护机制的弱点，并提供有效的破解方法。请详细描述你的分析过程、发现的保护机制、破解思路和具体的破解步骤。</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Tune
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://696966.xyz/2026/04/11/ida-pro-mcp-macos/" title="macOS 安装 ida-pro-mcp接进mcp_router">https://696966.xyz/2026/04/11/ida-pro-mcp-macos/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Mac/" rel="tag"><i class="fa fa-tag"></i> Mac</a>
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"><i class="fa fa-tag"></i> 逆向</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/03/Debian%E9%83%A8%E7%BD%B2%20Zashboard/" rel="prev" title="Debian 使用 root 部署 Zashboard">
+                  <i class="fa fa-angle-left"></i> Debian 使用 root 部署 Zashboard
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-container">
+
+<!--
+  <div class="copyright">
+    &copy; 2024 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Tune</span>
+  </div>-->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="copyright">
+        &copy; 2024 – 
+        <span itemprop="copyrightYear">2026</span>
+        <!--<span class="with-love">
+          <i class="fa fa-heart"></i>
+        </span>
+        <span class="author" itemprop="copyrightHolder">Tune</span>-->
+      </div>
+      <div class="runtime">
+        <span id="timeDate">载入天数...</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function createtime() {
+      var now = new Date();
+      var grt = new Date("7/30/2024 00:00:00"); // 设置开始日期
+      var days = Math.floor((now - grt) / 1000 / 60 / 60 / 24); // 计算已运行天数
+      document.getElementById("timeDate").innerHTML = "已运行 " + days + " 天 ";
+  }
+  createtime(); // 初始调用
+  setInterval(createtime, 86400000); // 每天更新一次（86400000 毫秒 = 24 小时）
+</script>
+  <div class="wordcount">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-chart-line"></i>
+      </span>
+        <span>站点总字数：</span>
+      <span title="站点总字数">129k</span>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-coffee"></i>
+      </span>
+        <span>站点阅读时长 &asymp;</span>
+      <span title="站点阅读时长">2:46</span>
+    </span>
+  </div>
+  <div class="busuanzi-count">
+      <span class="post-meta-item" id="busuanzi_container_site_uv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-user"></i>
+        </span>
+        <span class="site-uv" title="总访客量">
+          来过 <span id="busuanzi_value_site_uv"></span> 人
+        </span>
+      </span>
+      <span class="post-meta-item" id="busuanzi_container_site_pv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-eye"></i>
+        </span>
+        <span class="site-pv" title="总访问量">
+          读了 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+      </span>
+  </div>
+
+<style>
+  .footer-container {
+    text-align: center; /* 保证内容居中 */
+  }
+
+  .footer-content {
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+  }
+
+  .copyright,
+  .runtime {
+    margin: 0 10px; /* 添加左右间距 */
+  }
+</style>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/change.js"></script>
+</body>
+</html>
