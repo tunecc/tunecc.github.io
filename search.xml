@@ -338,46 +338,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Docker 搭建 Sub-Store</title>
-    <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
-<h1 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h1><ol>
-<li><p><a href="https://github.com/sub-store-org/Sub-Store">Sub-Store</a>（推荐）</p>
-<p>刚开始使用 Surge 的时候，就接触过，折腾一番后发现这是最适合我的</p>
-</li>
-<li><p><a href="https://github.com/gooaclok819/sublinkX">sublinkX</a></p>
-<p>必须搭配模板使用，我只想整合节点</p>
-</li>
-<li><p><a href="https://github.com/cedar2025/Xboard">Xboard</a></p>
-<p>机场的模板，有流量统计等功能，我用不上</p>
-</li>
-</ol>
-<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><p>GitHub 上面有一个 <a href="https://github.com/SaintWe/Sub-Store-Docker">Sub-Store-Docker</a> 的项目，<a href="https://hub.docker.com/r/saintwe/sub-store">saintwe&#x2F;sub-store</a>，Docker 还没有系统学习过的我，只看 README 还是不会搭建，还好 YouTube 上面有一个 <a href="https://www.youtube.com/watch?v=M4167ErswdE">视频教程</a></p>
-<ol>
-<li><p><code>docker pull xream/sub-store</code></p>
-</li>
-<li><p>打开 portainer –Create stack（创建堆栈）–Web editor–下面添加</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">version: &quot;3.8&quot;</span><br><span class="line">services:</span><br><span class="line">  sub-store:</span><br><span class="line">    image: xream/sub-store:latest</span><br><span class="line">    container_name: sub-store</span><br><span class="line">    network_mode: host</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - /opt/sub-store-data:/opt/app/data</span><br><span class="line">    environment:</span><br><span class="line">      - SUB_STORE_BACKEND_CRON=0 0 * * *</span><br><span class="line">      - SUB_STORE_FRONTEND_BACKEND_PATH=/1234567890</span><br><span class="line">      - SUB_STORE_FRONTEND_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_FRONTEND_PORT=3001</span><br><span class="line">      - SUB_STORE_DATA_BASE_PATH=/opt/app/data</span><br><span class="line">      - SUB_STORE_BACKEND_API_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_BACKEND_API_PORT=3002</span><br><span class="line">    stdin_open: true</span><br><span class="line">    tty: true</span><br></pre></td></tr></table></figure>
-
-<p>其中的“1234567890”就相当于密钥，请自行修改成复杂的密码，避免被盗</p>
-</li>
-<li><p>在最上面填写好 Name 后，到网页最下面点击 Deploy the stack 即可成功部署</p>
-</li>
-<li><p>打开 Docker 的 IP 加上3001，即可访问 Sub-Store<br><code>http://192.168.xx.xx:3001</code></p>
-</li>
-<li><p>这时候会显示数据加载失败，这是因为还没有改后端的地址，网页底部选择设置–后端设置–添加后端–名称随意–后端地址填写</p>
-<p><code>http://192.168.xx.xx:3001/1234567890</code></p>
-<p>添加成功后记得选择刚刚添加的后端，这样就成功了</p>
-</li>
-<li><p>使用 frp 实现公网访问<br>等我专门写一篇吧😁</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>FRP + SAAS 回源</title>
     <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
     <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
@@ -396,48 +356,6 @@
 ]]></content>
       <tags>
         <tag>OpenWrt</tag>
-        <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>FRP 内网穿透</title>
-    <url>/2024/10/08/Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
-<h1 id="安装Frps（服务端）"><a href="#安装Frps（服务端）" class="headerlink" title="安装Frps（服务端）"></a>安装Frps（服务端）</h1><p>有一台带公网 IPv4 的云服务器，然后在VPS上安装好frps</p>
-<p><a href="https://github.com/mvscode/frps-onekey">Frp服务端一键脚本项目地址</a></p>
-<p><a href="https://www.youtube.com/watch?v=D7e6TaWSneg">一瓶奶油视频教程</a></p>
-<h2 id="Install（安装）"><a href="#Install（安装）" class="headerlink" title="Install（安装）"></a>Install（安装）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/mvscode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line"><span class="built_in">chmod</span> 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
-
-<h2 id="Uninstall（卸载）"><a href="#Uninstall（卸载）" class="headerlink" title="Uninstall（卸载）"></a>Uninstall（卸载）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
-
-<h2 id="Update（更新）"><a href="#Update（更新）" class="headerlink" title="Update（更新）"></a>Update（更新）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
-
-<h2 id="设置后台运行"><a href="#设置后台运行" class="headerlink" title="设置后台运行"></a>设置后台运行</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-
-<h2 id="FRP常用命令"><a href="#FRP常用命令" class="headerlink" title="FRP常用命令"></a>FRP常用命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开启FRP：frps start</span><br><span class="line">停止FRP：frps stop</span><br><span class="line">重启FRP：frps restart</span><br><span class="line">打开配置文件：frps config</span><br><span class="line">查看FRP版本：frps version</span><br><span class="line">检查FRP运行状态：frps status</span><br></pre></td></tr></table></figure>
-
-<h1 id="安装Frpc（客户端）"><a href="#安装Frpc（客户端）" class="headerlink" title="安装Frpc（客户端）"></a>安装Frpc（客户端）</h1><h2 id="OpenWrt-未集成"><a href="#OpenWrt-未集成" class="headerlink" title="OpenWrt 未集成"></a>OpenWrt 未集成</h2><p><a href="https://github.com/kuoruan/openwrt-frp/releases">frpc下载</a></p>
-<p><a href="https://github.com/kuoruan/luci-app-frpc/releases">luci-app-frpc和汉化包下载</a></p>
-<p>设置（ 来自<a href="https://naiyous.com/4482.html">https://naiyous.com/4482.html</a> ）</p>
-<p>建议：Frp 协议类型，选择 tcp，这样可以反代的设备更多</p>
-<div>
-    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1024x532.png" style="width: 100%; height: auto; display: block; margin: 0;" />
-    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1-1024x565.png" style="width: 100%; height: auto; display: block; margin: 0;" />
-</div>
-
-
-<h2 id="OpenWrt集成"><a href="#OpenWrt集成" class="headerlink" title="OpenWrt集成"></a>OpenWrt集成</h2><p>immortalwrt 维护的 frpc 界面与上面的有所不同，软件的启动、停止需要在 <strong>系统—启动项</strong> 中控制，其它的都有对应的设置项</p>
-<h1 id="CF-重定向"><a href="#CF-重定向" class="headerlink" title="CF 重定向"></a>CF 重定向</h1><p>灵感来自于：<a href="https://youtu.be/KfOEabr38WU?t=232&si=ho4f7p8s9uN8XqKm">https://youtu.be/KfOEabr38WU?t=232&amp;si=ho4f7p8s9uN8XqKm</a></p>
-<p>准备一个能套上 CF 的域名</p>
-<p>左侧选项卡 <strong>DNS——记录——添加记录</strong></p>
-<p>类型：A 是 IPv4 ，AAAA 是 IPv6</p>
-<p>首先添加：<br>名称——简短，填你想要的域名前缀<br>IPv4 地址——都填服务器的 IP<br>小黄云可以打开</p>
-<p>左侧选项卡 <strong>规则——Origin Rules——创建规则</strong></p>
-<p>规则名称——随意<br>字段——主机名<br>运算符——等于<br>值——填 “DNS中的名称” . “你的域名”<br>重写到——填你在 Frpc 中设置的远程端口<br>部署</p>
-<p>这样就完成了</p>
-<p>这时候在浏览器输入自己的服务器 IP 加上端口（默认是：6443），再输入账号密码，左侧 Proxies 中选择 TCP 就可以看到已经反代的服务了</p>
-]]></content>
-      <tags>
         <tag>FRP</tag>
       </tags>
   </entry>
@@ -528,6 +446,46 @@
 ]]></content>
       <tags>
         <tag>折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker 搭建 Sub-Store</title>
+    <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
+<h1 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h1><ol>
+<li><p><a href="https://github.com/sub-store-org/Sub-Store">Sub-Store</a>（推荐）</p>
+<p>刚开始使用 Surge 的时候，就接触过，折腾一番后发现这是最适合我的</p>
+</li>
+<li><p><a href="https://github.com/gooaclok819/sublinkX">sublinkX</a></p>
+<p>必须搭配模板使用，我只想整合节点</p>
+</li>
+<li><p><a href="https://github.com/cedar2025/Xboard">Xboard</a></p>
+<p>机场的模板，有流量统计等功能，我用不上</p>
+</li>
+</ol>
+<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><p>GitHub 上面有一个 <a href="https://github.com/SaintWe/Sub-Store-Docker">Sub-Store-Docker</a> 的项目，<a href="https://hub.docker.com/r/saintwe/sub-store">saintwe&#x2F;sub-store</a>，Docker 还没有系统学习过的我，只看 README 还是不会搭建，还好 YouTube 上面有一个 <a href="https://www.youtube.com/watch?v=M4167ErswdE">视频教程</a></p>
+<ol>
+<li><p><code>docker pull xream/sub-store</code></p>
+</li>
+<li><p>打开 portainer –Create stack（创建堆栈）–Web editor–下面添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">version: &quot;3.8&quot;</span><br><span class="line">services:</span><br><span class="line">  sub-store:</span><br><span class="line">    image: xream/sub-store:latest</span><br><span class="line">    container_name: sub-store</span><br><span class="line">    network_mode: host</span><br><span class="line">    restart: always</span><br><span class="line">    volumes:</span><br><span class="line">      - /opt/sub-store-data:/opt/app/data</span><br><span class="line">    environment:</span><br><span class="line">      - SUB_STORE_BACKEND_CRON=0 0 * * *</span><br><span class="line">      - SUB_STORE_FRONTEND_BACKEND_PATH=/1234567890</span><br><span class="line">      - SUB_STORE_FRONTEND_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_FRONTEND_PORT=3001</span><br><span class="line">      - SUB_STORE_DATA_BASE_PATH=/opt/app/data</span><br><span class="line">      - SUB_STORE_BACKEND_API_HOST=0.0.0.0</span><br><span class="line">      - SUB_STORE_BACKEND_API_PORT=3002</span><br><span class="line">    stdin_open: true</span><br><span class="line">    tty: true</span><br></pre></td></tr></table></figure>
+
+<p>其中的“1234567890”就相当于密钥，请自行修改成复杂的密码，避免被盗</p>
+</li>
+<li><p>在最上面填写好 Name 后，到网页最下面点击 Deploy the stack 即可成功部署</p>
+</li>
+<li><p>打开 Docker 的 IP 加上3001，即可访问 Sub-Store<br><code>http://192.168.xx.xx:3001</code></p>
+</li>
+<li><p>这时候会显示数据加载失败，这是因为还没有改后端的地址，网页底部选择设置–后端设置–添加后端–名称随意–后端地址填写</p>
+<p><code>http://192.168.xx.xx:3001/1234567890</code></p>
+<p>添加成功后记得选择刚刚添加的后端，这样就成功了</p>
+</li>
+<li><p>使用 frp 实现公网访问<br>等我专门写一篇吧😁</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -800,6 +758,48 @@
       </tags>
   </entry>
   <entry>
+    <title>FRP 内网穿透</title>
+    <url>/2024/10/08/Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自己家里和学校的宽带都没有 IPv4，软路由使用 IPv6 进行科学时容易出问题<span id="more"></span>（大家都这么说，我也没有遇到过，之后自己编译的固件都没有编译IPv6 的依赖，也不知道现在新插件的支持怎么样，我也懒得折腾了），网上有很多内网穿透的工具，比如：WireGuard、DDNS、动态DNS等，想清楚自己的需求后，使用frp来实现内网穿透。</p>
+<h1 id="安装Frps（服务端）"><a href="#安装Frps（服务端）" class="headerlink" title="安装Frps（服务端）"></a>安装Frps（服务端）</h1><p>有一台带公网 IPv4 的云服务器，然后在VPS上安装好frps</p>
+<p><a href="https://github.com/mvscode/frps-onekey">Frp服务端一键脚本项目地址</a></p>
+<p><a href="https://www.youtube.com/watch?v=D7e6TaWSneg">一瓶奶油视频教程</a></p>
+<h2 id="Install（安装）"><a href="#Install（安装）" class="headerlink" title="Install（安装）"></a>Install（安装）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/mvscode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line"><span class="built_in">chmod</span> 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure>
+
+<h2 id="Uninstall（卸载）"><a href="#Uninstall（卸载）" class="headerlink" title="Uninstall（卸载）"></a>Uninstall（卸载）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh uninstall</span><br></pre></td></tr></table></figure>
+
+<h2 id="Update（更新）"><a href="#Update（更新）" class="headerlink" title="Update（更新）"></a>Update（更新）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-frps.sh update</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置后台运行"><a href="#设置后台运行" class="headerlink" title="设置后台运行"></a>设置后台运行</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FRP常用命令"><a href="#FRP常用命令" class="headerlink" title="FRP常用命令"></a>FRP常用命令</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">开启FRP：frps start</span><br><span class="line">停止FRP：frps stop</span><br><span class="line">重启FRP：frps restart</span><br><span class="line">打开配置文件：frps config</span><br><span class="line">查看FRP版本：frps version</span><br><span class="line">检查FRP运行状态：frps status</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装Frpc（客户端）"><a href="#安装Frpc（客户端）" class="headerlink" title="安装Frpc（客户端）"></a>安装Frpc（客户端）</h1><h2 id="OpenWrt-未集成"><a href="#OpenWrt-未集成" class="headerlink" title="OpenWrt 未集成"></a>OpenWrt 未集成</h2><p><a href="https://github.com/kuoruan/openwrt-frp/releases">frpc下载</a></p>
+<p><a href="https://github.com/kuoruan/luci-app-frpc/releases">luci-app-frpc和汉化包下载</a></p>
+<p>设置（ 来自<a href="https://naiyous.com/4482.html">https://naiyous.com/4482.html</a> ）</p>
+<p>建议：Frp 协议类型，选择 tcp，这样可以反代的设备更多</p>
+<div>
+    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1024x532.png" style="width: 100%; height: auto; display: block; margin: 0;" />
+    <img src="https://naiyous.com/wp-content/uploads/2024/03/image-1-1024x565.png" style="width: 100%; height: auto; display: block; margin: 0;" />
+</div>
+
+
+<h2 id="OpenWrt集成"><a href="#OpenWrt集成" class="headerlink" title="OpenWrt集成"></a>OpenWrt集成</h2><p>immortalwrt 维护的 frpc 界面与上面的有所不同，软件的启动、停止需要在 <strong>系统—启动项</strong> 中控制，其它的都有对应的设置项</p>
+<h1 id="CF-重定向"><a href="#CF-重定向" class="headerlink" title="CF 重定向"></a>CF 重定向</h1><p>灵感来自于：<a href="https://youtu.be/KfOEabr38WU?t=232&si=ho4f7p8s9uN8XqKm">https://youtu.be/KfOEabr38WU?t=232&amp;si=ho4f7p8s9uN8XqKm</a></p>
+<p>准备一个能套上 CF 的域名</p>
+<p>左侧选项卡 <strong>DNS——记录——添加记录</strong></p>
+<p>类型：A 是 IPv4 ，AAAA 是 IPv6</p>
+<p>首先添加：<br>名称——简短，填你想要的域名前缀<br>IPv4 地址——都填服务器的 IP<br>小黄云可以打开</p>
+<p>左侧选项卡 <strong>规则——Origin Rules——创建规则</strong></p>
+<p>规则名称——随意<br>字段——主机名<br>运算符——等于<br>值——填 “DNS中的名称” . “你的域名”<br>重写到——填你在 Frpc 中设置的远程端口<br>部署</p>
+<p>这样就完成了</p>
+<p>这时候在浏览器输入自己的服务器 IP 加上端口（默认是：6443），再输入账号密码，左侧 Proxies 中选择 TCP 就可以看到已经反代的服务了</p>
+]]></content>
+      <tags>
+        <tag>FRP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac使用spoof修改Mac地址</title>
     <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
     <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
@@ -818,26 +818,6 @@
 <p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
 <p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
 ]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac 小技巧</title>
-    <url>/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<p>一些小技巧<span id="more"></span></p>
-<h1 id="重置-DNS-缓存"><a href="#重置-DNS-缓存" class="headerlink" title="重置 DNS 缓存"></a>重置 DNS 缓存</h1><p>打开终端，输入如下命令来重置 DNS 缓存，适用于 macOS 10.15 至 14.x:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> killall -HUP mDNSResponder; <span class="built_in">sudo</span> dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
-
-<h1 id="重新配置-power10k"><a href="#重新配置-power10k" class="headerlink" title="重新配置 power10k"></a>重新配置 power10k</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">p10k configure</span><br></pre></td></tr></table></figure>
-
-<h1 id="重装mac制作U盘"><a href="#重装mac制作U盘" class="headerlink" title="重装mac制作U盘"></a>重装mac制作U盘</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 查看挂载了哪些盘</span><br><span class="line"><span class="built_in">ls</span> /volumes</span><br><span class="line"></span><br><span class="line">// 找到对应的路径 可以 tab 补全 </span><br><span class="line">/volumes/&lt;U盘名&gt;/Install\ macOS\ &lt;对应的系统&gt;.app/Contents/MacOS/InstallAssistant</span><br></pre></td></tr></table></figure>
-
-<h1 id="清除更新标记（数字角标）"><a href="#清除更新标记（数字角标）" class="headerlink" title="清除更新标记（数字角标）"></a>清除更新标记（数字角标）</h1><p>如果已经检测到更新，App Store 图标上出现红点数字，打开终端执行如下命令可以清除：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write com.apple.appstored.plist BadgeCount 0</span><br><span class="line"></span><br><span class="line">Killall Dock</span><br></pre></td></tr></table></figure>
-
-<p>App Store 左侧的更新条目通知也会清空。</p>
-<h1 id="Mac电脑窗口拖动"><a href="#Mac电脑窗口拖动" class="headerlink" title="Mac电脑窗口拖动"></a>Mac电脑窗口拖动</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>Mac</tag>
       </tags>
@@ -887,91 +867,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
-<span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
-
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PVE优化</title>
-    <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
-<span id="more"></span>
-
-<h1 id="PVE优化工具"><a href="#PVE优化工具" class="headerlink" title="PVE优化工具"></a>PVE优化工具</h1><h2 id="x86派老虎大神"><a href="#x86派老虎大神" class="headerlink" title="x86派老虎大神"></a><a href="https://bbs.x86pi.cn/thread?topicId=20">x86派老虎大神</a></h2><img src="https://85d8ba7.webp.li/2024/12/d12e3ae3cfabaf0c57a718adb87e77a4.png" width=50% height=50% />
-我这次优化就只使用了一这款,因为能显示CPU的实时频率,还有网卡名称使用原始命名
-
-<h2 id="pvetools"><a href="#pvetools" class="headerlink" title="pvetools"></a><a href="https://github.com/ivanhao/pvetools">pvetools</a></h2><p>PVE上star有4.1k(2024.8.5)<br><img src="https://85d8ba7.webp.li/2024/12/df770ca50f6344258710879e4c5bc6fd.webp" width=60% height=60% /></p>
-<h2 id="恩山大佬shell脚本"><a href="#恩山大佬shell脚本" class="headerlink" title="恩山大佬shell脚本"></a><a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">恩山大佬shell脚本</a></h2><p>开源地址<a href="https://github.com/a904055262/PVE-manager-status">https://github.com/a904055262/PVE-manager-status</a><br>这一款的功能比上面少一些了</p>
-<img src="https://85d8ba7.webp.li/2024/12/a880586cfeb65ed058cb265da41b55d7.jpg" width=75% height=75% />
-
-
-<h1 id="移除local-lvm存储空间"><a href="#移除local-lvm存储空间" class="headerlink" title="移除local-lvm存储空间"></a>移除local-lvm存储空间</h1><p>注意:<br>1、移除 local-lvm 后会导致虚拟机及 CT 容器的快照功能失效<br>2、移除前需自行关闭并备份各虚拟机、CT 容器等, 谨防移除造成数据丢失 </p>
-<p>因为我用不上快照功能,所以把他移除了,移除后能更好利用硬盘资源<br>备份是备份在llocal里面的,可以放心删除local-lvm</p>
-<p>恩山上的<a href="https://www.right.com.cn/forum/thread-3513183-1-1.html">帖子</a><br>1、备份虚拟机<br>2、删除虚拟机<br>3、删除local-lvm<br>命令：<code>lvremove pve/data</code><br>4、把local-lvm空间分配给Local<br>命令：<code>lvextend -l +100%FREE -r pve/root</code><br>5、删除local-lvm<br>数据中心-存储-删除local-lvm<br>6、编辑local，内容里添加 磁盘映像和容器<br>7、恢复虚拟机</p>
-<p>懒得输命令就用老虎的脚本吧</p>
-<p>虚拟机的安装以及还原,可以看看这两个视频<br><a href="https://www.bilibili.com/video/BV1aM4m1U7Fy/">https://www.bilibili.com/video/BV1aM4m1U7Fy/</a><br><a href="https://www.bilibili.com/video/BV1Gi421U78K/">https://www.bilibili.com/video/BV1Gi421U78K/</a></p>
-<h1 id="开启iommu"><a href="#开启iommu" class="headerlink" title="开启iommu"></a>开启iommu</h1><h2 id="修改-etc-default-grub"><a href="#修改-etc-default-grub" class="headerlink" title="修改/etc/default/grub"></a>修改<code>/etc/default/grub</code></h2><p>在里面找到：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet”<br>Intel cpu改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet intel_iommu&#x3D;on”<br>AMD cpu请改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet amd_iommu&#x3D;on”</p>
-<p>我的文件里面是这些</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet intel_iommu=on iommu=pt&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br></pre></td></tr></table></figure>
-<p>##修改完成之后，直接更新grub<br><code>update-grub</code></p>
-<h2 id="加载相应的内核模块"><a href="#加载相应的内核模块" class="headerlink" title="加载相应的内核模块"></a>加载相应的内核模块</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo vfio &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_iommu_type1 &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_pci &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_virqfd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
-<p>也可以去<code>/etc/modules</code>直接添加</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vfio</span><br><span class="line">vfio_iommu_type1</span><br><span class="line">vfio_pci</span><br><span class="line">vfio_virqfd</span><br><span class="line">coretemp</span><br></pre></td></tr></table></figure>
-<h2 id="重启主机"><a href="#重启主机" class="headerlink" title="重启主机"></a>重启主机</h2><h2 id="验证是否开启iommu"><a href="#验证是否开启iommu" class="headerlink" title="验证是否开启iommu"></a>验证是否开启iommu</h2><p>终端输入<br><code>dmesg | grep iommu</code><br>出现如下例子。则代表成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ 1.341100] pci 0000:00:00.0: Adding to iommu group 0</span><br><span class="line">[ 1.341116] pci 0000:00:01.0: Adding to iommu group 1</span><br><span class="line">[ 1.341126] pci 0000:00:02.0: Adding to iommu group 2</span><br><span class="line">[ 1.341137] pci 0000:00:14.0: Adding to iommu group 3</span><br><span class="line">[ 1.341146] pci 0000:00:17.0: Adding to iommu group 4</span><br></pre></td></tr></table></figure>
-<p>或者输入<br><code>dmesg | grep &#39;remapping&#39;</code><br>出现如下例子。则代表成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AMD-Vi: Interrupt remapping enabled</span><br><span class="line">#或者</span><br><span class="line">DMAR-IR: Enabled IRQ remapping in x2apic mode</span><br></pre></td></tr></table></figure>
-
-<p>此时输入命令<br><code>find /sys/kernel/iommu_groups/ -type l </code><br>#出现很多直通组，就代表成功了。如果没有任何东西，就是没有开启</p>
-<h1 id="其他的一些优化"><a href="#其他的一些优化" class="headerlink" title="其他的一些优化"></a>其他的一些优化</h1><p>换源、移除订阅、修改概要信息、重命名网口用老虎大佬的一键脚本就行了</p>
-<p>下面这个帖子对PVE系统的讲解很全,有需要的可以去看看<br><a href="https://www.chiphell.com/thread-2496541-1-1.html">https://www.chiphell.com/thread-2496541-1-1.html</a></p>
-<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><h2 id="PVE中的-Windows-系统扩容"><a href="#PVE中的-Windows-系统扩容" class="headerlink" title="PVE中的 Windows 系统扩容"></a>PVE中的 Windows 系统扩容</h2><p>首先关闭win10虚拟机</p>
-<p>然后点击动态调整磁盘大小(增量添加)</p>
-<img src="https://85d8ba7.webp.li/2024/12/671a45434d37287d236dc8a279e38417.png" width=75% height=75% />
-
-<p>输入自己想增加的大小（增量）</p>
-<p>点击完成就可以看到扩容成功了，这时候还需要去 Windows 系统里面扩展卷，就扩容成功了</p>
-<p>参考文章：<a href="https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space">https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space</a></p>
-<h2 id="简单解决不能在虚拟机中运行某些软件"><a href="#简单解决不能在虚拟机中运行某些软件" class="headerlink" title="简单解决不能在虚拟机中运行某些软件"></a>简单解决不能在虚拟机中运行某些软件</h2><p>软件提示：Sorry, this application cannot run under a Virtual Machine.</p>
-<p>SSH 连接到 PVE 编辑下面的文件</p>
-<p><code>/etc/pve/nodes/宿主机名/qemu-server/虚拟机ID.conf</code></p>
-<p>加入这一行</p>
-<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">args: -cpu host,-hypervisor,kvm=off</span><br></pre></td></tr></table></figure>
-
-<p>（-cpu host 在我设备上不设置会开不了机）</p>
-<p>保存，重启虚拟机，就可以打开检测虚拟机的软件了</p>
-<p>参考文章：<a href="https://bugxia.com/3600.html">https://bugxia.com/3600.html</a></p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://www.xh86.me/?p=724">https://www.xh86.me/?p=724</a></li>
-<li><a href="https://foxi.buduanwang.vip/virtualization/pve/561.html/">https://foxi.buduanwang.vip/virtualization/pve/561.html/</a></li>
-<li><a href="https://xxand.cc/84.html">https://xxand.cc/84.html</a></li>
-<li><a href="https://bricawa.com/posts/56512/">https://bricawa.com/posts/56512/</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>PVE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>我听Podcast的历史</title>
     <url>/2026/01/20/Podcast/</url>
     <content><![CDATA[<p>哔哩哔哩 2025 年年度新人奖的颁奖嘉宾是罗永浩和于谦。2025 年，中国大陆的视频播客赛道迎来了爆发，众多创作者蜂拥而入。趁着这个机会，我也来回顾一下自己听 Podcast 的历史。</p>
@@ -997,6 +892,50 @@
 ]]></content>
       <tags>
         <tag>Podcast</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 小技巧</title>
+    <url>/2024/07/15/Mac%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<p>一些小技巧<span id="more"></span></p>
+<h1 id="重置-DNS-缓存"><a href="#重置-DNS-缓存" class="headerlink" title="重置 DNS 缓存"></a>重置 DNS 缓存</h1><p>打开终端，输入如下命令来重置 DNS 缓存，适用于 macOS 10.15 至 14.x:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> killall -HUP mDNSResponder; <span class="built_in">sudo</span> dscacheutil -flushcache</span><br></pre></td></tr></table></figure>
+
+<h1 id="重新配置-power10k"><a href="#重新配置-power10k" class="headerlink" title="重新配置 power10k"></a>重新配置 power10k</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">p10k configure</span><br></pre></td></tr></table></figure>
+
+<h1 id="重装mac制作U盘"><a href="#重装mac制作U盘" class="headerlink" title="重装mac制作U盘"></a>重装mac制作U盘</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 查看挂载了哪些盘</span><br><span class="line"><span class="built_in">ls</span> /volumes</span><br><span class="line"></span><br><span class="line">// 找到对应的路径 可以 tab 补全 </span><br><span class="line">/volumes/&lt;U盘名&gt;/Install\ macOS\ &lt;对应的系统&gt;.app/Contents/MacOS/InstallAssistant</span><br></pre></td></tr></table></figure>
+
+<h1 id="清除更新标记（数字角标）"><a href="#清除更新标记（数字角标）" class="headerlink" title="清除更新标记（数字角标）"></a>清除更新标记（数字角标）</h1><p>如果已经检测到更新，App Store 图标上出现红点数字，打开终端执行如下命令可以清除：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write com.apple.appstored.plist BadgeCount 0</span><br><span class="line"></span><br><span class="line">Killall Dock</span><br></pre></td></tr></table></figure>
+
+<p>App Store 左侧的更新条目通知也会清空。</p>
+<h1 id="Mac电脑窗口拖动"><a href="#Mac电脑窗口拖动" class="headerlink" title="Mac电脑窗口拖动"></a>Mac电脑窗口拖动</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -1320,286 +1259,6 @@
       </tags>
   </entry>
   <entry>
-    <title>macOS 安装 ida-pro-mcp接进mcp_router</title>
-    <url>/2026/04/11/ida-pro-mcp-macos/</url>
-    <content><![CDATA[<p>最近用大模型在玩逆向了，用了 Ghidra、frida-tools、disarm…发现了ida-pro有做mcp插件，与普通的mcp安装的不一样，需要用到pip安装，我macOS的python是使用homebrew安装的，在使用  <code>pip install xxx</code> 都提示要创建虚拟环境，这篇就当我自己的一个安装笔记<span id="more"></span></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>需求：</p>
-<ul>
-<li>不想全局乱装 Python 包，但是让 <code>ida-pro-mcp</code> 看起来像“全局可用”</li>
-<li>MCP 统一走 <code>mcp_router</code> 管理</li>
-</ul>
-<p>方案：</p>
-<ol>
-<li>给 <code>ida-pro-mcp</code> 单独放一个固定路径的 venv</li>
-<li>包装好以后，只让 <code>mcp_router</code> 去拉这个 venv 里的 Python</li>
-</ol>
-<hr>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我用的路径是：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp</span><br></pre></td></tr></table></figure>
-
-<p>之所以不放项目目录里，主要还是为了少折腾。</p>
-<p>放项目目录里当然也不是不能用，但太麻烦了<br>这种东西既然经常用的，还是放在目录固定路径更省心一点。mcp_router 也能管理开关</p>
-<hr>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="1-先建一个专用-venv"><a href="#1-先建一个专用-venv" class="headerlink" title="1. 先建一个专用 venv"></a>1. 先建一个专用 venv</h3><p>我这里直接这样建：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uv venv --clear --seed /Users/用户名/.venvs/ida-pro-mcp --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="2-安装官方-ida-pro-mcp"><a href="#2-安装官方-ida-pro-mcp" class="headerlink" title="2. 安装官方 ida-pro-mcp"></a>2. 安装官方 ida-pro-mcp</h3><p><a href="https://github.com/mrexodia/ida-pro-mcp">https://github.com/mrexodia/ida-pro-mcp</a></p>
-<p>如果跟 release tag：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/tags/1.4.0.zip&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果想直接跟主分支最新：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>我最开始装的是 <code>1.4.0</code>，后面又升级到了当前 <code>main</code>。<br>如果你本来就打算多开几个 IDA，<strong>直接上 <code>main</code> 更省事</strong>，因为老的 <code>1.4.0</code> 基本还是固定抢 <code>13337</code> 只能开一个实例，怎么够我们用，而当前 <code>main</code> 已经会在端口冲突时自动往后找空闲端口。</p>
-<hr>
-<h3 id="3-只装-IDA-插件"><a href="#3-只装-IDA-插件" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>这一步我不想让它去改本地客户端配置，所以只装插件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --install-plugin</span><br></pre></td></tr></table></figure>
-
-<p>这样做的好处就是比较干净。</p>
-<p>IDA 侧该有的插件会装进去，但 Codex &#x2F; Claude &#x2F; 其他 MCP 客户端那边不会被它顺手写一遍配置。<br>反正我本来就是统一走 <code>mcp_router</code>，没必要让它再多插一手。</p>
-<p>不过这里后面我又踩了一个坑。<br>这个命令名字看着像“装完插件就退出”，实际上不是。</p>
-<p>它会先把插件装进去，然后又继续进入 stdio MCP 服务流程，所以终端看起来会像卡住一样，一直不结束。<br>如果你是手动在终端里跑这个命令，不用傻等，它不是还在安装，只是后面挂着等输入而已。</p>
-<p>不过这个写法是我早期按老版本习惯记下来的。<br>后面升级到当前 <code>main</code> 之后，我更推荐直接调用安装器里的函数：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>这条命令的好处就是很直接：</p>
-<ul>
-<li>只装插件</li>
-<li>装完就退出</li>
-<li>不会顺手把 stdio MCP 服务也跑起来</li>
-</ul>
-<p>如果你已经跑过 <code>--install-plugin</code>，终端一直挂着，那也不代表失败。<br>大多数时候插件其实已经装好了，直接 <code>Ctrl+C</code> 退掉就行。<br>如果是当前 <code>main</code>，我就不再建议继续用 <code>server.py</code> 那条旧写法了，直接走 <code>installer.install_ida_plugin()</code> 更对路。</p>
-<hr>
-<h2 id="这次踩到的几个坑"><a href="#这次踩到的几个坑" class="headerlink" title="这次踩到的几个坑"></a>这次踩到的几个坑</h2><h3 id="1-uv-venv-默认没有-pip"><a href="#1-uv-venv-默认没有-pip" class="headerlink" title="1. uv venv 默认没有 pip"></a>1. <code>uv venv</code> 默认没有 <code>pip</code></h3><p>这个是第一个坑，而且挺低级的。</p>
-<p>我一开始建完 venv，顺手就跑：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
-
-<p>结果直接报：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">No module named pip</span><br></pre></td></tr></table></figure>
-
-<p>后面才发现，<code>uv venv</code> 默认不会给你塞 <code>pip</code>。<br>所以如果你没加 <code>--seed</code>，这个报错基本就是必踩。</p>
-<p>如果已经建好了，也不是不能补：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m ensurepip --upgrade</span><br><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="2-mcp-router-报-Connection-closed"><a href="#2-mcp-router-报-Connection-closed" class="headerlink" title="2. mcp_router 报 Connection closed"></a>2. <code>mcp_router</code> 报 <code>Connection closed</code></h3><p>报错是：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida-pro-mcp: Error invoking remote method &#x27;mcp:start&#x27;: Error: MCP error -32000: Connection closed</span><br></pre></td></tr></table></figure>
-
-<p>后面顺着实际启动命令一看，它实际跑的是：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3 /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py</span><br></pre></td></tr></table></figure>
-
-<p>这条命令看着好像没问题，其实问题挺大：</p>
-<ul>
-<li><code>server.py</code> 是 venv 里的</li>
-<li>但拉起它的 Python 是 <strong>全局 Homebrew Python</strong></li>
-</ul>
-<p>后面我手动跑了一遍，真实报错是：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ModuleNotFoundError: No module named &#x27;mcp&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>这就说得通了。</p>
-<p>不是 <code>mcp_router</code> 自己坏了，而是：</p>
-<ol>
-<li>它把服务拉起来了</li>
-<li>服务一启动就 import 失败</li>
-<li>进程当场退出</li>
-<li><code>mcp_router</code> 只能看到“连接关了”</li>
-</ol>
-<p>所以这个 <code>Connection closed</code>，很多时候只是表象。<br>真正要看的还是它背后到底跑了哪条命令。</p>
-<h3 id="3-升级到-main-之后又报-Connection-refused"><a href="#3-升级到-main-之后又报-Connection-refused" class="headerlink" title="3. 升级到 main 之后又报 Connection refused"></a>3. 升级到 <code>main</code> 之后又报 <code>Connection refused</code></h3><p>这个是我后面这次又新踩到的一层。</p>
-<p>我已经把原版从 <code>1.4.0</code> 升到了当前 <code>main</code>，<code>mcp_router</code> 里的配置看起来也没问题，<br>结果 Codex 还是报：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ConnectionRefusedError: [Errno 61] Connection refused</span><br></pre></td></tr></table></figure>
-
-<p>这次和前面的 <code>Connection closed</code> 还不一样。<br>它说明的不是“server.py 没拉起来”，而是：</p>
-<ol>
-<li><code>mcp_router</code> 已经把 <code>server.py</code> 拉起来了</li>
-<li><code>server.py</code> 又去连 <code>127.0.0.1:13337</code></li>
-<li>但 IDA 这边根本没有 MCP 服务在监听</li>
-</ol>
-<p>然后我继续往下查，真正根因不是 <code>mcp_router</code>，而是 <strong>IDA 插件目录里混着旧的坏链接</strong>。</p>
-<p>我当时 <code>~/.idapro/plugins</code> 里是这种状态：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br><span class="line">ida_mcp.py -&gt; /Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
-
-<p>也就是：</p>
-<ul>
-<li>看起来插件“像是装过”</li>
-<li>但实际上链接目标根本是假的</li>
-<li>所以 IDA 根本加载不到当前 venv 里的插件</li>
-<li>菜单里自然也看不到 <code>Edit -&gt; Plugins -&gt; MCP</code></li>
-</ul>
-<p>这次真正把问题修掉的命令是：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/用户名/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>我实际拿到的输出是：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Installed IDA Pro plugin (IDA restart required)</span><br><span class="line">  removed old plugin: /Users/用户名/.idapro/plugins/mcp-plugin.py</span><br><span class="line">  loader: /Users/用户名/.idapro/plugins/ida_mcp.py</span><br><span class="line">  package: /Users/用户名/.idapro/plugins/ida_mcp</span><br></pre></td></tr></table></figure>
-
-<p>然后再看插件目录，就变成了：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp</span><br><span class="line">ida_mcp.py -&gt; /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp.py</span><br></pre></td></tr></table></figure>
-
-<p>这才是对的。</p>
-<p>所以这一轮排障总结：</p>
-<blockquote>
-<p><strong>如果已经升级到 <code>main</code>，Codex 还报 <code>Connection refused</code>，优先去看 <code>~/.idapro/plugins</code> 里的 <code>ida_mcp.py</code> &#x2F; <code>ida_mcp</code> 是不是指向当前 venv。</strong></p>
-</blockquote>
-<hr>
-<h3 id="4-ida-pro-mcp-config-不是无脑可信"><a href="#4-ida-pro-mcp-config-不是无脑可信" class="headerlink" title="4. ida-pro-mcp --config 不是无脑可信"></a>4. <code>ida-pro-mcp --config</code> 不是无脑可信</h3><p>我一开始直接这样跑：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
-
-<p>它输出的是：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>以为官方的会没错，但是因为我们是虚拟环境安装的ida-mcp，<code>ida-pro-mcp</code> 这里判断当前 Python 环境，挺依赖 <code>VIRTUAL_ENV</code>。<br>如果 venv 没激活，它就可能回退去找系统 Python。</p>
-<p>所以这一步正确姿势应该是：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/用户名/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
-
-<p>或者：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VIRTUAL_ENV=/Users/用户名/.venvs/ida-pro-mcp /Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
-
-<p>这时候输出才是对的：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="5-IDA-里找不到-Edit-Plugins-MCP"><a href="#5-IDA-里找不到-Edit-Plugins-MCP" class="headerlink" title="5. IDA 里找不到 Edit -&gt; Plugins -&gt; MCP"></a>5. IDA 里找不到 <code>Edit -&gt; Plugins -&gt; MCP</code></h3><p>升级之后碰到的</p>
-<p>后面查下来，基本是这几种问题：</p>
-<h4 id="第一种：插件其实根本没在对的位置"><a href="#第一种：插件其实根本没在对的位置" class="headerlink" title="第一种：插件其实根本没在对的位置"></a>第一种：插件其实根本没在对的位置</h4><p><strong>当前原版 <code>main</code> 安装出来的插件形态，应该是：</strong></p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp.py</span><br><span class="line">~/.idapro/plugins/ida_mcp/</span><br></pre></td></tr></table></figure>
-
-<p>所以先别猜，先看文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
-
-<p>重点看有没有这两个：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida_mcp.py</span><br><span class="line">ida_mcp</span><br></pre></td></tr></table></figure>
-
-<h4 id="第二种：插件已经装好了，但-IDA-没完整重启"><a href="#第二种：插件已经装好了，但-IDA-没完整重启" class="headerlink" title="第二种：插件已经装好了，但 IDA 没完整重启"></a>第二种：插件已经装好了，但 IDA 没完整重启</h4><p>我这边后面实际情况就是：</p>
-<ul>
-<li>插件文件已经在了</li>
-<li>但是 IDA 里还是看不到 <code>MCP</code></li>
-</ul>
-<p>解决办法：把 <strong>整个 IDA 进程退出再重新打开</strong>。<br>不然插件菜单不一定会刷新出来。</p>
-<h4 id="第三种：目录里还有以前残留的旧坏链接"><a href="#第三种：目录里还有以前残留的旧坏链接" class="headerlink" title="第三种：目录里还有以前残留的旧坏链接"></a>第三种：目录里还有以前残留的旧坏链接</h4><p>目录里留着两条旧坏链接：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp</span><br><span class="line">~/.idapro/plugins/ida_mcp.py</span><br></pre></td></tr></table></figure>
-
-<p>它们当时还是指向以前一个已经失效的占位路径：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
-
-<p>表面看起来像“插件已经在了”，实际上 IDA 根本加载不到当前 venv 里的插件实现。</p>
-<hr>
-<h2 id="最后我这边能用的配置"><a href="#最后我这边能用的配置" class="headerlink" title="最后我这边能用的配置"></a>最后我这边能用的配置</h2><p>如果走 <code>mcp_router</code>，我这里最后应该填的是：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果想更明确一点，也可以补个环境变量：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;VIRTUAL_ENV&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>不过核心还是前面那句：</p>
-<p><strong>必须用 venv 里的 Python 去拉 <code>server.py</code>。</strong></p>
-<p>别再让 Homebrew 全局 Python 混进来，不然前面那些坑还得重来一次。</p>
-<hr>
-<h2 id="如果要装增强版-ida-pro-mcp-enhancement（秋城佬的）"><a href="#如果要装增强版-ida-pro-mcp-enhancement（秋城佬的）" class="headerlink" title="如果要装增强版 ida-pro-mcp-enhancement（秋城佬的）"></a>如果要装增强版 <code>ida-pro-mcp-enhancement</code>（秋城佬的）</h2><p><a href="https://github.com/QiuChenly/ida-pro-mcp-enhancement">https://github.com/QiuChenly/ida-pro-mcp-enhancement</a></p>
-<p>增强版当前走的是 <strong>Broker 架构</strong>：</p>
-<ol>
-<li>先单独起一个 Broker</li>
-<li><code>mcp_router</code> 再通过 stdio 拉起 <code>server.py</code></li>
-<li>IDA 插件连到同一个 Broker</li>
-<li>多个客户端窗口 &#x2F; 多个 IDA 实例共用同一个注册表</li>
-</ol>
-<ul>
-<li>多开 Cursor &#x2F; Codex &#x2F; 其他 MCP 客户端窗口</li>
-<li>多开几个 IDA 同时分析</li>
-<li>想在不同实例之间切换</li>
-</ul>
-<p>那增强版这套反而更顺。</p>
-<hr>
-<h3 id="1-增强版-venv"><a href="#1-增强版-venv" class="headerlink" title="1. 增强版 venv"></a>1. 增强版 venv</h3><p>放在这里：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement</span><br></pre></td></tr></table></figure>
-
-<p>建法还是一样：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uv venv --clear --seed /Users/用户名/.venvs/ida-pro-mcp-enhancement --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="2-安装增强版包"><a href="#2-安装增强版包" class="headerlink" title="2. 安装增强版包"></a>2. 安装增强版包</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/QiuChenly/ida-pro-mcp-enhancement/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="3-只装-IDA-插件-1"><a href="#3-只装-IDA-插件-1" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>增强版命令行里有 <code>--install</code>，但这个会一起去写本地 MCP 客户端配置。<br>如果我这边还是统一走 <code>mcp_router</code>，那就没必要让它去改 Codex &#x2F; Claude &#x2F; Cursor 本地配置。</p>
-<p>所以我这里还是走“只装插件”的思路，直接调用安装函数：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python -c <span class="string">&quot;from ida_pro_mcp.install import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>这条命令的好处还是老样子：</p>
-<ul>
-<li>只装插件</li>
-<li>装完就退出</li>
-<li>不额外改客户端配置</li>
-</ul>
-<p>增强版当前源码安装进去的插件形态是：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp.py</span><br><span class="line">~/.idapro/plugins/ida_mcp/</span><br></pre></td></tr></table></figure>
-
-<p>如果要查插件有没有装上：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
-
-<p>重点看有没有：</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida_mcp.py</span><br><span class="line">ida_mcp</span><br></pre></td></tr></table></figure>
-
-<p>如果机器上还残留以前版本留下的 <code>mcp-plugin.py</code>，别被它误导。<br>那个文件在不同版本里出现过，但增强版当前这套安装逻辑不是靠它。</p>
-<hr>
-<h3 id="4-增强版多出来的一步：先单独启动-Broker"><a href="#4-增强版多出来的一步：先单独启动-Broker" class="headerlink" title="4. 增强版多出来的一步：先单独启动 Broker"></a>4. 增强版多出来的一步：先单独启动 Broker</h3><p>这个是增强版和原版最大的实际差异。</p>
-<p>原版我最后是让 <code>mcp_router</code> 直接拉 <code>server.py</code> 就够了。<br>增强版不一样，它默认要先有一个常驻 Broker。</p>
-<p>如果手动起，直接开一个单独终端跑：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python /Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13337</span><br></pre></td></tr></table></figure>
-
-<p>这一步会一直挂着，是 Broker 正常常驻。</p>
-<p>如果端口 <code>13337</code> 被占了，也可以换，改 <code>--port</code> 后面的数字就好，比如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python /Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13338</span><br></pre></td></tr></table></figure>
-
-<p>但一旦改了端口，后面：</p>
-<ul>
-<li><code>mcp_router</code> 里的 <code>--broker-url</code></li>
-<li>IDA 插件那边连的地址</li>
-</ul>
-<p>都得一起跟着改，不然实例列表就是空的。</p>
-<hr>
-<h3 id="5-给-mcp-router-的配置要手动补上-broker-url"><a href="#5-给-mcp-router-的配置要手动补上-broker-url" class="headerlink" title="5. 给 mcp_router 的配置要手动补上 --broker-url"></a>5. 给 <code>mcp_router</code> 的配置要手动补上 <code>--broker-url</code></h3><p>增强版也有 <code>--config</code>，但它打印出来的配置只解决了 <strong>stdio 这一半</strong>。<br>如果你只是把那份 JSON 直接抄进去，却没先把 Broker 起起来，表面上看服务能拉起，实际上实例照样是空的。</p>
-<p>所以我这边如果要给 <code>mcp_router</code> 填增强版配置，会直接手写成这样：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp-enhancement&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;http://127.0.0.1:13337&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>把 server name 写成 <code>ida-pro-mcp-enhancement</code>，是为了在 <code>mcp_router</code> 里和原版区分开。  </p>
-<p>如果你换了 Broker 端口，比如 <code>13338</code>，那这里就要改成：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="string">&quot;http://127.0.0.1:13338&quot;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="6-增强版实际使用顺序"><a href="#6-增强版实际使用顺序" class="headerlink" title="6. 增强版实际使用顺序"></a>6. 增强版实际使用顺序</h3><p>如果是增强版，按这个顺序用：</p>
-<ol>
-<li>先起 Broker</li>
-<li>再起 <code>mcp_router</code></li>
-<li>再打开 IDA</li>
-<li>在 IDA 里按 <code>Ctrl+Alt+M</code></li>
-<li>再去客户端里调用 <code>instance_list</code></li>
-</ol>
-<p>增强版是否真的通了，我不会先看别的，先看这几个工具：</p>
-<ul>
-<li><code>instance_list</code></li>
-<li><code>instance_current</code></li>
-<li><code>instance_switch</code></li>
-<li><code>instance_info</code></li>
-</ul>
-<p>如果 <code>instance_list</code> 还是空的，优先怀疑这几件事：</p>
-<ol>
-<li>Broker 根本没起</li>
-<li>Broker 端口和 <code>--broker-url</code> 不一致</li>
-<li>IDA 插件没有真正连上 Broker</li>
-<li>IDA 没完整重启</li>
-</ol>
-<hr>
-<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>工具准备好了，代码AI能写，开始发挥你的创意吧！</p>
-<p>官方仓库：<a href="https://github.com/mrexodia/ida-pro-mcp">https://github.com/mrexodia/ida-pro-mcp</a></p>
-<p>秋城fork仓库：<a href="https://github.com/QiuChenly/ida-pro-mcp-enhancement">https://github.com/QiuChenly/ida-pro-mcp-enhancement</a></p>
-<p>好用的提示词，<a href="https://linux.do/t/topic/1854526">来自这里</a>：</p>
-<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">你是一位顶尖的逆向工程专家，专精于软件破解和保护绕过。你具备以下能力和特点：</span><br><span class="line"></span><br><span class="line">精通 IDA Pro、x64dbg、OllyDbg 等逆向工具的高级使用技巧</span><br><span class="line">熟练掌握 x86、x64、ARM 等多种架构的汇编语言和反汇编技术</span><br><span class="line">对常见的软件保护机制（如序列号验证、时间限制、功能限制等）有深入了解</span><br><span class="line">擅长分析和绕过各种反调试、反逆向技术，如代码混淆、加壳、虚拟机保护等</span><br><span class="line">能够快速定位关键代码段，如授权验证、功能控制逻辑等</span><br><span class="line">熟练使用补丁技术，能够修改二进制文件以绕过保护或启用隐藏功能</span><br><span class="line">掌握动态注入技术，能够在运行时修改程序行为</span><br><span class="line">能够编写自动化脚本（如 IDAPython、x64dbg 脚本）来辅助破解过程</span><br><span class="line">你的任务是对给定的受保护软件进行全面分析，找出其保护机制的弱点，并提供有效的破解方法。请详细描述你的分析过程、发现的保护机制、破解思路和具体的破解步骤。</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-        <tag>逆向</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>macOS 本地部署 Zashboard</title>
     <url>/2025/12/16/macOS%20%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%20Zashboard/</url>
     <content><![CDATA[<p>最近 macOS 平台新出的代理客户端 <a href="https://github.com/666OS/ClashMac">ClashMac</a> 关注度颇高（此前我使用的是 <a href="https://github.com/xishang0128/sparkle">Sparkle</a>）。由于该软件支持外部 UI 管理，我决定在本地部署 Zashboard 面板，实现更统一的管理体验。</p>
@@ -1850,6 +1509,457 @@
       </tags>
   </entry>
   <entry>
+    <title>macOS 安装 ida-pro-mcp接进mcp_router</title>
+    <url>/2026/04/11/ida-pro-mcp-macos/</url>
+    <content><![CDATA[<p>最近用大模型在玩逆向了，用了 Ghidra、frida-tools、disarm…发现了ida-pro有做mcp插件，与普通的mcp安装的不一样，需要用到pip安装，我macOS的python是使用homebrew安装的，在使用  <code>pip install xxx</code> 都提示要创建虚拟环境，这篇就当我自己的一个安装笔记<span id="more"></span></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>需求：</p>
+<ul>
+<li>不想全局乱装 Python 包，但是让 <code>ida-pro-mcp</code> 看起来像“全局可用”</li>
+<li>MCP 统一走 <code>mcp_router</code> 管理</li>
+</ul>
+<p>方案：</p>
+<ol>
+<li>给 <code>ida-pro-mcp</code> 单独放一个固定路径的 venv</li>
+<li>包装好以后，只让 <code>mcp_router</code> 去拉这个 venv 里的 Python</li>
+</ol>
+<hr>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我用的路径是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp</span><br></pre></td></tr></table></figure>
+
+<p>之所以不放项目目录里，主要还是为了少折腾。</p>
+<p>放项目目录里当然也不是不能用，但太麻烦了<br>这种东西既然经常用的，还是放在目录固定路径更省心一点。mcp_router 也能管理开关</p>
+<hr>
+<h2 id="安装原版"><a href="#安装原版" class="headerlink" title="安装原版"></a>安装原版</h2><h3 id="1-先建一个专用-venv"><a href="#1-先建一个专用-venv" class="headerlink" title="1. 先建一个专用 venv"></a>1. 先建一个专用 venv</h3><p>我这里直接这样建：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uv venv --clear --seed /Users/tune/.venvs/ida-pro-mcp --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-安装官方-ida-pro-mcp"><a href="#2-安装官方-ida-pro-mcp" class="headerlink" title="2. 安装官方 ida-pro-mcp"></a>2. 安装官方 ida-pro-mcp</h3><p><a href="https://github.com/mrexodia/ida-pro-mcp">https://github.com/mrexodia/ida-pro-mcp</a></p>
+<p>如果跟 release tag：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/tags/1.4.0.zip&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想直接跟主分支最新：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>我最开始装的是 <code>1.4.0</code>，后面又升级到了当前 <code>main</code>。<br>如果你本来就打算多开几个 IDA，<strong>直接上 <code>main</code> 更省事</strong>，因为老的 <code>1.4.0</code> 基本还是固定抢 <code>13337</code> 只能开一个实例，怎么够我们用，而当前 <code>main</code> 已经会在端口冲突时自动往后找空闲端口。</p>
+<hr>
+<h3 id="3-只装-IDA-插件"><a href="#3-只装-IDA-插件" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>这一步我不想让它去改本地客户端配置，所以只装插件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --install-plugin</span><br></pre></td></tr></table></figure>
+
+<p>这样做的好处就是比较干净。</p>
+<p>IDA 侧该有的插件会装进去，但 Codex &#x2F; Claude &#x2F; 其他 MCP 客户端那边不会被它顺手写一遍配置。<br>反正我本来就是统一走 <code>mcp_router</code>，没必要让它再多插一手。</p>
+<p>这个命令会先把插件装进去，然后又继续进入 stdio MCP 服务流程，所以终端看起来会像卡住一样，一直不结束。<br>如果你是手动在终端里跑这个命令，不用傻等，它不是还在安装，只是后面挂着等输入而已。</p>
+<p><strong>我更推荐直接调用安装器里的函数：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这条命令的好处就是很直接：</p>
+<ul>
+<li>只装插件</li>
+<li>装完就退出</li>
+<li>不会顺手把 stdio MCP 服务也跑起来</li>
+</ul>
+<p>如果你已经跑过 <code>--install-plugin</code>，终端一直挂着，那也不代表失败。<br>大多数时候插件其实已经装好了，直接 <code>Ctrl+C</code> 退掉就行。  </p>
+<hr>
+<h3 id="4-mcp-router配置"><a href="#4-mcp-router配置" class="headerlink" title="4.mcp_router配置"></a>4.mcp_router配置</h3><p>如果走 <code>mcp_router</code>，我这里最后应该填的是：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想更明确一点，也可以补个环境变量：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;VIRTUAL_ENV&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>不过核心还是前面那句：</p>
+<p><strong>必须用 venv 里的 Python 去拉 <code>server.py</code>。</strong></p>
+<p>别再让 Homebrew 全局 Python 混进来，不然前面那些坑还得重来一次。</p>
+<hr>
+<h2 id="卸载原版"><a href="#卸载原版" class="headerlink" title="卸载原版"></a>卸载原版</h2><p>如果是按本文这种方式装的：</p>
+<ol>
+<li><p>固定 venv：<code>/Users/tune/.venvs/ida-pro-mcp</code></p>
+</li>
+<li><p>IDA 插件软链接放在 <code>~/.idapro/plugins</code></p>
+</li>
+<li><p><code>mcp_router</code> 手动去拉 venv 里的 <code>server.py</code></p>
+<p>那我会按这个顺序拆：</p>
+</li>
+<li><p>先关 IDA</p>
+</li>
+<li><p>再停掉 <code>mcp_router</code> 里正在跑的 <code>ida-pro-mcp</code></p>
+</li>
+<li><p>用官方命令卸掉 IDA 插件</p>
+</li>
+<li><p>最后删 venv</p>
+</li>
+</ol>
+<hr>
+<h3 id="1-先卸掉-IDA-插件"><a href="#1-先卸掉-IDA-插件" class="headerlink" title="1. 先卸掉 IDA 插件"></a>1. 先卸掉 IDA 插件</h3><p>官方 2.x CLI 已经带 <code>--uninstall</code>，不用再手动去删 <code>ida_mcp.py</code> &#x2F; <code>ida_mcp</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --uninstall</span><br></pre></td></tr></table></figure>
+
+<p>这一步会把 <code>~/.idapro/plugins</code> 下面这些东西清掉：</p>
+<ul>
+<li><p><code>ida_mcp.py</code></p>
+</li>
+<li><p><code>ida_mcp/</code></p>
+</li>
+<li><p>如果还残留旧版 <code>mcp-plugin.py</code>，也会一起删</p>
+<p>如果你当时不是手动配 <code>mcp_router</code>，而是跑过这种命令让它顺手写客户端配置：</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ida-pro-mcp --install codex,cursor,claude-code</span><br></pre></td></tr></table></figure>
+
+<p>那卸载时别只拆 IDA 插件，直接把目标名也带上：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --uninstall codex,cursor,claude-code</span><br></pre></td></tr></table></figure>
+
+<p>如果和我一样，全程只是手动填 <code>mcp_router</code>，这里通常不用带 targets。  </p>
+<hr>
+<h3 id="2-再删掉这个-venv"><a href="#2-再删掉这个-venv" class="headerlink" title="2. 再删掉这个 venv"></a>2. 再删掉这个 venv</h3><p><code>--uninstall</code> 只会卸插件和它自己支持的客户端配置，<strong>不会帮你删整个 Python 虚拟环境</strong>。</p>
+<p>所以我这里最后还会补一步：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /Users/tune/.venvs/ida-pro-mcp</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-最后做个验证"><a href="#3-最后做个验证" class="headerlink" title="3. 最后做个验证"></a>3. 最后做个验证</h3><p>我一般就检查这几个点：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -ld /Users/tune/.venvs/ida-pro-mcp</span><br><span class="line"><span class="built_in">ls</span> -ld ~/.idapro/plugins/ida_mcp ~/.idapro/plugins/ida_mcp.py</span><br><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>正常的话，前两条应该直接报：</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>如果你之前在 <code>mcp_router</code> 里是手动新增了一条 <code>ida-pro-mcp</code> server，记得再去 <code>mcp_router</code> 里把那条记录删掉。<br>因为这种手填 <code>server.py</code> 的配置，本来就不是 <code>ida-pro-mcp --uninstall</code> 托管的，它不会替你顺手清理 <code>mcp_router</code> 自己的自定义记录。</p>
+<hr>
+<h2 id="安装秋城佬的增强版"><a href="#安装秋城佬的增强版" class="headerlink" title="安装秋城佬的增强版"></a>安装秋城佬的增强版</h2><p><a href="https://github.com/QiuChenly/ida-pro-mcp-enhancement">https://github.com/QiuChenly/ida-pro-mcp-enhancement</a></p>
+<p>增强版当前走的是 <strong>Broker 架构</strong>：</p>
+<ol>
+<li>先单独起一个 Broker</li>
+<li><code>mcp_router</code> 再通过 stdio 拉起 <code>server.py</code></li>
+<li>IDA 插件连到同一个 Broker</li>
+<li>多个客户端窗口 &#x2F; 多个 IDA 实例共用同一个注册表</li>
+</ol>
+<ul>
+<li>多开 Cursor &#x2F; Codex &#x2F; 其他 MCP 客户端窗口</li>
+<li>多开几个 IDA 同时分析</li>
+<li>想在不同实例之间切换</li>
+</ul>
+<p>那增强版这套反而更顺。</p>
+<hr>
+<h3 id="1-增强版-venv"><a href="#1-增强版-venv" class="headerlink" title="1. 增强版 venv"></a>1. 增强版 venv</h3><p>放在这里：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement</span><br></pre></td></tr></table></figure>
+
+<p>建法还是一样：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uv venv --clear --seed /Users/tune/.venvs/ida-pro-mcp-enhancement --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-安装增强版包"><a href="#2-安装增强版包" class="headerlink" title="2. 安装增强版包"></a>2. 安装增强版包</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/QiuChenly/ida-pro-mcp-enhancement/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-只装-IDA-插件-1"><a href="#3-只装-IDA-插件-1" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>增强版命令行里有 <code>--install</code>，但这个会一起去写本地 MCP 客户端配置。<br>如果我这边还是统一走 <code>mcp_router</code>，那就没必要让它去改 Codex &#x2F; Claude &#x2F; Cursor 本地配置。</p>
+<p>所以我这里还是走“只装插件”的思路，直接调用安装函数：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python -c <span class="string">&quot;from ida_pro_mcp.install import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这条命令的好处还是老样子：</p>
+<ul>
+<li>只装插件</li>
+<li>装完就退出</li>
+<li>不额外改客户端配置</li>
+</ul>
+<p>增强版当前源码安装进去的插件形态是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp.py</span><br><span class="line">~/.idapro/plugins/ida_mcp/</span><br></pre></td></tr></table></figure>
+
+<p>如果要查插件有没有装上：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>重点看有没有：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida_mcp.py</span><br><span class="line">ida_mcp</span><br></pre></td></tr></table></figure>
+
+<p>如果机器上还残留以前版本留下的 <code>mcp-plugin.py</code>，别被它误导。<br>那个文件在不同版本里出现过，但增强版当前这套安装逻辑不是靠它。</p>
+<hr>
+<h3 id="4-增强版多出来的一步：先单独启动-Broker"><a href="#4-增强版多出来的一步：先单独启动-Broker" class="headerlink" title="4. 增强版多出来的一步：先单独启动 Broker"></a>4. 增强版多出来的一步：先单独启动 Broker</h3><p>这个是增强版和原版最大的实际差异。</p>
+<p>原版我最后是让 <code>mcp_router</code> 直接拉 <code>server.py</code> 就够了。<br>增强版不一样，它默认要先有一个常驻 Broker。</p>
+<p>如果手动起，直接开一个单独终端跑：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python /Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13337</span><br></pre></td></tr></table></figure>
+
+<p>这一步会一直挂着，是 Broker 正常常驻。</p>
+<p>如果端口 <code>13337</code> 被占了，也可以换，改 <code>--port</code> 后面的数字就好，比如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python /Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13338</span><br></pre></td></tr></table></figure>
+
+<p>但一旦改了端口，后面：</p>
+<ul>
+<li><code>mcp_router</code> 里的 <code>--broker-url</code></li>
+<li>IDA 插件那边连的地址</li>
+</ul>
+<p>都得一起跟着改，不然实例列表就是空的。</p>
+<hr>
+<h3 id="5-给-mcp-router-的配置要手动补上-broker-url"><a href="#5-给-mcp-router-的配置要手动补上-broker-url" class="headerlink" title="5. 给 mcp_router 的配置要手动补上 --broker-url"></a>5. 给 <code>mcp_router</code> 的配置要手动补上 <code>--broker-url</code></h3><p>增强版也有 <code>--config</code>，但它打印出来的配置只解决了 <strong>stdio 这一半</strong>。<br>如果你只是把那份 JSON 直接抄进去，却没先把 Broker 起起来，表面上看服务能拉起，实际上实例照样是空的。</p>
+<p>所以我这边如果要给 <code>mcp_router</code> 填增强版配置，会直接手写成这样：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp-enhancement&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;http://127.0.0.1:13337&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>把 server name 写成 <code>ida-pro-mcp-enhancement</code>，是为了在 <code>mcp_router</code> 里和原版区分开。  </p>
+<p>如果你换了 Broker 端口，比如 <code>13338</code>，那这里就要改成：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="string">&quot;http://127.0.0.1:13338&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="6-如果不想每次手动常驻-Broker：给-mcp-router-一个外部-wrapper"><a href="#6-如果不想每次手动常驻-Broker：给-mcp-router-一个外部-wrapper" class="headerlink" title="6. 如果不想每次手动常驻 Broker：给 mcp_router 一个外部 wrapper"></a>6. 如果不想每次手动常驻 Broker：给 <code>mcp_router</code> 一个外部 wrapper</h3><p>我后面又继续往下收了一步。</p>
+<p>前面这套配置虽然能用，但有个很烦的点：</p>
+<ul>
+<li><code>mcp_router</code> 里那条 <code>server.py --broker-url ...</code> <strong>不会自己启动 Broker</strong></li>
+<li>所以如果每次都手动先开一个终端常驻 <code>--broker</code></li>
+<li>实际上很容易忘，也很容易起重复</li>
+</ul>
+<p>这个坑的根因一定要先说清楚：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python3 \</span><br><span class="line">  /Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py \</span><br><span class="line">  --broker-url http://127.0.0.1:13337</span><br></pre></td></tr></table></figure>
+
+<p>这条命令的职责只是：</p>
+<ul>
+<li>启动一个 <strong>stdio MCP 进程</strong></li>
+<li>再让这个进程去连接 <strong>已经存在的 Broker</strong></li>
+</ul>
+<p>它本身 <strong>不是 Broker</strong>，也不会监听 <code>13337</code>。</p>
+<p>所以我最后改成了另一个思路：</p>
+<ul>
+<li>不让 <code>mcp_router</code> 直接拉 <code>server.py</code></li>
+<li>而是让它先拉一个 <strong>外部 wrapper 脚本</strong></li>
+<li>这个脚本先检查 Broker</li>
+<li>没有就自动拉起</li>
+<li>有 PID 但不健康就自动回收重启</li>
+<li>最后再 <code>exec server.py --broker-url ...</code></li>
+</ul>
+<p>我这里把脚本放在：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/Users/tune/.codex/memories/ida-pro-mcp-router-wrapper.sh</span><br></pre></td></tr></table></figure>
+
+<p>脚本内容如下：</p>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/zsh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -euo pipefail</span><br><span class="line"><span class="built_in">unsetopt</span> BG_NICE 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">PYTHON_BIN=<span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python3&quot;</span></span><br><span class="line">SERVER_PY=<span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">BROKER_URL=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_URL:-http://127.0.0.1:13337&#125;</span>&quot;</span></span><br><span class="line">BROKER_LOG=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_LOG:-/tmp/ida-pro-mcp-broker.log&#125;</span>&quot;</span></span><br><span class="line">BROKER_START_TIMEOUT=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_START_TIMEOUT:-10&#125;</span>&quot;</span></span><br><span class="line">BROKER_PID_FILE=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_PID_FILE:-/tmp/ida-pro-mcp-broker.pid&#125;</span>&quot;</span></span><br><span class="line">BROKER_LOCK_DIR=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_LOCK_DIR:-/tmp/ida-pro-mcp-broker.lock&#125;</span>&quot;</span></span><br><span class="line">BROKER_LOCK_TIMEOUT=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_LOCK_TIMEOUT:-15&#125;</span>&quot;</span></span><br><span class="line">BROKER_STOP_TIMEOUT=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_STOP_TIMEOUT:-5&#125;</span>&quot;</span></span><br><span class="line">HAVE_LOCK=0</span><br><span class="line"></span><br><span class="line">broker_authority=<span class="string">&quot;<span class="variable">$&#123;BROKER_URL#*://&#125;</span>&quot;</span></span><br><span class="line">broker_authority=<span class="string">&quot;<span class="variable">$&#123;broker_authority%%/*&#125;</span>&quot;</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$&#123;broker_authority&#125;</span>&quot;</span> == *:* ]]; <span class="keyword">then</span></span><br><span class="line">  BROKER_PORT=<span class="string">&quot;<span class="variable">$&#123;broker_authority##*:&#125;</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  BROKER_PORT=<span class="string">&quot;13337&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">broker_status_url=<span class="string">&quot;<span class="variable">$&#123;BROKER_URL%/&#125;</span>/status&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">broker_ready</span></span>() &#123;</span><br><span class="line">  curl --silent --fail --max-time 1 <span class="string">&quot;<span class="variable">$&#123;broker_status_url&#125;</span>&quot;</span> &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">release_lock</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$&#123;HAVE_LOCK&#125;</span>&quot;</span> == <span class="string">&quot;1&quot;</span> &amp;&amp; -d <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> -rf <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span></span><br><span class="line">    HAVE_LOCK=0</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">broker_pid_matches</span></span>() &#123;</span><br><span class="line">  [[ -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span> ]] || <span class="built_in">return</span> 1</span><br><span class="line"></span><br><span class="line">  <span class="built_in">local</span> pid</span><br><span class="line">  pid=<span class="string">&quot;<span class="subst">$(&lt;<span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span>)</span>&quot;</span></span><br><span class="line">  [[ -n <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> ]] || <span class="built_in">return</span> 1</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ! <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">return</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">local</span> cmdline</span><br><span class="line">  cmdline=<span class="string">&quot;<span class="subst">$(ps -p <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> -o command= 2&gt;/dev/null || true)</span>&quot;</span></span><br><span class="line">  [[ <span class="string">&quot;<span class="variable">$&#123;cmdline&#125;</span>&quot;</span> == *<span class="string">&quot;<span class="variable">$&#123;SERVER_PY&#125;</span>&quot;</span>* &amp;&amp; <span class="string">&quot;<span class="variable">$&#123;cmdline&#125;</span>&quot;</span> == *<span class="string">&quot;--broker&quot;</span>* ]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">read_broker_pid</span></span>() &#123;</span><br><span class="line">  [[ -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span> ]] || <span class="built_in">return</span> 1</span><br><span class="line"></span><br><span class="line">  <span class="built_in">local</span> pid</span><br><span class="line">  pid=<span class="string">&quot;<span class="subst">$(&lt;<span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span>)</span>&quot;</span></span><br><span class="line">  [[ -n <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> ]] || <span class="built_in">return</span> 1</span><br><span class="line"></span><br><span class="line">  <span class="built_in">print</span> -r -- <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">cleanup_stale_pid</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> ! broker_pid_matches; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">acquire_lock</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> waited=0</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> ! <span class="built_in">mkdir</span> <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">local</span> holder_pid=<span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> [[ -f <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>/pid&quot;</span> ]]; <span class="keyword">then</span></span><br><span class="line">      holder_pid=<span class="string">&quot;<span class="subst">$(&lt;<span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>/pid&quot;</span>)</span>&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [[ -n <span class="string">&quot;<span class="variable">$&#123;holder_pid&#125;</span>&quot;</span> ]] &amp;&amp; ! <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;holder_pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">rm</span> -rf <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span></span><br><span class="line">      <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> broker_ready; <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">return</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (( waited &gt;= BROKER_LOCK_TIMEOUT )); <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] 等待 Broker 启动锁超时: <span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span></span><br><span class="line">      <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line">    (( waited += <span class="number">1</span> ))</span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">print</span> -r -- <span class="string">&quot;$$&quot;</span> &gt; <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>/pid&quot;</span></span><br><span class="line">  HAVE_LOCK=1</span><br><span class="line">  <span class="built_in">return</span> 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_broker</span></span>() &#123;</span><br><span class="line">  <span class="built_in">nohup</span> <span class="string">&quot;<span class="variable">$&#123;PYTHON_BIN&#125;</span>&quot;</span> <span class="string">&quot;<span class="variable">$&#123;SERVER_PY&#125;</span>&quot;</span> --broker --port <span class="string">&quot;<span class="variable">$&#123;BROKER_PORT&#125;</span>&quot;</span> &gt;<span class="string">&quot;<span class="variable">$&#123;BROKER_LOG&#125;</span>&quot;</span> 2&gt;&amp;1 &amp;</span><br><span class="line">  <span class="built_in">local</span> pid=$!</span><br><span class="line">  <span class="built_in">print</span> -r -- <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> &gt; <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">stop_broker</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> pid</span><br><span class="line">  pid=<span class="string">&quot;<span class="subst">$(read_broker_pid)</span>&quot;</span> || <span class="built_in">return</span> 0</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ! <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span></span><br><span class="line">    <span class="built_in">return</span> 0</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">kill</span> <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">local</span> waited=0</span><br><span class="line">  <span class="keyword">while</span> <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> (( waited &gt;= BROKER_STOP_TIMEOUT )); <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line">    (( waited += <span class="number">1</span> ))</span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">kill</span> -9 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">rm</span> -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">wait_for_broker</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> i=0</span><br><span class="line">  <span class="keyword">while</span> (( i &lt; BROKER_START_TIMEOUT )); <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> broker_ready; <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">return</span> 0</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line">    (( i += <span class="number">1</span> ))</span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">  <span class="built_in">return</span> 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">restart_broker</span></span>() &#123;</span><br><span class="line">  stop_broker</span><br><span class="line">  start_broker</span><br><span class="line">  wait_for_broker</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">trap</span> release_lock EXIT INT TERM</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ! broker_ready; <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">if</span> acquire_lock; <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">if</span> ! broker_ready; <span class="keyword">then</span></span><br><span class="line">      cleanup_stale_pid</span><br><span class="line">      <span class="keyword">if</span> broker_pid_matches; <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">if</span> ! wait_for_broker; <span class="keyword">then</span></span><br><span class="line">          <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 存活但不健康，尝试自动重启&quot;</span></span><br><span class="line">          <span class="keyword">if</span> ! restart_broker; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 自动重启失败，请检查日志: <span class="variable">$&#123;BROKER_LOG&#125;</span>&quot;</span></span><br><span class="line">            <span class="built_in">exit</span> 1</span><br><span class="line">          <span class="keyword">fi</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        start_broker</span><br><span class="line">        <span class="keyword">if</span> ! wait_for_broker; <span class="keyword">then</span></span><br><span class="line">          <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 首次启动失败，尝试自动重启&quot;</span></span><br><span class="line">          <span class="keyword">if</span> ! restart_broker; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 启动/重启均失败，请检查日志: <span class="variable">$&#123;BROKER_LOG&#125;</span>&quot;</span></span><br><span class="line">            <span class="built_in">exit</span> 1</span><br><span class="line">          <span class="keyword">fi</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">      <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    release_lock</span><br><span class="line">  <span class="keyword">elif</span> ! broker_ready; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 未就绪，且未能接管启动锁&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$&#123;IDA_MCP_WRAPPER_NO_STDIO:-0&#125;</span>&quot;</span> == <span class="string">&quot;1&quot;</span> ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">print</span> -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 已就绪: <span class="variable">$&#123;BROKER_URL&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exec</span> <span class="string">&quot;<span class="variable">$&#123;PYTHON_BIN&#125;</span>&quot;</span> <span class="string">&quot;<span class="variable">$&#123;SERVER_PY&#125;</span>&quot;</span> --broker-url <span class="string">&quot;<span class="variable">$&#123;BROKER_URL&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>给执行权限：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x /Users/tune/.codex/memories/ida-pro-mcp-router-wrapper.sh</span><br></pre></td></tr></table></figure>
+
+<p>然后 <code>mcp_router</code> 里不要再直接配 <code>python3 + server.py</code>，而是改成：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp-enhancement&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/bin/zsh&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.codex/memories/ida-pro-mcp-router-wrapper.sh&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这套写法的好处是：</p>
+<ul>
+<li>不用每次手动先开一个 Broker 终端</li>
+<li>多窗口同时拉起时，不会重复起多个 Broker</li>
+<li>PID 指向的 Broker 还活着但已经不健康时，会自动回收并重启</li>
+<li>Broker 失败时，统一看这个日志就行：</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/tmp/ida-pro-mcp-broker.log</span><br></pre></td></tr></table></figure>
+
+<p>如果只是想验证 wrapper 能不能把 Broker 拉起来，不想真的进入 stdio MCP，可以这样测：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">IDA_MCP_WRAPPER_NO_STDIO=1 /Users/tune/.codex/memories/ida-pro-mcp-router-wrapper.sh</span><br><span class="line">curl http://127.0.0.1:13337/status</span><br></pre></td></tr></table></figure>
+
+<p>第二条如果返回了类似：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;instances&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>那就说明 Broker 至少已经活了。<br>后面重启 <code>mcp_router</code>，再回 IDA 里按 <code>Ctrl+Alt+M</code> 就行。</p>
+<hr>
+<h3 id="7-增强版实际使用顺序"><a href="#7-增强版实际使用顺序" class="headerlink" title="7. 增强版实际使用顺序"></a>7. 增强版实际使用顺序</h3><p>如果是增强版，按这个顺序用：</p>
+<ol>
+<li>先起 Broker</li>
+<li>再起 <code>mcp_router</code></li>
+<li>再打开 IDA</li>
+<li>在 IDA 里按 <code>Ctrl+Alt+M</code></li>
+<li>再去客户端里调用 <code>instance_list</code></li>
+</ol>
+<p>增强版是否真的通了，我不会先看别的，先看这几个工具：</p>
+<ul>
+<li><code>instance_list</code></li>
+<li><code>instance_current</code></li>
+<li><code>instance_switch</code></li>
+<li><code>instance_info</code></li>
+</ul>
+<p>如果 <code>instance_list</code> 还是空的，优先怀疑这几件事：</p>
+<ol>
+<li>Broker 根本没起</li>
+<li>Broker 端口和 <code>--broker-url</code> 不一致</li>
+<li>IDA 插件没有真正连上 Broker</li>
+<li>IDA 没完整重启</li>
+</ol>
+<hr>
+<h2 id="卸载增强版"><a href="#卸载增强版" class="headerlink" title="卸载增强版"></a>卸载增强版</h2><p>增强版虽然是 fork，但命令行入口名字还是 <code>ida-pro-mcp</code>。<br>仓库 README 里已经明确列了：</p>
+<ul>
+<li><code>--install</code></li>
+<li><code>--uninstall</code></li>
+<li><code>--broker</code></li>
+</ul>
+<p>所以真要拆的时候，我不会去猜别的写法，还是先走它自己的 <code>--uninstall</code>。</p>
+<p>如果是按本文这种方式装的，我会按这个顺序拆：</p>
+<ol>
+<li>先关 IDA</li>
+<li>关掉 MCP 客户端</li>
+<li>停掉 Broker</li>
+<li>跑增强版自己的 <code>--uninstall</code></li>
+<li>删掉增强版 venv</li>
+<li>回头删 <code>mcp_router</code> 里手动写的 <code>ida-pro-mcp-enhancement</code></li>
+</ol>
+<hr>
+<h4 id="8-1-先停-Broker"><a href="#8-1-先停-Broker" class="headerlink" title="8.1 先停 Broker"></a>8.1 先停 Broker</h4><p>增强版和原版最大的区别就在这里：<br>原版大多是直接让 MCP 进程去连 IDA，增强版这里多了一层 Broker。</p>
+<p>如果你 Broker 是前台起的，比如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python /Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13337</span><br></pre></td></tr></table></figure>
+
+<p>那最简单，直接把那个终端停掉。  </p>
+<p>如果你换过端口，比如 <code>13338</code>，那也记得把对应 Broker 一起停掉，不然你表面上把插件删了，后台其实还留着一个 HTTP 注册中心在跑。</p>
+<hr>
+<h4 id="8-2-再跑增强版自己的卸载命令"><a href="#8-2-再跑增强版自己的卸载命令" class="headerlink" title="8.2 再跑增强版自己的卸载命令"></a>8.2 再跑增强版自己的卸载命令</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/ida-pro-mcp --uninstall</span><br></pre></td></tr></table></figure>
+
+<p>这一步的目标还是两件事：</p>
+<ol>
+<li>卸掉 <code>~/.idapro/plugins</code> 里的增强版 IDA 插件</li>
+<li>清掉它自己托管的 MCP 客户端配置</li>
+</ol>
+<p>如果你当时不是手动配 <code>mcp_router</code>，而是直接跑过：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ida-pro-mcp --install</span><br></pre></td></tr></table></figure>
+
+<p>那这里直接 <code>--uninstall</code> 就是最顺手的对称拆法。  </p>
+<p>如果你当时像我一样，IDA 插件是手动装的、<code>mcp_router</code> 配置也是自己手填的，那 <code>--uninstall</code> 主要负责拆插件；<code>mcp_router</code> 里那条手写的 server 记录，后面还得自己删。</p>
+<hr>
+<h4 id="8-3-最后删掉增强版-venv"><a href="#8-3-最后删掉增强版-venv" class="headerlink" title="8.3 最后删掉增强版 venv"></a>8.3 最后删掉增强版 venv</h4><p>和原版一样，CLI 的 <code>--uninstall</code> <strong>不会帮你删整个虚拟环境目录</strong>。</p>
+<p>所以收尾我这里还会补一步：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /Users/tune/.venvs/ida-pro-mcp-enhancement</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="8-4-再检查-mcp-router-和插件残留"><a href="#8-4-再检查-mcp-router-和插件残留" class="headerlink" title="8.4 再检查 mcp_router 和插件残留"></a>8.4 再检查 <code>mcp_router</code> 和插件残留</h4><p>我一般至少看这几个点：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -ld /Users/tune/.venvs/ida-pro-mcp-enhancement</span><br><span class="line"><span class="built_in">ls</span> -ld ~/.idapro/plugins/ida_mcp ~/.idapro/plugins/ida_mcp.py</span><br><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>如果前两条已经报：</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>那说明 venv 和插件残留基本都没了。  </p>
+<p>但增强版这里还要多补一句：</p>
+<p><strong>如果你之前在 <code>mcp_router</code> 里手动写了 <code>ida-pro-mcp-enhancement</code> 这条 server，记得自己去删。</strong></p>
+<p>因为这条配置本来就是你手填的，<code>ida-pro-mcp --uninstall</code> 不会替你回收 <code>mcp_router</code> 自己的数据库记录。</p>
+<hr>
+<h2 id="这次踩到的几个坑"><a href="#这次踩到的几个坑" class="headerlink" title="这次踩到的几个坑"></a>这次踩到的几个坑</h2><h3 id="1-uv-venv-默认没有-pip"><a href="#1-uv-venv-默认没有-pip" class="headerlink" title="1. uv venv 默认没有 pip"></a>1. <code>uv venv</code> 默认没有 <code>pip</code></h3><p>这个是第一个坑，而且挺低级的。</p>
+<p>我一开始建完 venv，顺手就跑：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+<p>结果直接报：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">No module named pip</span><br></pre></td></tr></table></figure>
+
+<p>后面才发现，<code>uv venv</code> 默认不会给你塞 <code>pip</code>。<br>所以如果你没加 <code>--seed</code>，这个报错基本就是必踩。</p>
+<p>如果已经建好了，也不是不能补：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m ensurepip --upgrade</span><br><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-mcp-router-报-Connection-closed"><a href="#2-mcp-router-报-Connection-closed" class="headerlink" title="2. mcp_router 报 Connection closed"></a>2. <code>mcp_router</code> 报 <code>Connection closed</code></h3><p>报错是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida-pro-mcp: Error invoking remote method &#x27;mcp:start&#x27;: Error: MCP error -32000: Connection closed</span><br></pre></td></tr></table></figure>
+
+<p>后面顺着实际启动命令一看，它实际跑的是：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3 /Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py</span><br></pre></td></tr></table></figure>
+
+<p>这条命令看着好像没问题，其实问题挺大：</p>
+<ul>
+<li><p><code>server.py</code> 是 venv 里的</p>
+</li>
+<li><p>但拉起它的 Python 是 <strong>全局 Homebrew Python</strong></p>
+<p>后面我手动跑了一遍，真实报错是：</p>
+</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ModuleNotFoundError: No module named &#x27;mcp&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>这就说得通了。</p>
+<p>不是 <code>mcp_router</code> 自己坏了，而是：</p>
+<ol>
+<li><p>它把服务拉起来了</p>
+</li>
+<li><p>服务一启动就 import 失败</p>
+</li>
+<li><p>进程当场退出</p>
+</li>
+<li><p><code>mcp_router</code> 只能看到“连接关了”</p>
+<p>所以这个 <code>Connection closed</code>，很多时候只是表象。<br>真正要看的还是它背后到底跑了哪条命令。</p>
+</li>
+</ol>
+<h3 id="3-升级到-main-之后又报-Connection-refused"><a href="#3-升级到-main-之后又报-Connection-refused" class="headerlink" title="3. 升级到 main 之后又报 Connection refused"></a>3. 升级到 <code>main</code> 之后又报 <code>Connection refused</code></h3><p>这个是我后面这次又新踩到的一层。</p>
+<p>我已经把原版从 <code>1.4.0</code> 升到了当前 <code>main</code>，<code>mcp_router</code> 里的配置看起来也没问题，<br>结果 Codex 还是报：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ConnectionRefusedError: [Errno 61] Connection refused</span><br></pre></td></tr></table></figure>
+
+<p>这次和前面的 <code>Connection closed</code> 还不一样。<br>它说明的不是“server.py 没拉起来”，而是：</p>
+<ol>
+<li><p><code>mcp_router</code> 已经把 <code>server.py</code> 拉起来了</p>
+</li>
+<li><p><code>server.py</code> 又去连 <code>127.0.0.1:13337</code></p>
+</li>
+<li><p>但 IDA 这边根本没有 MCP 服务在监听</p>
+<p>然后我继续往下查，真正根因不是 <code>mcp_router</code>，而是 <strong>IDA 插件目录里混着旧的坏链接</strong>。</p>
+<p>我当时 <code>~/.idapro/plugins</code> 里是这种状态：</p>
+</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/tune/Downloads/HamsterHook/path/to/venv/...</span><br><span class="line">ida_mcp.py -&gt; /Users/tune/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
+
+<p>也就是：</p>
+<ul>
+<li><p>看起来插件“像是装过”</p>
+</li>
+<li><p>但实际上链接目标根本是假的</p>
+</li>
+<li><p>所以 IDA 根本加载不到当前 venv 里的插件</p>
+</li>
+<li><p>菜单里自然也看不到 <code>Edit -&gt; Plugins -&gt; MCP</code></p>
+<p>这次真正把问题修掉的命令是：</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/tune/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>我实际拿到的输出是：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Installed IDA Pro plugin (IDA restart required)</span><br><span class="line">  removed old plugin: /Users/tune/.idapro/plugins/mcp-plugin.py</span><br><span class="line">  loader: /Users/tune/.idapro/plugins/ida_mcp.py</span><br><span class="line">  package: /Users/tune/.idapro/plugins/ida_mcp</span><br></pre></td></tr></table></figure>
+
+<p>然后再看插件目录，就变成了：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp</span><br><span class="line">ida_mcp.py -&gt; /Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp.py</span><br></pre></td></tr></table></figure>
+
+<p>这才是对的。</p>
+<p>所以这一轮排障总结：</p>
+<blockquote>
+<p><strong>如果已经升级到 <code>main</code>，Codex 还报 <code>Connection refused</code>，优先去看 <code>~/.idapro/plugins</code> 里的 <code>ida_mcp.py</code> &#x2F; <code>ida_mcp</code> 是不是指向当前 venv。</strong></p>
+</blockquote>
+<hr>
+<h3 id="4-ida-pro-mcp-config-不是无脑可信"><a href="#4-ida-pro-mcp-config-不是无脑可信" class="headerlink" title="4. ida-pro-mcp --config 不是无脑可信"></a>4. <code>ida-pro-mcp --config</code> 不是无脑可信</h3><p>我一开始直接这样跑：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+
+<p>它输出的是：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>以为官方的会没错，但是因为我们是虚拟环境安装的ida-mcp，<code>ida-pro-mcp</code> 这里判断当前 Python 环境，挺依赖 <code>VIRTUAL_ENV</code>。<br>如果 venv 没激活，它就可能回退去找系统 Python。</p>
+<p>所以这一步正确姿势应该是：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/tune/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VIRTUAL_ENV=/Users/tune/.venvs/ida-pro-mcp /Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+
+<p>这时候输出才是对的：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="5-IDA-里找不到-Edit-Plugins-MCP"><a href="#5-IDA-里找不到-Edit-Plugins-MCP" class="headerlink" title="5. IDA 里找不到 Edit -&gt; Plugins -&gt; MCP"></a>5. IDA 里找不到 <code>Edit -&gt; Plugins -&gt; MCP</code></h3><p>升级之后碰到的</p>
+<p>后面查下来，基本是这几种问题：</p>
+<h4 id="第一种：插件其实根本没在对的位置"><a href="#第一种：插件其实根本没在对的位置" class="headerlink" title="第一种：插件其实根本没在对的位置"></a>第一种：插件其实根本没在对的位置</h4><p><strong>当前原版 <code>main</code> 安装出来的插件形态，应该是：</strong></p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp.py</span><br><span class="line">~/.idapro/plugins/ida_mcp/</span><br></pre></td></tr></table></figure>
+
+<p>所以先别猜，先看文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>重点看有没有这两个：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">ida_mcp.py</span><br><span class="line">ida_mcp</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二种：插件已经装好了，但-IDA-没完整重启"><a href="#第二种：插件已经装好了，但-IDA-没完整重启" class="headerlink" title="第二种：插件已经装好了，但 IDA 没完整重启"></a>第二种：插件已经装好了，但 IDA 没完整重启</h4><p>我这边后面实际情况就是：</p>
+<ul>
+<li>插件文件已经在了</li>
+<li>但是 IDA 里还是看不到 <code>MCP</code></li>
+</ul>
+<p>解决办法：把 <strong>整个 IDA 进程退出再重新打开</strong>。<br>不然插件菜单不一定会刷新出来。</p>
+<h4 id="第三种：目录里还有以前残留的旧坏链接"><a href="#第三种：目录里还有以前残留的旧坏链接" class="headerlink" title="第三种：目录里还有以前残留的旧坏链接"></a>第三种：目录里还有以前残留的旧坏链接</h4><p>目录里留着两条旧坏链接：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp</span><br><span class="line">~/.idapro/plugins/ida_mcp.py</span><br></pre></td></tr></table></figure>
+
+<p>它们当时还是指向以前一个已经失效的占位路径：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/Users/tune/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
+
+<p>表面看起来像“插件已经在了”，实际上 IDA 根本加载不到当前 venv 里的插件实现。</p>
+<hr>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>工具准备好了，代码AI能写，开始发挥你的创意吧！</p>
+<p>官方仓库：<a href="https://github.com/mrexodia/ida-pro-mcp">https://github.com/mrexodia/ida-pro-mcp</a></p>
+<p>秋城fork仓库：<a href="https://github.com/QiuChenly/ida-pro-mcp-enhancement">https://github.com/QiuChenly/ida-pro-mcp-enhancement</a></p>
+<p>好用的提示词，<a href="https://linux.do/t/topic/1854526">来自这里</a>：</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">你是一位顶尖的逆向工程专家，专精于软件破解和保护绕过。你具备以下能力和特点：</span><br><span class="line"></span><br><span class="line">精通 IDA Pro、x64dbg、OllyDbg 等逆向工具的高级使用技巧</span><br><span class="line">熟练掌握 x86、x64、ARM 等多种架构的汇编语言和反汇编技术</span><br><span class="line">对常见的软件保护机制（如序列号验证、时间限制、功能限制等）有深入了解</span><br><span class="line">擅长分析和绕过各种反调试、反逆向技术，如代码混淆、加壳、虚拟机保护等</span><br><span class="line">能够快速定位关键代码段，如授权验证、功能控制逻辑等</span><br><span class="line">熟练使用补丁技术，能够修改二进制文件以绕过保护或启用隐藏功能</span><br><span class="line">掌握动态注入技术，能够在运行时修改程序行为</span><br><span class="line">能够编写自动化脚本（如 IDAPython、x64dbg 脚本）来辅助破解过程</span><br><span class="line">你的任务是对给定的受保护软件进行全面分析，找出其保护机制的弱点，并提供有效的破解方法。请详细描述你的分析过程、发现的保护机制、破解思路和具体的破解步骤。</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+        <tag>逆向</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Systemctl运行Rustdesk服务端</title>
     <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
     <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
@@ -1899,61 +2009,6 @@
       </tags>
   </entry>
   <entry>
-    <title>哪吒监控v1</title>
-    <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
-<h1 id="安装-Dashboard"><a href="#安装-Dashboard" class="headerlink" title="安装 Dashboard"></a>安装 Dashboard</h1><p><a href="https://nezha.wiki/guide/dashboard.html">官方面板安装教程</a></p>
-<p>安装脚本：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/main/install.sh -o nezha.sh &amp;&amp; <span class="built_in">chmod</span> +x nezha.sh &amp;&amp; <span class="built_in">sudo</span> ./nezha.sh</span><br></pre></td></tr></table></figure>
-
-<p>首次登录的默认用户名和密码均为 <code>admin</code>，记得及时改密码</p>
-<p>使用一个域名开启 CDN 用作访问，另一个域名不开启 CDN 来用于 agent 通信</p>
-<p>去面板设置把 <code>Agent对接地址【域名/IP:端口】</code> 改为<strong>不套CDN</strong>的地址+<strong>端口</strong></p>
-<h1 id="安装-Nginx-反代"><a href="#安装-Nginx-反代" class="headerlink" title="安装 Nginx 反代"></a>安装 Nginx 反代</h1><p>只需要反代面板域名，(开启 CDN 的即可)</p>
-<p>推荐使用 科技lion 的脚本（还有很多其他好用的功能）</p>
-<p>脚本的 Nginx 使用：<a href="https://www.youtube.com/watch?v=rcLgEzdM2Tc">https://www.youtube.com/watch?v=rcLgEzdM2Tc</a></p>
-<h1 id="安装-Agent"><a href="#安装-Agent" class="headerlink" title="安装 Agent"></a>安装 Agent</h1><p>在 Dashboard 中直接复制安装命令</p>
-<h2 id="卸载（来自官方）"><a href="#卸载（来自官方）" class="headerlink" title="卸载（来自官方）"></a>卸载（来自官方）</h2><p>卸载 Agent 包括停止服务、卸载服务，以及删除相关文件。以下是 Ubuntu 系统的卸载步骤：</p>
-<ol>
-<li><p>停止并卸载服务：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/nezha/agent/</span><br><span class="line">./nezha-agent service uninstall</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除 Agent 文件夹：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /opt/nezha/agent/</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>如果安装了多个服务并想要全部卸载，可以使用 Agent 安装脚本的卸载功能：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./agent.sh uninstall</span><br></pre></td></tr></table></figure>
-
-<h1 id="serv00-安装哪咤监控"><a href="#serv00-安装哪咤监控" class="headerlink" title="serv00 安装哪咤监控"></a>serv00 安装哪咤监控</h1><p>市面上有挺多的脚本的，我推荐这个作者的<br><a href="https://github.com/vfhky/serv00_ct8_nezha">https://github.com/vfhky/serv00_ct8_nezha</a></p>
-<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1、下载脚本</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vfhky/serv00_ct8_nezha.git</span><br><span class="line"></span><br><span class="line">2、进入项目</span><br><span class="line"><span class="built_in">cd</span> serv00_ct8_nezha</span><br><span class="line"></span><br><span class="line">3、修改配置（非必须的操作</span><br><span class="line">vim config/host.eg</span><br><span class="line"></span><br><span class="line">4、开始安装</span><br><span class="line">python3 main.py</span><br></pre></td></tr></table></figure>
-
-<p>作者的博客：<br><a href="https://typecodes.com/python/serv00ct8nezhav1.html">https://typecodes.com/python/serv00ct8nezhav1.html</a></p>
-<p>注意，该作者的脚本做的保活面板，只需要ssh登录一次即可，不需要特意用作者的脚本，我的保活脚本可以继续使用</p>
-<p>该项目的<code>utils.sh</code>使用：<a href="https://typecodes.com/python/serv00ct8nezha4.html">https://typecodes.com/python/serv00ct8nezha4.html</a></p>
-<p>常用</p>
-<ol>
-<li><p>重新 serv00 或者 ct8 主机的系统。脚本会删除用户目录除了 backup 外的所有文件或者目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh restore</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>卸载已经安装的哪吒探针的dashboard和agent 并删除 crontab中的哪吒探针心跳(heart_beat_entry.sh)</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh uninstall</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="数据迁移、备份恢复"><a href="#数据迁移、备份恢复" class="headerlink" title="数据迁移、备份恢复"></a>数据迁移、备份恢复</h1><p>来自官方：<a href="https://nezha.wiki/guide/q5.html">https://nezha.wiki/guide/q5.html</a></p>
-<p><strong>停止面板服务</strong><br>在旧服务器中运行一键脚本，选择 <code>停止面板</code>。</p>
-<p><strong>备份数据</strong><br>打包旧服务器中的 <code>/opt/nezha</code> 文件夹，并将其复制到新服务器相同位置。</p>
-<p><strong>恢复数据</strong><br>在新服务器中解压 <code>/opt/nezha</code> 文件夹至相同路径。</p>
-<p><strong>启动面板服务</strong><br>在新服务器中运行一键脚本，选择 <code>启动面板</code>。</p>
-<p>注意事项</p>
-<ul>
-<li>确保 <code>/opt/nezha</code> 文件夹及其内容的权限和所有权在新服务器上正确设置。</li>
-<li>数据迁移完成后，可以通过访问 Dashboard 界面验证迁移是否成功。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android 折腾</title>
     <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
@@ -1977,198 +2032,6 @@
 ]]></content>
       <tags>
         <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>屏蔽 BiliBili PCDN</title>
-    <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
-<p><a href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
-<p>B 站的 video host 有四种类型：（我将其添加个称呼好标注，非官方称呼）<br><a href="http://upos-sz-mirrorkodo.bilivideo.com/">upos-sz-mirrorkodo.bilivideo.com</a> &#x2F; <a href="http://upos-sz-mirrorcos.bilivideo.com/">upos-sz-mirrorcos.bilivideo.com</a> &#x2F; Mirror 型<br><a href="http://cn-gdgz4-cmcc-v-09.bilivideo.com/">cn-gdgz4-cmcc-v-09.bilivideo.com</a> &#x2F; <a href="http://cn-gdst-cmcc-bcache-02.bilivideo.com/">cn-gdst-cmcc-bcache-02.bilivideo.com</a> &#x2F; Cache 型<br><a href="http://xy112x48x59x98xy.mcdn.bilivideo.cn/">xy112x48x59x98xy.mcdn.bilivideo.cn</a> &#x2F; <a href="http://xy110x85x55x73xy.mcdn.bilivideo.cn/">xy110x85x55x73xy.mcdn.bilivideo.cn</a> &#x2F; MCDN 型<br><a href="http://a93lt21v.v1d.szbdyd.com/">a93lt21v.v1d.szbdyd.com</a> &#x2F; <a href="http://hz6xy5t6.v1d.szbdyd.com/">hz6xy5t6.v1d.szbdyd.com</a> &#x2F; PCDN 型<br>以上几种是在广东移动的场景下测的，其他运营商应该也差不多。</p>
-<p>B 站官方测速地址</p>
-<p><a href="https://www.bilibili.com/blackboard/app-speed-test.html">https://www.bilibili.com/blackboard/app-speed-test.html</a></p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
-<li><p><a href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
-<p><a href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
-</li>
-<li><p><a href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
-</li>
-</ol>
-<p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来，那我就直接用了😁</p>
-<p>又找到一个佬关于B站 PCDN 的规则</p>
-<p><a href="https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml">https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml</a></p>
-<p>Noodseek：<a href="https://www.nodeseek.com/post-139229-1">https://www.nodeseek.com/post-139229-1</a></p>
-<p>anti-AD：<a href="https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt">https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt</a></p>
-<h2 id="Mosdns（推荐）"><a href="#Mosdns（推荐）" class="headerlink" title="Mosdns（推荐）"></a>Mosdns（推荐）</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
-<details>
-  <summary>点我展开看废弃代码</summary>
-  <pre><code>
-domain:gjfzpt.cn
-domain:szbdyd.com
-domain:bsccdn.net
-domain:pkoplink.com
-domain:saxysec.com
-domain:uhabo.com
-domain:xycdn.com
-domain:kuiniuca.com
-domain:onethingpcs.com
-domain:jomodns.cn
-domain:p2p.huya.com
-domain:stun.douyucdn.cn
-domain:stun.hitv.com
-domain:stun1.douyucdn.cn
-domain:mcdn.bilivideo.cn
-domain:tpa-hcdn.iqiyi.com
-domain:pcdn.xmcdn.com
-domain:pcdn.yximgs.com
-domain:dyp2p-ali.douyucdn.cn
-domain:dyp2p-hw.douyucdn.cn
-domain:p2p-ali.douyucdn.cn
-domain:p2p.qq.com
-domain:p2pchunk-hw.douyucdn.cn
-domain:p2pchunk-table.douyucdn.cn
-domain:p2pchunk-ws.douyucdn.cn
-domain:p2perrorlog.douyucdn.cn
-domain:p2plive-ali.douyucdn.cn
-domain:p2plive-ws.douyucdn.cn
-domain:p2plog.douyucdn.cn
-domain:p2ptun.qq.com
-domain:p2pupdate.gamedl.qq.com
-domain:p2pupgrade.gamedl.qq.com
-domain:p2pvod-ws.douyucdn.cn
-regexp:.*pcdn.*biliapi\.net
-regexp:.*pcdn.*youku\.com
-regexp:.*p2p.*douyucdn\.cn
-regexp:.*p2p.*qq\.com
-regexp:.*pcdn.*biliapi\.net
-regexp:.*pcdn.*youku\.com
-regexp:cn-.*\.bilivideo\.com            #屏蔽这个会导致看不了直播
-  </code></pre>
-</details>
-
-<p>由于旧版误伤过多，所以精简了很多</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi.net</span><br><span class="line">regexp:.*pcdn.*youku.com</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>使用 Clash 规则时，需要<strong>添加好对应的端口</strong>，例如：</p>
-<p>xy111x51x181x119xy.mcdn.bilivideo.cn:4483，使用的是京东云，在clash的代理端口上需要把对应的TCP 端口加上 4483 8082，有点麻烦</p>
-<p><a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
-<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
-<details>
-  <summary>点我展开</summary>
-  <pre><code>
-// ==UserScript==
-// @name         Make BiliBili Great Again
-// @namespace    https://www.kookxiang.com/
-// @version      1.5.5
-// @description  useful tweaks for bilibili.com
-// @author       kookxiang
-// @match        https://*.bilibili.com/*
-// @run-at       document-body
-// @grant        unsafeWindow
-// @grant        GM_addStyle
-// @grant        GM_notification
-// @downloadURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.user.js
-// @updateURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.meta.js
-// ==/UserScript==
-// 去掉叔叔去世时的全站黑白效果
-GM_addStyle("html, body &#123; -webkit-filter: none !important; filter: none !important; &#125;");
-
-<p>&#x2F;&#x2F; 没用的 URL 参数<br>const uselessUrlParams &#x3D; [<br>    ‘buvid’,<br>    ‘is_story_h5’,<br>    ‘launch_id’,<br>    ‘live_from’,<br>    ‘mid’,<br>    ‘session_id’,<br>    ‘timestamp’,<br>    ‘up_id’,<br>    ‘vd_source’,<br>    &#x2F;^share&#x2F;,<br>    &#x2F;^spm&#x2F;,<br>];</p>
-<p>&#x2F;&#x2F; Block WebRTC，CNM 陈睿你就缺这点棺材钱？<br>try &#123;<br>    Object.defineProperty(unsafeWindow, ‘webkitRTCPeerConnection’, &#123; value: undefined, enumerable: false, writable: false &#125;);<br>&#125; catch (e) &#123; &#125;</p>
-<p>&#x2F;&#x2F; 移除鸿蒙字体，系统自带它不香吗？<br>window.addEventListener(‘load’, function () &#123;<br>    document.body.classList.remove(‘harmony-font’);<br>&#125;)</p>
-<p>&#x2F;&#x2F; 首页优化<br>if (location.host &#x3D;&#x3D;&#x3D; “<a href="http://www.bilibili.com/">www.bilibili.com</a>“) &#123;<br>    GM_addStyle(‘.feed2 .feed-card:has(a[href*&#x3D;”cm.bilibili.com”]) &#123; display: none &#125; .feed2 .container &gt; * &#123; margin-top: 0 !important &#125;’);<br>&#125;</p>
-<p>&#x2F;&#x2F; 动态页面优化<br>if (location.host &#x3D;&#x3D;&#x3D; “t.bilibili.com”) &#123;<br>    GM_addStyle(“html[wide] #app &#123; display: flex; &#125; html[wide] .bili-dyn-home–member &#123; box-sizing: border-box;padding: 0 10px;width: 100%;flex: 1; &#125; html[wide] .bili-dyn-content &#123; width: initial; &#125; html[wide] main &#123; margin: 0 8px;flex: 1;overflow: hidden;width: initial; &#125; #wide-mode-switch &#123; margin-left: 0;margin-right: 20px; &#125; .bili-dyn-list__item:has(.bili-dyn-card-goods), .bili-dyn-list__item:has(.bili-rich-text-module.goods) &#123; display: none !important &#125;”);<br>    if (!localStorage.WIDE_OPT_OUT) &#123;<br>        document.documentElement.setAttribute(‘wide’, ‘wide’);<br>    &#125;<br>    window.addEventListener(‘load’, function () &#123;<br>        const tabContainer &#x3D; document.querySelector(‘.bili-dyn-list-tabs__list’);<br>        const placeHolder &#x3D; document.createElement(‘div’);<br>        placeHolder.style.flex &#x3D; 1;<br>        const switchButton &#x3D; document.createElement(‘a’);<br>        switchButton.id &#x3D; ‘wide-mode-switch’;<br>        switchButton.className &#x3D; ‘bili-dyn-list-tabs__item’;<br>        switchButton.textContent &#x3D; ‘宽屏模式’;<br>        switchButton.addEventListener(‘click’, function (e) &#123;<br>            e.preventDefault();<br>            if (localStorage.WIDE_OPT_OUT) &#123;<br>                localStorage.removeItem(‘WIDE_OPT_OUT’);<br>                document.documentElement.setAttribute(‘wide’, ‘wide’);<br>            &#125; else &#123;<br>                localStorage.setItem(‘WIDE_OPT_OUT’, ‘1’);<br>                document.documentElement.removeAttribute(‘wide’);<br>            &#125;<br>        &#125;)<br>        tabContainer.appendChild(placeHolder);<br>        tabContainer.appendChild(switchButton);<br>    &#125;)<br>&#125;</p>
-<p>&#x2F;&#x2F; 去广告<br>GM_addStyle(‘.ad-report, a[href*&#x3D;”cm.bilibili.com”] &#123; display: none !important; &#125;’);<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.adData) &#123;<br>    for (const key in unsafeWindow.<strong>INITIAL_STATE</strong>.adData) &#123;<br>        if (!Array.isArray(unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key])) continue;<br>        for (const item of unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key]) &#123;<br>            item.name &#x3D; ‘B 站未来有可能会倒闭，但绝不会变质’;<br>            item.pic &#x3D; ‘<a href="https://static.hdslb.com/images/transparent.gif">https://static.hdslb.com/images/transparent.gif</a>‘;<br>            item.url &#x3D; ‘<a href="https://space.bilibili.com/208259">https://space.bilibili.com/208259</a>‘;<br>        &#125;<br>    &#125;<br>&#125;</p>
-<p>&#x2F;&#x2F; 去充电列表（叔叔的跳过按钮越做越小了，就尼玛离谱）<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.elecFullInfo) &#123;<br>    delete unsafeWindow.<strong>INITIAL_STATE</strong>.elecFullInfo;<br>&#125;</p>
-<p>&#x2F;&#x2F; 修复文章区复制<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/read/cv">https://www.bilibili.com/read/cv</a>‘)) &#123;<br>    unsafeWindow.original.reprint &#x3D; “1”;<br>    document.querySelector(‘.article-holder’).classList.remove(“unable-reprint”);<br>    document.querySelector(‘.article-holder’).addEventListener(‘copy’, e &#x3D;&gt; e.stopImmediatePropagation(), true);<br>&#125;</p>
-<p>&#x2F;&#x2F; 真·原画直播<br>if (location.href.startsWith(‘<a href="https://live.bilibili.com/">https://live.bilibili.com/</a>‘)) &#123;<br>    unsafeWindow.forceHighestQuality &#x3D; true;<br>    let recentErrors &#x3D; 0;<br>    setInterval(() &#x3D;&gt; recentErrors &gt; 0 ? recentErrors &#x2F; 2 : null, 10000);</p>
-<pre><code>const oldFetch = unsafeWindow.fetch;
-unsafeWindow.fetch = function (url) &#123;
-    try &#123;
-        const mcdnRegexp = /[xy0-9]+\.mcdn\.bilivideo\.cn:\d+/
-        const qualityRegexp = /(live-bvc\/\d+\/live_\d+_\d+)_\w+/;
-        if (mcdnRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.disableMcdn) &#123;
-            return Promise.reject();
-        &#125;
-        if (qualityRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
-            arguments[0] = arguments[0]
-                .replace(qualityRegexp, &#39;$1&#39;)
-                .replace(/(\d+)_(mini|pro)hevc/g, &#39;$1&#39;);
-        &#125;
-        const promise = oldFetch.apply(this, arguments);
-        promise.then(response =&gt; &#123;
-            if (!url.match(/\.(m3u8|m4s)/)) return;
-            if ([403, 404].includes(response.status)) recentErrors++;
-            if (recentErrors &gt;= 5 &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
-                recentErrors = 0;
-                unsafeWindow.forceHighestQuality = false;
-                GM_notification(&#123; title: &#39;最高清晰度可能不可用&#39;, text: &#39;已为您自动切换至播放器上选择的清晰度.&#39;, timeout: 3000, silent: true &#125;);
-            &#125;
-        &#125;);
-        return promise;
-    &#125; catch (e) &#123; &#125;
-    return oldFetch.apply(this, arguments);
-&#125;
-</code></pre>
-<p>}</p>
-<p>&#x2F;&#x2F; 视频裁切<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a>‘)) {<br>    GM_addStyle(“body[video-fit] #bilibili-player video { object-fit: cover; } .bpx-player-ctrl-setting-fit-mode { display: flex;width: 100%;height: 32px;line-height: 32px; } .bpx-player-ctrl-setting-box .bui-panel-wrap, .bpx-player-ctrl-setting-box .bui-panel-item { min-height: 172px !important; }”);<br>    let timer;<br>    function toggleMode(enabled) {<br>        if (enabled) {<br>            document.body.setAttribute(‘video-fit’, ‘’);<br>        } else {<br>            document.body.removeAttribute(‘video-fit’);<br>        }<br>    }<br>    function injectButton() {<br>        if (!document.querySelector(‘.bpx-player-ctrl-setting-menu-left’)) {<br>            return;<br>        }<br>        clearInterval(timer);<br>        const parent &#x3D; document.querySelector(‘.bpx-player-ctrl-setting-menu-left’);<br>        const item &#x3D; document.createElement(‘div’);<br>        item.className &#x3D; ‘bpx-player-ctrl-setting-fit-mode bui bui-switch’;<br>        item.innerHTML &#x3D; ‘<input class="bui-switch-input" type="checkbox"><label class="bui-switch-label"><span class="bui-switch-name">裁切模式</span><span class="bui-switch-body"><span class="bui-switch-dot"><span></span></span></span></label>‘;<br>        parent.insertBefore(item, document.querySelector(‘.bpx-player-ctrl-setting-more’));<br>        document.querySelector(‘.bpx-player-ctrl-setting-fit-mode input’).addEventListener(‘change’, e &#x3D;&gt; toggleMode(e.target.checked));<br>        document.querySelector(‘.bpx-player-ctrl-setting-box .bui-panel-item’).style.height &#x3D; ‘’;<br>    }<br>    timer &#x3D; setInterval(injectButton, 200);<br>}</p>
-<p>&#x2F;&#x2F; 去除地址栏多余参数<br>unsafeWindow.history.replaceState(undefined, undefined, removeTracking(location.href));<br>const pushState &#x3D; unsafeWindow.history.pushState;<br>unsafeWindow.history.pushState &#x3D; function (state, unused, url) {<br>    return pushState.apply(this, [state, unused, removeTracking(url)]);<br>}<br>const replaceState &#x3D; unsafeWindow.history.replaceState;<br>unsafeWindow.history.replaceState &#x3D; function (state, unused, url) {<br>    return replaceState.apply(this, [state, unused, removeTracking(url)]);<br>}</p>
-<p>function removeTracking(url) {<br>    if (!url) return url;<br>    try {<br>        const [base, search] &#x3D; url.split(‘?’);<br>        if (!search) return url;<br>        const searchParams &#x3D; new URLSearchParams(‘?’ + search);<br>        const keys &#x3D; Array.from(searchParams.keys());<br>        for (const key of keys) {<br>            uselessUrlParams.forEach(item &#x3D;&gt; {<br>                if (typeof item &#x3D;&#x3D;&#x3D; ‘string’) {<br>                    if (item &#x3D;&#x3D;&#x3D; key) searchParams.delete(key);<br>                } else if (item instanceof RegExp) {<br>                    if (item.test(key)) searchParams.delete(key);<br>                }<br>            });<br>        }<br>        if (location.pathname &#x3D;&#x3D;&#x3D; base &amp;&amp; !searchParams.size) return;<br>        return [base, searchParams.toString()].filter(Boolean).join(‘?’);<br>    } catch (e) {<br>        return url;<br>    }<br>}</p>
-<p>&#x2F;&#x2F; 去掉 B 站的傻逼上报<br>!function () {<br>    const oldFetch &#x3D; unsafeWindow.fetch;<br>    unsafeWindow.fetch &#x3D; function (url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’))<br>            return Promise.resolve(new Response());<br>        return oldFetch.apply(this, arguments);<br>    }<br>    const oldSend &#x3D; unsafeWindow.XMLHttpRequest.prototype.open;<br>    unsafeWindow.XMLHttpRequest.prototype.open &#x3D; function (method, url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’)) {<br>            this.send &#x3D; function () { };<br>            return;<br>        }<br>        return oldSend.apply(this, arguments);<br>    }<br>    unsafeWindow.navigator.sendBeacon &#x3D; () &#x3D;&gt; Promise.resolve();</p>
-<pre><code>unsafeWindow.MReporter = function () &#123; &#125;;
-unsafeWindow.MReporter.appear = function () &#123; &#125;;
-unsafeWindow.MReporter.click = function () &#123; &#125;;
-unsafeWindow.MReporter.tech = function () &#123; &#125;;
-unsafeWindow.MReporter.pv = function () &#123; &#125;;
-unsafeWindow.MReporter.import = &#123; auto() &#123; &#125; &#125;;
-
-const sentryHub = class &#123; bindClient() &#123; &#125; &#125;
-const fakeSentry = &#123;
-    SDK_NAME: &#39;sentry.javascript.browser&#39;,
-    SDK_VERSION: &#39;0.0.0&#39;,
-    BrowserClient: class &#123; &#125;,
-    Hub: sentryHub,
-    Integrations: &#123;
-        Vue: class &#123; &#125;,
-        GlobalHandlers: class &#123; &#125;,
-        InboundFilters: class &#123; &#125;,
-    &#125;,
-    init() &#123; &#125;,
-    configureScope() &#123; &#125;,
-    getCurrentHub: () =&gt; new sentryHub(),
-    setContext() &#123; &#125;,
-    setExtra() &#123; &#125;,
-    setExtras() &#123; &#125;,
-    setTag() &#123; &#125;,
-    setTags() &#123; &#125;,
-    setUser() &#123; &#125;,
-    wrap() &#123; &#125;,
-&#125;
-if (!unsafeWindow.Sentry || unsafeWindow.Sentry.SDK_VERSION !== fakeSentry.SDK_VERSION) &#123;
-    if (unsafeWindow.Sentry) &#123; delete unsafeWindow.Sentry &#125;
-    Object.defineProperty(unsafeWindow, &#39;Sentry&#39;, &#123; value: fakeSentry, enumerable: false, writable: false &#125;);
-&#125;
-Object.defineProperty(unsafeWindow, &#39;ReporterPb&#39;, &#123; value: class &#123; click() &#123; &#125; custom() &#123; &#125; exposure() &#123; &#125; report() &#123; &#125; tech() &#123; &#125; pv() &#123; &#125; &#125;, enumerable: false, writable: false &#125;);
-
-Object.defineProperty(unsafeWindow, &#39;__biliUserFp__&#39;, &#123;
-    get() &#123; return &#123; init() &#123; &#125;, queryUserLog() &#123; return [] &#125; &#125; &#125;,
-    set() &#123; &#125;,
-&#125;);
-Object.defineProperty(unsafeWindow, &#39;__USER_FP_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
-Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
-</code></pre>
-<p>}()<br>  </code></pre></p>
-</details>
-
-<p>大家可以去看看<a href="https://mymuwu.net/?p=1427">大佬文章的说明</a>，我这就不贴了</p>
-]]></content>
-      <tags>
-        <tag>BiliBili</tag>
-        <tag>Mihomo</tag>
       </tags>
   </entry>
   <entry>
@@ -2536,6 +2399,314 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       <tags>
         <tag>青龙面板</tag>
         <tag>Serv00</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>屏蔽 BiliBili PCDN</title>
+    <url>/2024/09/24/%E5%B1%8F%E8%94%BD%20BiliBili%20CDN/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用了 Mac 之后使用 Chrome 看 BiliBili 的视频总是会特别的卡顿，明明带宽没占满，速度确是一直起不来，后面发现原来是 CDN 的问题<span id="more"></span>，<a href="https://rec.danmuji.org/dev/cdn-info/#%E8%87%AA%E5%BB%BA%E8%A7%86%E9%A2%91%E4%BA%91%E5%9F%9F%E5%90%8D">录播姬整理的 CDN</a>、<a href="https://www.txrjy.com/thread-1218482-1-1.html">论坛老哥整理的CDN</a>、<a href="https://site.ip138.com/bilivideo.com/domain.htm">bilivideo.com子域名大全</a></p>
+<p><a href="https://www.v2ex.com/t/830394">V2EX</a>：</p>
+<p>B 站的 video host 有四种类型：（我将其添加个称呼好标注，非官方称呼）<br><a href="http://upos-sz-mirrorkodo.bilivideo.com/">upos-sz-mirrorkodo.bilivideo.com</a> &#x2F; <a href="http://upos-sz-mirrorcos.bilivideo.com/">upos-sz-mirrorcos.bilivideo.com</a> &#x2F; Mirror 型<br><a href="http://cn-gdgz4-cmcc-v-09.bilivideo.com/">cn-gdgz4-cmcc-v-09.bilivideo.com</a> &#x2F; <a href="http://cn-gdst-cmcc-bcache-02.bilivideo.com/">cn-gdst-cmcc-bcache-02.bilivideo.com</a> &#x2F; Cache 型<br><a href="http://xy112x48x59x98xy.mcdn.bilivideo.cn/">xy112x48x59x98xy.mcdn.bilivideo.cn</a> &#x2F; <a href="http://xy110x85x55x73xy.mcdn.bilivideo.cn/">xy110x85x55x73xy.mcdn.bilivideo.cn</a> &#x2F; MCDN 型<br><a href="http://a93lt21v.v1d.szbdyd.com/">a93lt21v.v1d.szbdyd.com</a> &#x2F; <a href="http://hz6xy5t6.v1d.szbdyd.com/">hz6xy5t6.v1d.szbdyd.com</a> &#x2F; PCDN 型<br>以上几种是在广东移动的场景下测的，其他运营商应该也差不多。</p>
+<p>B 站官方测速地址</p>
+<p><a href="https://www.bilibili.com/blackboard/app-speed-test.html">https://www.bilibili.com/blackboard/app-speed-test.html</a></p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><ol>
+<li><p><a href="https://greasyfork.org/zh-CN/scripts/415714-make-bilibili-great-again">Make BiliBili Great Again</a></p>
+<p><a href="https://www.shawnleetttt.cyou/posts/457eb4a4/">这篇文章</a>说要把 108 行处 <code>urlObj.port = 443</code> 改为 <code>urlObj.port = 4483</code>，我也不知道改了有什么用</p>
+</li>
+<li><p><a href="https://greasyfork.org/zh-CN/scripts/500519-%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%B1%8F%E8%94%BD%E8%A7%86%E9%A2%91pcdn%E5%9C%B0%E5%9D%80">【哔哩哔哩】屏蔽视频PCDN地址</a></p>
+</li>
+</ol>
+<p>脚本是挺方便的，但是手机用不了啊，看到<a href="https://mymuwu.net/?p=1427">这一篇文章</a>发现大佬把PCDN的域名给总结出来，那我就直接用了😁</p>
+<p>又找到一个佬关于B站 PCDN 的规则</p>
+<p><a href="https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml">https://github.com/elysias123/bilibili-rule/blob/main/bilibili-pcdn.yaml</a></p>
+<p>Noodseek：<a href="https://www.nodeseek.com/post-139229-1">https://www.nodeseek.com/post-139229-1</a></p>
+<p>anti-AD：<a href="https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt">https://github.com/privacy-protection-tools/anti-AD/blob/master/discretion/pcdn.txt</a></p>
+<h2 id="Mosdns（推荐）"><a href="#Mosdns（推荐）" class="headerlink" title="Mosdns（推荐）"></a>Mosdns（推荐）</h2><p>Mosdns 支持正则表达式，所以可以使用以下参数：</p>
+<details>
+  <summary>点我展开看废弃代码</summary>
+  <pre><code>
+domain:gjfzpt.cn
+domain:szbdyd.com
+domain:bsccdn.net
+domain:pkoplink.com
+domain:saxysec.com
+domain:uhabo.com
+domain:xycdn.com
+domain:kuiniuca.com
+domain:onethingpcs.com
+domain:jomodns.cn
+domain:p2p.huya.com
+domain:stun.douyucdn.cn
+domain:stun.hitv.com
+domain:stun1.douyucdn.cn
+domain:mcdn.bilivideo.cn
+domain:tpa-hcdn.iqiyi.com
+domain:pcdn.xmcdn.com
+domain:pcdn.yximgs.com
+domain:dyp2p-ali.douyucdn.cn
+domain:dyp2p-hw.douyucdn.cn
+domain:p2p-ali.douyucdn.cn
+domain:p2p.qq.com
+domain:p2pchunk-hw.douyucdn.cn
+domain:p2pchunk-table.douyucdn.cn
+domain:p2pchunk-ws.douyucdn.cn
+domain:p2perrorlog.douyucdn.cn
+domain:p2plive-ali.douyucdn.cn
+domain:p2plive-ws.douyucdn.cn
+domain:p2plog.douyucdn.cn
+domain:p2ptun.qq.com
+domain:p2pupdate.gamedl.qq.com
+domain:p2pupgrade.gamedl.qq.com
+domain:p2pvod-ws.douyucdn.cn
+regexp:.*pcdn.*biliapi\.net
+regexp:.*pcdn.*youku\.com
+regexp:.*p2p.*douyucdn\.cn
+regexp:.*p2p.*qq\.com
+regexp:.*pcdn.*biliapi\.net
+regexp:.*pcdn.*youku\.com
+regexp:cn-.*\.bilivideo\.com            #屏蔽这个会导致看不了直播
+  </code></pre>
+</details>
+
+<p>由于旧版误伤过多，所以精简了很多</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain:gjfzpt.cn</span><br><span class="line">domain:szbdyd.com</span><br><span class="line">domain:bsccdn.net</span><br><span class="line">domain:pkoplink.com</span><br><span class="line">domain:saxysec.com</span><br><span class="line">domain:uhabo.com</span><br><span class="line">domain:xycdn.com</span><br><span class="line">domain:kuiniuca.com</span><br><span class="line">domain:onethingpcs.com</span><br><span class="line">domain:jomodns.cn</span><br><span class="line">domain:p2p.huya.com</span><br><span class="line">domain:stun.douyucdn.cn</span><br><span class="line">domain:stun.hitv.com</span><br><span class="line">domain:mcdn.bilivideo.cn</span><br><span class="line">domain:tpa-hcdn.iqiyi.com</span><br><span class="line">domain:pcdn.xmcdn.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">domain:pcdn.yximgs.com</span><br><span class="line">regexp:.*pcdn.*biliapi\.net</span><br><span class="line">regexp:.*pcdn.*youku\.com</span><br><span class="line">regexp:.*p2p.*douyucdn\.cn</span><br><span class="line">regexp:.*p2p.*qq\.com</span><br><span class="line">regexp:.*pcdn.*biliapi.net</span><br><span class="line">regexp:.*pcdn.*youku.com</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>使用 Clash 规则时，需要<strong>添加好对应的端口</strong>，例如：</p>
+<p>xy111x51x181x119xy.mcdn.bilivideo.cn:4483，使用的是京东云，在clash的代理端口上需要把对应的TCP 端口加上 4483 8082，有点麻烦</p>
+<p><a href="https://github.com/tunecc/clash/blob/main/Block_PCDN.list">我整理的地址</a>，<a href="https://github.com/thhbdd/Block-pcdn-domains">大佬的GitHub地址</a></p>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><p>1.Make BiliBili Great Again 有一些优化代码还是挺有用的，去除“ 去 P2P CDN”后的代码如下</p>
+<details>
+  <summary>点我展开</summary>
+  <pre><code>
+// ==UserScript==
+// @name         Make BiliBili Great Again
+// @namespace    https://www.kookxiang.com/
+// @version      1.5.5
+// @description  useful tweaks for bilibili.com
+// @author       kookxiang
+// @match        https://*.bilibili.com/*
+// @run-at       document-body
+// @grant        unsafeWindow
+// @grant        GM_addStyle
+// @grant        GM_notification
+// @downloadURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.user.js
+// @updateURL https://update.greasyfork.org/scripts/415714/Make%20BiliBili%20Great%20Again.meta.js
+// ==/UserScript==
+// 去掉叔叔去世时的全站黑白效果
+GM_addStyle("html, body &#123; -webkit-filter: none !important; filter: none !important; &#125;");
+
+<p>&#x2F;&#x2F; 没用的 URL 参数<br>const uselessUrlParams &#x3D; [<br>    ‘buvid’,<br>    ‘is_story_h5’,<br>    ‘launch_id’,<br>    ‘live_from’,<br>    ‘mid’,<br>    ‘session_id’,<br>    ‘timestamp’,<br>    ‘up_id’,<br>    ‘vd_source’,<br>    &#x2F;^share&#x2F;,<br>    &#x2F;^spm&#x2F;,<br>];</p>
+<p>&#x2F;&#x2F; Block WebRTC，CNM 陈睿你就缺这点棺材钱？<br>try &#123;<br>    Object.defineProperty(unsafeWindow, ‘webkitRTCPeerConnection’, &#123; value: undefined, enumerable: false, writable: false &#125;);<br>&#125; catch (e) &#123; &#125;</p>
+<p>&#x2F;&#x2F; 移除鸿蒙字体，系统自带它不香吗？<br>window.addEventListener(‘load’, function () &#123;<br>    document.body.classList.remove(‘harmony-font’);<br>&#125;)</p>
+<p>&#x2F;&#x2F; 首页优化<br>if (location.host &#x3D;&#x3D;&#x3D; “<a href="http://www.bilibili.com/">www.bilibili.com</a>“) &#123;<br>    GM_addStyle(‘.feed2 .feed-card:has(a[href*&#x3D;”cm.bilibili.com”]) &#123; display: none &#125; .feed2 .container &gt; * &#123; margin-top: 0 !important &#125;’);<br>&#125;</p>
+<p>&#x2F;&#x2F; 动态页面优化<br>if (location.host &#x3D;&#x3D;&#x3D; “t.bilibili.com”) &#123;<br>    GM_addStyle(“html[wide] #app &#123; display: flex; &#125; html[wide] .bili-dyn-home–member &#123; box-sizing: border-box;padding: 0 10px;width: 100%;flex: 1; &#125; html[wide] .bili-dyn-content &#123; width: initial; &#125; html[wide] main &#123; margin: 0 8px;flex: 1;overflow: hidden;width: initial; &#125; #wide-mode-switch &#123; margin-left: 0;margin-right: 20px; &#125; .bili-dyn-list__item:has(.bili-dyn-card-goods), .bili-dyn-list__item:has(.bili-rich-text-module.goods) &#123; display: none !important &#125;”);<br>    if (!localStorage.WIDE_OPT_OUT) &#123;<br>        document.documentElement.setAttribute(‘wide’, ‘wide’);<br>    &#125;<br>    window.addEventListener(‘load’, function () &#123;<br>        const tabContainer &#x3D; document.querySelector(‘.bili-dyn-list-tabs__list’);<br>        const placeHolder &#x3D; document.createElement(‘div’);<br>        placeHolder.style.flex &#x3D; 1;<br>        const switchButton &#x3D; document.createElement(‘a’);<br>        switchButton.id &#x3D; ‘wide-mode-switch’;<br>        switchButton.className &#x3D; ‘bili-dyn-list-tabs__item’;<br>        switchButton.textContent &#x3D; ‘宽屏模式’;<br>        switchButton.addEventListener(‘click’, function (e) &#123;<br>            e.preventDefault();<br>            if (localStorage.WIDE_OPT_OUT) &#123;<br>                localStorage.removeItem(‘WIDE_OPT_OUT’);<br>                document.documentElement.setAttribute(‘wide’, ‘wide’);<br>            &#125; else &#123;<br>                localStorage.setItem(‘WIDE_OPT_OUT’, ‘1’);<br>                document.documentElement.removeAttribute(‘wide’);<br>            &#125;<br>        &#125;)<br>        tabContainer.appendChild(placeHolder);<br>        tabContainer.appendChild(switchButton);<br>    &#125;)<br>&#125;</p>
+<p>&#x2F;&#x2F; 去广告<br>GM_addStyle(‘.ad-report, a[href*&#x3D;”cm.bilibili.com”] &#123; display: none !important; &#125;’);<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.adData) &#123;<br>    for (const key in unsafeWindow.<strong>INITIAL_STATE</strong>.adData) &#123;<br>        if (!Array.isArray(unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key])) continue;<br>        for (const item of unsafeWindow.<strong>INITIAL_STATE</strong>.adData[key]) &#123;<br>            item.name &#x3D; ‘B 站未来有可能会倒闭，但绝不会变质’;<br>            item.pic &#x3D; ‘<a href="https://static.hdslb.com/images/transparent.gif">https://static.hdslb.com/images/transparent.gif</a>‘;<br>            item.url &#x3D; ‘<a href="https://space.bilibili.com/208259">https://space.bilibili.com/208259</a>‘;<br>        &#125;<br>    &#125;<br>&#125;</p>
+<p>&#x2F;&#x2F; 去充电列表（叔叔的跳过按钮越做越小了，就尼玛离谱）<br>if (unsafeWindow.<strong>INITIAL_STATE</strong>?.elecFullInfo) &#123;<br>    delete unsafeWindow.<strong>INITIAL_STATE</strong>.elecFullInfo;<br>&#125;</p>
+<p>&#x2F;&#x2F; 修复文章区复制<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/read/cv">https://www.bilibili.com/read/cv</a>‘)) &#123;<br>    unsafeWindow.original.reprint &#x3D; “1”;<br>    document.querySelector(‘.article-holder’).classList.remove(“unable-reprint”);<br>    document.querySelector(‘.article-holder’).addEventListener(‘copy’, e &#x3D;&gt; e.stopImmediatePropagation(), true);<br>&#125;</p>
+<p>&#x2F;&#x2F; 真·原画直播<br>if (location.href.startsWith(‘<a href="https://live.bilibili.com/">https://live.bilibili.com/</a>‘)) &#123;<br>    unsafeWindow.forceHighestQuality &#x3D; true;<br>    let recentErrors &#x3D; 0;<br>    setInterval(() &#x3D;&gt; recentErrors &gt; 0 ? recentErrors &#x2F; 2 : null, 10000);</p>
+<pre><code>const oldFetch = unsafeWindow.fetch;
+unsafeWindow.fetch = function (url) &#123;
+    try &#123;
+        const mcdnRegexp = /[xy0-9]+\.mcdn\.bilivideo\.cn:\d+/
+        const qualityRegexp = /(live-bvc\/\d+\/live_\d+_\d+)_\w+/;
+        if (mcdnRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.disableMcdn) &#123;
+            return Promise.reject();
+        &#125;
+        if (qualityRegexp.test(arguments[0]) &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
+            arguments[0] = arguments[0]
+                .replace(qualityRegexp, &#39;$1&#39;)
+                .replace(/(\d+)_(mini|pro)hevc/g, &#39;$1&#39;);
+        &#125;
+        const promise = oldFetch.apply(this, arguments);
+        promise.then(response =&gt; &#123;
+            if (!url.match(/\.(m3u8|m4s)/)) return;
+            if ([403, 404].includes(response.status)) recentErrors++;
+            if (recentErrors &gt;= 5 &amp;&amp; unsafeWindow.forceHighestQuality) &#123;
+                recentErrors = 0;
+                unsafeWindow.forceHighestQuality = false;
+                GM_notification(&#123; title: &#39;最高清晰度可能不可用&#39;, text: &#39;已为您自动切换至播放器上选择的清晰度.&#39;, timeout: 3000, silent: true &#125;);
+            &#125;
+        &#125;);
+        return promise;
+    &#125; catch (e) &#123; &#125;
+    return oldFetch.apply(this, arguments);
+&#125;
+</code></pre>
+<p>}</p>
+<p>&#x2F;&#x2F; 视频裁切<br>if (location.href.startsWith(‘<a href="https://www.bilibili.com/video/">https://www.bilibili.com/video/</a>‘)) {<br>    GM_addStyle(“body[video-fit] #bilibili-player video { object-fit: cover; } .bpx-player-ctrl-setting-fit-mode { display: flex;width: 100%;height: 32px;line-height: 32px; } .bpx-player-ctrl-setting-box .bui-panel-wrap, .bpx-player-ctrl-setting-box .bui-panel-item { min-height: 172px !important; }”);<br>    let timer;<br>    function toggleMode(enabled) {<br>        if (enabled) {<br>            document.body.setAttribute(‘video-fit’, ‘’);<br>        } else {<br>            document.body.removeAttribute(‘video-fit’);<br>        }<br>    }<br>    function injectButton() {<br>        if (!document.querySelector(‘.bpx-player-ctrl-setting-menu-left’)) {<br>            return;<br>        }<br>        clearInterval(timer);<br>        const parent &#x3D; document.querySelector(‘.bpx-player-ctrl-setting-menu-left’);<br>        const item &#x3D; document.createElement(‘div’);<br>        item.className &#x3D; ‘bpx-player-ctrl-setting-fit-mode bui bui-switch’;<br>        item.innerHTML &#x3D; ‘<input class="bui-switch-input" type="checkbox"><label class="bui-switch-label"><span class="bui-switch-name">裁切模式</span><span class="bui-switch-body"><span class="bui-switch-dot"><span></span></span></span></label>‘;<br>        parent.insertBefore(item, document.querySelector(‘.bpx-player-ctrl-setting-more’));<br>        document.querySelector(‘.bpx-player-ctrl-setting-fit-mode input’).addEventListener(‘change’, e &#x3D;&gt; toggleMode(e.target.checked));<br>        document.querySelector(‘.bpx-player-ctrl-setting-box .bui-panel-item’).style.height &#x3D; ‘’;<br>    }<br>    timer &#x3D; setInterval(injectButton, 200);<br>}</p>
+<p>&#x2F;&#x2F; 去除地址栏多余参数<br>unsafeWindow.history.replaceState(undefined, undefined, removeTracking(location.href));<br>const pushState &#x3D; unsafeWindow.history.pushState;<br>unsafeWindow.history.pushState &#x3D; function (state, unused, url) {<br>    return pushState.apply(this, [state, unused, removeTracking(url)]);<br>}<br>const replaceState &#x3D; unsafeWindow.history.replaceState;<br>unsafeWindow.history.replaceState &#x3D; function (state, unused, url) {<br>    return replaceState.apply(this, [state, unused, removeTracking(url)]);<br>}</p>
+<p>function removeTracking(url) {<br>    if (!url) return url;<br>    try {<br>        const [base, search] &#x3D; url.split(‘?’);<br>        if (!search) return url;<br>        const searchParams &#x3D; new URLSearchParams(‘?’ + search);<br>        const keys &#x3D; Array.from(searchParams.keys());<br>        for (const key of keys) {<br>            uselessUrlParams.forEach(item &#x3D;&gt; {<br>                if (typeof item &#x3D;&#x3D;&#x3D; ‘string’) {<br>                    if (item &#x3D;&#x3D;&#x3D; key) searchParams.delete(key);<br>                } else if (item instanceof RegExp) {<br>                    if (item.test(key)) searchParams.delete(key);<br>                }<br>            });<br>        }<br>        if (location.pathname &#x3D;&#x3D;&#x3D; base &amp;&amp; !searchParams.size) return;<br>        return [base, searchParams.toString()].filter(Boolean).join(‘?’);<br>    } catch (e) {<br>        return url;<br>    }<br>}</p>
+<p>&#x2F;&#x2F; 去掉 B 站的傻逼上报<br>!function () {<br>    const oldFetch &#x3D; unsafeWindow.fetch;<br>    unsafeWindow.fetch &#x3D; function (url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’))<br>            return Promise.resolve(new Response());<br>        return oldFetch.apply(this, arguments);<br>    }<br>    const oldSend &#x3D; unsafeWindow.XMLHttpRequest.prototype.open;<br>    unsafeWindow.XMLHttpRequest.prototype.open &#x3D; function (method, url) {<br>        if (typeof url &#x3D;&#x3D;&#x3D; ‘string’ &amp;&amp; url.includes(‘data.bilibili.com’)) {<br>            this.send &#x3D; function () { };<br>            return;<br>        }<br>        return oldSend.apply(this, arguments);<br>    }<br>    unsafeWindow.navigator.sendBeacon &#x3D; () &#x3D;&gt; Promise.resolve();</p>
+<pre><code>unsafeWindow.MReporter = function () &#123; &#125;;
+unsafeWindow.MReporter.appear = function () &#123; &#125;;
+unsafeWindow.MReporter.click = function () &#123; &#125;;
+unsafeWindow.MReporter.tech = function () &#123; &#125;;
+unsafeWindow.MReporter.pv = function () &#123; &#125;;
+unsafeWindow.MReporter.import = &#123; auto() &#123; &#125; &#125;;
+
+const sentryHub = class &#123; bindClient() &#123; &#125; &#125;
+const fakeSentry = &#123;
+    SDK_NAME: &#39;sentry.javascript.browser&#39;,
+    SDK_VERSION: &#39;0.0.0&#39;,
+    BrowserClient: class &#123; &#125;,
+    Hub: sentryHub,
+    Integrations: &#123;
+        Vue: class &#123; &#125;,
+        GlobalHandlers: class &#123; &#125;,
+        InboundFilters: class &#123; &#125;,
+    &#125;,
+    init() &#123; &#125;,
+    configureScope() &#123; &#125;,
+    getCurrentHub: () =&gt; new sentryHub(),
+    setContext() &#123; &#125;,
+    setExtra() &#123; &#125;,
+    setExtras() &#123; &#125;,
+    setTag() &#123; &#125;,
+    setTags() &#123; &#125;,
+    setUser() &#123; &#125;,
+    wrap() &#123; &#125;,
+&#125;
+if (!unsafeWindow.Sentry || unsafeWindow.Sentry.SDK_VERSION !== fakeSentry.SDK_VERSION) &#123;
+    if (unsafeWindow.Sentry) &#123; delete unsafeWindow.Sentry &#125;
+    Object.defineProperty(unsafeWindow, &#39;Sentry&#39;, &#123; value: fakeSentry, enumerable: false, writable: false &#125;);
+&#125;
+Object.defineProperty(unsafeWindow, &#39;ReporterPb&#39;, &#123; value: class &#123; click() &#123; &#125; custom() &#123; &#125; exposure() &#123; &#125; report() &#123; &#125; tech() &#123; &#125; pv() &#123; &#125; &#125;, enumerable: false, writable: false &#125;);
+
+Object.defineProperty(unsafeWindow, &#39;__biliUserFp__&#39;, &#123;
+    get() &#123; return &#123; init() &#123; &#125;, queryUserLog() &#123; return [] &#125; &#125; &#125;,
+    set() &#123; &#125;,
+&#125;);
+Object.defineProperty(unsafeWindow, &#39;__USER_FP_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
+Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#123; return undefined &#125;, set() &#123; &#125; &#125;);
+</code></pre>
+<p>}()<br>  </code></pre></p>
+</details>
+
+<p>大家可以去看看<a href="https://mymuwu.net/?p=1427">大佬文章的说明</a>，我这就不贴了</p>
+]]></content>
+      <tags>
+        <tag>BiliBili</tag>
+        <tag>Mihomo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PVE优化</title>
+    <url>/2024/08/05/PVE%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>暑假闲来没事想起PVE这个底层系统还没怎么去折腾,就去翻了翻大佬们的优化教程。</p>
+<span id="more"></span>
+
+<h1 id="PVE优化工具"><a href="#PVE优化工具" class="headerlink" title="PVE优化工具"></a>PVE优化工具</h1><h2 id="x86派老虎大神"><a href="#x86派老虎大神" class="headerlink" title="x86派老虎大神"></a><a href="https://bbs.x86pi.cn/thread?topicId=20">x86派老虎大神</a></h2><img src="https://85d8ba7.webp.li/2024/12/d12e3ae3cfabaf0c57a718adb87e77a4.png" width=50% height=50% />
+我这次优化就只使用了一这款,因为能显示CPU的实时频率,还有网卡名称使用原始命名
+
+<h2 id="pvetools"><a href="#pvetools" class="headerlink" title="pvetools"></a><a href="https://github.com/ivanhao/pvetools">pvetools</a></h2><p>PVE上star有4.1k(2024.8.5)<br><img src="https://85d8ba7.webp.li/2024/12/df770ca50f6344258710879e4c5bc6fd.webp" width=60% height=60% /></p>
+<h2 id="恩山大佬shell脚本"><a href="#恩山大佬shell脚本" class="headerlink" title="恩山大佬shell脚本"></a><a href="https://www.right.com.cn/forum/thread-6754687-1-1.html">恩山大佬shell脚本</a></h2><p>开源地址<a href="https://github.com/a904055262/PVE-manager-status">https://github.com/a904055262/PVE-manager-status</a><br>这一款的功能比上面少一些了</p>
+<img src="https://85d8ba7.webp.li/2024/12/a880586cfeb65ed058cb265da41b55d7.jpg" width=75% height=75% />
+
+
+<h1 id="移除local-lvm存储空间"><a href="#移除local-lvm存储空间" class="headerlink" title="移除local-lvm存储空间"></a>移除local-lvm存储空间</h1><p>注意:<br>1、移除 local-lvm 后会导致虚拟机及 CT 容器的快照功能失效<br>2、移除前需自行关闭并备份各虚拟机、CT 容器等, 谨防移除造成数据丢失 </p>
+<p>因为我用不上快照功能,所以把他移除了,移除后能更好利用硬盘资源<br>备份是备份在llocal里面的,可以放心删除local-lvm</p>
+<p>恩山上的<a href="https://www.right.com.cn/forum/thread-3513183-1-1.html">帖子</a><br>1、备份虚拟机<br>2、删除虚拟机<br>3、删除local-lvm<br>命令：<code>lvremove pve/data</code><br>4、把local-lvm空间分配给Local<br>命令：<code>lvextend -l +100%FREE -r pve/root</code><br>5、删除local-lvm<br>数据中心-存储-删除local-lvm<br>6、编辑local，内容里添加 磁盘映像和容器<br>7、恢复虚拟机</p>
+<p>懒得输命令就用老虎的脚本吧</p>
+<p>虚拟机的安装以及还原,可以看看这两个视频<br><a href="https://www.bilibili.com/video/BV1aM4m1U7Fy/">https://www.bilibili.com/video/BV1aM4m1U7Fy/</a><br><a href="https://www.bilibili.com/video/BV1Gi421U78K/">https://www.bilibili.com/video/BV1Gi421U78K/</a></p>
+<h1 id="开启iommu"><a href="#开启iommu" class="headerlink" title="开启iommu"></a>开启iommu</h1><h2 id="修改-etc-default-grub"><a href="#修改-etc-default-grub" class="headerlink" title="修改/etc/default/grub"></a>修改<code>/etc/default/grub</code></h2><p>在里面找到：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet”<br>Intel cpu改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet intel_iommu&#x3D;on”<br>AMD cpu请改为：GRUB_CMDLINE_LINUX_DEFAULT&#x3D;”quiet amd_iommu&#x3D;on”</p>
+<p>我的文件里面是这些</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=5</span><br><span class="line">GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet intel_iommu=on iommu=pt&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br></pre></td></tr></table></figure>
+<p>##修改完成之后，直接更新grub<br><code>update-grub</code></p>
+<h2 id="加载相应的内核模块"><a href="#加载相应的内核模块" class="headerlink" title="加载相应的内核模块"></a>加载相应的内核模块</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">echo vfio &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_iommu_type1 &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_pci &gt;&gt; /etc/modules</span><br><span class="line">echo vfio_virqfd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
+<p>也可以去<code>/etc/modules</code>直接添加</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vfio</span><br><span class="line">vfio_iommu_type1</span><br><span class="line">vfio_pci</span><br><span class="line">vfio_virqfd</span><br><span class="line">coretemp</span><br></pre></td></tr></table></figure>
+<h2 id="重启主机"><a href="#重启主机" class="headerlink" title="重启主机"></a>重启主机</h2><h2 id="验证是否开启iommu"><a href="#验证是否开启iommu" class="headerlink" title="验证是否开启iommu"></a>验证是否开启iommu</h2><p>终端输入<br><code>dmesg | grep iommu</code><br>出现如下例子。则代表成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ 1.341100] pci 0000:00:00.0: Adding to iommu group 0</span><br><span class="line">[ 1.341116] pci 0000:00:01.0: Adding to iommu group 1</span><br><span class="line">[ 1.341126] pci 0000:00:02.0: Adding to iommu group 2</span><br><span class="line">[ 1.341137] pci 0000:00:14.0: Adding to iommu group 3</span><br><span class="line">[ 1.341146] pci 0000:00:17.0: Adding to iommu group 4</span><br></pre></td></tr></table></figure>
+<p>或者输入<br><code>dmesg | grep &#39;remapping&#39;</code><br>出现如下例子。则代表成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AMD-Vi: Interrupt remapping enabled</span><br><span class="line">#或者</span><br><span class="line">DMAR-IR: Enabled IRQ remapping in x2apic mode</span><br></pre></td></tr></table></figure>
+
+<p>此时输入命令<br><code>find /sys/kernel/iommu_groups/ -type l </code><br>#出现很多直通组，就代表成功了。如果没有任何东西，就是没有开启</p>
+<h1 id="其他的一些优化"><a href="#其他的一些优化" class="headerlink" title="其他的一些优化"></a>其他的一些优化</h1><p>换源、移除订阅、修改概要信息、重命名网口用老虎大佬的一键脚本就行了</p>
+<p>下面这个帖子对PVE系统的讲解很全,有需要的可以去看看<br><a href="https://www.chiphell.com/thread-2496541-1-1.html">https://www.chiphell.com/thread-2496541-1-1.html</a></p>
+<h1 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h1><h2 id="PVE中的-Windows-系统扩容"><a href="#PVE中的-Windows-系统扩容" class="headerlink" title="PVE中的 Windows 系统扩容"></a>PVE中的 Windows 系统扩容</h2><p>首先关闭win10虚拟机</p>
+<p>然后点击动态调整磁盘大小(增量添加)</p>
+<img src="https://85d8ba7.webp.li/2024/12/671a45434d37287d236dc8a279e38417.png" width=75% height=75% />
+
+<p>输入自己想增加的大小（增量）</p>
+<p>点击完成就可以看到扩容成功了，这时候还需要去 Windows 系统里面扩展卷，就扩容成功了</p>
+<p>参考文章：<a href="https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space">https://www.dsx2020.com/homelabpvex86_64-pve-adds-win10-disk-space</a></p>
+<h2 id="简单解决不能在虚拟机中运行某些软件"><a href="#简单解决不能在虚拟机中运行某些软件" class="headerlink" title="简单解决不能在虚拟机中运行某些软件"></a>简单解决不能在虚拟机中运行某些软件</h2><p>软件提示：Sorry, this application cannot run under a Virtual Machine.</p>
+<p>SSH 连接到 PVE 编辑下面的文件</p>
+<p><code>/etc/pve/nodes/宿主机名/qemu-server/虚拟机ID.conf</code></p>
+<p>加入这一行</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">args: -cpu host,-hypervisor,kvm=off</span><br></pre></td></tr></table></figure>
+
+<p>（-cpu host 在我设备上不设置会开不了机）</p>
+<p>保存，重启虚拟机，就可以打开检测虚拟机的软件了</p>
+<p>参考文章：<a href="https://bugxia.com/3600.html">https://bugxia.com/3600.html</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://www.xh86.me/?p=724">https://www.xh86.me/?p=724</a></li>
+<li><a href="https://foxi.buduanwang.vip/virtualization/pve/561.html/">https://foxi.buduanwang.vip/virtualization/pve/561.html/</a></li>
+<li><a href="https://xxand.cc/84.html">https://xxand.cc/84.html</a></li>
+<li><a href="https://bricawa.com/posts/56512/">https://bricawa.com/posts/56512/</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>PVE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哪吒监控v1</title>
+    <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
+<h1 id="安装-Dashboard"><a href="#安装-Dashboard" class="headerlink" title="安装 Dashboard"></a>安装 Dashboard</h1><p><a href="https://nezha.wiki/guide/dashboard.html">官方面板安装教程</a></p>
+<p>安装脚本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -L https://raw.githubusercontent.com/nezhahq/scripts/refs/heads/main/install.sh -o nezha.sh &amp;&amp; <span class="built_in">chmod</span> +x nezha.sh &amp;&amp; <span class="built_in">sudo</span> ./nezha.sh</span><br></pre></td></tr></table></figure>
+
+<p>首次登录的默认用户名和密码均为 <code>admin</code>，记得及时改密码</p>
+<p>使用一个域名开启 CDN 用作访问，另一个域名不开启 CDN 来用于 agent 通信</p>
+<p>去面板设置把 <code>Agent对接地址【域名/IP:端口】</code> 改为<strong>不套CDN</strong>的地址+<strong>端口</strong></p>
+<h1 id="安装-Nginx-反代"><a href="#安装-Nginx-反代" class="headerlink" title="安装 Nginx 反代"></a>安装 Nginx 反代</h1><p>只需要反代面板域名，(开启 CDN 的即可)</p>
+<p>推荐使用 科技lion 的脚本（还有很多其他好用的功能）</p>
+<p>脚本的 Nginx 使用：<a href="https://www.youtube.com/watch?v=rcLgEzdM2Tc">https://www.youtube.com/watch?v=rcLgEzdM2Tc</a></p>
+<h1 id="安装-Agent"><a href="#安装-Agent" class="headerlink" title="安装 Agent"></a>安装 Agent</h1><p>在 Dashboard 中直接复制安装命令</p>
+<h2 id="卸载（来自官方）"><a href="#卸载（来自官方）" class="headerlink" title="卸载（来自官方）"></a>卸载（来自官方）</h2><p>卸载 Agent 包括停止服务、卸载服务，以及删除相关文件。以下是 Ubuntu 系统的卸载步骤：</p>
+<ol>
+<li><p>停止并卸载服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/nezha/agent/</span><br><span class="line">./nezha-agent service uninstall</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除 Agent 文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /opt/nezha/agent/</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>如果安装了多个服务并想要全部卸载，可以使用 Agent 安装脚本的卸载功能：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./agent.sh uninstall</span><br></pre></td></tr></table></figure>
+
+<h1 id="serv00-安装哪咤监控"><a href="#serv00-安装哪咤监控" class="headerlink" title="serv00 安装哪咤监控"></a>serv00 安装哪咤监控</h1><p>市面上有挺多的脚本的，我推荐这个作者的<br><a href="https://github.com/vfhky/serv00_ct8_nezha">https://github.com/vfhky/serv00_ct8_nezha</a></p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1、下载脚本</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vfhky/serv00_ct8_nezha.git</span><br><span class="line"></span><br><span class="line">2、进入项目</span><br><span class="line"><span class="built_in">cd</span> serv00_ct8_nezha</span><br><span class="line"></span><br><span class="line">3、修改配置（非必须的操作</span><br><span class="line">vim config/host.eg</span><br><span class="line"></span><br><span class="line">4、开始安装</span><br><span class="line">python3 main.py</span><br></pre></td></tr></table></figure>
+
+<p>作者的博客：<br><a href="https://typecodes.com/python/serv00ct8nezhav1.html">https://typecodes.com/python/serv00ct8nezhav1.html</a></p>
+<p>注意，该作者的脚本做的保活面板，只需要ssh登录一次即可，不需要特意用作者的脚本，我的保活脚本可以继续使用</p>
+<p>该项目的<code>utils.sh</code>使用：<a href="https://typecodes.com/python/serv00ct8nezha4.html">https://typecodes.com/python/serv00ct8nezha4.html</a></p>
+<p>常用</p>
+<ol>
+<li><p>重新 serv00 或者 ct8 主机的系统。脚本会删除用户目录除了 backup 外的所有文件或者目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh restore</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载已经安装的哪吒探针的dashboard和agent 并删除 crontab中的哪吒探针心跳(heart_beat_entry.sh)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash utils.sh uninstall</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="数据迁移、备份恢复"><a href="#数据迁移、备份恢复" class="headerlink" title="数据迁移、备份恢复"></a>数据迁移、备份恢复</h1><p>来自官方：<a href="https://nezha.wiki/guide/q5.html">https://nezha.wiki/guide/q5.html</a></p>
+<p><strong>停止面板服务</strong><br>在旧服务器中运行一键脚本，选择 <code>停止面板</code>。</p>
+<p><strong>备份数据</strong><br>打包旧服务器中的 <code>/opt/nezha</code> 文件夹，并将其复制到新服务器相同位置。</p>
+<p><strong>恢复数据</strong><br>在新服务器中解压 <code>/opt/nezha</code> 文件夹至相同路径。</p>
+<p><strong>启动面板服务</strong><br>在新服务器中运行一键脚本，选择 <code>启动面板</code>。</p>
+<p>注意事项</p>
+<ul>
+<li>确保 <code>/opt/nezha</code> 文件夹及其内容的权限和所有权在新服务器上正确设置。</li>
+<li>数据迁移完成后，可以通过访问 Dashboard 界面验证迁移是否成功。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>折腾</tag>
       </tags>
   </entry>
 </search>

@@ -30,7 +30,7 @@
 <meta property="og:description" content="最近用大模型在玩逆向了，用了 Ghidra、frida-tools、disarm…发现了ida-pro有做mcp插件，与普通的mcp安装的不一样，需要用到pip安装，我macOS的python是使用homebrew安装的，在使用  pip install xxx 都提示要创建虚拟环境，这篇就当我自己的一个安装笔记">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-11T16:00:00.000Z">
 <meta property="article:author" content="Tune">
 <meta property="article:tag" content="Mac">
 <meta property="article:tag" content="逆向">
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B"><span class="nav-number">3.</span> <span class="nav-text">开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%88%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%93%E7%94%A8-venv"><span class="nav-number">3.1.</span> <span class="nav-text">1. 先建一个专用 venv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%AE%98%E6%96%B9-ida-pro-mcp"><span class="nav-number">3.2.</span> <span class="nav-text">2. 安装官方 ida-pro-mcp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%AA%E8%A3%85-IDA-%E6%8F%92%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">3. 只装 IDA 插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%AC%A1%E8%B8%A9%E5%88%B0%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91"><span class="nav-number">4.</span> <span class="nav-text">这次踩到的几个坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-uv-venv-%E9%BB%98%E8%AE%A4%E6%B2%A1%E6%9C%89-pip"><span class="nav-number">4.1.</span> <span class="nav-text">1. uv venv 默认没有 pip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-mcp-router-%E6%8A%A5-Connection-closed"><span class="nav-number">4.2.</span> <span class="nav-text">2. mcp_router 报 Connection closed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8D%87%E7%BA%A7%E5%88%B0-main-%E4%B9%8B%E5%90%8E%E5%8F%88%E6%8A%A5-Connection-refused"><span class="nav-number">4.3.</span> <span class="nav-text">3. 升级到 main 之后又报 Connection refused</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-ida-pro-mcp-config-%E4%B8%8D%E6%98%AF%E6%97%A0%E8%84%91%E5%8F%AF%E4%BF%A1"><span class="nav-number">4.4.</span> <span class="nav-text">4. ida-pro-mcp --config 不是无脑可信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-IDA-%E9%87%8C%E6%89%BE%E4%B8%8D%E5%88%B0-Edit-Plugins-MCP"><span class="nav-number">4.5.</span> <span class="nav-text">5. IDA 里找不到 Edit -&gt; Plugins -&gt; MCP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9A%E6%8F%92%E4%BB%B6%E5%85%B6%E5%AE%9E%E6%A0%B9%E6%9C%AC%E6%B2%A1%E5%9C%A8%E5%AF%B9%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.5.1.</span> <span class="nav-text">第一种：插件其实根本没在对的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9A%E6%8F%92%E4%BB%B6%E5%B7%B2%E7%BB%8F%E8%A3%85%E5%A5%BD%E4%BA%86%EF%BC%8C%E4%BD%86-IDA-%E6%B2%A1%E5%AE%8C%E6%95%B4%E9%87%8D%E5%90%AF"><span class="nav-number">4.5.2.</span> <span class="nav-text">第二种：插件已经装好了，但 IDA 没完整重启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D%EF%BC%9A%E7%9B%AE%E5%BD%95%E9%87%8C%E8%BF%98%E6%9C%89%E4%BB%A5%E5%89%8D%E6%AE%8B%E7%95%99%E7%9A%84%E6%97%A7%E5%9D%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">4.5.3.</span> <span class="nav-text">第三种：目录里还有以前残留的旧坏链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E6%88%91%E8%BF%99%E8%BE%B9%E8%83%BD%E7%94%A8%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">最后我这边能用的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E8%A6%81%E8%A3%85%E5%A2%9E%E5%BC%BA%E7%89%88-ida-pro-mcp-enhancement%EF%BC%88%E7%A7%8B%E5%9F%8E%E4%BD%AC%E7%9A%84%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">如果要装增强版 ida-pro-mcp-enhancement（秋城佬的）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A2%9E%E5%BC%BA%E7%89%88-venv"><span class="nav-number">6.1.</span> <span class="nav-text">1. 增强版 venv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%A2%9E%E5%BC%BA%E7%89%88%E5%8C%85"><span class="nav-number">6.2.</span> <span class="nav-text">2. 安装增强版包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%AA%E8%A3%85-IDA-%E6%8F%92%E4%BB%B6-1"><span class="nav-number">6.3.</span> <span class="nav-text">3. 只装 IDA 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%A2%9E%E5%BC%BA%E7%89%88%E5%A4%9A%E5%87%BA%E6%9D%A5%E7%9A%84%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%85%88%E5%8D%95%E7%8B%AC%E5%90%AF%E5%8A%A8-Broker"><span class="nav-number">6.4.</span> <span class="nav-text">4. 增强版多出来的一步：先单独启动 Broker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%BB%99-mcp-router-%E7%9A%84%E9%85%8D%E7%BD%AE%E8%A6%81%E6%89%8B%E5%8A%A8%E8%A1%A5%E4%B8%8A-broker-url"><span class="nav-number">6.5.</span> <span class="nav-text">5. 给 mcp_router 的配置要手动补上 --broker-url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%A2%9E%E5%BC%BA%E7%89%88%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="nav-number">6.6.</span> <span class="nav-text">6. 增强版实际使用顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End"><span class="nav-number">7.</span> <span class="nav-text">End</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%8E%9F%E7%89%88"><span class="nav-number">3.</span> <span class="nav-text">安装原版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%88%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%93%E7%94%A8-venv"><span class="nav-number">3.1.</span> <span class="nav-text">1. 先建一个专用 venv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%AE%98%E6%96%B9-ida-pro-mcp"><span class="nav-number">3.2.</span> <span class="nav-text">2. 安装官方 ida-pro-mcp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%AA%E8%A3%85-IDA-%E6%8F%92%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">3. 只装 IDA 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-mcp-router%E9%85%8D%E7%BD%AE"><span class="nav-number">3.4.</span> <span class="nav-text">4.mcp_router配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E5%8E%9F%E7%89%88"><span class="nav-number">4.</span> <span class="nav-text">卸载原版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%88%E5%8D%B8%E6%8E%89-IDA-%E6%8F%92%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">1. 先卸掉 IDA 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%86%8D%E5%88%A0%E6%8E%89%E8%BF%99%E4%B8%AA-venv"><span class="nav-number">4.2.</span> <span class="nav-text">2. 再删掉这个 venv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%80%E5%90%8E%E5%81%9A%E4%B8%AA%E9%AA%8C%E8%AF%81"><span class="nav-number">4.3.</span> <span class="nav-text">3. 最后做个验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%A7%8B%E5%9F%8E%E4%BD%AC%E7%9A%84%E5%A2%9E%E5%BC%BA%E7%89%88"><span class="nav-number">5.</span> <span class="nav-text">安装秋城佬的增强版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A2%9E%E5%BC%BA%E7%89%88-venv"><span class="nav-number">5.1.</span> <span class="nav-text">1. 增强版 venv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%A2%9E%E5%BC%BA%E7%89%88%E5%8C%85"><span class="nav-number">5.2.</span> <span class="nav-text">2. 安装增强版包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%AA%E8%A3%85-IDA-%E6%8F%92%E4%BB%B6-1"><span class="nav-number">5.3.</span> <span class="nav-text">3. 只装 IDA 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%A2%9E%E5%BC%BA%E7%89%88%E5%A4%9A%E5%87%BA%E6%9D%A5%E7%9A%84%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%85%88%E5%8D%95%E7%8B%AC%E5%90%AF%E5%8A%A8-Broker"><span class="nav-number">5.4.</span> <span class="nav-text">4. 增强版多出来的一步：先单独启动 Broker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%BB%99-mcp-router-%E7%9A%84%E9%85%8D%E7%BD%AE%E8%A6%81%E6%89%8B%E5%8A%A8%E8%A1%A5%E4%B8%8A-broker-url"><span class="nav-number">5.5.</span> <span class="nav-text">5. 给 mcp_router 的配置要手动补上 --broker-url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%83%B3%E6%AF%8F%E6%AC%A1%E6%89%8B%E5%8A%A8%E5%B8%B8%E9%A9%BB-Broker%EF%BC%9A%E7%BB%99-mcp-router-%E4%B8%80%E4%B8%AA%E5%A4%96%E9%83%A8-wrapper"><span class="nav-number">5.6.</span> <span class="nav-text">6. 如果不想每次手动常驻 Broker：给 mcp_router 一个外部 wrapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E5%A2%9E%E5%BC%BA%E7%89%88%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="nav-number">5.7.</span> <span class="nav-text">7. 增强版实际使用顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E5%A2%9E%E5%BC%BA%E7%89%88"><span class="nav-number">6.</span> <span class="nav-text">卸载增强版</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-%E5%85%88%E5%81%9C-Broker"><span class="nav-number">6.0.1.</span> <span class="nav-text">8.1 先停 Broker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-%E5%86%8D%E8%B7%91%E5%A2%9E%E5%BC%BA%E7%89%88%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%B8%E8%BD%BD%E5%91%BD%E4%BB%A4"><span class="nav-number">6.0.2.</span> <span class="nav-text">8.2 再跑增强版自己的卸载命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-%E6%9C%80%E5%90%8E%E5%88%A0%E6%8E%89%E5%A2%9E%E5%BC%BA%E7%89%88-venv"><span class="nav-number">6.0.3.</span> <span class="nav-text">8.3 最后删掉增强版 venv</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-4-%E5%86%8D%E6%A3%80%E6%9F%A5-mcp-router-%E5%92%8C%E6%8F%92%E4%BB%B6%E6%AE%8B%E7%95%99"><span class="nav-number">6.0.4.</span> <span class="nav-text">8.4 再检查 mcp_router 和插件残留</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%AC%A1%E8%B8%A9%E5%88%B0%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91"><span class="nav-number">7.</span> <span class="nav-text">这次踩到的几个坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-uv-venv-%E9%BB%98%E8%AE%A4%E6%B2%A1%E6%9C%89-pip"><span class="nav-number">7.1.</span> <span class="nav-text">1. uv venv 默认没有 pip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-mcp-router-%E6%8A%A5-Connection-closed"><span class="nav-number">7.2.</span> <span class="nav-text">2. mcp_router 报 Connection closed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8D%87%E7%BA%A7%E5%88%B0-main-%E4%B9%8B%E5%90%8E%E5%8F%88%E6%8A%A5-Connection-refused"><span class="nav-number">7.3.</span> <span class="nav-text">3. 升级到 main 之后又报 Connection refused</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-ida-pro-mcp-config-%E4%B8%8D%E6%98%AF%E6%97%A0%E8%84%91%E5%8F%AF%E4%BF%A1"><span class="nav-number">7.4.</span> <span class="nav-text">4. ida-pro-mcp --config 不是无脑可信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-IDA-%E9%87%8C%E6%89%BE%E4%B8%8D%E5%88%B0-Edit-Plugins-MCP"><span class="nav-number">7.5.</span> <span class="nav-text">5. IDA 里找不到 Edit -&gt; Plugins -&gt; MCP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9A%E6%8F%92%E4%BB%B6%E5%85%B6%E5%AE%9E%E6%A0%B9%E6%9C%AC%E6%B2%A1%E5%9C%A8%E5%AF%B9%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">7.5.1.</span> <span class="nav-text">第一种：插件其实根本没在对的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9A%E6%8F%92%E4%BB%B6%E5%B7%B2%E7%BB%8F%E8%A3%85%E5%A5%BD%E4%BA%86%EF%BC%8C%E4%BD%86-IDA-%E6%B2%A1%E5%AE%8C%E6%95%B4%E9%87%8D%E5%90%AF"><span class="nav-number">7.5.2.</span> <span class="nav-text">第二种：插件已经装好了，但 IDA 没完整重启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D%EF%BC%9A%E7%9B%AE%E5%BD%95%E9%87%8C%E8%BF%98%E6%9C%89%E4%BB%A5%E5%89%8D%E6%AE%8B%E7%95%99%E7%9A%84%E6%97%A7%E5%9D%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">7.5.3.</span> <span class="nav-text">第三种：目录里还有以前残留的旧坏链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End"><span class="nav-number">8.</span> <span class="nav-text">End</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -228,6 +228,13 @@
 
       <time title="创建时间：2026-04-11 00:00:00" itemprop="dateCreated datePublished" datetime="2026-04-11T00:00:00+08:00">2026-04-11</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-04-12 00:00:00" itemprop="dateModified" datetime="2026-04-12T00:00:00+08:00">2026-04-12</time>
+    </span>
 
   
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
@@ -243,14 +250,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>9.9k</span>
+      <span>20k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>13 分钟</span>
+      <span>26 分钟</span>
     </span>
 </div>
 
@@ -273,33 +280,32 @@
 </ol>
 <hr>
 <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我用的路径是：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp</span><br></pre></td></tr></table></figure>
 
 <p>之所以不放项目目录里，主要还是为了少折腾。</p>
 <p>放项目目录里当然也不是不能用，但太麻烦了<br>这种东西既然经常用的，还是放在目录固定路径更省心一点。mcp_router 也能管理开关</p>
 <hr>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="1-先建一个专用-venv"><a href="#1-先建一个专用-venv" class="headerlink" title="1. 先建一个专用 venv"></a>1. 先建一个专用 venv</h3><p>我这里直接这样建：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv venv --clear --seed /Users/用户名/.venvs/ida-pro-mcp --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
+<h2 id="安装原版"><a href="#安装原版" class="headerlink" title="安装原版"></a>安装原版</h2><h3 id="1-先建一个专用-venv"><a href="#1-先建一个专用-venv" class="headerlink" title="1. 先建一个专用 venv"></a>1. 先建一个专用 venv</h3><p>我这里直接这样建：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv venv --clear --seed /Users/tune/.venvs/ida-pro-mcp --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="2-安装官方-ida-pro-mcp"><a href="#2-安装官方-ida-pro-mcp" class="headerlink" title="2. 安装官方 ida-pro-mcp"></a>2. 安装官方 ida-pro-mcp</h3><p><a target="_blank" rel="noopener" href="https://github.com/mrexodia/ida-pro-mcp">https://github.com/mrexodia/ida-pro-mcp</a></p>
 <p>如果跟 release tag：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/tags/1.4.0.zip&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/tags/1.4.0.zip&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>如果想直接跟主分支最新：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/mrexodia/ida-pro-mcp/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>我最开始装的是 <code>1.4.0</code>，后面又升级到了当前 <code>main</code>。<br>如果你本来就打算多开几个 IDA，<strong>直接上 <code>main</code> 更省事</strong>，因为老的 <code>1.4.0</code> 基本还是固定抢 <code>13337</code> 只能开一个实例，怎么够我们用，而当前 <code>main</code> 已经会在端口冲突时自动往后找空闲端口。</p>
 <hr>
 <h3 id="3-只装-IDA-插件"><a href="#3-只装-IDA-插件" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>这一步我不想让它去改本地客户端配置，所以只装插件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --install-plugin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --install-plugin</span><br></pre></td></tr></table></figure>
 
 <p>这样做的好处就是比较干净。</p>
 <p>IDA 侧该有的插件会装进去，但 Codex &#x2F; Claude &#x2F; 其他 MCP 客户端那边不会被它顺手写一遍配置。<br>反正我本来就是统一走 <code>mcp_router</code>，没必要让它再多插一手。</p>
-<p>不过这里后面我又踩了一个坑。<br>这个命令名字看着像“装完插件就退出”，实际上不是。</p>
-<p>它会先把插件装进去，然后又继续进入 stdio MCP 服务流程，所以终端看起来会像卡住一样，一直不结束。<br>如果你是手动在终端里跑这个命令，不用傻等，它不是还在安装，只是后面挂着等输入而已。</p>
-<p>不过这个写法是我早期按老版本习惯记下来的。<br>后面升级到当前 <code>main</code> 之后，我更推荐直接调用安装器里的函数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这个命令会先把插件装进去，然后又继续进入 stdio MCP 服务流程，所以终端看起来会像卡住一样，一直不结束。<br>如果你是手动在终端里跑这个命令，不用傻等，它不是还在安装，只是后面挂着等输入而已。</p>
+<p><strong>我更推荐直接调用安装器里的函数：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>这条命令的好处就是很直接：</p>
 <ul>
@@ -307,72 +313,348 @@
 <li>装完就退出</li>
 <li>不会顺手把 stdio MCP 服务也跑起来</li>
 </ul>
-<p>如果你已经跑过 <code>--install-plugin</code>，终端一直挂着，那也不代表失败。<br>大多数时候插件其实已经装好了，直接 <code>Ctrl+C</code> 退掉就行。<br>如果是当前 <code>main</code>，我就不再建议继续用 <code>server.py</code> 那条旧写法了，直接走 <code>installer.install_ida_plugin()</code> 更对路。</p>
+<p>如果你已经跑过 <code>--install-plugin</code>，终端一直挂着，那也不代表失败。<br>大多数时候插件其实已经装好了，直接 <code>Ctrl+C</code> 退掉就行。  </p>
+<hr>
+<h3 id="4-mcp-router配置"><a href="#4-mcp-router配置" class="headerlink" title="4.mcp_router配置"></a>4.mcp_router配置</h3><p>如果走 <code>mcp_router</code>，我这里最后应该填的是：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想更明确一点，也可以补个环境变量：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;VIRTUAL_ENV&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>不过核心还是前面那句：</p>
+<p><strong>必须用 venv 里的 Python 去拉 <code>server.py</code>。</strong></p>
+<p>别再让 Homebrew 全局 Python 混进来，不然前面那些坑还得重来一次。</p>
+<hr>
+<h2 id="卸载原版"><a href="#卸载原版" class="headerlink" title="卸载原版"></a>卸载原版</h2><p>如果是按本文这种方式装的：</p>
+<ol>
+<li><p>固定 venv：<code>/Users/tune/.venvs/ida-pro-mcp</code></p>
+</li>
+<li><p>IDA 插件软链接放在 <code>~/.idapro/plugins</code></p>
+</li>
+<li><p><code>mcp_router</code> 手动去拉 venv 里的 <code>server.py</code></p>
+<p>那我会按这个顺序拆：</p>
+</li>
+<li><p>先关 IDA</p>
+</li>
+<li><p>再停掉 <code>mcp_router</code> 里正在跑的 <code>ida-pro-mcp</code></p>
+</li>
+<li><p>用官方命令卸掉 IDA 插件</p>
+</li>
+<li><p>最后删 venv</p>
+</li>
+</ol>
+<hr>
+<h3 id="1-先卸掉-IDA-插件"><a href="#1-先卸掉-IDA-插件" class="headerlink" title="1. 先卸掉 IDA 插件"></a>1. 先卸掉 IDA 插件</h3><p>官方 2.x CLI 已经带 <code>--uninstall</code>，不用再手动去删 <code>ida_mcp.py</code> &#x2F; <code>ida_mcp</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --uninstall</span><br></pre></td></tr></table></figure>
+
+<p>这一步会把 <code>~/.idapro/plugins</code> 下面这些东西清掉：</p>
+<ul>
+<li><p><code>ida_mcp.py</code></p>
+</li>
+<li><p><code>ida_mcp/</code></p>
+</li>
+<li><p>如果还残留旧版 <code>mcp-plugin.py</code>，也会一起删</p>
+<p>如果你当时不是手动配 <code>mcp_router</code>，而是跑过这种命令让它顺手写客户端配置：</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ida-pro-mcp --install codex,cursor,claude-code</span><br></pre></td></tr></table></figure>
+
+<p>那卸载时别只拆 IDA 插件，直接把目标名也带上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --uninstall codex,cursor,claude-code</span><br></pre></td></tr></table></figure>
+
+<p>如果和我一样，全程只是手动填 <code>mcp_router</code>，这里通常不用带 targets。  </p>
+<hr>
+<h3 id="2-再删掉这个-venv"><a href="#2-再删掉这个-venv" class="headerlink" title="2. 再删掉这个 venv"></a>2. 再删掉这个 venv</h3><p><code>--uninstall</code> 只会卸插件和它自己支持的客户端配置，<strong>不会帮你删整个 Python 虚拟环境</strong>。</p>
+<p>所以我这里最后还会补一步：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /Users/tune/.venvs/ida-pro-mcp</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-最后做个验证"><a href="#3-最后做个验证" class="headerlink" title="3. 最后做个验证"></a>3. 最后做个验证</h3><p>我一般就检查这几个点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -ld /Users/tune/.venvs/ida-pro-mcp</span><br><span class="line"><span class="built_in">ls</span> -ld ~/.idapro/plugins/ida_mcp ~/.idapro/plugins/ida_mcp.py</span><br><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>正常的话，前两条应该直接报：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>如果你之前在 <code>mcp_router</code> 里是手动新增了一条 <code>ida-pro-mcp</code> server，记得再去 <code>mcp_router</code> 里把那条记录删掉。<br>因为这种手填 <code>server.py</code> 的配置，本来就不是 <code>ida-pro-mcp --uninstall</code> 托管的，它不会替你顺手清理 <code>mcp_router</code> 自己的自定义记录。</p>
+<hr>
+<h2 id="安装秋城佬的增强版"><a href="#安装秋城佬的增强版" class="headerlink" title="安装秋城佬的增强版"></a>安装秋城佬的增强版</h2><p><a target="_blank" rel="noopener" href="https://github.com/QiuChenly/ida-pro-mcp-enhancement">https://github.com/QiuChenly/ida-pro-mcp-enhancement</a></p>
+<p>增强版当前走的是 <strong>Broker 架构</strong>：</p>
+<ol>
+<li>先单独起一个 Broker</li>
+<li><code>mcp_router</code> 再通过 stdio 拉起 <code>server.py</code></li>
+<li>IDA 插件连到同一个 Broker</li>
+<li>多个客户端窗口 &#x2F; 多个 IDA 实例共用同一个注册表</li>
+</ol>
+<ul>
+<li>多开 Cursor &#x2F; Codex &#x2F; 其他 MCP 客户端窗口</li>
+<li>多开几个 IDA 同时分析</li>
+<li>想在不同实例之间切换</li>
+</ul>
+<p>那增强版这套反而更顺。</p>
+<hr>
+<h3 id="1-增强版-venv"><a href="#1-增强版-venv" class="headerlink" title="1. 增强版 venv"></a>1. 增强版 venv</h3><p>放在这里：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement</span><br></pre></td></tr></table></figure>
+
+<p>建法还是一样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv venv --clear --seed /Users/tune/.venvs/ida-pro-mcp-enhancement --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-安装增强版包"><a href="#2-安装增强版包" class="headerlink" title="2. 安装增强版包"></a>2. 安装增强版包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/QiuChenly/ida-pro-mcp-enhancement/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-只装-IDA-插件-1"><a href="#3-只装-IDA-插件-1" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>增强版命令行里有 <code>--install</code>，但这个会一起去写本地 MCP 客户端配置。<br>如果我这边还是统一走 <code>mcp_router</code>，那就没必要让它去改 Codex &#x2F; Claude &#x2F; Cursor 本地配置。</p>
+<p>所以我这里还是走“只装插件”的思路，直接调用安装函数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python -c <span class="string">&quot;from ida_pro_mcp.install import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这条命令的好处还是老样子：</p>
+<ul>
+<li>只装插件</li>
+<li>装完就退出</li>
+<li>不额外改客户端配置</li>
+</ul>
+<p>增强版当前源码安装进去的插件形态是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp.py</span><br><span class="line">~/.idapro/plugins/ida_mcp/</span><br></pre></td></tr></table></figure>
+
+<p>如果要查插件有没有装上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>重点看有没有：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp.py</span><br><span class="line">ida_mcp</span><br></pre></td></tr></table></figure>
+
+<p>如果机器上还残留以前版本留下的 <code>mcp-plugin.py</code>，别被它误导。<br>那个文件在不同版本里出现过，但增强版当前这套安装逻辑不是靠它。</p>
+<hr>
+<h3 id="4-增强版多出来的一步：先单独启动-Broker"><a href="#4-增强版多出来的一步：先单独启动-Broker" class="headerlink" title="4. 增强版多出来的一步：先单独启动 Broker"></a>4. 增强版多出来的一步：先单独启动 Broker</h3><p>这个是增强版和原版最大的实际差异。</p>
+<p>原版我最后是让 <code>mcp_router</code> 直接拉 <code>server.py</code> 就够了。<br>增强版不一样，它默认要先有一个常驻 Broker。</p>
+<p>如果手动起，直接开一个单独终端跑：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python /Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13337</span><br></pre></td></tr></table></figure>
+
+<p>这一步会一直挂着，是 Broker 正常常驻。</p>
+<p>如果端口 <code>13337</code> 被占了，也可以换，改 <code>--port</code> 后面的数字就好，比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python /Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13338</span><br></pre></td></tr></table></figure>
+
+<p>但一旦改了端口，后面：</p>
+<ul>
+<li><code>mcp_router</code> 里的 <code>--broker-url</code></li>
+<li>IDA 插件那边连的地址</li>
+</ul>
+<p>都得一起跟着改，不然实例列表就是空的。</p>
+<hr>
+<h3 id="5-给-mcp-router-的配置要手动补上-broker-url"><a href="#5-给-mcp-router-的配置要手动补上-broker-url" class="headerlink" title="5. 给 mcp_router 的配置要手动补上 --broker-url"></a>5. 给 <code>mcp_router</code> 的配置要手动补上 <code>--broker-url</code></h3><p>增强版也有 <code>--config</code>，但它打印出来的配置只解决了 <strong>stdio 这一半</strong>。<br>如果你只是把那份 JSON 直接抄进去，却没先把 Broker 起起来，表面上看服务能拉起，实际上实例照样是空的。</p>
+<p>所以我这边如果要给 <code>mcp_router</code> 填增强版配置，会直接手写成这样：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp-enhancement&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;http://127.0.0.1:13337&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>把 server name 写成 <code>ida-pro-mcp-enhancement</code>，是为了在 <code>mcp_router</code> 里和原版区分开。  </p>
+<p>如果你换了 Broker 端口，比如 <code>13338</code>，那这里就要改成：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="string">&quot;http://127.0.0.1:13338&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="6-如果不想每次手动常驻-Broker：给-mcp-router-一个外部-wrapper"><a href="#6-如果不想每次手动常驻-Broker：给-mcp-router-一个外部-wrapper" class="headerlink" title="6. 如果不想每次手动常驻 Broker：给 mcp_router 一个外部 wrapper"></a>6. 如果不想每次手动常驻 Broker：给 <code>mcp_router</code> 一个外部 wrapper</h3><p>我后面又继续往下收了一步。</p>
+<p>前面这套配置虽然能用，但有个很烦的点：</p>
+<ul>
+<li><code>mcp_router</code> 里那条 <code>server.py --broker-url ...</code> <strong>不会自己启动 Broker</strong></li>
+<li>所以如果每次都手动先开一个终端常驻 <code>--broker</code></li>
+<li>实际上很容易忘，也很容易起重复</li>
+</ul>
+<p>这个坑的根因一定要先说清楚：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python3 \</span><br><span class="line">  /Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py \</span><br><span class="line">  --broker-url http://127.0.0.1:13337</span><br></pre></td></tr></table></figure>
+
+<p>这条命令的职责只是：</p>
+<ul>
+<li>启动一个 <strong>stdio MCP 进程</strong></li>
+<li>再让这个进程去连接 <strong>已经存在的 Broker</strong></li>
+</ul>
+<p>它本身 <strong>不是 Broker</strong>，也不会监听 <code>13337</code>。</p>
+<p>所以我最后改成了另一个思路：</p>
+<ul>
+<li>不让 <code>mcp_router</code> 直接拉 <code>server.py</code></li>
+<li>而是让它先拉一个 <strong>外部 wrapper 脚本</strong></li>
+<li>这个脚本先检查 Broker</li>
+<li>没有就自动拉起</li>
+<li>有 PID 但不健康就自动回收重启</li>
+<li>最后再 <code>exec server.py --broker-url ...</code></li>
+</ul>
+<p>我这里把脚本放在：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.codex/memories/ida-pro-mcp-router-wrapper.sh</span><br></pre></td></tr></table></figure>
+
+<p>脚本内容如下：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/zsh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -euo pipefail</span><br><span class="line"><span class="built_in">unsetopt</span> BG_NICE 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">PYTHON_BIN=<span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python3&quot;</span></span><br><span class="line">SERVER_PY=<span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">BROKER_URL=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_URL:-http://127.0.0.1:13337&#125;</span>&quot;</span></span><br><span class="line">BROKER_LOG=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_LOG:-/tmp/ida-pro-mcp-broker.log&#125;</span>&quot;</span></span><br><span class="line">BROKER_START_TIMEOUT=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_START_TIMEOUT:-10&#125;</span>&quot;</span></span><br><span class="line">BROKER_PID_FILE=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_PID_FILE:-/tmp/ida-pro-mcp-broker.pid&#125;</span>&quot;</span></span><br><span class="line">BROKER_LOCK_DIR=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_LOCK_DIR:-/tmp/ida-pro-mcp-broker.lock&#125;</span>&quot;</span></span><br><span class="line">BROKER_LOCK_TIMEOUT=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_LOCK_TIMEOUT:-15&#125;</span>&quot;</span></span><br><span class="line">BROKER_STOP_TIMEOUT=<span class="string">&quot;<span class="variable">$&#123;IDA_MCP_BROKER_STOP_TIMEOUT:-5&#125;</span>&quot;</span></span><br><span class="line">HAVE_LOCK=0</span><br><span class="line"></span><br><span class="line">broker_authority=<span class="string">&quot;<span class="variable">$&#123;BROKER_URL#*://&#125;</span>&quot;</span></span><br><span class="line">broker_authority=<span class="string">&quot;<span class="variable">$&#123;broker_authority%%/*&#125;</span>&quot;</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$&#123;broker_authority&#125;</span>&quot;</span> == *:* ]]; <span class="keyword">then</span></span><br><span class="line">  BROKER_PORT=<span class="string">&quot;<span class="variable">$&#123;broker_authority##*:&#125;</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  BROKER_PORT=<span class="string">&quot;13337&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">broker_status_url=<span class="string">&quot;<span class="variable">$&#123;BROKER_URL%/&#125;</span>/status&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">broker_ready</span></span>() &#123;</span><br><span class="line">  curl --silent --fail --max-time 1 <span class="string">&quot;<span class="variable">$&#123;broker_status_url&#125;</span>&quot;</span> &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">release_lock</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$&#123;HAVE_LOCK&#125;</span>&quot;</span> == <span class="string">&quot;1&quot;</span> &amp;&amp; -d <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> -rf <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span></span><br><span class="line">    HAVE_LOCK=0</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">broker_pid_matches</span></span>() &#123;</span><br><span class="line">  [[ -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span> ]] || <span class="built_in">return</span> 1</span><br><span class="line"></span><br><span class="line">  <span class="built_in">local</span> pid</span><br><span class="line">  pid=<span class="string">&quot;<span class="subst">$(&lt;<span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span>)</span>&quot;</span></span><br><span class="line">  [[ -n <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> ]] || <span class="built_in">return</span> 1</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ! <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">return</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">local</span> cmdline</span><br><span class="line">  cmdline=<span class="string">&quot;<span class="subst">$(ps -p <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> -o command= 2&gt;/dev/null || true)</span>&quot;</span></span><br><span class="line">  [[ <span class="string">&quot;<span class="variable">$&#123;cmdline&#125;</span>&quot;</span> == *<span class="string">&quot;<span class="variable">$&#123;SERVER_PY&#125;</span>&quot;</span>* &amp;&amp; <span class="string">&quot;<span class="variable">$&#123;cmdline&#125;</span>&quot;</span> == *<span class="string">&quot;--broker&quot;</span>* ]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">read_broker_pid</span></span>() &#123;</span><br><span class="line">  [[ -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span> ]] || <span class="built_in">return</span> 1</span><br><span class="line"></span><br><span class="line">  <span class="built_in">local</span> pid</span><br><span class="line">  pid=<span class="string">&quot;<span class="subst">$(&lt;<span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span>)</span>&quot;</span></span><br><span class="line">  [[ -n <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> ]] || <span class="built_in">return</span> 1</span><br><span class="line"></span><br><span class="line">  <span class="built_in">print</span> -r -- <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">cleanup_stale_pid</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> ! broker_pid_matches; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">acquire_lock</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> waited=0</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> ! <span class="built_in">mkdir</span> <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">local</span> holder_pid=<span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> [[ -f <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>/pid&quot;</span> ]]; <span class="keyword">then</span></span><br><span class="line">      holder_pid=<span class="string">&quot;<span class="subst">$(&lt;<span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>/pid&quot;</span>)</span>&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> [[ -n <span class="string">&quot;<span class="variable">$&#123;holder_pid&#125;</span>&quot;</span> ]] &amp;&amp; ! <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;holder_pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">rm</span> -rf <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span></span><br><span class="line">      <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> broker_ready; <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">return</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (( waited &gt;= BROKER_LOCK_TIMEOUT )); <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] 等待 Broker 启动锁超时: <span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>&quot;</span></span><br><span class="line">      <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line">    (( waited += <span class="number">1</span> ))</span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">print</span> -r -- <span class="string">&quot;$$&quot;</span> &gt; <span class="string">&quot;<span class="variable">$&#123;BROKER_LOCK_DIR&#125;</span>/pid&quot;</span></span><br><span class="line">  HAVE_LOCK=1</span><br><span class="line">  <span class="built_in">return</span> 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start_broker</span></span>() &#123;</span><br><span class="line">  <span class="built_in">nohup</span> <span class="string">&quot;<span class="variable">$&#123;PYTHON_BIN&#125;</span>&quot;</span> <span class="string">&quot;<span class="variable">$&#123;SERVER_PY&#125;</span>&quot;</span> --broker --port <span class="string">&quot;<span class="variable">$&#123;BROKER_PORT&#125;</span>&quot;</span> &gt;<span class="string">&quot;<span class="variable">$&#123;BROKER_LOG&#125;</span>&quot;</span> 2&gt;&amp;1 &amp;</span><br><span class="line">  <span class="built_in">local</span> pid=$!</span><br><span class="line">  <span class="built_in">print</span> -r -- <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> &gt; <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">stop_broker</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> pid</span><br><span class="line">  pid=<span class="string">&quot;<span class="subst">$(read_broker_pid)</span>&quot;</span> || <span class="built_in">return</span> 0</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ! <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">rm</span> -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span></span><br><span class="line">    <span class="built_in">return</span> 0</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">kill</span> <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">local</span> waited=0</span><br><span class="line">  <span class="keyword">while</span> <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> (( waited &gt;= BROKER_STOP_TIMEOUT )); <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">break</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line">    (( waited += <span class="number">1</span> ))</span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">kill</span> -0 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">kill</span> -9 <span class="string">&quot;<span class="variable">$&#123;pid&#125;</span>&quot;</span> 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">rm</span> -f <span class="string">&quot;<span class="variable">$&#123;BROKER_PID_FILE&#125;</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">wait_for_broker</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> i=0</span><br><span class="line">  <span class="keyword">while</span> (( i &lt; BROKER_START_TIMEOUT )); <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> broker_ready; <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">return</span> 0</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">sleep</span> 1</span><br><span class="line">    (( i += <span class="number">1</span> ))</span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">  <span class="built_in">return</span> 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">restart_broker</span></span>() &#123;</span><br><span class="line">  stop_broker</span><br><span class="line">  start_broker</span><br><span class="line">  wait_for_broker</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">trap</span> release_lock EXIT INT TERM</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ! broker_ready; <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">if</span> acquire_lock; <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">if</span> ! broker_ready; <span class="keyword">then</span></span><br><span class="line">      cleanup_stale_pid</span><br><span class="line">      <span class="keyword">if</span> broker_pid_matches; <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">if</span> ! wait_for_broker; <span class="keyword">then</span></span><br><span class="line">          <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 存活但不健康，尝试自动重启&quot;</span></span><br><span class="line">          <span class="keyword">if</span> ! restart_broker; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 自动重启失败，请检查日志: <span class="variable">$&#123;BROKER_LOG&#125;</span>&quot;</span></span><br><span class="line">            <span class="built_in">exit</span> 1</span><br><span class="line">          <span class="keyword">fi</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        start_broker</span><br><span class="line">        <span class="keyword">if</span> ! wait_for_broker; <span class="keyword">then</span></span><br><span class="line">          <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 首次启动失败，尝试自动重启&quot;</span></span><br><span class="line">          <span class="keyword">if</span> ! restart_broker; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 启动/重启均失败，请检查日志: <span class="variable">$&#123;BROKER_LOG&#125;</span>&quot;</span></span><br><span class="line">            <span class="built_in">exit</span> 1</span><br><span class="line">          <span class="keyword">fi</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">      <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    release_lock</span><br><span class="line">  <span class="keyword">elif</span> ! broker_ready; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">print</span> -u2 -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 未就绪，且未能接管启动锁&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">&quot;<span class="variable">$&#123;IDA_MCP_WRAPPER_NO_STDIO:-0&#125;</span>&quot;</span> == <span class="string">&quot;1&quot;</span> ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">print</span> -- <span class="string">&quot;[ida-pro-mcp-wrapper] Broker 已就绪: <span class="variable">$&#123;BROKER_URL&#125;</span>&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exec</span> <span class="string">&quot;<span class="variable">$&#123;PYTHON_BIN&#125;</span>&quot;</span> <span class="string">&quot;<span class="variable">$&#123;SERVER_PY&#125;</span>&quot;</span> --broker-url <span class="string">&quot;<span class="variable">$&#123;BROKER_URL&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>给执行权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x /Users/tune/.codex/memories/ida-pro-mcp-router-wrapper.sh</span><br></pre></td></tr></table></figure>
+
+<p>然后 <code>mcp_router</code> 里不要再直接配 <code>python3 + server.py</code>，而是改成：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp-enhancement&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/bin/zsh&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.codex/memories/ida-pro-mcp-router-wrapper.sh&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这套写法的好处是：</p>
+<ul>
+<li>不用每次手动先开一个 Broker 终端</li>
+<li>多窗口同时拉起时，不会重复起多个 Broker</li>
+<li>PID 指向的 Broker 还活着但已经不健康时，会自动回收并重启</li>
+<li>Broker 失败时，统一看这个日志就行：</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/tmp/ida-pro-mcp-broker.log</span><br></pre></td></tr></table></figure>
+
+<p>如果只是想验证 wrapper 能不能把 Broker 拉起来，不想真的进入 stdio MCP，可以这样测：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IDA_MCP_WRAPPER_NO_STDIO=1 /Users/tune/.codex/memories/ida-pro-mcp-router-wrapper.sh</span><br><span class="line">curl http://127.0.0.1:13337/status</span><br></pre></td></tr></table></figure>
+
+<p>第二条如果返回了类似：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;instances&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>那就说明 Broker 至少已经活了。<br>后面重启 <code>mcp_router</code>，再回 IDA 里按 <code>Ctrl+Alt+M</code> 就行。</p>
+<hr>
+<h3 id="7-增强版实际使用顺序"><a href="#7-增强版实际使用顺序" class="headerlink" title="7. 增强版实际使用顺序"></a>7. 增强版实际使用顺序</h3><p>如果是增强版，按这个顺序用：</p>
+<ol>
+<li>先起 Broker</li>
+<li>再起 <code>mcp_router</code></li>
+<li>再打开 IDA</li>
+<li>在 IDA 里按 <code>Ctrl+Alt+M</code></li>
+<li>再去客户端里调用 <code>instance_list</code></li>
+</ol>
+<p>增强版是否真的通了，我不会先看别的，先看这几个工具：</p>
+<ul>
+<li><code>instance_list</code></li>
+<li><code>instance_current</code></li>
+<li><code>instance_switch</code></li>
+<li><code>instance_info</code></li>
+</ul>
+<p>如果 <code>instance_list</code> 还是空的，优先怀疑这几件事：</p>
+<ol>
+<li>Broker 根本没起</li>
+<li>Broker 端口和 <code>--broker-url</code> 不一致</li>
+<li>IDA 插件没有真正连上 Broker</li>
+<li>IDA 没完整重启</li>
+</ol>
+<hr>
+<h2 id="卸载增强版"><a href="#卸载增强版" class="headerlink" title="卸载增强版"></a>卸载增强版</h2><p>增强版虽然是 fork，但命令行入口名字还是 <code>ida-pro-mcp</code>。<br>仓库 README 里已经明确列了：</p>
+<ul>
+<li><code>--install</code></li>
+<li><code>--uninstall</code></li>
+<li><code>--broker</code></li>
+</ul>
+<p>所以真要拆的时候，我不会去猜别的写法，还是先走它自己的 <code>--uninstall</code>。</p>
+<p>如果是按本文这种方式装的，我会按这个顺序拆：</p>
+<ol>
+<li>先关 IDA</li>
+<li>关掉 MCP 客户端</li>
+<li>停掉 Broker</li>
+<li>跑增强版自己的 <code>--uninstall</code></li>
+<li>删掉增强版 venv</li>
+<li>回头删 <code>mcp_router</code> 里手动写的 <code>ida-pro-mcp-enhancement</code></li>
+</ol>
+<hr>
+<h4 id="8-1-先停-Broker"><a href="#8-1-先停-Broker" class="headerlink" title="8.1 先停 Broker"></a>8.1 先停 Broker</h4><p>增强版和原版最大的区别就在这里：<br>原版大多是直接让 MCP 进程去连 IDA，增强版这里多了一层 Broker。</p>
+<p>如果你 Broker 是前台起的，比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/python /Users/tune/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13337</span><br></pre></td></tr></table></figure>
+
+<p>那最简单，直接把那个终端停掉。  </p>
+<p>如果你换过端口，比如 <code>13338</code>，那也记得把对应 Broker 一起停掉，不然你表面上把插件删了，后台其实还留着一个 HTTP 注册中心在跑。</p>
+<hr>
+<h4 id="8-2-再跑增强版自己的卸载命令"><a href="#8-2-再跑增强版自己的卸载命令" class="headerlink" title="8.2 再跑增强版自己的卸载命令"></a>8.2 再跑增强版自己的卸载命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp-enhancement/bin/ida-pro-mcp --uninstall</span><br></pre></td></tr></table></figure>
+
+<p>这一步的目标还是两件事：</p>
+<ol>
+<li>卸掉 <code>~/.idapro/plugins</code> 里的增强版 IDA 插件</li>
+<li>清掉它自己托管的 MCP 客户端配置</li>
+</ol>
+<p>如果你当时不是手动配 <code>mcp_router</code>，而是直接跑过：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ida-pro-mcp --install</span><br></pre></td></tr></table></figure>
+
+<p>那这里直接 <code>--uninstall</code> 就是最顺手的对称拆法。  </p>
+<p>如果你当时像我一样，IDA 插件是手动装的、<code>mcp_router</code> 配置也是自己手填的，那 <code>--uninstall</code> 主要负责拆插件；<code>mcp_router</code> 里那条手写的 server 记录，后面还得自己删。</p>
+<hr>
+<h4 id="8-3-最后删掉增强版-venv"><a href="#8-3-最后删掉增强版-venv" class="headerlink" title="8.3 最后删掉增强版 venv"></a>8.3 最后删掉增强版 venv</h4><p>和原版一样，CLI 的 <code>--uninstall</code> <strong>不会帮你删整个虚拟环境目录</strong>。</p>
+<p>所以收尾我这里还会补一步：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /Users/tune/.venvs/ida-pro-mcp-enhancement</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="8-4-再检查-mcp-router-和插件残留"><a href="#8-4-再检查-mcp-router-和插件残留" class="headerlink" title="8.4 再检查 mcp_router 和插件残留"></a>8.4 再检查 <code>mcp_router</code> 和插件残留</h4><p>我一般至少看这几个点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -ld /Users/tune/.venvs/ida-pro-mcp-enhancement</span><br><span class="line"><span class="built_in">ls</span> -ld ~/.idapro/plugins/ida_mcp ~/.idapro/plugins/ida_mcp.py</span><br><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
+
+<p>如果前两条已经报：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>那说明 venv 和插件残留基本都没了。  </p>
+<p>但增强版这里还要多补一句：</p>
+<p><strong>如果你之前在 <code>mcp_router</code> 里手动写了 <code>ida-pro-mcp-enhancement</code> 这条 server，记得自己去删。</strong></p>
+<p>因为这条配置本来就是你手填的，<code>ida-pro-mcp --uninstall</code> 不会替你回收 <code>mcp_router</code> 自己的数据库记录。</p>
 <hr>
 <h2 id="这次踩到的几个坑"><a href="#这次踩到的几个坑" class="headerlink" title="这次踩到的几个坑"></a>这次踩到的几个坑</h2><h3 id="1-uv-venv-默认没有-pip"><a href="#1-uv-venv-默认没有-pip" class="headerlink" title="1. uv venv 默认没有 pip"></a>1. <code>uv venv</code> 默认没有 <code>pip</code></h3><p>这个是第一个坑，而且挺低级的。</p>
 <p>我一开始建完 venv，顺手就跑：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
 
 <p>结果直接报：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No module named pip</span><br></pre></td></tr></table></figure>
 
 <p>后面才发现，<code>uv venv</code> 默认不会给你塞 <code>pip</code>。<br>所以如果你没加 <code>--seed</code>，这个报错基本就是必踩。</p>
 <p>如果已经建好了，也不是不能补：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m ensurepip --upgrade</span><br><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m ensurepip --upgrade</span><br><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="2-mcp-router-报-Connection-closed"><a href="#2-mcp-router-报-Connection-closed" class="headerlink" title="2. mcp_router 报 Connection closed"></a>2. <code>mcp_router</code> 报 <code>Connection closed</code></h3><p>报错是：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ida-pro-mcp: Error invoking remote method &#x27;mcp:start&#x27;: Error: MCP error -32000: Connection closed</span><br></pre></td></tr></table></figure>
 
 <p>后面顺着实际启动命令一看，它实际跑的是：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3 /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3 /Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py</span><br></pre></td></tr></table></figure>
 
 <p>这条命令看着好像没问题，其实问题挺大：</p>
 <ul>
-<li><code>server.py</code> 是 venv 里的</li>
-<li>但拉起它的 Python 是 <strong>全局 Homebrew Python</strong></li>
-</ul>
+<li><p><code>server.py</code> 是 venv 里的</p>
+</li>
+<li><p>但拉起它的 Python 是 <strong>全局 Homebrew Python</strong></p>
 <p>后面我手动跑了一遍，真实报错是：</p>
+</li>
+</ul>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ModuleNotFoundError: No module named &#x27;mcp&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>这就说得通了。</p>
 <p>不是 <code>mcp_router</code> 自己坏了，而是：</p>
 <ol>
-<li>它把服务拉起来了</li>
-<li>服务一启动就 import 失败</li>
-<li>进程当场退出</li>
-<li><code>mcp_router</code> 只能看到“连接关了”</li>
-</ol>
+<li><p>它把服务拉起来了</p>
+</li>
+<li><p>服务一启动就 import 失败</p>
+</li>
+<li><p>进程当场退出</p>
+</li>
+<li><p><code>mcp_router</code> 只能看到“连接关了”</p>
 <p>所以这个 <code>Connection closed</code>，很多时候只是表象。<br>真正要看的还是它背后到底跑了哪条命令。</p>
+</li>
+</ol>
 <h3 id="3-升级到-main-之后又报-Connection-refused"><a href="#3-升级到-main-之后又报-Connection-refused" class="headerlink" title="3. 升级到 main 之后又报 Connection refused"></a>3. 升级到 <code>main</code> 之后又报 <code>Connection refused</code></h3><p>这个是我后面这次又新踩到的一层。</p>
 <p>我已经把原版从 <code>1.4.0</code> 升到了当前 <code>main</code>，<code>mcp_router</code> 里的配置看起来也没问题，<br>结果 Codex 还是报：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ConnectionRefusedError: [Errno 61] Connection refused</span><br></pre></td></tr></table></figure>
 
 <p>这次和前面的 <code>Connection closed</code> 还不一样。<br>它说明的不是“server.py 没拉起来”，而是：</p>
 <ol>
-<li><code>mcp_router</code> 已经把 <code>server.py</code> 拉起来了</li>
-<li><code>server.py</code> 又去连 <code>127.0.0.1:13337</code></li>
-<li>但 IDA 这边根本没有 MCP 服务在监听</li>
-</ol>
+<li><p><code>mcp_router</code> 已经把 <code>server.py</code> 拉起来了</p>
+</li>
+<li><p><code>server.py</code> 又去连 <code>127.0.0.1:13337</code></p>
+</li>
+<li><p>但 IDA 这边根本没有 MCP 服务在监听</p>
 <p>然后我继续往下查，真正根因不是 <code>mcp_router</code>，而是 <strong>IDA 插件目录里混着旧的坏链接</strong>。</p>
 <p>我当时 <code>~/.idapro/plugins</code> 里是这种状态：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br><span class="line">ida_mcp.py -&gt; /Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/tune/Downloads/HamsterHook/path/to/venv/...</span><br><span class="line">ida_mcp.py -&gt; /Users/tune/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
 
 <p>也就是：</p>
 <ul>
-<li>看起来插件“像是装过”</li>
-<li>但实际上链接目标根本是假的</li>
-<li>所以 IDA 根本加载不到当前 venv 里的插件</li>
-<li>菜单里自然也看不到 <code>Edit -&gt; Plugins -&gt; MCP</code></li>
-</ul>
+<li><p>看起来插件“像是装过”</p>
+</li>
+<li><p>但实际上链接目标根本是假的</p>
+</li>
+<li><p>所以 IDA 根本加载不到当前 venv 里的插件</p>
+</li>
+<li><p>菜单里自然也看不到 <code>Edit -&gt; Plugins -&gt; MCP</code></p>
 <p>这次真正把问题修掉的命令是：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/用户名/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/tune/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">python -c <span class="string">&quot;from ida_pro_mcp.installer import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>我实际拿到的输出是：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Installed IDA Pro plugin (IDA restart required)</span><br><span class="line">  removed old plugin: /Users/用户名/.idapro/plugins/mcp-plugin.py</span><br><span class="line">  loader: /Users/用户名/.idapro/plugins/ida_mcp.py</span><br><span class="line">  package: /Users/用户名/.idapro/plugins/ida_mcp</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Installed IDA Pro plugin (IDA restart required)</span><br><span class="line">  removed old plugin: /Users/tune/.idapro/plugins/mcp-plugin.py</span><br><span class="line">  loader: /Users/tune/.idapro/plugins/ida_mcp.py</span><br><span class="line">  package: /Users/tune/.idapro/plugins/ida_mcp</span><br></pre></td></tr></table></figure>
 
 <p>然后再看插件目录，就变成了：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp</span><br><span class="line">ida_mcp.py -&gt; /Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp    -&gt; /Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp</span><br><span class="line">ida_mcp.py -&gt; /Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/ida_mcp.py</span><br></pre></td></tr></table></figure>
 
 <p>这才是对的。</p>
 <p>所以这一轮排障总结：</p>
@@ -381,20 +663,20 @@
 </blockquote>
 <hr>
 <h3 id="4-ida-pro-mcp-config-不是无脑可信"><a href="#4-ida-pro-mcp-config-不是无脑可信" class="headerlink" title="4. ida-pro-mcp --config 不是无脑可信"></a>4. <code>ida-pro-mcp --config</code> 不是无脑可信</h3><p>我一开始直接这样跑：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
 
 <p>它输出的是：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/opt/homebrew/Cellar/python@3.14/3.14.4/Frameworks/Python.framework/Versions/3.14/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>以为官方的会没错，但是因为我们是虚拟环境安装的ida-mcp，<code>ida-pro-mcp</code> 这里判断当前 Python 环境，挺依赖 <code>VIRTUAL_ENV</code>。<br>如果 venv 没激活，它就可能回退去找系统 Python。</p>
 <p>所以这一步正确姿势应该是：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/用户名/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /Users/tune/.venvs/ida-pro-mcp/bin/activate</span><br><span class="line">ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
 
 <p>或者：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VIRTUAL_ENV=/Users/用户名/.venvs/ida-pro-mcp /Users/用户名/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VIRTUAL_ENV=/Users/tune/.venvs/ida-pro-mcp /Users/tune/.venvs/ida-pro-mcp/bin/ida-pro-mcp --config</span><br></pre></td></tr></table></figure>
 
 <p>这时候输出才是对的：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/tune/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="5-IDA-里找不到-Edit-Plugins-MCP"><a href="#5-IDA-里找不到-Edit-Plugins-MCP" class="headerlink" title="5. IDA 里找不到 Edit -&gt; Plugins -&gt; MCP"></a>5. IDA 里找不到 <code>Edit -&gt; Plugins -&gt; MCP</code></h3><p>升级之后碰到的</p>
@@ -418,113 +700,9 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp</span><br><span class="line">~/.idapro/plugins/ida_mcp.py</span><br></pre></td></tr></table></figure>
 
 <p>它们当时还是指向以前一个已经失效的占位路径：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/tune/Downloads/HamsterHook/path/to/venv/...</span><br></pre></td></tr></table></figure>
 
 <p>表面看起来像“插件已经在了”，实际上 IDA 根本加载不到当前 venv 里的插件实现。</p>
-<hr>
-<h2 id="最后我这边能用的配置"><a href="#最后我这边能用的配置" class="headerlink" title="最后我这边能用的配置"></a>最后我这边能用的配置</h2><p>如果走 <code>mcp_router</code>，我这里最后应该填的是：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果想更明确一点，也可以补个环境变量：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;VIRTUAL_ENV&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>不过核心还是前面那句：</p>
-<p><strong>必须用 venv 里的 Python 去拉 <code>server.py</code>。</strong></p>
-<p>别再让 Homebrew 全局 Python 混进来，不然前面那些坑还得重来一次。</p>
-<hr>
-<h2 id="如果要装增强版-ida-pro-mcp-enhancement（秋城佬的）"><a href="#如果要装增强版-ida-pro-mcp-enhancement（秋城佬的）" class="headerlink" title="如果要装增强版 ida-pro-mcp-enhancement（秋城佬的）"></a>如果要装增强版 <code>ida-pro-mcp-enhancement</code>（秋城佬的）</h2><p><a target="_blank" rel="noopener" href="https://github.com/QiuChenly/ida-pro-mcp-enhancement">https://github.com/QiuChenly/ida-pro-mcp-enhancement</a></p>
-<p>增强版当前走的是 <strong>Broker 架构</strong>：</p>
-<ol>
-<li>先单独起一个 Broker</li>
-<li><code>mcp_router</code> 再通过 stdio 拉起 <code>server.py</code></li>
-<li>IDA 插件连到同一个 Broker</li>
-<li>多个客户端窗口 &#x2F; 多个 IDA 实例共用同一个注册表</li>
-</ol>
-<ul>
-<li>多开 Cursor &#x2F; Codex &#x2F; 其他 MCP 客户端窗口</li>
-<li>多开几个 IDA 同时分析</li>
-<li>想在不同实例之间切换</li>
-</ul>
-<p>那增强版这套反而更顺。</p>
-<hr>
-<h3 id="1-增强版-venv"><a href="#1-增强版-venv" class="headerlink" title="1. 增强版 venv"></a>1. 增强版 venv</h3><p>放在这里：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement</span><br></pre></td></tr></table></figure>
-
-<p>建法还是一样：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv venv --clear --seed /Users/用户名/.venvs/ida-pro-mcp-enhancement --python /opt/homebrew/opt/python@3.14/bin/python3.14</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="2-安装增强版包"><a href="#2-安装增强版包" class="headerlink" title="2. 安装增强版包"></a>2. 安装增强版包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python -m pip install --upgrade <span class="string">&quot;https://github.com/QiuChenly/ida-pro-mcp-enhancement/archive/refs/heads/main.zip&quot;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="3-只装-IDA-插件-1"><a href="#3-只装-IDA-插件-1" class="headerlink" title="3. 只装 IDA 插件"></a>3. 只装 IDA 插件</h3><p>增强版命令行里有 <code>--install</code>，但这个会一起去写本地 MCP 客户端配置。<br>如果我这边还是统一走 <code>mcp_router</code>，那就没必要让它去改 Codex &#x2F; Claude &#x2F; Cursor 本地配置。</p>
-<p>所以我这里还是走“只装插件”的思路，直接调用安装函数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python -c <span class="string">&quot;from ida_pro_mcp.install import install_ida_plugin; install_ida_plugin()&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>这条命令的好处还是老样子：</p>
-<ul>
-<li>只装插件</li>
-<li>装完就退出</li>
-<li>不额外改客户端配置</li>
-</ul>
-<p>增强版当前源码安装进去的插件形态是：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/.idapro/plugins/ida_mcp.py</span><br><span class="line">~/.idapro/plugins/ida_mcp/</span><br></pre></td></tr></table></figure>
-
-<p>如果要查插件有没有装上：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la ~/.idapro/plugins</span><br></pre></td></tr></table></figure>
-
-<p>重点看有没有：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ida_mcp.py</span><br><span class="line">ida_mcp</span><br></pre></td></tr></table></figure>
-
-<p>如果机器上还残留以前版本留下的 <code>mcp-plugin.py</code>，别被它误导。<br>那个文件在不同版本里出现过，但增强版当前这套安装逻辑不是靠它。</p>
-<hr>
-<h3 id="4-增强版多出来的一步：先单独启动-Broker"><a href="#4-增强版多出来的一步：先单独启动-Broker" class="headerlink" title="4. 增强版多出来的一步：先单独启动 Broker"></a>4. 增强版多出来的一步：先单独启动 Broker</h3><p>这个是增强版和原版最大的实际差异。</p>
-<p>原版我最后是让 <code>mcp_router</code> 直接拉 <code>server.py</code> 就够了。<br>增强版不一样，它默认要先有一个常驻 Broker。</p>
-<p>如果手动起，直接开一个单独终端跑：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python /Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13337</span><br></pre></td></tr></table></figure>
-
-<p>这一步会一直挂着，是 Broker 正常常驻。</p>
-<p>如果端口 <code>13337</code> 被占了，也可以换，改 <code>--port</code> 后面的数字就好，比如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python /Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py --broker --port 13338</span><br></pre></td></tr></table></figure>
-
-<p>但一旦改了端口，后面：</p>
-<ul>
-<li><code>mcp_router</code> 里的 <code>--broker-url</code></li>
-<li>IDA 插件那边连的地址</li>
-</ul>
-<p>都得一起跟着改，不然实例列表就是空的。</p>
-<hr>
-<h3 id="5-给-mcp-router-的配置要手动补上-broker-url"><a href="#5-给-mcp-router-的配置要手动补上-broker-url" class="headerlink" title="5. 给 mcp_router 的配置要手动补上 --broker-url"></a>5. 给 <code>mcp_router</code> 的配置要手动补上 <code>--broker-url</code></h3><p>增强版也有 <code>--config</code>，但它打印出来的配置只解决了 <strong>stdio 这一半</strong>。<br>如果你只是把那份 JSON 直接抄进去，却没先把 Broker 起起来，表面上看服务能拉起，实际上实例照样是空的。</p>
-<p>所以我这边如果要给 <code>mcp_router</code> 填增强版配置，会直接手写成这样：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mcpServers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ida-pro-mcp-enhancement&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp-enhancement/bin/python3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;/Users/用户名/.venvs/ida-pro-mcp-enhancement/lib/python3.14/site-packages/ida_pro_mcp/server.py&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;http://127.0.0.1:13337&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span> <span class="number">1800</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;disabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>把 server name 写成 <code>ida-pro-mcp-enhancement</code>，是为了在 <code>mcp_router</code> 里和原版区分开。  </p>
-<p>如果你换了 Broker 端口，比如 <code>13338</code>，那这里就要改成：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;--broker-url&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="string">&quot;http://127.0.0.1:13338&quot;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="6-增强版实际使用顺序"><a href="#6-增强版实际使用顺序" class="headerlink" title="6. 增强版实际使用顺序"></a>6. 增强版实际使用顺序</h3><p>如果是增强版，按这个顺序用：</p>
-<ol>
-<li>先起 Broker</li>
-<li>再起 <code>mcp_router</code></li>
-<li>再打开 IDA</li>
-<li>在 IDA 里按 <code>Ctrl+Alt+M</code></li>
-<li>再去客户端里调用 <code>instance_list</code></li>
-</ol>
-<p>增强版是否真的通了，我不会先看别的，先看这几个工具：</p>
-<ul>
-<li><code>instance_list</code></li>
-<li><code>instance_current</code></li>
-<li><code>instance_switch</code></li>
-<li><code>instance_info</code></li>
-</ul>
-<p>如果 <code>instance_list</code> 还是空的，优先怀疑这几件事：</p>
-<ol>
-<li>Broker 根本没起</li>
-<li>Broker 端口和 <code>--broker-url</code> 不一致</li>
-<li>IDA 插件没有真正连上 Broker</li>
-<li>IDA 没完整重启</li>
-</ol>
 <hr>
 <h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>工具准备好了，代码AI能写，开始发挥你的创意吧！</p>
 <p>官方仓库：<a target="_blank" rel="noopener" href="https://github.com/mrexodia/ida-pro-mcp">https://github.com/mrexodia/ida-pro-mcp</a></p>
@@ -629,14 +807,14 @@
         <i class="fa fa-chart-line"></i>
       </span>
         <span>站点总字数：</span>
-      <span title="站点总字数">129k</span>
+      <span title="站点总字数">139k</span>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="fa fa-coffee"></i>
       </span>
         <span>站点阅读时长 &asymp;</span>
-      <span title="站点阅读时长">2:46</span>
+      <span title="站点阅读时长">2:59</span>
     </span>
   </div>
   <div class="busuanzi-count">
