@@ -175,24 +175,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Cloudflare R2图床</title>
-    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
-<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
-<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
-<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
-<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
-<p>两个教程不同之处：</p>
-<ol>
-<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
-<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Cloudflare</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Cloudflare Tunnel内网穿透及优选</title>
     <url>/2024/12/06/Cloudflare%20tunnel/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>11月份Frp的机到期了，发现能用CF白嫖内网穿透，于是开始了折腾<span id="more"></span></p>
@@ -335,6 +317,24 @@
         <tag>Mihomo</tag>
         <tag>Web</tag>
         <tag>Debian</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cloudflare R2图床</title>
+    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
+<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
+<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
+<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
+<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
+<p>两个教程不同之处：</p>
+<ol>
+<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
+<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Cloudflare</tag>
       </tags>
   </entry>
   <entry>
@@ -528,6 +528,29 @@
 ]]></content>
       <tags>
         <tag>折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac使用spoof修改Mac地址</title>
+    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
+    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
+<span id="more"></span>
+
+<p>随机生成MAC地址(以en0 wifi为例）：</p>
+<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
+<p>还原默认的MAC地址：</p>
+<p><code>sudo spoof-mac reset en0</code></p>
+<p>一些简短的用法示例：</p>
+<p>列出可用设备：</p>
+<p><code>spoof-mac list</code></p>
+<p>列出可用设备，但仅列出wifi上的设备：</p>
+<p><code>spoof-mac list --wifi</code></p>
+<p>将设备MAC地址设置为指定的：</p>
+<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
+<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -815,29 +838,6 @@
 
 <p>App Store 左侧的更新条目通知也会清空。</p>
 <h1 id="Mac电脑窗口拖动"><a href="#Mac电脑窗口拖动" class="headerlink" title="Mac电脑窗口拖动"></a>Mac电脑窗口拖动</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">defaults write -g NSWindowShouldDragOnGesture -bool <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac使用spoof修改Mac地址</title>
-    <url>/2024/04/21/Mac%E4%BD%BF%E7%94%A8spoof%E4%BF%AE%E6%94%B9Mac%E5%9C%B0%E5%9D%80/</url>
-    <content><![CDATA[<p>使用brew安装spoof：<br><code>brew install spoof-mac</code></p>
-<span id="more"></span>
-
-<p>随机生成MAC地址(以en0 wifi为例）：</p>
-<p><code>sudo spoof-mac randomize en0        ##端口名</code><br><code>spoof-mac randomize wi-fi           ##设备名</code></p>
-<p>还原默认的MAC地址：</p>
-<p><code>sudo spoof-mac reset en0</code></p>
-<p>一些简短的用法示例：</p>
-<p>列出可用设备：</p>
-<p><code>spoof-mac list</code></p>
-<p>列出可用设备，但仅列出wifi上的设备：</p>
-<p><code>spoof-mac list --wifi</code></p>
-<p>将设备MAC地址设置为指定的：</p>
-<p><code>spoof-mac set 00:00:00:00:00:00 en0</code></p>
-<p>参考文章: <a href="https://www.5axxw.com/wiki/content/otrm73">https://www.5axxw.com/wiki/content/otrm73</a></p>
-]]></content>
       <tags>
         <tag>Mac</tag>
       </tags>
@@ -2081,6 +2081,49 @@
       </tags>
   </entry>
   <entry>
+    <title>Bose QC Ultra 和 Sony XM5</title>
+    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
+    <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
+<span id="more"></span>
+
+<p>我的耳朵长时间佩戴入耳式耳机不是很舒服，而且发过炎症（三星 Buds Pro 老用户），准备入一款头戴式玩玩，四个选择</p>
+<ol>
+<li><p>Sony WH 1000-XM5（朋友有一个，能借来用）</p>
+</li>
+<li><p>Bose QC Ultra</p>
+</li>
+<li><p>Sennheiser MOMENTUM 4（木馒头4）（看测评不适合我）</p>
+</li>
+<li><p>Airports Max（不考虑，太重了，舍友有一个，体验过一段时间）</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/1a888c1e2140222ae453245b0d8ecbae.jpeg"></p>
+</li>
+</ol>
+<p>借朋友的XM5、买了一个Bose QC Ultra开始体验，看看留下谁</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/e9eca987d5bd8842075890dfb7a2d4db.jpeg"></p>
+<p>最后留下了Bose，就是因为<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>，能折叠，个人觉得比XM5好看，就没了，其他全是缺点</p>
+<p>来列一下与XM5对比，Bose的缺点</p>
+<ol>
+<li>EQ不能保存多个，可以调节的少</li>
+<li>不能快速切换降噪和通透，必须通过模式来切换</li>
+<li>没有XM5长按右耳罩，快速减少音量，关闭降噪的功能（Bose的交互比XM5烂很多）</li>
+<li>查询电池电量只能通过蓝牙，或者自定义音量条的“快捷方式”（我用来调节“沉浸式音频”了），但耳机开机的时候会报一下电量</li>
+<li>开机的时候如果连接了多设备，会把设备的名字都念一遍（能关闭）</li>
+<li>充电速度慢，电池没有XM5的大</li>
+<li>蓝牙的音质是比xm5差点（我能听出来），但是有线的情况下不分伯仲（说Bose会更好，我听不出来）</li>
+<li>音频线是2.5mm和3.5mm的，而且送的线比Sony的短</li>
+<li>没有防水，下雨不要戴</li>
+<li>用耳机上的滑块把音量调到最大。每次通过 3.5mm 线连接时，音量都会自动变成 50%，说是为了保护听力。所以你得在两个地方调音量（耳机和设备上）</li>
+<li>Bose 的品控差，售后特别烂，我的暂时还没问题</li>
+<li>折腾Bose的人少，Sony的还可以刷刷固件折玩</li>
+</ol>
+<p>另外朋友的XM5用的挺久了，耳机涂层脱落，手感差，且有油光，看起来变廉价了</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/6f5a141e3dc24de32522f0bc9c895b0f.jpeg"></p>
+]]></content>
+      <tags>
+        <tag>耳机</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Systemctl运行Rustdesk服务端</title>
     <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
     <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
@@ -2127,83 +2170,6 @@
       <tags>
         <tag>Systemctl</tag>
         <tag>Rustdesk</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Bose QC Ultra 和 Sony XM5</title>
-    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
-    <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
-<span id="more"></span>
-
-<p>我的耳朵长时间佩戴入耳式耳机不是很舒服，而且发过炎症（三星 Buds Pro 老用户），准备入一款头戴式玩玩，四个选择</p>
-<ol>
-<li><p>Sony WH 1000-XM5（朋友有一个，能借来用）</p>
-</li>
-<li><p>Bose QC Ultra</p>
-</li>
-<li><p>Sennheiser MOMENTUM 4（木馒头4）（看测评不适合我）</p>
-</li>
-<li><p>Airports Max（不考虑，太重了，舍友有一个，体验过一段时间）</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/1a888c1e2140222ae453245b0d8ecbae.jpeg"></p>
-</li>
-</ol>
-<p>借朋友的XM5、买了一个Bose QC Ultra开始体验，看看留下谁</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/e9eca987d5bd8842075890dfb7a2d4db.jpeg"></p>
-<p>最后留下了Bose，就是因为<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>，能折叠，个人觉得比XM5好看，就没了，其他全是缺点</p>
-<p>来列一下与XM5对比，Bose的缺点</p>
-<ol>
-<li>EQ不能保存多个，可以调节的少</li>
-<li>不能快速切换降噪和通透，必须通过模式来切换</li>
-<li>没有XM5长按右耳罩，快速减少音量，关闭降噪的功能（Bose的交互比XM5烂很多）</li>
-<li>查询电池电量只能通过蓝牙，或者自定义音量条的“快捷方式”（我用来调节“沉浸式音频”了），但耳机开机的时候会报一下电量</li>
-<li>开机的时候如果连接了多设备，会把设备的名字都念一遍（能关闭）</li>
-<li>充电速度慢，电池没有XM5的大</li>
-<li>蓝牙的音质是比xm5差点（我能听出来），但是有线的情况下不分伯仲（说Bose会更好，我听不出来）</li>
-<li>音频线是2.5mm和3.5mm的，而且送的线比Sony的短</li>
-<li>没有防水，下雨不要戴</li>
-<li>用耳机上的滑块把音量调到最大。每次通过 3.5mm 线连接时，音量都会自动变成 50%，说是为了保护听力。所以你得在两个地方调音量（耳机和设备上）</li>
-<li>Bose 的品控差，售后特别烂，我的暂时还没问题</li>
-<li>折腾Bose的人少，Sony的还可以刷刷固件折玩</li>
-</ol>
-<p>另外朋友的XM5用的挺久了，耳机涂层脱落，手感差，且有油光，看起来变廉价了</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/6f5a141e3dc24de32522f0bc9c895b0f.jpeg"></p>
-]]></content>
-      <tags>
-        <tag>耳机</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac外壳磕了，国内外两次AC送修经历</title>
-    <url>/2026/06/18/%E5%9B%BD%E5%86%85%E5%A4%96%E4%B8%A4%E6%AC%A1AppleCare%E7%BB%8F%E5%8E%86/</url>
-    <content><![CDATA[<p>一年前，自己的美版16寸MacBook因为自己不不小心，被充电头的插脚顶出了凹痕，刚好买了AppleCare，于是就预约了准备去送修</p>
-<span id="more"></span>
-
-
-
-<p>放一张AI做的图</p>
-<p><img src="https://files.catbox.moe/pv23a4.png" alt="image"></p>
-<p><img src="https://files.catbox.moe/mwtqsc.JPG" alt="image"></p>
-<p><img src="https://files.catbox.moe/usodlk.png" alt="image"></p>
-<p><img src="https://files.catbox.moe/8qtgvh.png" alt="image"></p>
-<p>维修价格预估是这样的，到店接待我们的人说，显示器的更换 100美金，机身的更换200美金，这和官网说的机身外壳损坏99美金不同（当时我没有去看过官网的维修价格，就忘了问为什么价格不同了），接待我的黑人小哥不建议我维修，想着AC还有一年，等快到期了再换</p>
-<hr>
-<p>26年8月AC到期了，前段时间就又预约了看看</p>
-<p>国内的AC预约需要身份证后四位数（不清楚是否校验），到店签到的时候也要你的真名（也没检验，应该是为了方便辨别人，国内店人是真的多），签到完毕就等工作人员来接待。</p>
-<p><img src="https://files.catbox.moe/gk4nsw.png" alt="image"></p>
-<p><img src="https://files.catbox.moe/z6c8b8.png" alt="image"></p>
-<p>这一次我问清楚了，外部机壳损坏只能用于一个，像我的机器来说，要么换屏幕那一边，要么换机身那一边是799，两个一起换就是2999，自己准备换一个屏幕，但是一直要我提供AC的购买凭证，但是我就是想不起自己的放哪里了，就作罢了，不知道是我的Mac是美版的原因</p>
-<p>一些小信息：</p>
-<ul>
-<li>电脑可以因为散热不行、发热异常，预约维修，维修人员会帮忙清理一下灰尘（但不直接提供清灰服务），过保也行（好像从来没在V站听说过，Mac清灰、换硅脂的事，我的两侧出风口肉眼可见有灰尘，这一次就请了，他们清理的很快）</li>
-<li>键盘的键帽被磨损的看不清字了，影响使用体验了可以更换，过保也行</li>
-<li>国内的Mac使用AC维修，必须到店自提，没有邮寄服务</li>
-</ul>
-<p>这么一趟折腾下来，好像AC对我这样用设备很爱惜的人没什么用呀，下次不买了，买AC3k，修一下机器3k</p>
-]]></content>
-      <tags>
-        <tag>Apple</tag>
-        <tag>Mac</tag>
-        <tag>Apple Care</tag>
       </tags>
   </entry>
   <entry>
@@ -2259,6 +2225,40 @@
 ]]></content>
       <tags>
         <tag>折腾</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac外壳磕了，国内外两次AC送修经历</title>
+    <url>/2026/06/18/%E5%9B%BD%E5%86%85%E5%A4%96%E4%B8%A4%E6%AC%A1AppleCare%E7%BB%8F%E5%8E%86/</url>
+    <content><![CDATA[<p>一年前，自己的美版16寸MacBook因为自己不不小心，被充电头的插脚顶出了凹痕，刚好买了AppleCare，于是就预约了准备去送修</p>
+<span id="more"></span>
+
+
+
+<p>放一张AI做的图</p>
+<p><img src="https://files.catbox.moe/pv23a4.png" alt="image"></p>
+<p><img src="https://files.catbox.moe/mwtqsc.JPG" alt="image"></p>
+<p><img src="https://files.catbox.moe/usodlk.png" alt="image"></p>
+<p><img src="https://files.catbox.moe/8qtgvh.png" alt="image"></p>
+<p>维修价格预估是这样的，到店接待我们的人说，显示器的更换 100美金，机身的更换200美金，这和官网说的机身外壳损坏99美金不同（当时我没有去看过官网的维修价格，就忘了问为什么价格不同了），接待我的黑人小哥不建议我维修，想着AC还有一年，等快到期了再换</p>
+<hr>
+<p>26年8月AC到期了，前段时间就又预约了看看</p>
+<p>国内的AC预约需要身份证后四位数（不清楚是否校验），到店签到的时候也要你的真名（也没检验，应该是为了方便辨别人，国内店人是真的多），签到完毕就等工作人员来接待。</p>
+<p><img src="https://files.catbox.moe/gk4nsw.png" alt="image"></p>
+<p><img src="https://files.catbox.moe/z6c8b8.png" alt="image"></p>
+<p>这一次我问清楚了，外部机壳损坏只能用于一个，像我的机器来说，要么换屏幕那一边，要么换机身那一边是799，两个一起换就是2999，自己准备换一个屏幕，但是一直要我提供AC的购买凭证，但是我就是想不起自己的放哪里了，就作罢了，不知道是我的Mac是美版的原因</p>
+<p>一些小信息：</p>
+<ul>
+<li>电脑可以因为散热不行、发热异常，预约维修，维修人员会帮忙清理一下灰尘（但不直接提供清灰服务），过保也行（好像从来没在V站听说过，Mac清灰、换硅脂的事，我的两侧出风口肉眼可见有灰尘，这一次就请了，他们清理的很快）</li>
+<li>键盘的键帽被磨损的看不清字了，影响使用体验了可以更换，过保也行</li>
+<li>国内的Mac使用AC维修，必须到店自提，没有邮寄服务</li>
+</ul>
+<p>这么一趟折腾下来，好像AC对我这样用设备很爱惜的人没什么用呀，下次不买了，买AC3k，修一下机器3k</p>
+]]></content>
+      <tags>
+        <tag>Apple</tag>
+        <tag>Mac</tag>
+        <tag>Apple Care</tag>
       </tags>
   </entry>
   <entry>
@@ -2577,23 +2577,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>转换GitHub Raw 链接</title>
-    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
-    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
-<p>sh脚本：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
-
-<p>js脚本：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
-]]></content>
-      <tags>
-        <tag>GitHub</tag>
-        <tag>小脚本</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>编译OpenWrt</title>
     <url>/2024/06/22/%E7%BC%96%E8%AF%91OpenWrt/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>网上有大量的OpenWrt固件供用户下载使用。这类固件旨在满足广泛用户群体的需求，因此可能包含了一些并非所有用户都会用到的功能或组件。<span id="more"></span>此外，考虑到最近曝光的XZ后门事件，这让人们更加警惕第三方编译固件的安全性，毕竟无法完全确信他人编译的固件是否完全安全无虞。因此，为了确保设备的安全性和个性化需求，自行编译适合自己使用的OpenWrt固件不失为一个更为可靠的选择。</p>
@@ -2784,6 +2767,23 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 ]]></content>
       <tags>
         <tag>OpenWrt</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转换GitHub Raw 链接</title>
+    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
+    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
+<p>sh脚本：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
+
+<p>js脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
+]]></content>
+      <tags>
+        <tag>GitHub</tag>
+        <tag>小脚本</tag>
       </tags>
   </entry>
   <entry>
