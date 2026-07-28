@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/rainbow.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/rainbow.ico">
+  <link rel="mask-icon" href="/images/rainbow.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CFira+Code:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"696966.xyz","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在 PVE 上面安装 Debian 系统，每次都要做一下那个 DVD 引导安装很麻烦，这几天冲浪，看到一篇文章发现一个简简单的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PVE定制debian系统及创建模板">
+<meta property="og:url" content="https://696966.xyz/2026/07/28/PVE%E5%AE%9A%E5%88%B6debian%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="Tune">
+<meta property="og:description" content="在 PVE 上面安装 Debian 系统，每次都要做一下那个 DVD 引导安装很麻烦，这几天冲浪，看到一篇文章发现一个简简单的方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-27T16:00:00.000Z">
+<meta property="article:author" content="Tune">
+<meta property="article:tag" content="Debian">
+<meta property="article:tag" content="PVE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://696966.xyz/2026/07/28/PVE%E5%AE%9A%E5%88%B6debian%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2026/07/28/PVE%E5%AE%9A%E5%88%B6debian%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF/","path":"2026/07/28/PVE定制debian系统及创建模板/","title":"PVE定制debian系统及创建模板"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>PVE定制debian系统及创建模板 | Tune</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tune</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">1. 创建工作目录：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">2. 安装构建工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%B8%8B%E8%BD%BD%E5%AE%98%E6%96%B9-Debian-13-genericcloud-%E9%95%9C%E5%83%8F"><span class="nav-number">3.</span> <span class="nav-text">3. 下载官方 Debian 13 genericcloud 镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AE%9A%E5%88%B6%E9%95%9C%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">4. 定制镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%8E%8B%E7%BC%A9%E9%95%9C%E5%83%8F"><span class="nav-number">5.</span> <span class="nav-text">5. 压缩镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%AF%BC%E5%85%A5-PVE-%E5%B9%B6%E5%88%B6%E6%88%90%E6%A8%A1%E6%9D%BF%EF%BC%88%E5%AD%98%E5%82%A8-local%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">6. 导入 PVE 并制成模板（存储 &#x3D; local）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E5%88%9B%E5%BB%BA%E7%A9%BA%E7%99%BD-VM%EF%BC%88%E4%B9%8B%E5%90%8E%E8%BD%AC%E6%8D%A2%E6%88%90%E6%A8%A1%E6%9D%BF%EF%BC%89"><span class="nav-number">6.1.</span> <span class="nav-text">6.3 创建空白 VM（之后转换成模板）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-%E5%AF%BC%E5%85%A5%E7%A3%81%E7%9B%98%E5%B9%B6%E6%8C%82%E8%BD%BD%EF%BC%88local-%E7%89%88%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">6.4 导入磁盘并挂载（local 版）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-%E8%AE%BE%E7%BD%AE-DHCP"><span class="nav-number">6.3.</span> <span class="nav-text">6.5 设置 DHCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-%E8%BD%AC%E4%B8%BA%E6%A8%A1%E6%9D%BF"><span class="nav-number">6.4.</span> <span class="nav-text">6.6 转为模板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E4%BB%8E%E6%A8%A1%E6%9D%BF%E5%85%8B%E9%9A%86%E5%B9%B6%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">7. 从模板克隆并首次启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-%E5%85%8B%E9%9A%86"><span class="nav-number">7.1.</span> <span class="nav-text">7.1 克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E5%90%AF%E5%8A%A8%E5%89%8D%E9%85%8D%E7%BD%AE-Cloud-Init"><span class="nav-number">7.2.</span> <span class="nav-text">7.2 启动前配置 Cloud-Init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E5%90%AF%E5%8A%A8"><span class="nav-number">7.3.</span> <span class="nav-text">7.3 启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number"></span> <span class="nav-text">参考文章</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tune</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/itunehh@gmail.com" title="E-Mail → itunehh@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/ithhc" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;ithhc" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://696966.xyz/2026/07/28/PVE%E5%AE%9A%E5%88%B6debian%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tune">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tune">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="PVE定制debian系统及创建模板 | Tune">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PVE定制debian系统及创建模板
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-07-28 00:00:00" itemprop="dateCreated datePublished" datetime="2026-07-28T00:00:00+08:00">2026-07-28</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在 PVE 上面安装 Debian 系统，每次都要做一下那个 DVD 引导安装很麻烦，这几天冲浪，看到一篇文章发现一个简简单的方法。</p>
+<span id="more"></span>
+
+<p><a target="_blank" rel="noopener" href="https://blog.skk.moe/post/proxmox-ve-customize-debian-cloud-image">https://blog.skk.moe/post/proxmox-ve-customize-debian-cloud-image</a></p>
+<p>详细的介绍看原文吧，我直接说我的过程</p>
+<h2 id="1-创建工作目录："><a href="#1-创建工作目录：" class="headerlink" title="1. 创建工作目录："></a>1. 创建工作目录：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /root/debian-cloud-build</span><br><span class="line"><span class="built_in">cd</span> /root/debian-cloud-build</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-安装构建工具"><a href="#2-安装构建工具" class="headerlink" title="2. 安装构建工具"></a>2. 安装构建工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install -y libguestfs-tools axel qemu-utils</span><br></pre></td></tr></table></figure>
+
+<p><code>axel</code>是多线程下载工具，不想安装或者没有 <code>axel</code> 时用 <code>wget</code> 亦可（见下一步）。</p>
+<h2 id="3-下载官方-Debian-13-genericcloud-镜像"><a href="#3-下载官方-Debian-13-genericcloud-镜像" class="headerlink" title="3. 下载官方 Debian 13 genericcloud 镜像"></a>3. 下载官方 Debian 13 genericcloud 镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/debian-cloud-build</span><br><span class="line"></span><br><span class="line">axel -n 8 -o debian-13.qcow2 \</span><br><span class="line">  https://cdimage.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>备选 wget：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O debian-13.qcow2 \</span><br><span class="line">  https://cdimage.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>确认：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh debian-13.qcow2</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-定制镜像"><a href="#4-定制镜像" class="headerlink" title="4. 定制镜像"></a>4. 定制镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/debian-cloud-build</span><br><span class="line"></span><br><span class="line">virt-customize -a debian-13.qcow2 \</span><br><span class="line">  --smp 2 \</span><br><span class="line">  --timezone Asia/Hong_Kong \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/default/grub:# disables OS prober to avoid loopback detection which breaks booting&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/default/grub:GRUB_DISABLE_OS_PROBER=true&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;update-grub&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;systemctl enable serial-getty@ttyS1.service&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;sed -i &#x27;s|Types: deb deb-src|Types: deb|g&#x27; /etc/apt/sources.list.d/debian.sources&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;sed -i &#x27;s|generate_mirrorlists: true|generate_mirrorlists: false|g&#x27; /etc/cloud/cloud.cfg.d/01_debian_cloud.cfg&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/ssh/sshd_config.d/99-internal-password.conf:PermitRootLogin yes&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/ssh/sshd_config.d/99-internal-password.conf:PasswordAuthentication yes&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/ssh/sshd_config.d/99-internal-password.conf:KbdInteractiveAuthentication yes&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/cloud/cloud.cfg.d/99-ssh-pwauth.cfg:ssh_pwauth: true&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/cloud/cloud.cfg.d/99-ssh-pwauth.cfg:disable_root: false&quot;</span> \</span><br><span class="line">  --update \</span><br><span class="line">  --install <span class="string">&quot;sudo,qemu-guest-agent,spice-vdagent,bash-completion,unzip,wget,curl,net-tools,iputils-ping,nano,less,vim,mtr-tiny,htop,dnsutils,zstd&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;apt-get -y autoremove --purge &amp;&amp; apt-get -y clean&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/systemd/timesyncd.conf:NTP=time.apple.com time.windows.com&quot;</span> \</span><br><span class="line">  --delete <span class="string">&quot;/var/log/*.log&quot;</span> \</span><br><span class="line">  --delete <span class="string">&quot;/var/lib/apt/lists/*&quot;</span> \</span><br><span class="line">  --delete <span class="string">&quot;/var/cache/apt/*&quot;</span> \</span><br><span class="line">  --<span class="built_in">truncate</span> <span class="string">&quot;/etc/machine-id&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>这几段做的</strong></p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GRUB <code>OS_PROBER</code></td>
+<td>避免虚拟机里探测其它系统导致启动异常</td>
+</tr>
+<tr>
+<td><code>serial-getty@ttyS1</code></td>
+<td>额外串口登录（PVE 仍需 <code>--serial0</code> 提供 ttyS0）</td>
+</tr>
+<tr>
+<td>去 deb-src &#x2F; 关 mirrorlist 自动覆盖</td>
+<td>源配置更可控</td>
+</tr>
+<tr>
+<td><code>99-internal-password.conf</code></td>
+<td>sshd：允许 root + 密码 + 键盘交互</td>
+</tr>
+<tr>
+<td><code>99-ssh-pwauth.cfg</code></td>
+<td>cloud-init：别在首启再关掉密码认证、不禁用 root</td>
+</tr>
+<tr>
+<td><code>--update</code> + <code>--install</code></td>
+<td>升级并装常用工具 &#x2F; qemu-guest-agent</td>
+</tr>
+<tr>
+<td>清理 + <code>machine-id</code></td>
+<td>模板克隆更干净</td>
+</tr>
+</tbody></table>
+<h2 id="5-压缩镜像"><a href="#5-压缩镜像" class="headerlink" title="5. 压缩镜像"></a>5. 压缩镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/debian-cloud-build</span><br><span class="line"></span><br><span class="line">virt-sparsify --compress debian-13.qcow2 debian-13-custom.qcow2</span><br><span class="line"><span class="built_in">ls</span> -lh debian-13.qcow2 debian-13-custom.qcow2</span><br></pre></td></tr></table></figure>
+
+<p><strong>最终产物：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/root/debian-cloud-build/debian-13-custom.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>确认 custom 生成成功后，可删中间文件省空间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f /root/debian-cloud-build/debian-13.qcow2</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-导入-PVE-并制成模板（存储-local）"><a href="#6-导入-PVE-并制成模板（存储-local）" class="headerlink" title="6. 导入 PVE 并制成模板（存储 &#x3D; local）"></a>6. 导入 PVE 并制成模板（存储 &#x3D; local）</h2><h3 id="6-3-创建空白-VM（之后转换成模板）"><a href="#6-3-创建空白-VM（之后转换成模板）" class="headerlink" title="6.3 创建空白 VM（之后转换成模板）"></a>6.3 创建空白 VM（之后转换成模板）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">qm create 9000 \</span><br><span class="line">  --name debian-13-cloud-template \</span><br><span class="line">  --machine q35 \</span><br><span class="line">  --cpu cputype=host \</span><br><span class="line">  --ostype l26 \</span><br><span class="line">  --memory 1024 \</span><br><span class="line">  --cores 1 \</span><br><span class="line">  --scsihw virtio-scsi-single \</span><br><span class="line">  --net0 virtio,bridge=vmbr0 \</span><br><span class="line">  --serial0 socket \</span><br><span class="line">  --vga none \</span><br><span class="line">  --agent 1 \</span><br><span class="line">  --scsi2 <span class="built_in">local</span>:cloudinit</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-4-导入磁盘并挂载（local-版）"><a href="#6-4-导入磁盘并挂载（local-版）" class="headerlink" title="6.4 导入磁盘并挂载（local 版）"></a>6.4 导入磁盘并挂载（local 版）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">qm importdisk 9000 <span class="string">&quot;/root/debian-cloud-build/debian-13-custom.qcow2&quot;</span> <span class="built_in">local</span> -format qcow2</span><br><span class="line">qm <span class="built_in">set</span> 9000 --scsi0 <span class="built_in">local</span>:9000/vm-9000-disk-0.qcow2,discard=on,ssd=1</span><br><span class="line">qm <span class="built_in">set</span> 9000 --boot order=scsi0</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-5-设置-DHCP"><a href="#6-5-设置-DHCP" class="headerlink" title="6.5 设置 DHCP"></a>6.5 设置 DHCP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm <span class="built_in">set</span> 9000 --ipconfig0 ip=dhcp</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-6-转为模板"><a href="#6-6-转为模板" class="headerlink" title="6.6 转为模板"></a>6.6 转为模板</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm template 9000</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="7-从模板克隆并首次启动"><a href="#7-从模板克隆并首次启动" class="headerlink" title="7. 从模板克隆并首次启动"></a>7. 从模板克隆并首次启动</h2><h3 id="7-1-克隆"><a href="#7-1-克隆" class="headerlink" title="7.1 克隆"></a>7.1 克隆</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">qm <span class="built_in">clone</span> 9000 106 \</span><br><span class="line">  --name <span class="string">&quot;Debian-13-vm&quot;</span> \</span><br><span class="line">  --full 1 \</span><br><span class="line">  --storage <span class="built_in">local</span> \</span><br><span class="line">  --format qcow2</span><br></pre></td></tr></table></figure>
+
+<p>硬盘扩容，原3GB，后续不够用了应该也可以这样扩容（还没试过）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm resize 106 scsi0 +17G</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-启动前配置-Cloud-Init"><a href="#7-2-启动前配置-Cloud-Init" class="headerlink" title="7.2 启动前配置 Cloud-Init"></a>7.2 启动前配置 Cloud-Init</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置用户</span></span><br><span class="line">qm <span class="built_in">set</span> 106 --ciuser root</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置root密码</span></span><br><span class="line">qm <span class="built_in">set</span> 106 --cipassword <span class="string">&quot;132132&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-3-启动"><a href="#7-3-启动" class="headerlink" title="7.3 启动"></a>7.3 启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm start 106</span><br></pre></td></tr></table></figure>
+
+<p>首次启动可能要 <strong>2–5 分钟</strong>（cloud-init，镜像若带 package_upgrade 会更久）。</p>
+<p>网页 Console 可能长时间只有：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">starting serial terminal on interface serial0</span><br></pre></td></tr></table></figure>
+
+<p>这是正常现象，等等就好了。有几分钟就点进黑屏按几次 Enter。</p>
+<hr>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://blog.skk.moe/post/proxmox-ve-customize-debian-cloud-image">https://blog.skk.moe/post/proxmox-ve-customize-debian-cloud-image</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1962816613435806021">https://zhuanlan.zhihu.com/p/1962816613435806021</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/xixi-zhao/debian-cloud-build">https://github.com/xixi-zhao/debian-cloud-build</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Tune
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://696966.xyz/2026/07/28/PVE%E5%AE%9A%E5%88%B6debian%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF/" title="PVE定制debian系统及创建模板">https://696966.xyz/2026/07/28/PVE定制debian系统及创建模板/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Debian/" rel="tag"><i class="fa fa-tag"></i> Debian</a>
+              <a href="/tags/PVE/" rel="tag"><i class="fa fa-tag"></i> PVE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/06/18/%E5%9B%BD%E5%86%85%E5%A4%96%E4%B8%A4%E6%AC%A1AppleCare%E7%BB%8F%E5%8E%86/" rel="prev" title="Mac外壳磕了，国内外两次AC送修经历">
+                  <i class="fa fa-angle-left"></i> Mac外壳磕了，国内外两次AC送修经历
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="footer-container">
+
+<!--
+  <div class="copyright">
+    &copy; 2024 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Tune</span>
+  </div>-->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="copyright">
+        &copy; 2024 – 
+        <span itemprop="copyrightYear">2026</span>
+        <!--<span class="with-love">
+          <i class="fa fa-heart"></i>
+        </span>
+        <span class="author" itemprop="copyrightHolder">Tune</span>-->
+      </div>
+      <div class="runtime">
+        <span id="timeDate">载入天数...</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function createtime() {
+      var now = new Date();
+      var grt = new Date("7/30/2024 00:00:00"); // 设置开始日期
+      var days = Math.floor((now - grt) / 1000 / 60 / 60 / 24); // 计算已运行天数
+      document.getElementById("timeDate").innerHTML = "已运行 " + days + " 天 ";
+  }
+  createtime(); // 初始调用
+  setInterval(createtime, 86400000); // 每天更新一次（86400000 毫秒 = 24 小时）
+</script>
+  <div class="wordcount">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-chart-line"></i>
+      </span>
+        <span>站点总字数：</span>
+      <span title="站点总字数">144k</span>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-coffee"></i>
+      </span>
+        <span>站点阅读时长 &asymp;</span>
+      <span title="站点阅读时长">3:05</span>
+    </span>
+  </div>
+  <div class="busuanzi-count">
+      <span class="post-meta-item" id="busuanzi_container_site_uv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-user"></i>
+        </span>
+        <span class="site-uv" title="总访客量">
+          来过 <span id="busuanzi_value_site_uv"></span> 人
+        </span>
+      </span>
+      <span class="post-meta-item" id="busuanzi_container_site_pv">
+        <span class="post-meta-item-icon">
+          <i class="fa fa-eye"></i>
+        </span>
+        <span class="site-pv" title="总访问量">
+          读了 <span id="busuanzi_value_site_pv"></span> 次
+        </span>
+      </span>
+  </div>
+
+<style>
+  .footer-container {
+    text-align: center; /* 保证内容居中 */
+  }
+
+  .footer-content {
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+  }
+
+  .copyright,
+  .runtime {
+    margin: 0 10px; /* 添加左右间距 */
+  }
+</style>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/change.js"></script>
+</body>
+</html>

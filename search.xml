@@ -142,6 +142,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Cloudflare R2图床</title>
+    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
+<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
+<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
+<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
+<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
+<p>两个教程不同之处：</p>
+<ol>
+<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
+<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Cloudflare</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Bilibili Auto Pause</title>
     <url>/2024/12/22/Bilibili%20Auto%20Pause/</url>
     <content><![CDATA[<p>在使用 Enhancer for YouTube 插件时有一个功能 “自动暂停在后台标签中打开的视频” 特别好用，在国内的环境下，多少还是要用一下 BilBili 的，所以想着自己来实现这个功能<span id="more"></span>。</p>
@@ -172,24 +190,6 @@
       <tags>
         <tag>BiliBili</tag>
         <tag>插件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Cloudflare R2图床</title>
-    <url>/2024/12/07/Cloudflare%20R2%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>暑假serv00搭建的图床系统不知道为什么崩了，毕竟serv00只是免费十年，还是趁早白嫖大厂吧😁<span id="more"></span></p>
-<p>Cloudflare R2提供的免费空间已经足够我使用，再搭配上PicGo传图片的体验更佳，就是这套方案了</p>
-<p>由于我看的教程已经过于详细，就直接贴链接了（就是懒得写）</p>
-<p>文字教程：<br><a href="https://www.pseudoyu.com/zh/2024/06/30/free_image_hosting_system_using_r2_webp_cloud_and_picgo">从零开始搭建你的免费图床系统（Cloudflare R2+WebP Cloud + PicGo)</a></p>
-<p>视频教程：<br><a href="https://www.youtube.com/watch?v=ah5szwr4JxM">超级简单，从0开始搭建免费图床！Cloudflare R2 + WebP Cloud + PicGo</a></p>
-<p>两个教程不同之处：</p>
-<ol>
-<li>创建API令牌–指定存储桶，建议按文字教程使用 “仅应用于特定存储桶”</li>
-<li>PicGo–Amazon S3–文件路径设置，我按视频教程使用默认</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Cloudflare</tag>
       </tags>
   </entry>
   <entry>
@@ -843,30 +843,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac 查询 NAT 类型</title>
-    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
-<span id="more"></span>
-<p><code>python -m pip install pystun3</code></p>
-<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
-<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
-<p>然后，输入以下 Python 代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
-
-<p>附NAT类型介绍：</p>
-<ul>
-<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
-<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
-<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
-</ul>
-<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决Nikki局域网Apple设备耗电</title>
     <url>/2025/12/14/Nikki%E7%BB%95%E8%BF%87%E5%86%85%E6%A0%B8/</url>
     <content><![CDATA[<p>最近闲得很，把Mihomo的配置给重写了一边，自己局域网的iOS设备，每一晚上都是耗电太多了，虽然早就知道了，现在趁着重写配置文件，给他解决了</p>
@@ -968,6 +944,133 @@
 </ol>
 ]]></content>
       <tags>
+        <tag>PVE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac 查询 NAT 类型</title>
+    <url>/2024/07/17/Mac%E6%9F%A5%E8%AF%A2NAT%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<p>安装好Python和pip<br>使用 pip 安装 pystun3。这是一个用于获取 STUN 服务器信息的 Python 库。</p>
+<span id="more"></span>
+<p><code>python -m pip install pystun3</code></p>
+<p>安装完成后，您可以通过以下命令验证 pystun3 是否安装成功：<br><code>pip3 show pystun3</code></p>
+<p>现在，我们将使用 pystun3 获取 NAT 类型。首先，在终端中启动 Python 解释器：<br><code>python3</code></p>
+<p>然后，输入以下 Python 代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> stun</span><br><span class="line">stun.get_ip_info()</span><br></pre></td></tr></table></figure>
+
+<p>附NAT类型介绍：</p>
+<ul>
+<li>NAT1（Full Cone NAT 全锥形NAT）： 这是最开放的NAT类型。任何外部主机只要知道内部主机的IP地址和端口号，就可以通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT2（Restricted Cone NAT 受限锥型NAT）： 在这种类型下，只有内部主机与外部主机进行通信后，外部主机才能通过相同的外部IP和端口访问内部主机。</li>
+<li>NAT3（Port-Restricted Cone NAT 端口受限锥型NAT）： 这种类型要求外部主机必须知道内部主机的特定端口号才能进行通信。只允许内部主机发起的连接，外部主机只能响应这些连接。</li>
+<li>NAT4（Symmetric NAT 对称型NAT）： 这是最严格的NAT类型。每个外部主机的通信都使用不同的映射端口，只有目标主机才能进行回应。这意味着相同的内部IP和端口对不同的外部地址和端口会有不同的映射，这种类型的NAT最难与外部主机建立连接。</li>
+</ul>
+<p>本文搬运自：<br><a href="https://blog.zhheo.com/p/76f914a8.html">https://blog.zhheo.com/p/76f914a8.html</a><br><a href="https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/">https://www.kulafan.com/2023/07/31/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B5%8B%E8%AF%95nat%E7%B1%BB%E5%9E%8B/</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PVE定制debian系统及创建模板</title>
+    <url>/2026/07/28/PVE%E5%AE%9A%E5%88%B6debian%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<p>在 PVE 上面安装 Debian 系统，每次都要做一下那个 DVD 引导安装很麻烦，这几天冲浪，看到一篇文章发现一个简简单的方法。</p>
+<span id="more"></span>
+
+<p><a href="https://blog.skk.moe/post/proxmox-ve-customize-debian-cloud-image">https://blog.skk.moe/post/proxmox-ve-customize-debian-cloud-image</a></p>
+<p>详细的介绍看原文吧，我直接说我的过程</p>
+<h2 id="1-创建工作目录："><a href="#1-创建工作目录：" class="headerlink" title="1. 创建工作目录："></a>1. 创建工作目录：</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /root/debian-cloud-build</span><br><span class="line"><span class="built_in">cd</span> /root/debian-cloud-build</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-安装构建工具"><a href="#2-安装构建工具" class="headerlink" title="2. 安装构建工具"></a>2. 安装构建工具</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install -y libguestfs-tools axel qemu-utils</span><br></pre></td></tr></table></figure>
+
+<p><code>axel</code>是多线程下载工具，不想安装或者没有 <code>axel</code> 时用 <code>wget</code> 亦可（见下一步）。</p>
+<h2 id="3-下载官方-Debian-13-genericcloud-镜像"><a href="#3-下载官方-Debian-13-genericcloud-镜像" class="headerlink" title="3. 下载官方 Debian 13 genericcloud 镜像"></a>3. 下载官方 Debian 13 genericcloud 镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/debian-cloud-build</span><br><span class="line"></span><br><span class="line">axel -n 8 -o debian-13.qcow2 \</span><br><span class="line">  https://cdimage.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>备选 wget：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O debian-13.qcow2 \</span><br><span class="line">  https://cdimage.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>确认：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh debian-13.qcow2</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-定制镜像"><a href="#4-定制镜像" class="headerlink" title="4. 定制镜像"></a>4. 定制镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/debian-cloud-build</span><br><span class="line"></span><br><span class="line">virt-customize -a debian-13.qcow2 \</span><br><span class="line">  --smp 2 \</span><br><span class="line">  --timezone Asia/Hong_Kong \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/default/grub:# disables OS prober to avoid loopback detection which breaks booting&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/default/grub:GRUB_DISABLE_OS_PROBER=true&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;update-grub&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;systemctl enable serial-getty@ttyS1.service&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;sed -i &#x27;s|Types: deb deb-src|Types: deb|g&#x27; /etc/apt/sources.list.d/debian.sources&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;sed -i &#x27;s|generate_mirrorlists: true|generate_mirrorlists: false|g&#x27; /etc/cloud/cloud.cfg.d/01_debian_cloud.cfg&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/ssh/sshd_config.d/99-internal-password.conf:PermitRootLogin yes&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/ssh/sshd_config.d/99-internal-password.conf:PasswordAuthentication yes&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/ssh/sshd_config.d/99-internal-password.conf:KbdInteractiveAuthentication yes&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/cloud/cloud.cfg.d/99-ssh-pwauth.cfg:ssh_pwauth: true&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/cloud/cloud.cfg.d/99-ssh-pwauth.cfg:disable_root: false&quot;</span> \</span><br><span class="line">  --update \</span><br><span class="line">  --install <span class="string">&quot;sudo,qemu-guest-agent,spice-vdagent,bash-completion,unzip,wget,curl,net-tools,iputils-ping,nano,less,vim,mtr-tiny,htop,dnsutils,zstd&quot;</span> \</span><br><span class="line">  --run-command <span class="string">&quot;apt-get -y autoremove --purge &amp;&amp; apt-get -y clean&quot;</span> \</span><br><span class="line">  --append-line <span class="string">&quot;/etc/systemd/timesyncd.conf:NTP=time.apple.com time.windows.com&quot;</span> \</span><br><span class="line">  --delete <span class="string">&quot;/var/log/*.log&quot;</span> \</span><br><span class="line">  --delete <span class="string">&quot;/var/lib/apt/lists/*&quot;</span> \</span><br><span class="line">  --delete <span class="string">&quot;/var/cache/apt/*&quot;</span> \</span><br><span class="line">  --<span class="built_in">truncate</span> <span class="string">&quot;/etc/machine-id&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>这几段做的</strong></p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GRUB <code>OS_PROBER</code></td>
+<td>避免虚拟机里探测其它系统导致启动异常</td>
+</tr>
+<tr>
+<td><code>serial-getty@ttyS1</code></td>
+<td>额外串口登录（PVE 仍需 <code>--serial0</code> 提供 ttyS0）</td>
+</tr>
+<tr>
+<td>去 deb-src &#x2F; 关 mirrorlist 自动覆盖</td>
+<td>源配置更可控</td>
+</tr>
+<tr>
+<td><code>99-internal-password.conf</code></td>
+<td>sshd：允许 root + 密码 + 键盘交互</td>
+</tr>
+<tr>
+<td><code>99-ssh-pwauth.cfg</code></td>
+<td>cloud-init：别在首启再关掉密码认证、不禁用 root</td>
+</tr>
+<tr>
+<td><code>--update</code> + <code>--install</code></td>
+<td>升级并装常用工具 &#x2F; qemu-guest-agent</td>
+</tr>
+<tr>
+<td>清理 + <code>machine-id</code></td>
+<td>模板克隆更干净</td>
+</tr>
+</tbody></table>
+<h2 id="5-压缩镜像"><a href="#5-压缩镜像" class="headerlink" title="5. 压缩镜像"></a>5. 压缩镜像</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/debian-cloud-build</span><br><span class="line"></span><br><span class="line">virt-sparsify --compress debian-13.qcow2 debian-13-custom.qcow2</span><br><span class="line"><span class="built_in">ls</span> -lh debian-13.qcow2 debian-13-custom.qcow2</span><br></pre></td></tr></table></figure>
+
+<p><strong>最终产物：</strong></p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">/root/debian-cloud-build/debian-13-custom.qcow2</span><br></pre></td></tr></table></figure>
+
+<p>确认 custom 生成成功后，可删中间文件省空间：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f /root/debian-cloud-build/debian-13.qcow2</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-导入-PVE-并制成模板（存储-local）"><a href="#6-导入-PVE-并制成模板（存储-local）" class="headerlink" title="6. 导入 PVE 并制成模板（存储 &#x3D; local）"></a>6. 导入 PVE 并制成模板（存储 &#x3D; local）</h2><h3 id="6-3-创建空白-VM（之后转换成模板）"><a href="#6-3-创建空白-VM（之后转换成模板）" class="headerlink" title="6.3 创建空白 VM（之后转换成模板）"></a>6.3 创建空白 VM（之后转换成模板）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">qm create 9000 \</span><br><span class="line">  --name debian-13-cloud-template \</span><br><span class="line">  --machine q35 \</span><br><span class="line">  --cpu cputype=host \</span><br><span class="line">  --ostype l26 \</span><br><span class="line">  --memory 1024 \</span><br><span class="line">  --cores 1 \</span><br><span class="line">  --scsihw virtio-scsi-single \</span><br><span class="line">  --net0 virtio,bridge=vmbr0 \</span><br><span class="line">  --serial0 socket \</span><br><span class="line">  --vga none \</span><br><span class="line">  --agent 1 \</span><br><span class="line">  --scsi2 <span class="built_in">local</span>:cloudinit</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-4-导入磁盘并挂载（local-版）"><a href="#6-4-导入磁盘并挂载（local-版）" class="headerlink" title="6.4 导入磁盘并挂载（local 版）"></a>6.4 导入磁盘并挂载（local 版）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">qm importdisk 9000 <span class="string">&quot;/root/debian-cloud-build/debian-13-custom.qcow2&quot;</span> <span class="built_in">local</span> -format qcow2</span><br><span class="line">qm <span class="built_in">set</span> 9000 --scsi0 <span class="built_in">local</span>:9000/vm-9000-disk-0.qcow2,discard=on,ssd=1</span><br><span class="line">qm <span class="built_in">set</span> 9000 --boot order=scsi0</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-5-设置-DHCP"><a href="#6-5-设置-DHCP" class="headerlink" title="6.5 设置 DHCP"></a>6.5 设置 DHCP</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">qm <span class="built_in">set</span> 9000 --ipconfig0 ip=dhcp</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-6-转为模板"><a href="#6-6-转为模板" class="headerlink" title="6.6 转为模板"></a>6.6 转为模板</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">qm template 9000</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="7-从模板克隆并首次启动"><a href="#7-从模板克隆并首次启动" class="headerlink" title="7. 从模板克隆并首次启动"></a>7. 从模板克隆并首次启动</h2><h3 id="7-1-克隆"><a href="#7-1-克隆" class="headerlink" title="7.1 克隆"></a>7.1 克隆</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">qm <span class="built_in">clone</span> 9000 106 \</span><br><span class="line">  --name <span class="string">&quot;Debian-13-vm&quot;</span> \</span><br><span class="line">  --full 1 \</span><br><span class="line">  --storage <span class="built_in">local</span> \</span><br><span class="line">  --format qcow2</span><br></pre></td></tr></table></figure>
+
+<p>硬盘扩容，原3GB，后续不够用了应该也可以这样扩容（还没试过）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">qm resize 106 scsi0 +17G</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-启动前配置-Cloud-Init"><a href="#7-2-启动前配置-Cloud-Init" class="headerlink" title="7.2 启动前配置 Cloud-Init"></a>7.2 启动前配置 Cloud-Init</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置用户</span></span><br><span class="line">qm <span class="built_in">set</span> 106 --ciuser root</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置root密码</span></span><br><span class="line">qm <span class="built_in">set</span> 106 --cipassword <span class="string">&quot;132132&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-3-启动"><a href="#7-3-启动" class="headerlink" title="7.3 启动"></a>7.3 启动</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">qm start 106</span><br></pre></td></tr></table></figure>
+
+<p>首次启动可能要 <strong>2–5 分钟</strong>（cloud-init，镜像若带 package_upgrade 会更久）。</p>
+<p>网页 Console 可能长时间只有：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">starting serial terminal on interface serial0</span><br></pre></td></tr></table></figure>
+
+<p>这是正常现象，等等就好了。有几分钟就点进黑屏按几次 Enter。</p>
+<hr>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://blog.skk.moe/post/proxmox-ve-customize-debian-cloud-image">https://blog.skk.moe/post/proxmox-ve-customize-debian-cloud-image</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/1962816613435806021">https://zhuanlan.zhihu.com/p/1962816613435806021</a></p>
+<p><a href="https://github.com/xixi-zhao/debian-cloud-build">https://github.com/xixi-zhao/debian-cloud-build</a></p>
+]]></content>
+      <tags>
+        <tag>Debian</tag>
         <tag>PVE</tag>
       </tags>
   </entry>
@@ -1860,49 +1963,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Bose QC Ultra 和 Sony XM5</title>
-    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
-    <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
-<span id="more"></span>
-
-<p>我的耳朵长时间佩戴入耳式耳机不是很舒服，而且发过炎症（三星 Buds Pro 老用户），准备入一款头戴式玩玩，四个选择</p>
-<ol>
-<li><p>Sony WH 1000-XM5（朋友有一个，能借来用）</p>
-</li>
-<li><p>Bose QC Ultra</p>
-</li>
-<li><p>Sennheiser MOMENTUM 4（木馒头4）（看测评不适合我）</p>
-</li>
-<li><p>Airports Max（不考虑，太重了，舍友有一个，体验过一段时间）</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/1a888c1e2140222ae453245b0d8ecbae.jpeg"></p>
-</li>
-</ol>
-<p>借朋友的XM5、买了一个Bose QC Ultra开始体验，看看留下谁</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/e9eca987d5bd8842075890dfb7a2d4db.jpeg"></p>
-<p>最后留下了Bose，就是因为<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>，能折叠，个人觉得比XM5好看，就没了，其他全是缺点</p>
-<p>来列一下与XM5对比，Bose的缺点</p>
-<ol>
-<li>EQ不能保存多个，可以调节的少</li>
-<li>不能快速切换降噪和通透，必须通过模式来切换</li>
-<li>没有XM5长按右耳罩，快速减少音量，关闭降噪的功能（Bose的交互比XM5烂很多）</li>
-<li>查询电池电量只能通过蓝牙，或者自定义音量条的“快捷方式”（我用来调节“沉浸式音频”了），但耳机开机的时候会报一下电量</li>
-<li>开机的时候如果连接了多设备，会把设备的名字都念一遍（能关闭）</li>
-<li>充电速度慢，电池没有XM5的大</li>
-<li>蓝牙的音质是比xm5差点（我能听出来），但是有线的情况下不分伯仲（说Bose会更好，我听不出来）</li>
-<li>音频线是2.5mm和3.5mm的，而且送的线比Sony的短</li>
-<li>没有防水，下雨不要戴</li>
-<li>用耳机上的滑块把音量调到最大。每次通过 3.5mm 线连接时，音量都会自动变成 50%，说是为了保护听力。所以你得在两个地方调音量（耳机和设备上）</li>
-<li>Bose 的品控差，售后特别烂，我的暂时还没问题</li>
-<li>折腾Bose的人少，Sony的还可以刷刷固件折玩</li>
-</ol>
-<p>另外朋友的XM5用的挺久了，耳机涂层脱落，手感差，且有油光，看起来变廉价了</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/6f5a141e3dc24de32522f0bc9c895b0f.jpeg"></p>
-]]></content>
-      <tags>
-        <tag>耳机</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安装Theos和Monkeydev</title>
     <url>/2025/01/21/theos%E5%92%8Cmonkeydev%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<p>认真玩越狱一年了，想学习开发插件，总结一下工具的安装<span id="more"></span></p>
@@ -2021,6 +2081,49 @@
       </tags>
   </entry>
   <entry>
+    <title>Bose QC Ultra 和 Sony XM5</title>
+    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
+    <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
+<span id="more"></span>
+
+<p>我的耳朵长时间佩戴入耳式耳机不是很舒服，而且发过炎症（三星 Buds Pro 老用户），准备入一款头戴式玩玩，四个选择</p>
+<ol>
+<li><p>Sony WH 1000-XM5（朋友有一个，能借来用）</p>
+</li>
+<li><p>Bose QC Ultra</p>
+</li>
+<li><p>Sennheiser MOMENTUM 4（木馒头4）（看测评不适合我）</p>
+</li>
+<li><p>Airports Max（不考虑，太重了，舍友有一个，体验过一段时间）</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/1a888c1e2140222ae453245b0d8ecbae.jpeg"></p>
+</li>
+</ol>
+<p>借朋友的XM5、买了一个Bose QC Ultra开始体验，看看留下谁</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/e9eca987d5bd8842075890dfb7a2d4db.jpeg"></p>
+<p>最后留下了Bose，就是因为<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>，能折叠，个人觉得比XM5好看，就没了，其他全是缺点</p>
+<p>来列一下与XM5对比，Bose的缺点</p>
+<ol>
+<li>EQ不能保存多个，可以调节的少</li>
+<li>不能快速切换降噪和通透，必须通过模式来切换</li>
+<li>没有XM5长按右耳罩，快速减少音量，关闭降噪的功能（Bose的交互比XM5烂很多）</li>
+<li>查询电池电量只能通过蓝牙，或者自定义音量条的“快捷方式”（我用来调节“沉浸式音频”了），但耳机开机的时候会报一下电量</li>
+<li>开机的时候如果连接了多设备，会把设备的名字都念一遍（能关闭）</li>
+<li>充电速度慢，电池没有XM5的大</li>
+<li>蓝牙的音质是比xm5差点（我能听出来），但是有线的情况下不分伯仲（说Bose会更好，我听不出来）</li>
+<li>音频线是2.5mm和3.5mm的，而且送的线比Sony的短</li>
+<li>没有防水，下雨不要戴</li>
+<li>用耳机上的滑块把音量调到最大。每次通过 3.5mm 线连接时，音量都会自动变成 50%，说是为了保护听力。所以你得在两个地方调音量（耳机和设备上）</li>
+<li>Bose 的品控差，售后特别烂，我的暂时还没问题</li>
+<li>折腾Bose的人少，Sony的还可以刷刷固件折玩</li>
+</ol>
+<p>另外朋友的XM5用的挺久了，耳机涂层脱落，手感差，且有油光，看起来变廉价了</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/6f5a141e3dc24de32522f0bc9c895b0f.jpeg"></p>
+]]></content>
+      <tags>
+        <tag>耳机</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Systemctl运行Rustdesk服务端</title>
     <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
     <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
@@ -2067,6 +2170,66 @@
       <tags>
         <tag>Systemctl</tag>
         <tag>Rustdesk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac外壳磕了，国内外两次AC送修经历</title>
+    <url>/2026/06/18/%E5%9B%BD%E5%86%85%E5%A4%96%E4%B8%A4%E6%AC%A1AppleCare%E7%BB%8F%E5%8E%86/</url>
+    <content><![CDATA[<p>一年前，自己的美版16寸MacBook因为自己不不小心，被充电头的插脚顶出了凹痕，刚好买了AppleCare，于是就预约了准备去送修</p>
+<span id="more"></span>
+
+
+
+<p>放一张AI做的图</p>
+<p><img src="https://files.catbox.moe/pv23a4.png" alt="image"></p>
+<p><img src="https://files.catbox.moe/mwtqsc.JPG" alt="image"></p>
+<p><img src="https://files.catbox.moe/usodlk.png" alt="image"></p>
+<p><img src="https://files.catbox.moe/8qtgvh.png" alt="image"></p>
+<p>维修价格预估是这样的，到店接待我们的人说，显示器的更换 100美金，机身的更换200美金，这和官网说的机身外壳损坏99美金不同（当时我没有去看过官网的维修价格，就忘了问为什么价格不同了），接待我的黑人小哥不建议我维修，想着AC还有一年，等快到期了再换</p>
+<hr>
+<p>26年8月AC到期了，前段时间就又预约了看看</p>
+<p>国内的AC预约需要身份证后四位数（不清楚是否校验），到店签到的时候也要你的真名（也没检验，应该是为了方便辨别人，国内店人是真的多），签到完毕就等工作人员来接待。</p>
+<p><img src="https://files.catbox.moe/gk4nsw.png" alt="image"></p>
+<p><img src="https://files.catbox.moe/z6c8b8.png" alt="image"></p>
+<p>这一次我问清楚了，外部机壳损坏只能用于一个，像我的机器来说，要么换屏幕那一边，要么换机身那一边是799，两个一起换就是2999，自己准备换一个屏幕，但是一直要我提供AC的购买凭证，但是我就是想不起自己的放哪里了，就作罢了，不知道是我的Mac是美版的原因</p>
+<p>一些小信息：</p>
+<ul>
+<li>电脑可以因为散热不行、发热异常，预约维修，维修人员会帮忙清理一下灰尘（但不直接提供清灰服务），过保也行（好像从来没在V站听说过，Mac清灰、换硅脂的事，我的两侧出风口肉眼可见有灰尘，这一次就请了，他们清理的很快）</li>
+<li>键盘的键帽被磨损的看不清字了，影响使用体验了可以更换，过保也行</li>
+<li>国内的Mac使用AC维修，必须到店自提，没有邮寄服务</li>
+</ul>
+<p>这么一趟折腾下来，好像AC对我这样用设备很爱惜的人没什么用呀，下次不买了，买AC3k，修一下机器3k</p>
+]]></content>
+      <tags>
+        <tag>Apple</tag>
+        <tag>Mac</tag>
+        <tag>Apple Care</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 折腾</title>
+    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
+<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
+<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
+<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
+<ul>
+<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
+<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
+<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
+<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
+<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
+<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
+</ul>
+<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
+<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
+<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
+<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
+<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
+]]></content>
+      <tags>
+        <tag>Android</tag>
       </tags>
   </entry>
   <entry>
@@ -2125,37 +2288,78 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac外壳磕了，国内外两次AC送修经历</title>
-    <url>/2026/06/18/%E5%9B%BD%E5%86%85%E5%A4%96%E4%B8%A4%E6%AC%A1AppleCare%E7%BB%8F%E5%8E%86/</url>
-    <content><![CDATA[<p>一年前，自己的美版16寸MacBook因为自己不不小心，被充电头的插脚顶出了凹痕，刚好买了AppleCare，于是就预约了准备去送修</p>
-<span id="more"></span>
-
-
-
-<p>放一张AI做的图</p>
-<p><img src="https://files.catbox.moe/pv23a4.png" alt="image"></p>
-<p><img src="https://files.catbox.moe/mwtqsc.JPG" alt="image"></p>
-<p><img src="https://files.catbox.moe/usodlk.png" alt="image"></p>
-<p><img src="https://files.catbox.moe/8qtgvh.png" alt="image"></p>
-<p>维修价格预估是这样的，到店接待我们的人说，显示器的更换 100美金，机身的更换200美金，这和官网说的机身外壳损坏99美金不同（当时我没有去看过官网的维修价格，就忘了问为什么价格不同了），接待我的黑人小哥不建议我维修，想着AC还有一年，等快到期了再换</p>
-<hr>
-<p>26年8月AC到期了，前段时间就又预约了看看</p>
-<p>国内的AC预约需要身份证后四位数（不清楚是否校验），到店签到的时候也要你的真名（也没检验，应该是为了方便辨别人，国内店人是真的多），签到完毕就等工作人员来接待。</p>
-<p><img src="https://files.catbox.moe/gk4nsw.png" alt="image"></p>
-<p><img src="https://files.catbox.moe/z6c8b8.png" alt="image"></p>
-<p>这一次我问清楚了，外部机壳损坏只能用于一个，像我的机器来说，要么换屏幕那一边，要么换机身那一边是799，两个一起换就是2999，自己准备换一个屏幕，但是一直要我提供AC的购买凭证，但是我就是想不起自己的放哪里了，就作罢了，不知道是我的Mac是美版的原因</p>
-<p>一些小信息：</p>
+    <title>搭建越狱软件源</title>
+    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
+<p>环境：</p>
 <ul>
-<li>电脑可以因为散热不行、发热异常，预约维修，维修人员会帮忙清理一下灰尘（但不直接提供清灰服务），过保也行（好像从来没在V站听说过，Mac清灰、换硅脂的事，我的两侧出风口肉眼可见有灰尘，这一次就请了，他们清理的很快）</li>
-<li>键盘的键帽被磨损的看不清字了，影响使用体验了可以更换，过保也行</li>
-<li>国内的Mac使用AC维修，必须到店自提，没有邮寄服务</li>
+<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
+<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
+<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
+</li>
+<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
+</li>
+<li><p>Mac OS X：<code>brew install dpkg</code></p>
+</li>
+<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
+</li>
 </ul>
-<p>这么一趟折腾下来，好像AC对我这样用设备很爱惜的人没什么用呀，下次不买了，买AC3k，修一下机器3k</p>
+<p>插件来源：</p>
+<ol>
+<li><p>Telegram、QQ等社交软件</p>
+</li>
+<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
+<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
+</li>
+<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
+</li>
+</ol>
+<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>可选（可直接略过）：</strong></p>
+<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
+<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
+<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>Terminal</code> 打开所在文件夹</p>
+<p>将位于debs目录的所有deb包扫描并生成Packages</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
+
+<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
+
+<p>为什么需要压缩文件？</p>
+<p>Cydia添加源时大致行为如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
+
+<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
+<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
+<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
+<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
+<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
+<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
+<p>步骤：</p>
+<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
+<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
+<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
+<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
+<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
+<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
+<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
+</ol>
 ]]></content>
       <tags>
-        <tag>Apple</tag>
-        <tag>Mac</tag>
-        <tag>Apple Care</tag>
+        <tag>越狱</tag>
       </tags>
   </entry>
   <entry>
@@ -2351,104 +2555,28 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>Android 折腾</title>
-    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
-<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
-<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
-<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
-<ul>
-<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
-<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
-<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
-<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
-<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
-<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
-</ul>
-<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
-<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
-<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
-<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
-<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
+    <title>Mihomo 链式代理</title>
+    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
+<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
+<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
+<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
+<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
+<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
+<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
 ]]></content>
       <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建越狱软件源</title>
-    <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>使用 GitHub Pages 来搭建，创建好<code>（用户名）.github.io</code> 的项目</p>
-<p>环境：</p>
-<ul>
-<li><p>iPhone OS（已越狱）：自带dpkg-deb命令，无dpkg-scanpackages命令</p>
-<p>看<a href="https://www.feng.com/post/13849351">威锋的教程</a>，安装好下面的插件就没问题了</p>
-<p><code>dpkg、dpkg-dev、dpkg-repack、libdpkq-dev、libdpkg-perl</code></p>
-</li>
-<li><p>Debian&#x2F;Ubuntu：自带dpkg-deb和dpkg-scanpackages命令</p>
-</li>
-<li><p>Mac OS X：<code>brew install dpkg</code></p>
-</li>
-<li><p>Windows：非unix系统，无dpkg相关命令，可以安装虚拟机</p>
-</li>
-</ul>
-<p>插件来源：</p>
-<ol>
-<li><p>Telegram、QQ等社交软件</p>
-</li>
-<li><p>赵楠的插件<code>Give me deb</code>会把我们在插件商店下载的插件保存deb在</p>
-<p><code>/var/mobile/Downloads/dpkg_triggered</code></p>
-</li>
-<li><p><a href="https://www.postbox.news/">PostBox</a> 应用内 .deb 下载和提取，需巨魔安装</p>
-</li>
-</ol>
-<h1 id="开始操作"><a href="#开始操作" class="headerlink" title="开始操作"></a>开始操作</h1><h2 id="创建-Release-文件，基本格式如下："><a href="#创建-Release-文件，基本格式如下：" class="headerlink" title="创建 Release 文件，基本格式如下："></a>创建 Release 文件，基本格式如下：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Origin: 软件源名称，可以使用中文（Cydia的软件源列表中显示的标题）</span><br><span class="line">Label:  同上，也可以使用中文</span><br><span class="line">Suite: 软件源的类型，比如正式源，测试源等，可以分别用stable, beta, unstable等来表示，一般填stable就行</span><br><span class="line">Version: 版本号，这个其实不重要，随便填，一般都是写1.0</span><br><span class="line">Codename: 代码代号，这个是随意的，只是一个标识，但它必须是英文</span><br><span class="line">Architectures: 架构，iphoneos-arm iphoneos-arm64 iphoneos-arm64e，根据自己的需求可单个或者多个填写</span><br><span class="line">Components: main</span><br><span class="line">Description: 软件源介绍，可以使用中文和html代码</span><br></pre></td></tr></table></figure>
-
-<p><strong>可选（可直接略过）：</strong></p>
-<p><strong>Support</strong>: 支持，没什么作用，除非特别需要，否则可以不要这个</p>
-<p><strong>MD5Sum</strong>: 不是必须的，但如果Packages文件位置丌不Release文件在同一目录下，则必须有此项。另外，如果需要签名Release文件，也必须有这个</p>
-<h2 id="打包插件"><a href="#打包插件" class="headerlink" title="打包插件"></a>打包插件</h2><p>文件的基本目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- Cydia</span><br><span class="line">    |- CydiaIcon.png                    源图标</span><br><span class="line">    |- Release                          描述源信息</span><br><span class="line">    |- debs                             插件</span><br><span class="line">        |- xx.deb</span><br><span class="line">        |- xxx.deb</span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>Terminal</code> 打开所在文件夹</p>
-<p>将位于debs目录的所有deb包扫描并生成Packages</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dpkg-scanpackages debs /dev/null &gt; Packages</span><br><span class="line"></span><br><span class="line">同一插件多个版本请使用</span><br><span class="line">dpkg-scanpackages -m debs/ &gt; Packages</span><br></pre></td></tr></table></figure>
-
-<p>可选：生成客户端可能需要的gz和bz2压缩的Packages</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip -c Packages &gt; Packages.gz</span><br><span class="line">bzip2 -k Packages</span><br></pre></td></tr></table></figure>
-
-<p>为什么需要压缩文件？</p>
-<p>Cydia添加源时大致行为如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">发送HEAD请求，检测/Packages.xz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.gz是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.bz2是否存在</span><br><span class="line">发送HEAD请求，检测/Packages.lzma是否存在</span><br><span class="line">发送HEAD请求，检测/Packages是否存在</span><br><span class="line">如果上述请求成功，则GET请求对应Packages(注1)，从Pacakges获取软件列表并缓存</span><br><span class="line">如果上述请求均不成功，则显示失败，源内空空如也</span><br><span class="line">安装软件时，从Pacakges中提取软件的下载地址下载  </span><br></pre></td></tr></table></figure>
-
-<p>从过程可以看出 Cydia 优先读取压缩格式的 Packages，某些源的软件比较多时，Packages 文件本身会达到十几到几十MB，因此支持压缩文件传输是很必要的</p>
-<h2 id="上传到-GitHub-项目中"><a href="#上传到-GitHub-项目中" class="headerlink" title="上传到 GitHub 项目中"></a>上传到 GitHub 项目中</h2><p>可以使用 git ，不会的就手动上传吧</p>
-<h2 id="后期维护"><a href="#后期维护" class="headerlink" title="后期维护"></a>后期维护</h2><p>后面有新插件时，可以在 debs 文件夹里面，只放自己要新添加的插件，然后生成 Packages ，把信息手动添加到 GitHub项目的文件中，这样就不会改掉我们自定义的插件描述了</p>
-<h2 id="修改插件版本"><a href="#修改插件版本" class="headerlink" title="修改插件版本"></a>修改插件版本</h2><p>用途：想使用老版本的插件，但是不想让 插件管理器的“更新”页面一直显示有更新，Sileo 没有屏蔽更新的选项，Saily 倒是有屏蔽更新的功能，有些垃圾源倒是会通过修改版本号，来让用户安装自己源的插件</p>
-<p>Packages 实质上是deb文件的 control 信息集合，另外多了deb文件本身的信息。（control文件是记录软件包的信息，但没有deb文件本身）</p>
-<p>所以我们只需要把插件 control 对应的版本信息给修改了，这样就可以实现修改版本号了。</p>
-<p>步骤：</p>
-<p>使用Filza 解压自己想修改的插件，在 DEBIAN 文件夹里面找到 control 文件，使用文本编辑器打开，修改 Package 后面的值，避免与源作者冲突导致，改了 Package，Version的值改不改都行，记得在 Description（描述）中注明有修改，然后长按解压出来的主文件夹，点击“打包deb”，就成功了</p>
-<p>Description 可以在生成的 Packages 中修改，Package、Version，必须解压修改</p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>附上我的源</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tuneu.github.io</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://idayer.com/how-to-host-a-cydia-repository/">https://idayer.com/how-to-host-a-cydia-repository/</a></li>
-<li><a href="https://www.bilibili.com/read/cv10439805/">https://www.bilibili.com/read/cv10439805/</a></li>
-<li><a href="https://www.feng.com/post/13849351">https://www.feng.com/post/13849351</a></li>
-<li><a href="https://blog.bombox.org/2019-10-10/make-cydia-source/">https://blog.bombox.org/2019-10-10/make-cydia-source/</a></li>
-<li><a href="https://www.saurik.com/packaging.html">https://www.saurik.com/packaging.html</a></li>
-<li><a href="https://www.0xaa55.com/thread-26544-1-1.html">https://www.0xaa55.com/thread-26544-1-1.html</a></li>
-<li><a href="https://www.youtube.com/watch?v=9eHKvCqBDBQ">https://www.youtube.com/watch?v=9eHKvCqBDBQ</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>越狱</tag>
+        <tag>OpenWrt</tag>
+        <tag>Mihomo</tag>
       </tags>
   </entry>
   <entry>
@@ -2471,6 +2599,58 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 ]]></content>
       <tags>
         <tag>青龙面板</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>转换GitHub Raw 链接</title>
+    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
+    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
+<p>sh脚本：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
+
+<p>js脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
+]]></content>
+      <tags>
+        <tag>GitHub</tag>
+        <tag>小脚本</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>青龙面板保活Serv00并启用TG推送</title>
+    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
+    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
+<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
+<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
+<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
+<ol>
+<li>多账号添加更方便;</li>
+<li>设置了ssh超时,避免了脚本卡死;</li>
+<li>电报消息可以提示哪些账号出错。</li>
+</ol>
+<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>附telegram的通知截图<br><img src="https://85d8ba7.webp.li/2024/12/e40e393a90e4ca1d48f5dcb663e0c56a.png" width=50% height=50% /></p>
+<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
+<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
+<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
+<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
+<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
+<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
+<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
+<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>青龙面板</tag>
+        <tag>Serv00</tag>
       </tags>
   </entry>
   <entry>
@@ -2664,83 +2844,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
 ]]></content>
       <tags>
         <tag>OpenWrt</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>转换GitHub Raw 链接</title>
-    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
-    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
-<p>sh脚本：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
-
-<p>js脚本：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
-]]></content>
-      <tags>
-        <tag>GitHub</tag>
-        <tag>小脚本</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mihomo 链式代理</title>
-    <url>/2025/11/21/%E9%93%BE%E5%BC%8F%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<p>去年黑五到现在折腾了很多 VPS，已经没有兴趣了，该把时间和精力留着提升自己，用落地机，再用中转来拉，专线查的严，用机场来做链式代理的性价比很高，目前我已稳定使用 <span id="more"></span></p>
-<h1 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h1><p>在 Mihomo 中，有三种方式可以实现代理链：<strong>relay</strong>、<strong>tunnel</strong> 和 <strong>dialer-proxy</strong>。推荐使用 <code>dialer-proxy</code>，因为它避免了 <code>relay</code> 方式可能出现的 UDP 问题，同时在日志记录上比 <code>tunnel</code> 更加简洁、易于管理。在处理大量请求时，<code>dialer-proxy</code> 更稳定，且配置更简便。</p>
-<p>在 Mihomo 中，实现链式代理的方式是：在需要经过中转的节点配置中直接指定其 上游节点&#x2F;策略组（通过 dialer-proxy 字段）。链式结构由节点本身定义，而非依赖「落地策略组」与「中转策略组」的策略链式组合。</p>
-<p>我喜欢使用Sub-Store来管理节点，所以要在Sub-Store里面直接写入带有中转策略组的信息，先在Sub-Store把正常的落地节点的Mihomo 配置复制好，节点应该是，下面的类型的</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;******************************&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>拷贝好上面的节点信息，Sub-Store新建一个 单条订阅 ，在本地订阅中 把上面的全部粘贴进去（包括 “proxies:”），在最后的 <code>&#125;</code> 添加 <code>,&quot;dialer-proxy&quot;:&quot;中转策略组名称&quot;</code>  下面是示例👇</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">&quot;type&quot;</span><span class="string">:&quot;vless&quot;</span>,<span class="string">&quot;name&quot;</span><span class="string">:&quot;*********************&quot;</span>,<span class="string">&quot;dialer-proxy&quot;</span><span class="string">:&quot;中转策略组名称&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接下来就是在 Mihomo 中添加中转的策略组了</p>
-<h1 id="中转策略组"><a href="#中转策略组" class="headerlink" title="中转策略组"></a>中转策略组</h1><p>先把中转策略组设置为手动选择，测试一下 1. 你的机场能不能拉得动落地节点；2. 测试机场的哪一个地区拉你的节点总延迟最低</p>
-<p>中转成功的话，可以在 Mihomo 的面板中搜索 <code>Inner</code> 有很多主机名为你的落地节点IP的连接，这样就是成功的</p>
-<p>找好你的地区的的话就可以，把这些节点筛选到这个策略组，设置中转策略组为 <strong>负载均衡</strong> 类型使用 <strong>round-robin</strong> 下面是我的锚点</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">LoadBalancerr:</span> <span class="string">&amp;LoadBalancerr</span> &#123;<span class="attr">type:</span> <span class="string">load-balance</span>, <span class="attr">interval:</span> <span class="number">300</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://www.google.com/blank.html&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">strategy:</span> <span class="string">round-robin</span>, <span class="attr">timeout:</span> <span class="number">1000</span>, <span class="attr">max-failed-times:</span> <span class="number">4</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>开始冲浪吧，这里真的不值得你投入太多时间，把重点放在学习和自我提升会更有价值。</p>
-]]></content>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>Mihomo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>青龙面板保活Serv00并启用TG推送</title>
-    <url>/2024/08/01/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BF%9D%E6%B4%BBServ00%E5%B9%B6%E5%90%AF%E7%94%A8TG%E6%8E%A8%E9%80%81/</url>
-    <content><![CDATA[<p>网上有很多使用GitHub Actions来保号的教程，关于青龙面板的很少，所以自己研究了一下，下面是我的方案。<span id="more"></span>如有不当之处，欢迎大家批评指正。注意，此方法有点毛病，<a href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8">请见此处</a></p>
-<h1 id="安装sshpass依赖和jq"><a href="#安装sshpass依赖和jq" class="headerlink" title="安装sshpass依赖和jq"></a>安装sshpass依赖和jq</h1><p>青龙面板—依赖管理—Linux—添加<code>sshpass</code>和<code>jq</code><br>sshpass的使用可以见<a href="https://linux.cn/article-8086-1.html">这篇文章</a></p>
-<h1 id="添加脚本-24-8-3-更新脚本"><a href="#添加脚本-24-8-3-更新脚本" class="headerlink" title="添加脚本 24.8.3 更新脚本"></a><del>添加脚本</del> <a href="#%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">24.8.3 更新脚本</a></h1><p>青龙面板—脚本管理—添加sh脚本<br>以下脚本是GPT写的多账号脚本，（第二次感受到生成式AI的便利，第一次是写openclah的防火墙规则）</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行远程命令并将输出存储在变量中</span></span><br><span class="line">OUTPUT1=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">OUTPUT2=$(sshpass -p <span class="string">&#x27;密码&#x27;</span> ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -tt 用户名@主机 <span class="string">&quot;ps -A; exit&quot;</span> 2&gt;&amp;1)</span><br><span class="line"><span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出命令的结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出1:\n<span class="variable">$OUTPUT1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;任务执行完成&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;任务执行完成\n\n输出1:\n<span class="variable">$OUTPUT1</span>\n\n输出2:\n<span class="variable">$OUTPUT2</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<p>记得把其中的密码、用户名、主机、机器人token、用户id修改为自己的。</p>
-<h1 id="更新脚本"><a href="#更新脚本" class="headerlink" title="更新脚本"></a>更新脚本</h1><p>后面闲着没事又整了两个号，发现脚本添加账号不方便，而且没有报错的提示，有指令输入错误就会卡死’ps -A; exit’没用，所以又去和GPT聊了聊，更新下面几点:</p>
-<ol>
-<li>多账号添加更方便;</li>
-<li>设置了ssh超时,避免了脚本卡死;</li>
-<li>电报消息可以提示哪些账号出错。</li>
-</ol>
-<p>如有连接不上可以检查是否在 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a> 解锁了IP(我调试脚本就把我IP禁过😂)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始执行任务...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个数组来存储输出和错误信息</span></span><br><span class="line"><span class="built_in">declare</span> -A OUTPUTS</span><br><span class="line"><span class="comment"># 用于标记是否有命令失败</span></span><br><span class="line">has_error=<span class="literal">false</span></span><br><span class="line"><span class="comment"># 用于存储成功的命令</span></span><br><span class="line">successful_commands=()</span><br><span class="line"><span class="comment"># 用于存储失败的命令</span></span><br><span class="line">failed_commands=()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 超时（单位：秒）</span></span><br><span class="line">SSH_TIMEOUT=15</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义账号、密码和主机信息数组，每个元素包含 &quot;账号:密码:主机&quot;，一行一组</span></span><br><span class="line">CREDENTIALS=(</span><br><span class="line"><span class="string">&quot;账号1:密码1:主机1&quot;</span></span><br><span class="line"><span class="string">&quot;账号2:密码2:主机2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环遍历每行并执行命令</span></span><br><span class="line"><span class="keyword">for</span> cred <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;CREDENTIALS[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">    IFS=<span class="string">&#x27;:&#x27;</span> <span class="built_in">read</span> -r user pass host &lt;&lt;&lt; <span class="string">&quot;<span class="variable">$cred</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$user</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    </span><br><span class="line">    OUTPUTS[<span class="string">&quot;<span class="variable">$user</span>&quot;</span>]=$(sshpass -p <span class="string">&quot;<span class="variable">$pass</span>&quot;</span> ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=<span class="variable">$SSH_TIMEOUT</span> -t <span class="variable">$user</span>@<span class="variable">$host</span> <span class="string">&quot;ps -A&quot;</span> 2&gt;&amp;1)</span><br><span class="line">    <span class="keyword">if</span> [ $? -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令失败: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        has_error=<span class="literal">true</span></span><br><span class="line">        failed_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;执行命令成功: <span class="variable">$user</span>: <span class="variable">$&#123;OUTPUTS[&quot;$user&quot;]&#125;</span>&quot;</span></span><br><span class="line">        successful_commands+=(<span class="string">&quot;<span class="variable">$user</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 Telegram 消息内容</span></span><br><span class="line">TOKEN=<span class="string">&quot;机器人token&quot;</span></span><br><span class="line">CHAT_ID=<span class="string">&quot;用户id&quot;</span></span><br><span class="line">MESSAGE=<span class="string">&quot;保号任务执行结果:\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加成功的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#successful_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;保号成功:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;successful_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;\n<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加失败的命令到消息</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$&#123;#failed_commands[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">    MESSAGE+=<span class="string">&quot;\n以下账号出错了😭:\n&quot;</span></span><br><span class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;failed_commands[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        MESSAGE+=<span class="string">&quot;<span class="variable">$user</span>:\n<span class="variable">$&#123;OUTPUTS[$user]&#125;</span>\n&quot;</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 urlencode 对消息进行编码，以便在 URL 中安全传输</span></span><br><span class="line">MESSAGE_ENCODED=$(<span class="built_in">echo</span> -e <span class="string">&quot;<span class="variable">$MESSAGE</span>&quot;</span> | jq -sRr @uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 Telegram 推送通知</span></span><br><span class="line">curl -s -X POST <span class="string">&quot;https://api.telegram.org/bot<span class="variable">$TOKEN</span>/sendMessage&quot;</span> \</span><br><span class="line">     -d <span class="string">&quot;chat_id=<span class="variable">$CHAT_ID</span>&amp;text=<span class="variable">$MESSAGE_ENCODED</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出最终结果</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$has_error</span>&quot;</span> = <span class="literal">true</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;请检查输入是否正确，或是否在 https://www.serv00.com/ip_unban/ 解锁了IP&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;任务执行完成,所有机器保号成功&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<p>附telegram的通知截图<br><img src="https://85d8ba7.webp.li/2024/12/e40e393a90e4ca1d48f5dcb663e0c56a.png" width=50% height=50% /></p>
-<h1 id="以上代码一些参数的作用"><a href="#以上代码一些参数的作用" class="headerlink" title="以上代码一些参数的作用"></a>以上代码一些参数的作用</h1><p><code>-o StrictHostKeyChecking=no</code><br>这是 SSH 的一个选项，表示在连接到新主机时不进行主机密钥检查。这可以避免在第一次连接时出现提示，适用于自动化脚本，但会降低安全性。</p>
-<p><code>-o UserKnownHostsFile=/dev/null</code><br>这个选项指定 SSH 不使用已知主机文件（通常是 ~&#x2F;.ssh&#x2F;known_hosts），而是将其输出重定向到 &#x2F;dev&#x2F;null，即不保存任何主机密钥。这也是为了避免在自动化脚本中出现提示。</p>
-<p><span style="color:red;">由上面两条可见此方法不是很安全，所以大家自行选择是否使用此方法。</span></p>
-<p><code>-tt</code><br>这个选项强制分配一个伪终端（pseudo-terminal），这在某些情况下是必要的，尤其是当你需要在远程执行的命令中使用交互式功能时。</p>
-<p><code>ps -A; exit</code><br><code>ps -A</code> 命令用于列出系统上所有正在运行的进程。<code>; exit</code> 可以确保在执行 ps -A 后，无论其成功与否，SSH 会话都会自动退出。如果想”ps-A”成功运行后再退出使用<code>&quot;ps -A &amp;&amp; exit&quot;</code></p>
-<h1 id="添加定时任务"><a href="#添加定时任务" class="headerlink" title="添加定时任务"></a>添加定时任务</h1><p>青龙面板—定时任务—创建任务<br>名称随意<br>命令&#x2F;脚本填入你自定义的脚本名称，如：<br><code>task Serv00.sh</code><br>定时规则（cron表达式）<br>叫GPT帮着写吧，我也不会😂， 下面是每 7 天的 6:00 AM 执行一次。<br><code>0 6 */7 * *</code><br>点击确定就完成了。<br>（由于博客的图床还没想好用什么，所以就没放图了。）</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
-<li><a href="https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html">https://gaojilingjuli.blogspot.com/2024/07/sshserv00.html</a></li>
-<li><a href="https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F">https://saika.us.kg/2024/01/27/serv00_logs#%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F</a></li>
-<li><a href="https://linux.cn/article-8086-1.html">https://linux.cn/article-8086-1.html</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>青龙面板</tag>
-        <tag>Serv00</tag>
       </tags>
   </entry>
 </search>
