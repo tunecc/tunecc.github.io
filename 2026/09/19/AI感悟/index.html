@@ -22,29 +22,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"696966.xyz","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 SAAS 还是有点区别的下面来总结一下">
+    <meta name="description" content="我为何从看不上 AI，到痴迷于AI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FRP + SAAS 回源">
-<meta property="og:url" content="https://696966.xyz/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/index.html">
+<meta property="og:title" content="AI感悟">
+<meta property="og:url" content="https://696966.xyz/2026/09/19/AI%E6%84%9F%E6%82%9F/index.html">
 <meta property="og:site_name" content="Tune">
-<meta property="og:description" content="有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 SAAS 还是有点区别的下面来总结一下">
+<meta property="og:description" content="我为何从看不上 AI，到痴迷于AI">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-03T16:00:00.000Z">
+<meta property="og:image" content="https://img.technews.tw/wp-content/uploads/2017/01/03114624/weibo.png">
+<meta property="article:published_time" content="2026-09-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-18T16:00:00.000Z">
 <meta property="article:author" content="Tune">
-<meta property="article:tag" content="OpenWrt">
-<meta property="article:tag" content="FRP">
+<meta property="article:tag" content="碎碎念">
+<meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.technews.tw/wp-content/uploads/2017/01/03114624/weibo.png">
 
 
-<link rel="canonical" href="https://696966.xyz/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/">
+<link rel="canonical" href="https://696966.xyz/2026/09/19/AI%E6%84%9F%E6%82%9F/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/","path":"2025/04/04/Frp SAAS回源/","title":"FRP + SAAS 回源"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://696966.xyz/2026/09/19/AI%E6%84%9F%E6%82%9F/","path":"2026/09/19/AI感悟/","title":"AI感悟"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>FRP + SAAS 回源 | Tune</title>
+<title>AI感悟 | Tune</title>
   
 
 
@@ -130,7 +132,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,7 +145,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A6%81%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">要点</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -197,7 +198,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://696966.xyz/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/">
+    <link itemprop="mainEntityOfPage" href="https://696966.xyz/2026/09/19/AI%E6%84%9F%E6%82%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -210,12 +211,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="FRP + SAAS 回源 | Tune">
+      <meta itemprop="name" content="AI感悟 | Tune">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          FRP + SAAS 回源
+          AI感悟
         </h1>
 
         <div class="post-meta-container">
@@ -226,7 +227,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2025-04-04 00:00:00" itemprop="dateCreated datePublished" datetime="2025-04-04T00:00:00+08:00">2025-04-04</time>
+      <time title="创建时间：2026-09-19 00:00:00" itemprop="dateCreated datePublished" datetime="2026-09-19T00:00:00+08:00">2026-09-19</time>
     </span>
 
   
@@ -243,14 +244,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>414</span>
+      <span>2.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -260,19 +261,59 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
+    <div class="post-body" itemprop="articleBody"><p>我为何从看不上 AI，到痴迷于AI<span id="more"></span></p>
+<p>2022年手机行业销量暴跌，新产品同质化严重，新功能可有可无。能看出行业发展到头了。科技行业即将迎来一场科技行业的变革。那时我看到<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QeDoycw9Qs46nIyd5CEq6Q">一篇文章</a>（上课的时候用Apple Watch的腕上RSS看到的），让我更加笃定了想法。</p>
+<blockquote>
+<p>让我们先来回顾一下，计算机的前世今生：</p>
+<p>1946年，人类首台电子管计算机Eniac诞生；</p>
+<p>1962年，IBM开发了“晶体管+集成电路”的计算机；</p>
+<p>1976年，两位史蒂夫联手创造了人类第一台个人电脑Apple II；</p>
+<p>1991年，真正的消费级笔记本电脑之父，Macintosh PowerBook 100诞生，又是苹果；</p>
+<p>2007年，乔布斯发布第一代智能手机也是第三代个人电脑：iPhone，还是苹果。</p>
+<p>你会惊讶地发现，似乎有一个如此简单明确的<strong>15年定律</strong>存在，而<strong>今年是2022年，正好是下一个关键时间节点，而智能手机就“恰好”在这个时间点，非常配合地衰退了。</strong></p>
+</blockquote>
+<p>那时作为一名果蛆的我，因有前3 次 Apple 引领科技行业迭代，我不由得相信，智能头显就是未来，即将在 2023 年WWDC，Apple 发布的投影设备即将引领下一次科技行业革新。</p>
+<p>可Vision Pro发布，看不到killer app，但我是果蛆，依旧在坚信着XR是未来。</p>
+<p>2022年11月30号，<a target="_blank" rel="noopener" href="https://openai.com/zh-Hans-CN/index/chatgpt/">ChatGPT 3.5 发布</a>，爆火全球，作为热爱数码科技的人，我当然也有了解到，有一次语文试卷的作文还是他写的，它的火爆程度连我们的语文老师都了解到了，还在我们的参考范文弄了一篇 ChatGPT 写的文章，不过那时候 ChatGPT 的文章平平无奇，作文都是及格分，我也不会相信，AI是未来。</p>
+<p>上了大学，有一个朋友整天痴迷 AI，研究学习写什么 Prompt，在 OpenAI 开发布会的时候，还熬夜看发布会（在我眼中，这种待遇不应该留给Apple吗）</p>
+<p>转折点是25年末，Gemini 3.1的爆火，学生认证可以直接薅一年的Pro（现在想起来Google是真大方呀，给大伙薅了这么久），那时只会使用网页对话，不过也做出了一个有热度的脚本 <a target="_blank" rel="noopener" href="https://github.com/tunecc/NodeSeek-User-Profiler">https://github.com/tunecc/NodeSeek-User-Profiler</a> ，收获了很多人的喜欢。</p>
+<p>后面有一个课设，上课没听，只能寻求 AI 的帮助了。Gemini 的识图是真厉害，拍个照片，就能给我答案。即使图片不清晰，识别也精确，AI 又颠覆了我的认知。</p>
+<p>以上都是网页对话能实现的，后来了解到 Pro 账号还能用谷歌的 Antigravity，打自用了这个，这才是正确的 AI 打开方式，可以读取、编辑文件夹里面的所有文件，这让他能够有空间施展拳脚，最开始做了<a target="_blank" rel="noopener" href="https://github.com/tunecc/ilife798">https://github.com/tunecc/ilife798</a> ，<a target="_blank" rel="noopener" href="https://github.com/tunecc/ChargeLimiter">https://github.com/tunecc/ChargeLimiter</a> 这两个项目。这两个项目之前就有很多想法，但是从头开始学习代码，还要很长的路。AI 就帮我省掉了很多时间，我直接指挥，他就能把项目做成比较满意的效果。这就是一个 aha 时刻。</p>
+<p>后面我就开始研究起 CodeX、 Claude Code，MJJ 嘛，本身就对 Terminal 比较熟悉，上手挺快的。也去详细学习了一下这一些 Harness 的发展历程、使用技巧。后面 26 年年初的那一 Clawd Bot 的爆火，也让大众了解到了 AI 的强大。</p>
+<p>学习慢慢深入学会了使用MCP，了解到了IDA Pro，让 AI 破解了一些软件。我一直都记得成功破解的那一个时刻，我有多么的震惊。</p>
+<p>那段时间 AI 带给我的震撼，让我更能体会多年之前在另一个行业，人类被人工智能打服了。<br>就是 AlphaGo横扫围棋界，就连当时年轻气盛的柯洁都能被他打服，说</p>
+<blockquote>
+<p>人类数千年的实战演练进化，计算机却告诉我们人类全都是错的。我觉得，甚至没有一个人沾到围棋真理的边。</p>
+</blockquote>
+<p><img src="https://img.technews.tw/wp-content/uploads/2017/01/03114624/weibo.png" alt="image"></p>
+<p>AI给我的震撼，让我体会到柯洁赛前自信说出 “就算阿法狗战胜了李世石，但它赢不了我”，但是0：3落败的心境</p>
+<p>AI 以后会在各种各样的行业给人们一次又一次的震撼。</p>
+<hr>
+<p>2022 年的时候，看到那一篇文章说科技行业换代是每 15 年，但因为当时的各个大厂都把自己的目光放向了头显，自己也根本没有考虑过，下一个时代可能是 AI。那时候 ChatGPT 爆火，根本就没有往这一点去想。但是现在看过来，这个 15 年定律，还挺准的。</p>
+<p>高中的时候，我在读到《百年兴衰，诺基亚，揭秘手机帝国为何轰然倒下》，其中的</p>
+<blockquote>
+<p>商机永远只存在于盲点中</p>
+<p>如果要问商机在哪里，那么答案就是商机在人们的盲点中;<br>如果要问从哪里寻找商机，那么答案就是从人们的盲点中寻找。</p>
+</blockquote>
+<p>当时就看到了这句话，却没想到当时的所有大厂都锚定的“下一代科技行业”，并不是真正的未来。当所有人都看见同一个机会时，它已经不再是盲点，而是共识。真正的未来会从他们的盲点中长出来</p>
+<p>现在 Meta 押宝的元宇宙，VR、AR、NTF…都不见有人提起了，甚至 Apple 的 Vision Pro 都有传言说要砍掉这个产品线，能看出来风向朝向了 AI 行业。</p>
+<p>我们这一代总是说自己没机遇，遇不到风口，AI时代就是我们遇到的的一个风口，而且行业的发展速度难以想象。</p>
+<p>引用一下何同学5G视频里面说的</p>
+<blockquote>
+<p>人对未来的预测都跳脱不出当下技术和思维的限制，最典型的例子就是：</p>
+<p>如果你问一个 50 年前的人，未来是什么样子的？</p>
+<p>他可能会告诉你，汽车会在天上跑。50 年过去了，汽车没有上天，但计算机和信息技术的诞生，对社会的改变绝不会比会飞的汽车更小。</p>
+</blockquote>
+<p>现在的内存涨价，显示出背后的 AI 科技行业还在迅速发展，目前这么多的 AI 企业，也证明还是百家争鸣的状态，短短 15 年，手机行业让我们的生活有了天翻地覆的变。AI 行业现在短短的 3 年，已经改变了我们很多生活习惯，不敢想象我们未来是怎样的。</p>
+<p>关于美国几位 AI 巨头，很推荐大家看一看这几支影片，快速了解 AI史</p>
 <ol>
-<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
-<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oNfGBCEbq/">MetaAI帝国反击战：从元宇宙笑柄到天价挖人，小扎黑化后的疯狂180天</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BbcjzhEsJ/">从爆亏千亿到史诗翻身，Gemini是怎么杀回王座的？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tUFkzSEbi/">硅谷最强“叛徒”：Claude是如何碾压ChatGPT的？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1NJFvz4EHx/">马斯克vs奥特曼：拦不住你，那就亲手造一个更强的神</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ws61BNENK/">OpenAI“弑父”大戏：踢走马斯克、清洗AI天才，奥特曼如何一步步独掌AI话语权？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1UAkkBzERU/">金融无用？DeepSeek成了破壁人，让中国AI终于坐上牌桌</a></li>
 </ol>
-<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
-<li>回源域名开启小黄云指向服务器IP</li>
-<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
-<li>服务器上面自签证书用 主力域名（访问域名）</li>
-<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a target="_blank" rel="noopener" href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
-</ol>
-<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
 
     </div>
 
@@ -290,7 +331,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://696966.xyz/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/" title="FRP + SAAS 回源">https://696966.xyz/2025/04/04/Frp SAAS回源/</a>
+      <a href="https://696966.xyz/2026/09/19/AI%E6%84%9F%E6%82%9F/" title="AI感悟">https://696966.xyz/2026/09/19/AI感悟/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -299,22 +340,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/OpenWrt/" rel="tag"><i class="fa fa-tag"></i> OpenWrt</a>
-              <a href="/tags/FRP/" rel="tag"><i class="fa fa-tag"></i> FRP</a>
+              <a href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" rel="tag"><i class="fa fa-tag"></i> 碎碎念</a>
+              <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/03/17/syslog,daemon.log/" rel="prev" title="syslog、daemon.log 占用大量空间">
-                  <i class="fa fa-angle-left"></i> syslog、daemon.log 占用大量空间
+                <a href="/2026/09/17/%E8%BF%87%E7%A8%8B%E5%B0%B1%E6%98%AF%E5%A5%96%E5%8A%B1/" rel="prev" title="过程就是奖励">
+                  <i class="fa fa-angle-left"></i> 过程就是奖励
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/04/06/Youtube%E5%B8%83%E5%B1%80/" rel="next" title="浏览器扩展：将YouTube缩略图改回每行6个">
-                  浏览器扩展：将YouTube缩略图改回每行6个 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>

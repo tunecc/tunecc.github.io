@@ -142,6 +142,68 @@
       </tags>
   </entry>
   <entry>
+    <title>AI感悟</title>
+    <url>/2026/09/19/AI%E6%84%9F%E6%82%9F/</url>
+    <content><![CDATA[<p>我为何从看不上 AI，到痴迷于AI<span id="more"></span></p>
+<p>2022年手机行业销量暴跌，新产品同质化严重，新功能可有可无。能看出行业发展到头了。科技行业即将迎来一场科技行业的变革。那时我看到<a href="https://mp.weixin.qq.com/s/QeDoycw9Qs46nIyd5CEq6Q">一篇文章</a>（上课的时候用Apple Watch的腕上RSS看到的），让我更加笃定了想法。</p>
+<blockquote>
+<p>让我们先来回顾一下，计算机的前世今生：</p>
+<p>1946年，人类首台电子管计算机Eniac诞生；</p>
+<p>1962年，IBM开发了“晶体管+集成电路”的计算机；</p>
+<p>1976年，两位史蒂夫联手创造了人类第一台个人电脑Apple II；</p>
+<p>1991年，真正的消费级笔记本电脑之父，Macintosh PowerBook 100诞生，又是苹果；</p>
+<p>2007年，乔布斯发布第一代智能手机也是第三代个人电脑：iPhone，还是苹果。</p>
+<p>你会惊讶地发现，似乎有一个如此简单明确的<strong>15年定律</strong>存在，而<strong>今年是2022年，正好是下一个关键时间节点，而智能手机就“恰好”在这个时间点，非常配合地衰退了。</strong></p>
+</blockquote>
+<p>那时作为一名果蛆的我，因有前3 次 Apple 引领科技行业迭代，我不由得相信，智能头显就是未来，即将在 2023 年WWDC，Apple 发布的投影设备即将引领下一次科技行业革新。</p>
+<p>可Vision Pro发布，看不到killer app，但我是果蛆，依旧在坚信着XR是未来。</p>
+<p>2022年11月30号，<a href="https://openai.com/zh-Hans-CN/index/chatgpt/">ChatGPT 3.5 发布</a>，爆火全球，作为热爱数码科技的人，我当然也有了解到，有一次语文试卷的作文还是他写的，它的火爆程度连我们的语文老师都了解到了，还在我们的参考范文弄了一篇 ChatGPT 写的文章，不过那时候 ChatGPT 的文章平平无奇，作文都是及格分，我也不会相信，AI是未来。</p>
+<p>上了大学，有一个朋友整天痴迷 AI，研究学习写什么 Prompt，在 OpenAI 开发布会的时候，还熬夜看发布会（在我眼中，这种待遇不应该留给Apple吗）</p>
+<p>转折点是25年末，Gemini 3.1的爆火，学生认证可以直接薅一年的Pro（现在想起来Google是真大方呀，给大伙薅了这么久），那时只会使用网页对话，不过也做出了一个有热度的脚本 <a href="https://github.com/tunecc/NodeSeek-User-Profiler">https://github.com/tunecc/NodeSeek-User-Profiler</a> ，收获了很多人的喜欢。</p>
+<p>后面有一个课设，上课没听，只能寻求 AI 的帮助了。Gemini 的识图是真厉害，拍个照片，就能给我答案。即使图片不清晰，识别也精确，AI 又颠覆了我的认知。</p>
+<p>以上都是网页对话能实现的，后来了解到 Pro 账号还能用谷歌的 Antigravity，打自用了这个，这才是正确的 AI 打开方式，可以读取、编辑文件夹里面的所有文件，这让他能够有空间施展拳脚，最开始做了<a href="https://github.com/tunecc/ilife798">https://github.com/tunecc/ilife798</a> ，<a href="https://github.com/tunecc/ChargeLimiter">https://github.com/tunecc/ChargeLimiter</a> 这两个项目。这两个项目之前就有很多想法，但是从头开始学习代码，还要很长的路。AI 就帮我省掉了很多时间，我直接指挥，他就能把项目做成比较满意的效果。这就是一个 aha 时刻。</p>
+<p>后面我就开始研究起 CodeX、 Claude Code，MJJ 嘛，本身就对 Terminal 比较熟悉，上手挺快的。也去详细学习了一下这一些 Harness 的发展历程、使用技巧。后面 26 年年初的那一 Clawd Bot 的爆火，也让大众了解到了 AI 的强大。</p>
+<p>学习慢慢深入学会了使用MCP，了解到了IDA Pro，让 AI 破解了一些软件。我一直都记得成功破解的那一个时刻，我有多么的震惊。</p>
+<p>那段时间 AI 带给我的震撼，让我更能体会多年之前在另一个行业，人类被人工智能打服了。<br>就是 AlphaGo横扫围棋界，就连当时年轻气盛的柯洁都能被他打服，说</p>
+<blockquote>
+<p>人类数千年的实战演练进化，计算机却告诉我们人类全都是错的。我觉得，甚至没有一个人沾到围棋真理的边。</p>
+</blockquote>
+<p><img src="https://img.technews.tw/wp-content/uploads/2017/01/03114624/weibo.png" alt="image"></p>
+<p>AI给我的震撼，让我体会到柯洁赛前自信说出 “就算阿法狗战胜了李世石，但它赢不了我”，但是0：3落败的心境</p>
+<p>AI 以后会在各种各样的行业给人们一次又一次的震撼。</p>
+<hr>
+<p>2022 年的时候，看到那一篇文章说科技行业换代是每 15 年，但因为当时的各个大厂都把自己的目光放向了头显，自己也根本没有考虑过，下一个时代可能是 AI。那时候 ChatGPT 爆火，根本就没有往这一点去想。但是现在看过来，这个 15 年定律，还挺准的。</p>
+<p>高中的时候，我在读到《百年兴衰，诺基亚，揭秘手机帝国为何轰然倒下》，其中的</p>
+<blockquote>
+<p>商机永远只存在于盲点中</p>
+<p>如果要问商机在哪里，那么答案就是商机在人们的盲点中;<br>如果要问从哪里寻找商机，那么答案就是从人们的盲点中寻找。</p>
+</blockquote>
+<p>当时就看到了这句话，却没想到当时的所有大厂都锚定的“下一代科技行业”，并不是真正的未来。当所有人都看见同一个机会时，它已经不再是盲点，而是共识。真正的未来会从他们的盲点中长出来</p>
+<p>现在 Meta 押宝的元宇宙，VR、AR、NTF…都不见有人提起了，甚至 Apple 的 Vision Pro 都有传言说要砍掉这个产品线，能看出来风向朝向了 AI 行业。</p>
+<p>我们这一代总是说自己没机遇，遇不到风口，AI时代就是我们遇到的的一个风口，而且行业的发展速度难以想象。</p>
+<p>引用一下何同学5G视频里面说的</p>
+<blockquote>
+<p>人对未来的预测都跳脱不出当下技术和思维的限制，最典型的例子就是：</p>
+<p>如果你问一个 50 年前的人，未来是什么样子的？</p>
+<p>他可能会告诉你，汽车会在天上跑。50 年过去了，汽车没有上天，但计算机和信息技术的诞生，对社会的改变绝不会比会飞的汽车更小。</p>
+</blockquote>
+<p>现在的内存涨价，显示出背后的 AI 科技行业还在迅速发展，目前这么多的 AI 企业，也证明还是百家争鸣的状态，短短 15 年，手机行业让我们的生活有了天翻地覆的变。AI 行业现在短短的 3 年，已经改变了我们很多生活习惯，不敢想象我们未来是怎样的。</p>
+<p>关于美国几位 AI 巨头，很推荐大家看一看这几支影片，快速了解 AI史</p>
+<ol>
+<li><a href="https://www.bilibili.com/video/BV1oNfGBCEbq/">MetaAI帝国反击战：从元宇宙笑柄到天价挖人，小扎黑化后的疯狂180天</a></li>
+<li><a href="https://www.bilibili.com/video/BV1BbcjzhEsJ/">从爆亏千亿到史诗翻身，Gemini是怎么杀回王座的？</a></li>
+<li><a href="https://www.bilibili.com/video/BV1tUFkzSEbi/">硅谷最强“叛徒”：Claude是如何碾压ChatGPT的？</a></li>
+<li><a href="https://www.bilibili.com/video/BV1NJFvz4EHx/">马斯克vs奥特曼：拦不住你，那就亲手造一个更强的神</a></li>
+<li><a href="https://www.bilibili.com/video/BV1Ws61BNENK/">OpenAI“弑父”大戏：踢走马斯克、清洗AI天才，奥特曼如何一步步独掌AI话语权？</a></li>
+<li><a href="https://www.bilibili.com/video/BV1UAkkBzERU/">金融无用？DeepSeek成了破壁人，让中国AI终于坐上牌桌</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>碎碎念</tag>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Bilibili Auto Pause</title>
     <url>/2024/12/22/Bilibili%20Auto%20Pause/</url>
     <content><![CDATA[<p>在使用 Enhancer for YouTube 插件时有一个功能 “自动暂停在后台标签中打开的视频” 特别好用，在国内的环境下，多少还是要用一下 BilBili 的，所以想着自己来实现这个功能<span id="more"></span>。</p>
@@ -338,28 +400,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FRP + SAAS 回源</title>
-    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
-    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
-<ol>
-<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
-<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
-</ol>
-<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
-<li>回源域名开启小黄云指向服务器IP</li>
-<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
-<li>服务器上面自签证书用 主力域名（访问域名）</li>
-<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
-</ol>
-<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
-]]></content>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>FRP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker 搭建 Sub-Store</title>
     <url>/2024/09/28/Docker%E6%90%AD%E5%BB%BASub-Store/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾代理软件，发现自己的节点太乱了，得要好好整理一番<span id="more"></span></p>
@@ -397,6 +437,28 @@
 ]]></content>
       <tags>
         <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FRP + SAAS 回源</title>
+    <url>/2025/04/04/Frp%20SAAS%E5%9B%9E%E6%BA%90/</url>
+    <content><![CDATA[<p>有科学的需求的话，联通是国内性价比最好的运营商了，近期就把校园网换成了联通，没想到校园网的联通这么“墙”，CF Tunnel 隧道时不时去阻断一下，那就不能白嫖了，用回FRP，但是不想暴露服务器 IP ，就想起之前折腾过的 <a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">SAAS</a> 还是有点区别的下面来总结一下<span id="more"></span></p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>还没有接触过Frp和SAAS的请看看我下面的这两篇文章，这篇文章不做保姆教程了</p>
+<ol>
+<li><a href="https://696966.xyz/2024/12/06/Cloudflare%20tunnel/">Cloudflare Tunnel 内网穿透及优选</a></li>
+<li><a href="https://696966.xyz/2024/10/08/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">FRP 内网穿透</a></li>
+</ol>
+<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><ol>
+<li>回源域名开启小黄云指向服务器IP</li>
+<li>主力域名（访问域名）CNAME 到回源域名的加速域名</li>
+<li>服务器上面自签证书用 主力域名（访问域名）</li>
+<li>如果出现 “重定向次数过多” 在 回源域名 的  SSL&#x2F;TLS -&gt; 概述 将SSL&#x2F;TLS加密模式改为 “完全” 再次尝试访问，这是因为HTTPS加密的问题（解决办法<a href="https://www.tweek.top/archives/1717643275132">来自这里</a>）</li>
+</ol>
+<p>这样可以让内网使用 Frp 的服务都使用 SAAS 来加速访问，并且保证服务器安全</p>
+]]></content>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>FRP</tag>
       </tags>
   </entry>
   <entry>
@@ -1423,6 +1485,52 @@
       </tags>
   </entry>
   <entry>
+    <title>macOS 本地部署 Zashboard</title>
+    <url>/2025/12/16/macOS%20%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%20Zashboard/</url>
+    <content><![CDATA[<p>最近 macOS 平台新出的代理客户端 <a href="https://github.com/666OS/ClashMac">ClashMac</a> 关注度颇高（此前我使用的是 <a href="https://github.com/xishang0128/sparkle">Sparkle</a>）。由于该软件支持外部 UI 管理，我决定在本地部署 Zashboard 面板，实现更统一的管理体验。</p>
+<span id="more"></span>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个习惯手写 YAML 配置文件的用户，ClashMac非常适合我（虽然Sparkle开启轻量化模式占用更低，但是不能使用Zashboard管理）</p>
+<p>附上一份官方收录的第三方Mihomo工具：<a href="https://wiki.metacubex.one/startup/client/client/">https://wiki.metacubex.one/startup/client/client/</a></p>
+<p>想起Zashboard是分为前端和后端的，那我不就可以让常驻在我的Dock栏上的Zashboard Web App同时管理在家和在外的了</p>
+<p>起初我尝试使用官方提供的在线前端（<a href="https://board.zash.run.place/">https://board.zash.run.place</a> ），但遇到了两个问题：</p>
+<ol>
+<li>当通过 HTTPS 访问在线面板并导出为 Safari Web App 时，浏览器会因安全策略阻止其访问本地的 HTTP 后端接口。</li>
+<li>如果改用 HTTP 协议访问在线面板，浏览器地址栏会常驻“不安全”的红色警告，且加载速度受网络环境影响较大（官方的是通过GitHub部署的）。</li>
+</ol>
+<p>因此，在本地部署一个轻量级的前端服务成为了最佳解决方案。</p>
+<h1 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h1><h2 id="1-下载静态文件"><a href="#1-下载静态文件" class="headerlink" title="1. 下载静态文件"></a>1. 下载静态文件</h2><p>直接从 GitHub Releases 下载构建好的静态文件：</p>
+<ul>
+<li><a href="https://github.com/Zephyruso/zashboard/releases">https://github.com/Zephyruso/zashboard/releases</a></li>
+</ul>
+<p>下载最新的 <code>dist.zip</code> 或适合你的（官方有说明），解压后将其放置在一个你习惯的目录下（要一直保留，不能删除）</p>
+<h2 id="2-选择-Web-服务器"><a href="#2-选择-Web-服务器" class="headerlink" title="2. 选择 Web 服务器"></a>2. 选择 Web 服务器</h2><p>虽然 Node.js、Nginx、Caddy 甚至 Python都行 ，但为了追求极致的低资源占用，这里推荐使用 **Static Web Server (SWS)**。它基于 Rust 编写，内存占用极低且对 SPA（单页应用）支持良好。</p>
+<p><strong>安装服务器</strong></p>
+<p>使用 Homebrew 安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install static-web-server</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，可执行 <code>which static-web-server</code> 确认路径（通常位于 <code>/opt/homebrew/bin/static-web-server</code>）。</p>
+<h2 id="3-配置开机自启-Launchd"><a href="#3-配置开机自启-Launchd" class="headerlink" title="3. 配置开机自启 (Launchd)"></a>3. 配置开机自启 (Launchd)</h2><p>我们将使用 macOS 原生的 Launchd 来管理服务。</p>
+<p>在终端输入以下命令创建配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nano ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
+
+<p>粘贴以下内容。<strong>注意：请务必将下方代码中的 <code>/Users/your_username/...</code> 替换为你实际的文件路径。</strong>或者叫AI帮你写</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">plist</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;[http://www.apple.com/DTDs/PropertyList-1.0.dtd](http://www.apple.com/DTDs/PropertyList-1.0.dtd)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>com.user.zashboard<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin/static-web-server<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--port<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>3824<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--root<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--page404<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist/index.html<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--log-level<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>error<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>EnvironmentVariables<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>PATH<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.err<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.out<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>按 <code>Ctrl + O</code> 保存，<code>Ctrl + X</code> 退出。</p>
+<h2 id="4-启动服务"><a href="#4-启动服务" class="headerlink" title="4. 启动服务"></a>4. 启动服务</h2><p>执行以下命令加载配置并启动服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 卸载可能存在的旧服务（忽略报错）</span></span><br><span class="line">launchctl unload ~/Library/LaunchAgents/com.user.zashboard.plist 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 加载新服务</span></span><br><span class="line">launchctl load ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
+
+<p>此时访问 <code>http://localhost:3824</code> 即可看到面板。</p>
+<p>相比于 Node.js 动辄 50MB+ 的内存占用，Static Web Server 在我本地的运行占用仅维持在 <strong>5MB</strong> 左右，非常轻量。</p>
+]]></content>
+      <tags>
+        <tag>Mihomo</tag>
+        <tag>Web</tag>
+        <tag>macOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>macOS 安装 ida-pro-mcp接进mcp_router</title>
     <url>/2026/04/11/ida-pro-mcp-macos/</url>
     <content><![CDATA[<p>最近用大模型在玩逆向了，用了 Ghidra、frida-tools、disarm…发现了ida-pro有做mcp插件，与普通的mcp安装的不一样，需要用到pip安装，我macOS的python是使用homebrew安装的，在使用  <code>pip install xxx</code> 都提示要创建虚拟环境，这篇就当我自己的一个安装笔记<span id="more"></span></p>
@@ -1871,52 +1979,6 @@
       <tags>
         <tag>Mac</tag>
         <tag>逆向</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>macOS 本地部署 Zashboard</title>
-    <url>/2025/12/16/macOS%20%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%20Zashboard/</url>
-    <content><![CDATA[<p>最近 macOS 平台新出的代理客户端 <a href="https://github.com/666OS/ClashMac">ClashMac</a> 关注度颇高（此前我使用的是 <a href="https://github.com/xishang0128/sparkle">Sparkle</a>）。由于该软件支持外部 UI 管理，我决定在本地部署 Zashboard 面板，实现更统一的管理体验。</p>
-<span id="more"></span>
-
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>作为一个习惯手写 YAML 配置文件的用户，ClashMac非常适合我（虽然Sparkle开启轻量化模式占用更低，但是不能使用Zashboard管理）</p>
-<p>附上一份官方收录的第三方Mihomo工具：<a href="https://wiki.metacubex.one/startup/client/client/">https://wiki.metacubex.one/startup/client/client/</a></p>
-<p>想起Zashboard是分为前端和后端的，那我不就可以让常驻在我的Dock栏上的Zashboard Web App同时管理在家和在外的了</p>
-<p>起初我尝试使用官方提供的在线前端（<a href="https://board.zash.run.place/">https://board.zash.run.place</a> ），但遇到了两个问题：</p>
-<ol>
-<li>当通过 HTTPS 访问在线面板并导出为 Safari Web App 时，浏览器会因安全策略阻止其访问本地的 HTTP 后端接口。</li>
-<li>如果改用 HTTP 协议访问在线面板，浏览器地址栏会常驻“不安全”的红色警告，且加载速度受网络环境影响较大（官方的是通过GitHub部署的）。</li>
-</ol>
-<p>因此，在本地部署一个轻量级的前端服务成为了最佳解决方案。</p>
-<h1 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h1><h2 id="1-下载静态文件"><a href="#1-下载静态文件" class="headerlink" title="1. 下载静态文件"></a>1. 下载静态文件</h2><p>直接从 GitHub Releases 下载构建好的静态文件：</p>
-<ul>
-<li><a href="https://github.com/Zephyruso/zashboard/releases">https://github.com/Zephyruso/zashboard/releases</a></li>
-</ul>
-<p>下载最新的 <code>dist.zip</code> 或适合你的（官方有说明），解压后将其放置在一个你习惯的目录下（要一直保留，不能删除）</p>
-<h2 id="2-选择-Web-服务器"><a href="#2-选择-Web-服务器" class="headerlink" title="2. 选择 Web 服务器"></a>2. 选择 Web 服务器</h2><p>虽然 Node.js、Nginx、Caddy 甚至 Python都行 ，但为了追求极致的低资源占用，这里推荐使用 **Static Web Server (SWS)**。它基于 Rust 编写，内存占用极低且对 SPA（单页应用）支持良好。</p>
-<p><strong>安装服务器</strong></p>
-<p>使用 Homebrew 安装：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install static-web-server</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，可执行 <code>which static-web-server</code> 确认路径（通常位于 <code>/opt/homebrew/bin/static-web-server</code>）。</p>
-<h2 id="3-配置开机自启-Launchd"><a href="#3-配置开机自启-Launchd" class="headerlink" title="3. 配置开机自启 (Launchd)"></a>3. 配置开机自启 (Launchd)</h2><p>我们将使用 macOS 原生的 Launchd 来管理服务。</p>
-<p>在终端输入以下命令创建配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nano ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
-
-<p>粘贴以下内容。<strong>注意：请务必将下方代码中的 <code>/Users/your_username/...</code> 替换为你实际的文件路径。</strong>或者叫AI帮你写</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">plist</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="string">&quot;[http://www.apple.com/DTDs/PropertyList-1.0.dtd](http://www.apple.com/DTDs/PropertyList-1.0.dtd)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>com.user.zashboard<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin/static-web-server<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--port<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>3824<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--root<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--page404<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/your_username/dist/index.html<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>--log-level<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>error<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>EnvironmentVariables<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">key</span>&gt;</span>PATH<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.err<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/tmp/zashboard.out<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>按 <code>Ctrl + O</code> 保存，<code>Ctrl + X</code> 退出。</p>
-<h2 id="4-启动服务"><a href="#4-启动服务" class="headerlink" title="4. 启动服务"></a>4. 启动服务</h2><p>执行以下命令加载配置并启动服务：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 卸载可能存在的旧服务（忽略报错）</span></span><br><span class="line">launchctl unload ~/Library/LaunchAgents/com.user.zashboard.plist 2&gt;/dev/null</span><br><span class="line"><span class="comment"># 加载新服务</span></span><br><span class="line">launchctl load ~/Library/LaunchAgents/com.user.zashboard.plist</span><br></pre></td></tr></table></figure>
-
-<p>此时访问 <code>http://localhost:3824</code> 即可看到面板。</p>
-<p>相比于 Node.js 动辄 50MB+ 的内存占用，Static Web Server 在我本地的运行占用仅维持在 <strong>5MB</strong> 左右，非常轻量。</p>
-]]></content>
-      <tags>
-        <tag>Mihomo</tag>
-        <tag>Web</tag>
-        <tag>macOS</tag>
       </tags>
   </entry>
   <entry>
