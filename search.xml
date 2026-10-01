@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>AI感悟</title>
+    <url>/2026/09/19/AI%E6%84%9F%E6%82%9F/</url>
+    <content><![CDATA[<p>我为何从看不上 AI，到痴迷于AI<span id="more"></span></p>
+<p>2022年手机行业销量暴跌，新产品同质化严重，新功能可有可无。能看出行业发展到头了。科技行业即将迎来一场科技行业的变革。那时我看到<a href="https://mp.weixin.qq.com/s/QeDoycw9Qs46nIyd5CEq6Q">一篇文章</a>（上课的时候用Apple Watch的腕上RSS看到的），让我更加笃定了想法。</p>
+<blockquote>
+<p>让我们先来回顾一下，计算机的前世今生：</p>
+<p>1946年，人类首台电子管计算机Eniac诞生；</p>
+<p>1962年，IBM开发了“晶体管+集成电路”的计算机；</p>
+<p>1976年，两位史蒂夫联手创造了人类第一台个人电脑Apple II；</p>
+<p>1991年，真正的消费级笔记本电脑之父，Macintosh PowerBook 100诞生，又是苹果；</p>
+<p>2007年，乔布斯发布第一代智能手机也是第三代个人电脑：iPhone，还是苹果。</p>
+<p>你会惊讶地发现，似乎有一个如此简单明确的<strong>15年定律</strong>存在，而<strong>今年是2022年，正好是下一个关键时间节点，而智能手机就“恰好”在这个时间点，非常配合地衰退了。</strong></p>
+</blockquote>
+<p>那时作为一名果蛆的我，因有前3 次 Apple 引领科技行业迭代，我不由得相信，智能头显就是未来，即将在 2023 年WWDC，Apple 发布的投影设备即将引领下一次科技行业革新。</p>
+<p>可Vision Pro发布，看不到killer app，但我是果蛆，依旧在坚信着XR是未来。</p>
+<p>2022年11月30号，<a href="https://openai.com/zh-Hans-CN/index/chatgpt/">ChatGPT 3.5 发布</a>，爆火全球，作为热爱数码科技的人，我当然也有了解到，有一次语文试卷的作文还是他写的，它的火爆程度连我们的语文老师都了解到了，还在我们的参考范文弄了一篇 ChatGPT 写的文章，不过那时候 ChatGPT 的文章平平无奇，作文都是及格分，我也不会相信，AI是未来。</p>
+<p>上了大学，有一个朋友整天痴迷 AI，研究学习写什么 Prompt，在 OpenAI 开发布会的时候，还熬夜看发布会（在我眼中，这种待遇不应该留给Apple吗）</p>
+<p>转折点是25年末，Gemini 3.1的爆火，学生认证可以直接薅一年的Pro（现在想起来Google是真大方呀，给大伙薅了这么久），那时只会使用网页对话，不过也做出了一个有热度的脚本 <a href="https://github.com/tunecc/NodeSeek-User-Profiler">https://github.com/tunecc/NodeSeek-User-Profiler</a> ，收获了很多人的喜欢。</p>
+<p>后面有一个课设，上课没听，只能寻求 AI 的帮助了。Gemini 的识图是真厉害，拍个照片，就能给我答案。即使图片不清晰，识别也精确，AI 又颠覆了我的认知。</p>
+<p>以上都是网页对话能实现的，后来了解到 Pro 账号还能用谷歌的 Antigravity，打自用了这个，这才是正确的 AI 打开方式，可以读取、编辑文件夹里面的所有文件，这让他能够有空间施展拳脚，最开始做了<a href="https://github.com/tunecc/ilife798">https://github.com/tunecc/ilife798</a> ，<a href="https://github.com/tunecc/ChargeLimiter">https://github.com/tunecc/ChargeLimiter</a> 这两个项目。这两个项目之前就有很多想法，但是从头开始学习代码，还要很长的路。AI 就帮我省掉了很多时间，我直接指挥，他就能把项目做成比较满意的效果。这就是一个 aha 时刻。</p>
+<p>后面我就开始研究起 CodeX、 Claude Code，MJJ 嘛，本身就对 Terminal 比较熟悉，上手挺快的。也去详细学习了一下这一些 Harness 的发展历程、使用技巧。后面 26 年年初的那一 Clawd Bot 的爆火，也让大众了解到了 AI 的强大。</p>
+<p>学习慢慢深入学会了使用MCP，了解到了IDA Pro，让 AI 破解了一些软件。我一直都记得成功破解的那一个时刻，我有多么的震惊。</p>
+<p>那段时间 AI 带给我的震撼，让我更能体会多年之前在另一个行业，人类被人工智能打服了。<br>就是 AlphaGo横扫围棋界，就连当时年轻气盛的柯洁都能被他打服，说</p>
+<blockquote>
+<p>人类数千年的实战演练进化，计算机却告诉我们人类全都是错的。我觉得，甚至没有一个人沾到围棋真理的边。</p>
+</blockquote>
+<p><img src="https://img.technews.tw/wp-content/uploads/2017/01/03114624/weibo.png" alt="image"></p>
+<p>AI给我的震撼，让我体会到柯洁赛前自信说出 “就算阿法狗战胜了李世石，但它赢不了我”，但是0：3落败的心境</p>
+<p>AI 以后会在各种各样的行业给人们一次又一次的震撼。</p>
+<hr>
+<p>2022 年的时候，看到那一篇文章说科技行业换代是每 15 年，但因为当时的各个大厂都把自己的目光放向了头显，自己也根本没有考虑过，下一个时代可能是 AI。那时候 ChatGPT 爆火，根本就没有往这一点去想。但是现在看过来，这个 15 年定律，还挺准的。</p>
+<p>高中的时候，我在读到《百年兴衰，诺基亚，揭秘手机帝国为何轰然倒下》，其中的</p>
+<blockquote>
+<p>商机永远只存在于盲点中</p>
+<p>如果要问商机在哪里，那么答案就是商机在人们的盲点中;<br>如果要问从哪里寻找商机，那么答案就是从人们的盲点中寻找。</p>
+</blockquote>
+<p>当时就看到了这句话，却没想到当时的所有大厂都锚定的“下一代科技行业”，并不是真正的未来。当所有人都看见同一个机会时，它已经不再是盲点，而是共识。真正的未来会从他们的盲点中长出来</p>
+<p>现在 Meta 押宝的元宇宙，VR、AR、NTF…都不见有人提起了，甚至 Apple 的 Vision Pro 都有传言说要砍掉这个产品线，能看出来风向朝向了 AI 行业。</p>
+<p>我们这一代总是说自己没机遇，遇不到风口，AI时代就是我们遇到的的一个风口，而且行业的发展速度难以想象。</p>
+<p>引用一下何同学5G视频里面说的</p>
+<blockquote>
+<p>人对未来的预测都跳脱不出当下技术和思维的限制，最典型的例子就是：</p>
+<p>如果你问一个 50 年前的人，未来是什么样子的？</p>
+<p>他可能会告诉你，汽车会在天上跑。50 年过去了，汽车没有上天，但计算机和信息技术的诞生，对社会的改变绝不会比会飞的汽车更小。</p>
+</blockquote>
+<p>现在的内存涨价，显示出背后的 AI 科技行业还在迅速发展，目前这么多的 AI 企业，也证明还是百家争鸣的状态，短短 15 年，手机行业让我们的生活有了天翻地覆的变。AI 行业现在短短的 3 年，已经改变了我们很多生活习惯，不敢想象我们未来是怎样的。</p>
+<p>关于美国几位 AI 巨头，很推荐大家看一看这几支影片，快速了解 AI史</p>
+<ol>
+<li><a href="https://www.bilibili.com/video/BV1oNfGBCEbq/">MetaAI帝国反击战：从元宇宙笑柄到天价挖人，小扎黑化后的疯狂180天</a></li>
+<li><a href="https://www.bilibili.com/video/BV1BbcjzhEsJ/">从爆亏千亿到史诗翻身，Gemini是怎么杀回王座的？</a></li>
+<li><a href="https://www.bilibili.com/video/BV1tUFkzSEbi/">硅谷最强“叛徒”：Claude是如何碾压ChatGPT的？</a></li>
+<li><a href="https://www.bilibili.com/video/BV1NJFvz4EHx/">马斯克vs奥特曼：拦不住你，那就亲手造一个更强的神</a></li>
+<li><a href="https://www.bilibili.com/video/BV1Ws61BNENK/">OpenAI“弑父”大戏：踢走马斯克、清洗AI天才，奥特曼如何一步步独掌AI话语权？</a></li>
+<li><a href="https://www.bilibili.com/video/BV1UAkkBzERU/">金融无用？DeepSeek成了破壁人，让中国AI终于坐上牌桌</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>碎碎念</tag>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2025 年终总结</title>
     <url>/2025/12/31/2025%E6%80%BB%E7%BB%932/</url>
     <content><![CDATA[<p>今年这一年，可谓是我人生中最精彩，也最疯狂的一年。</p>
@@ -139,68 +201,6 @@
         <tag>Apple ID</tag>
         <tag>技术</tag>
         <tag>生活</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AI感悟</title>
-    <url>/2026/09/19/AI%E6%84%9F%E6%82%9F/</url>
-    <content><![CDATA[<p>我为何从看不上 AI，到痴迷于AI<span id="more"></span></p>
-<p>2022年手机行业销量暴跌，新产品同质化严重，新功能可有可无。能看出行业发展到头了。科技行业即将迎来一场科技行业的变革。那时我看到<a href="https://mp.weixin.qq.com/s/QeDoycw9Qs46nIyd5CEq6Q">一篇文章</a>（上课的时候用Apple Watch的腕上RSS看到的），让我更加笃定了想法。</p>
-<blockquote>
-<p>让我们先来回顾一下，计算机的前世今生：</p>
-<p>1946年，人类首台电子管计算机Eniac诞生；</p>
-<p>1962年，IBM开发了“晶体管+集成电路”的计算机；</p>
-<p>1976年，两位史蒂夫联手创造了人类第一台个人电脑Apple II；</p>
-<p>1991年，真正的消费级笔记本电脑之父，Macintosh PowerBook 100诞生，又是苹果；</p>
-<p>2007年，乔布斯发布第一代智能手机也是第三代个人电脑：iPhone，还是苹果。</p>
-<p>你会惊讶地发现，似乎有一个如此简单明确的<strong>15年定律</strong>存在，而<strong>今年是2022年，正好是下一个关键时间节点，而智能手机就“恰好”在这个时间点，非常配合地衰退了。</strong></p>
-</blockquote>
-<p>那时作为一名果蛆的我，因有前3 次 Apple 引领科技行业迭代，我不由得相信，智能头显就是未来，即将在 2023 年WWDC，Apple 发布的投影设备即将引领下一次科技行业革新。</p>
-<p>可Vision Pro发布，看不到killer app，但我是果蛆，依旧在坚信着XR是未来。</p>
-<p>2022年11月30号，<a href="https://openai.com/zh-Hans-CN/index/chatgpt/">ChatGPT 3.5 发布</a>，爆火全球，作为热爱数码科技的人，我当然也有了解到，有一次语文试卷的作文还是他写的，它的火爆程度连我们的语文老师都了解到了，还在我们的参考范文弄了一篇 ChatGPT 写的文章，不过那时候 ChatGPT 的文章平平无奇，作文都是及格分，我也不会相信，AI是未来。</p>
-<p>上了大学，有一个朋友整天痴迷 AI，研究学习写什么 Prompt，在 OpenAI 开发布会的时候，还熬夜看发布会（在我眼中，这种待遇不应该留给Apple吗）</p>
-<p>转折点是25年末，Gemini 3.1的爆火，学生认证可以直接薅一年的Pro（现在想起来Google是真大方呀，给大伙薅了这么久），那时只会使用网页对话，不过也做出了一个有热度的脚本 <a href="https://github.com/tunecc/NodeSeek-User-Profiler">https://github.com/tunecc/NodeSeek-User-Profiler</a> ，收获了很多人的喜欢。</p>
-<p>后面有一个课设，上课没听，只能寻求 AI 的帮助了。Gemini 的识图是真厉害，拍个照片，就能给我答案。即使图片不清晰，识别也精确，AI 又颠覆了我的认知。</p>
-<p>以上都是网页对话能实现的，后来了解到 Pro 账号还能用谷歌的 Antigravity，打自用了这个，这才是正确的 AI 打开方式，可以读取、编辑文件夹里面的所有文件，这让他能够有空间施展拳脚，最开始做了<a href="https://github.com/tunecc/ilife798">https://github.com/tunecc/ilife798</a> ，<a href="https://github.com/tunecc/ChargeLimiter">https://github.com/tunecc/ChargeLimiter</a> 这两个项目。这两个项目之前就有很多想法，但是从头开始学习代码，还要很长的路。AI 就帮我省掉了很多时间，我直接指挥，他就能把项目做成比较满意的效果。这就是一个 aha 时刻。</p>
-<p>后面我就开始研究起 CodeX、 Claude Code，MJJ 嘛，本身就对 Terminal 比较熟悉，上手挺快的。也去详细学习了一下这一些 Harness 的发展历程、使用技巧。后面 26 年年初的那一 Clawd Bot 的爆火，也让大众了解到了 AI 的强大。</p>
-<p>学习慢慢深入学会了使用MCP，了解到了IDA Pro，让 AI 破解了一些软件。我一直都记得成功破解的那一个时刻，我有多么的震惊。</p>
-<p>那段时间 AI 带给我的震撼，让我更能体会多年之前在另一个行业，人类被人工智能打服了。<br>就是 AlphaGo横扫围棋界，就连当时年轻气盛的柯洁都能被他打服，说</p>
-<blockquote>
-<p>人类数千年的实战演练进化，计算机却告诉我们人类全都是错的。我觉得，甚至没有一个人沾到围棋真理的边。</p>
-</blockquote>
-<p><img src="https://img.technews.tw/wp-content/uploads/2017/01/03114624/weibo.png" alt="image"></p>
-<p>AI给我的震撼，让我体会到柯洁赛前自信说出 “就算阿法狗战胜了李世石，但它赢不了我”，但是0：3落败的心境</p>
-<p>AI 以后会在各种各样的行业给人们一次又一次的震撼。</p>
-<hr>
-<p>2022 年的时候，看到那一篇文章说科技行业换代是每 15 年，但因为当时的各个大厂都把自己的目光放向了头显，自己也根本没有考虑过，下一个时代可能是 AI。那时候 ChatGPT 爆火，根本就没有往这一点去想。但是现在看过来，这个 15 年定律，还挺准的。</p>
-<p>高中的时候，我在读到《百年兴衰，诺基亚，揭秘手机帝国为何轰然倒下》，其中的</p>
-<blockquote>
-<p>商机永远只存在于盲点中</p>
-<p>如果要问商机在哪里，那么答案就是商机在人们的盲点中;<br>如果要问从哪里寻找商机，那么答案就是从人们的盲点中寻找。</p>
-</blockquote>
-<p>当时就看到了这句话，却没想到当时的所有大厂都锚定的“下一代科技行业”，并不是真正的未来。当所有人都看见同一个机会时，它已经不再是盲点，而是共识。真正的未来会从他们的盲点中长出来</p>
-<p>现在 Meta 押宝的元宇宙，VR、AR、NTF…都不见有人提起了，甚至 Apple 的 Vision Pro 都有传言说要砍掉这个产品线，能看出来风向朝向了 AI 行业。</p>
-<p>我们这一代总是说自己没机遇，遇不到风口，AI时代就是我们遇到的的一个风口，而且行业的发展速度难以想象。</p>
-<p>引用一下何同学5G视频里面说的</p>
-<blockquote>
-<p>人对未来的预测都跳脱不出当下技术和思维的限制，最典型的例子就是：</p>
-<p>如果你问一个 50 年前的人，未来是什么样子的？</p>
-<p>他可能会告诉你，汽车会在天上跑。50 年过去了，汽车没有上天，但计算机和信息技术的诞生，对社会的改变绝不会比会飞的汽车更小。</p>
-</blockquote>
-<p>现在的内存涨价，显示出背后的 AI 科技行业还在迅速发展，目前这么多的 AI 企业，也证明还是百家争鸣的状态，短短 15 年，手机行业让我们的生活有了天翻地覆的变。AI 行业现在短短的 3 年，已经改变了我们很多生活习惯，不敢想象我们未来是怎样的。</p>
-<p>关于美国几位 AI 巨头，很推荐大家看一看这几支影片，快速了解 AI史</p>
-<ol>
-<li><a href="https://www.bilibili.com/video/BV1oNfGBCEbq/">MetaAI帝国反击战：从元宇宙笑柄到天价挖人，小扎黑化后的疯狂180天</a></li>
-<li><a href="https://www.bilibili.com/video/BV1BbcjzhEsJ/">从爆亏千亿到史诗翻身，Gemini是怎么杀回王座的？</a></li>
-<li><a href="https://www.bilibili.com/video/BV1tUFkzSEbi/">硅谷最强“叛徒”：Claude是如何碾压ChatGPT的？</a></li>
-<li><a href="https://www.bilibili.com/video/BV1NJFvz4EHx/">马斯克vs奥特曼：拦不住你，那就亲手造一个更强的神</a></li>
-<li><a href="https://www.bilibili.com/video/BV1Ws61BNENK/">OpenAI“弑父”大戏：踢走马斯克、清洗AI天才，奥特曼如何一步步独掌AI话语权？</a></li>
-<li><a href="https://www.bilibili.com/video/BV1UAkkBzERU/">金融无用？DeepSeek成了破壁人，让中国AI终于坐上牌桌</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>碎碎念</tag>
-        <tag>AI</tag>
       </tags>
   </entry>
   <entry>
@@ -1531,6 +1531,335 @@
       </tags>
   </entry>
   <entry>
+    <title>syslog、daemon.log 占用大量空间</title>
+    <url>/2025/03/17/syslog,daemon.log/</url>
+    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
+<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
+
+<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
+<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
+<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
+<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
+<p><strong>修改方法</strong>：</p>
+<ul>
+<li><p>**对于 <code>syslog</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
+</li>
+<li><p>**对于 <code>daemon.log</code>**：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
+
+<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
+<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此配置可避免单个日志文件过大</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装Theos和Monkeydev</title>
+    <url>/2025/01/21/theos%E5%92%8Cmonkeydev%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p>认真玩越狱一年了，想学习开发插件，总结一下工具的安装<span id="more"></span></p>
+<h1 id="Theos"><a href="#Theos" class="headerlink" title="Theos"></a>Theos</h1><p><a href="https://theos.dev/docs/installation-macos">macOS官方安装教程</a></p>
+<p>我更推荐用<a href="https://github.com/AloneMonkey/MonkeyDev/wiki/%E5%AE%89%E8%A3%85">MonkeyDev写的安装方法</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> --recursive https://github.com/theos/theos.git /opt/theos</span><br></pre></td></tr></table></figure>
+
+<p>在用户目录下的<code>.zshrc</code>文件内添加如下内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> THEOS=/opt/theos</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$THEOS</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Terminal 中运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nic.pl</span><br></pre></td></tr></table></figure>
+
+<p>有如下提示即为成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> ~  nic.pl                                                                  ✔</span><br><span class="line">NIC 2.0 - New Instance Creator</span><br><span class="line">------------------------------</span><br><span class="line">  [1.] iphone/activator_event</span><br><span class="line">  [2.] iphone/activator_listener</span><br><span class="line">  [3.] iphone/application</span><br><span class="line">  [4.] iphone/application_swift</span><br><span class="line">  [5.] iphone/application_swiftui</span><br><span class="line">  [6.] iphone/control_center_module-11up</span><br><span class="line">  [7.] iphone/cydget</span><br><span class="line">  [8.] iphone/flipswitch_switch</span><br><span class="line">  [9.] iphone/framework</span><br><span class="line">  [10.] iphone/library</span><br><span class="line">  [11.] iphone/notification_center_widget</span><br><span class="line">  [12.] iphone/notification_center_widget-7up</span><br><span class="line">  [13.] iphone/null</span><br><span class="line">  [14.] iphone/preference_bundle</span><br><span class="line">  [15.] iphone/preference_bundle_swift</span><br><span class="line">  [16.] iphone/theme</span><br><span class="line">  [17.] iphone/tool</span><br><span class="line">  [18.] iphone/tool_swift</span><br><span class="line">  [19.] iphone/tweak</span><br><span class="line">  [20.] iphone/tweak_swift</span><br><span class="line">  [21.] iphone/tweak_with_simple_preferences</span><br><span class="line">  [22.] iphone/xpc_service</span><br><span class="line">  [23.] iphone/xpc_service_modern</span><br><span class="line">Choose a Template (required):</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="MonkeyDev"><a href="#MonkeyDev" class="headerlink" title="MonkeyDev"></a>MonkeyDev</h1><h2 id="下载（原版）"><a href="#下载（原版）" class="headerlink" title="下载（原版）"></a>下载（原版）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> https://github.com/AloneMonkey/MonkeyDev.git /opt/MonkeyDev</span><br></pre></td></tr></table></figure>
+<h2 id="下载（改版支持无根）"><a href="#下载（改版支持无根）" class="headerlink" title="下载（改版支持无根）"></a>下载（<a href="https://github.com/BigCatGit/MonkeyDev">改版支持无根</a>）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> https://github.com/BigCatGit/MonkeyDev.git /opt/MonkeyDev</span><br></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /opt/MonkeyDev/bin/md-install</span><br></pre></td></tr></table></figure>
+
+<h2 id="报错：-File-xxx-IDEiOSSupportCore-ideplugin-xxx-Embedded-Device-xcspec-not-found"><a href="#报错：-File-xxx-IDEiOSSupportCore-ideplugin-xxx-Embedded-Device-xcspec-not-found" class="headerlink" title="报错： File &#x2F;xxx&#x2F;IDEiOSSupportCore.ideplugin&#x2F;xxx&#x2F;Embedded-Device.xcspec not found"></a>报错： File &#x2F;xxx&#x2F;IDEiOSSupportCore.ideplugin&#x2F;xxx&#x2F;Embedded-Device.xcspec not found</h2><p>Xcode16又不能使用下面的解决了，这个仓库有大佬改了安装脚本：<a href="https://github.com/shadow-boy/MonkeyDev/tree/master/bin%EF%BC%8C%E6%88%91%E5%8F%88fork%E6%94%B9%E4%BA%86%E4%B8%80%E4%B8%8B">https://github.com/shadow-boy/MonkeyDev/tree/master/bin，我又fork改了一下</a></p>
+<p>Xcode16直接用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /bin/sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/tunecc/MonkeyDev/refs/heads/master/bin/md-install_xcode16fix)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>没报错可以不用看后面的了</p>
+<p>想手搓的可以看看这里，下面的都来自这里：<a href="https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html">https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html</a></p>
+<p>macOS 14.5报错如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  bin <span class="built_in">sudo</span> ./md-install</span><br><span class="line">...</span><br><span class="line">File /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/Embedded-Device.xcspec not found</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>原因：<code>Xcode 13+</code>之后，部分路径变化了，所以找不到对应路径</li>
+<li>解决办法：从Xcode中搜索到Embedded-Device.xcspec的实际位置，然后拷贝到报错的路径（如果不存在，先创建对应目录）即可</li>
+<li>具体步骤</li>
+</ul>
+<p>（1）找到Embedded-Device.xcspec</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cd</span> /Applications/Xcode.app/Contents</span><br><span class="line">➜  Contents find . -name Embedded-Device.xcspec</span><br><span class="line">./Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec</span><br></pre></td></tr></table></figure>
+
+<p>找到：</p>
+<ul>
+<li><code>/Applications/Xcode.app/Contents/Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec</code></li>
+</ul>
+<p>（2）拷贝到报错目录</p>
+<p>先新建该目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br></pre></td></tr></table></figure>
+
+<p>再去拷贝：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /Applications/Xcode.app/Contents/Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br></pre></td></tr></table></figure>
+
+<p>确认文件的确存在：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  PlugIns ll /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br><span class="line">total 8</span><br><span class="line">-rw-r--r--@ 1 root  wheel   437B 10 12 15:34 Embedded-Device.xcspec</span><br></pre></td></tr></table></figure>
+
+<p>最后重新去操作：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /opt/MonkeyDev/bin/md-install</span><br></pre></td></tr></table></figure>
+
+<h2 id="报错：File-xxx-Specifications-MacOSX-Package-Types-xcspec-not-found"><a href="#报错：File-xxx-Specifications-MacOSX-Package-Types-xcspec-not-found" class="headerlink" title="报错：File &#x2F;xxx&#x2F;Specifications&#x2F;MacOSX Package Types.xcspec not found"></a>报错：File &#x2F;xxx&#x2F;Specifications&#x2F;MacOSX Package Types.xcspec not found</h2><p>报错如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">  bin <span class="built_in">sudo</span> bash md-install</span><br><span class="line">...</span><br><span class="line">File /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Specifications/MacOSX Package Types.xcspec not found</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：</p>
+<ul>
+<li><p>Xcode &lt;13</p>
+<ul>
+<li>背景：存在<code>MacOSX Package Types.xcspec</code>，只是路径不对</li>
+<li>解决办法：改动路径或换用软链接</li>
+</ul>
+</li>
+<li><p>Xcode 13+</p>
+<ul>
+<li><p>背景：不存在<code>MacOSX Package Types.xcspec </code>和<code>MacOSX Product Types.xcspec</code>，所以要去网上下载后，再去：改动路径或换用软链接</p>
+<ul>
+<li><p>下载<code>MacOSX Package Types.xcspec </code>和<code>MacOSX Product Types.xcspec</code></p>
+</li>
+<li><p><a href="https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Package-Types.xcspec">https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Package-Types.xcspec</a></p>
+</li>
+<li><p>保存为：<code>MacOSX Package Types.xcspec</code></p>
+</li>
+<li><p><a href="https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Product-Types.xcspec">https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Product-Types.xcspec</a></p>
+</li>
+<li><p>保存为：<code>MacOSX Product Types.xcspec</code></p>
+</li>
+<li><p>拷贝到（旧版Xcode中对应的）目录：<code>/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>然后继续去操作：</p>
+<ul>
+<li><p>【推荐】方法1：使用软链接</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Specifications</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法2：（修改<code>md-install</code>脚本）改动路径</p>
+<p>修改<code>/opt/MonkeyDev/bin/md-install</code></p>
+<p>修改路径，改为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># macosxSDKSpecificationsPath=$macosSdkPlatformPath/Developer/Library/Xcode/Specifications</span></span><br><span class="line"><span class="comment"># packageTypesForMacOSXPath=&quot;$macosxSDKSpecificationsPath/MacOSX Package Types.xcspec&quot;</span></span><br><span class="line"><span class="comment"># productTypesForMacOSXPath=&quot;$macosxSDKSpecificationsPath/MacOSX Product Types.xcspec&quot;</span></span><br><span class="line">macosxSDKSpecificationsPath=<span class="variable">$macosSdkPlatformPath</span>/Developer/Library/Xcode/PrivatePlugIns</span><br><span class="line">packageTypesForMacOSXPath=<span class="string">&quot;<span class="variable">$macosxSDKSpecificationsPath</span>/IDEOSXSupportCore.ideplugin/Contents/Resources/MacOSX Package Types.xcspec&quot;</span></span><br><span class="line">productTypesForMacOSXPath=<span class="string">&quot;<span class="variable">$macosxSDKSpecificationsPath</span>/IDEOSXSupportCore.ideplugin/Contents/Resources/MacOSX Product Types.xcspec&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>最后重新运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./md-install</span><br></pre></td></tr></table></figure>
+
+<p>即可</p>
+</li>
+</ul>
+<p>以上两种错误都是来自我遇到的报错，并且解决方法来自于<a href="https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html">这里</a>，原文里面还有其他的解决方法，我就不贴了</p>
+<p>有佬 fork 了 MonkeyDev 并且适配了 Rootless，在现在这个环境，推荐使用这个，按照readme的安装就好</p>
+<p><a href="https://github.com/BigCatGit/MonkeyDev">https://github.com/BigCatGit/MonkeyDev</a></p>
+<h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><p>解决 Xcode 报 library not found for -lstdc++ 问题</p>
+<p><a href="https://github.com/devdawei/libstdc-">https://github.com/devdawei/libstdc-</a></p>
+<h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>视频最后的编译可以试一试，安装还是参考上文</p>
+<p><a href="https://www.bilibili.com/video/BV1ovejeXEUU?t=296">https://www.bilibili.com/video/BV1ovejeXEUU?t=296</a></p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+        <tag>越狱</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Bose QC Ultra 和 Sony XM5</title>
+    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
+    <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
+<span id="more"></span>
+
+<p>我的耳朵长时间佩戴入耳式耳机不是很舒服，而且发过炎症（三星 Buds Pro 老用户），准备入一款头戴式玩玩，四个选择</p>
+<ol>
+<li><p>Sony WH 1000-XM5（朋友有一个，能借来用）</p>
+</li>
+<li><p>Bose QC Ultra</p>
+</li>
+<li><p>Sennheiser MOMENTUM 4（木馒头4）（看测评不适合我）</p>
+</li>
+<li><p>Airports Max（不考虑，太重了，舍友有一个，体验过一段时间）</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/1a888c1e2140222ae453245b0d8ecbae.jpeg"></p>
+</li>
+</ol>
+<p>借朋友的XM5、买了一个Bose QC Ultra开始体验，看看留下谁</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/e9eca987d5bd8842075890dfb7a2d4db.jpeg"></p>
+<p>最后留下了Bose，就是因为<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>，能折叠，个人觉得比XM5好看，就没了，其他全是缺点</p>
+<p>来列一下与XM5对比，Bose的缺点</p>
+<ol>
+<li>EQ不能保存多个，可以调节的少</li>
+<li>不能快速切换降噪和通透，必须通过模式来切换</li>
+<li>没有XM5长按右耳罩，快速减少音量，关闭降噪的功能（Bose的交互比XM5烂很多）</li>
+<li>查询电池电量只能通过蓝牙，或者自定义音量条的“快捷方式”（我用来调节“沉浸式音频”了），但耳机开机的时候会报一下电量</li>
+<li>开机的时候如果连接了多设备，会把设备的名字都念一遍（能关闭）</li>
+<li>充电速度慢，电池没有XM5的大</li>
+<li>蓝牙的音质是比xm5差点（我能听出来），但是有线的情况下不分伯仲（说Bose会更好，我听不出来）</li>
+<li>音频线是2.5mm和3.5mm的，而且送的线比Sony的短</li>
+<li>没有防水，下雨不要戴</li>
+<li>用耳机上的滑块把音量调到最大。每次通过 3.5mm 线连接时，音量都会自动变成 50%，说是为了保护听力。所以你得在两个地方调音量（耳机和设备上）</li>
+<li>Bose 的品控差，售后特别烂，我的暂时还没问题</li>
+<li>折腾Bose的人少，Sony的还可以刷刷固件折玩</li>
+</ol>
+<p>另外朋友的XM5用的挺久了，耳机涂层脱落，手感差，且有油光，看起来变廉价了</p>
+<p><img src="https://85d8ba7.webp.li/2025/12/6f5a141e3dc24de32522f0bc9c895b0f.jpeg"></p>
+]]></content>
+      <tags>
+        <tag>耳机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Systemctl运行Rustdesk服务端</title>
+    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
+<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
+<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
+<p>运行的两个文件是干嘛的?</p>
+<ul>
+<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
+<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
+</ul>
+<p><strong>hbbs.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>hbbr.service</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
+<p>运行程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
+
+<p>设置开机自动运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
+
+<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
+
+<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
+<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
+
+<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
+<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
+<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
+<ul>
+<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
+<li>UDP(<strong>21116</strong>)</li>
+</ul>
+<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
+]]></content>
+      <tags>
+        <tag>Systemctl</tag>
+        <tag>Rustdesk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>别了，阿太</title>
+    <url>/2026/09/30/%E5%88%AB%E4%BA%86%EF%BC%8C%E9%98%BF%E5%A4%AA/</url>
+    <content><![CDATA[<p>2026年9月24日，我的阿太与世长辞<span id="more"></span>。</p>
+<p>自打我记事起，阿太就住在老家一个亲戚开的木具厂里。每隔一段时间，爸爸就会带我去看她。那时候我还在读幼儿园，从家里骑摩托车过去，五六分钟就到了。</p>
+<p>阿太住在木具厂刚进去右边的房间里。每次去，阿太都会拿很多好吃的给我。那时候我年纪小，又和阿太不是特别熟，去了也不知道干什么，每次都待不了多久，就催着爸爸赶紧回家。</p>
+<p>后来长大了，也就慢慢没有再去过那里。</p>
+<p>葬礼期间，有一位哥哥跟我说，在我这个年龄段里，和阿太最亲的就是我和另一个满满。想想还真是。</p>
+<p>阿太在我小学的时候带过我两年。那两年，她煮给我吃，哄我入睡。那时候我们睡觉的房间，就是我写出这篇文章的房间。</p>
+<p>阿太心口直快，刀子嘴豆腐心，导致在这一家住住，没多久就到另一家住。后来我上初中了，我爸担心阿太没地方住，就买了一张双层床，放在家里唯一的空房间里。到现在八年过去了，那张床没人睡过，已经堆满了杂物。</p>
+<p>阿太很喜欢骂她的子女（去年轮到了我的爷爷奶奶，因为矛盾，来县城过了一次年。孰不知，那是阿太在世的最后一个年），但从来没有骂过我们小辈。</p>
+<p>每一次快放寒暑假了，阿太就叫我放假赶紧回村里去，担心我一个人在县城里没得吃。每次回去，她就杀鸡给我们吃；每次上桌，她都叫我多吃一点，总说：才吃那么一点点，就饱了？</p>
+<p>她知道我们年轻人不爱吃早饭，家里就常年备着一箱方便面； 她知道我们过完年就必须出去上班上学，就总催我们过年过节早点回去； 她知道我们喜欢喝牛奶，别人送的，她都在房里放着。</p>
+<p>她怕我们回去没菜吃，冰箱就总是塞得满满的，可她自己，天天挑着发霉的、馊了的菜吃； 她怕我们嫌弃剩饭，剩饭就都归了她自己； 她怕我们夹不到菜，每顿都把剩菜添上去，再拖着年迈的身子，慢慢地、慢慢地，走到堂屋去吃。</p>
+<p>那箱方便面，房里的牛奶，冰箱里的菜，都在等我们回去。只是等着等着，牛奶过了期，菜馊了，她也跟着，一年一年地老了。可她等的我们，总是回去得太少，待得太短。</p>
+<p>阿太不知道怎么存别人的电话号码，但每一次来电，号码一报出来，她就知道是谁打来的。</p>
+<p>阿太总是和我奶奶念叨，问我什么时候回村里。我说我要在县城里用电脑，她就叫我带着电脑回去。</p>
+<p>每次回去，阿太都在门前弄着农作物。看似在弄农作物，但我更愿意相信，阿太是在期待我们回家，期待着突然有人叫她一声：阿太！&#x2F;阿婆！&#x2F;阿妈！</p>
+<p>在学校的时候，我每隔一个星期就会打电话回去给爷爷奶奶，电话里问起阿太在做什么，大部分时候，答案都是：睡着了。是啊，无聊的话，不去睡觉还能干什么呢。</p>
+<hr>
+<p>现在回想，阿太的这一次离开，早有预兆。</p>
+<p>8月26日，七月半，我还回来过一次。那时候阿太还在门外剥着玉米，有长辈说帮阿太剥，阿太还说：你们剥完了，那我做什么。就是那一天，阿太叫我把电脑带回家里去。因为村里住不习惯，我没带。</p>
+<p>短短半个月，阿太就成了卧床不起、无法自理的样子。</p>
+<p>9月9日晚上，阿太吐了血，整个人的精气神像被抽走了一样，说不出话来。9月10日，全家人开始往回赶，那是我们全家人凑得最齐的一次。我回到家，看着病床上的阿太：她整个人说不出话来，制氧机放在一旁，手上打着氨基酸，维持着生命。这一次，我把电脑带回来了。我拉着阿太的手告诉她，电脑我带回来了。可她还是昏睡着，无法回应。</p>
+<p>9月12日晚上，以为阿太要断气了。堂屋的牌局散了，地拖干净了，板子也准备好了。我透过房间的门看进去，家里的“顶梁柱”们眼里都含着泪花。好在，是虚惊一场。</p>
+<p>9月13日，周天，阿太的情况有所好转。一些长辈见这样，就准备离开，赶回去上第二天的班。我也准备吃了晚饭，搭亲戚的车回去。</p>
+<p>离开之前，因为我下午吃了点东西，不饿，就让一直守着的长辈先去好好吃个饭。我守在床边，手机在一旁充着电，看着眼前睡着的阿太。忽然，阿太的手动了起来，像是想撑起身体，有坐起来的迹象。一位长辈刚好夹着菜走过来，我就跟她说，阿太好像要坐起来了。马上又来了一位长辈，一左一右，把阿太扶着坐了起来。小小的房间里陆陆续续挤满了人。大家看到前两日还卧床不起的阿太坐了起来，脸上都洋溢着笑容。我退到后面，举起手机，拍下了此情此景。照片里，长辈们的目光都在阿太身上，没有人在意我这个突兀举起来的手机。也对啊，眼前的是他们的妈妈、奶奶，有什么能比眼前的人更重要呢。</p>
+<p>长辈问阿太，要不要弄点饭汤、粥喝一下。没力气说话的阿太马上摇了摇头，又躺了回去。长辈们回去继续吃饭了。我把灯关上，想让阿太睡得好一点。看着眼前睡过去的阿太，没想到，这是我与她最后一次独处。</p>
+<p>长辈们吃饱晚饭，我们离开了。车开到镇上，一起回县城的姑姑要回家里拿点东西。我们在楼下等的时候，和她妈妈（我叫她满婆）聊起阿太的状况，说阿太的身体好了些，刚刚还坐起来了。满婆说，可能是回光返照，她以前遇到过类似的状况。我没当回事。</p>
+<p>9月23号8点38分，奶奶电话打来，问我回不回去过中秋，有亲戚开车回去。我说不回了。</p>
+<p>9月24号8点37分，奶奶又打电话来，问我回去过中秋吗。我说不回了。这时候奶奶的声音和平时不一样，很虚。我说不会去，电话就挂了。</p>
+<p>11点11分，爷爷打了个电话来，问我回不回去过中秋。我说不回了，马上电话就挂了。</p>
+<p>11点52分，奶奶打了个电话过来，我接了，什么都听不清，我就挂了。</p>
+<p>11点54分，爷爷打来电话，我想问奶奶怎么了，爷爷抢过话：阿太不在了。</p>
+<p>我愣了一下。怎么会，前几天还说有所好转的，怎么一下子人就没了。我不相信。但这件事开不得玩笑，他们还很忙，我马上联系亲戚，看谁的车方便载我回去。我刚做出来的两道菜也不香了，简单应付几口，就去收拾行李。</p>
+<p>下午五点，上了回村的车。一路上我们还是聊着天，就像正常回老家一样。可是从镇上回村里的时候，天色已黑，车上没有人说话了，一股沉重的氛围笼罩在车上。我们都知道，这一次回去，那个一直守在家门前的人，已经不在了。</p>
+<p>到家，车停在下面，我们拿着行李往上走。我的姑姑——家里最会穿寿衣的那一个——因为各种事情回来晚了。她下了车，没管自己的孩子，赶紧往家里走去。上了坡，我看见家门口已经搭起了棚子。走在我前面的姑姑已经到了家门口，她见到家里的景象，直接放声痛哭。她是从门外跪着进去的，爬到阿太的冰棺旁，诉说自己的遗憾，很久很久。</p>
+<p>我看到灵堂的景象，一时难以置信。阿太的照片放在冰棺前面，照片前面就是放香火和烧纸的地方。我把自己的两个包随便往门外一扔，进去，跪在地上，烧起了纸。</p>
+<p>姑姑在冰棺旁哭了很久。后来，在外面吃饭的奶奶（姑姑的妈妈）进来，叫她起来烧点纸。就连我那调皮捣蛋的6岁弟弟，也难得懂事一次，叫妈妈不要哭了。他也是第一次见到自己的妈妈这样嚎啕大哭吧。他的妈妈，在这位躺在冰棺里的老人面前，也只是一位外孙女，也只是一个孩子。</p>
+<p>第一晚不用守灵，十一点多我就上楼去睡了。</p>
+<p>第二天，在外面无所事事的我，被一位长辈叫去放爆竹，等师公来了马上就放。第一次放，太过着急，不小心被火药冲到了手，左手拇指白了一条。家里人知道了，都来问我手的状况，教我要怎么做。弄来草药后，我一个手挤不出水，大家还帮我想办法，用一个塑料杯装着草药，用石头敲出水来。我了解了方法之后，他们还是要帮我做好第一次。这就是家人的关爱吧，从小独立的我很少体会到。</p>
+<p>第二天也是中秋节。这是我们这一家人聚得最整齐的一个中秋，可预见的，将来也不会再有了。所以这几天我都没玩手机，慢慢体会这一家人最后的团聚时刻。</p>
+<p>2024年初的全家福，成了我们唯一的全家福。</p>
+<p>这一天，我们戴上了白色头巾，跟着师公做法事，持续了两天。</p>
+<hr>
+<p>阿太24号走的，27号就出殡了。整个过程很快，两次回家都正好连着周末，没太耽误大家的工作。</p>
+<p>游本昌走得比阿太早十个小时整，他们同岁。他饰演的济公深入人心。阿太与他，一路走好。</p>
+<p>出殡完，大家就离开了。或是因为四天三夜的劳累，或是因为想快点复工，车一辆一辆地开走，人一个一个地离开。可每个人其实都知道，这一次和以前不一样了。以前大家回来，是因为家里还有一个人。以后再回来，那个等着大家的人已经没有了。</p>
+<p>房子还在，院子还在，什么都在，只是阿太不在了。</p>
+<p>少了一个她，空了一个家。</p>
+<p>再回去的时候，那声阿太、阿婆、阿妈，再也没有人应了。</p>
+<p>阿太一辈子要强，生了十姊妹，又把他们一个个拉扯大。她就像一棵树，身上发出去十条枝。从前枝干散得再远，根都连在同一棵树上；如今主干没有了，十条枝只好各自生根、各自发芽。</p>
+<hr>
+<p>这次参加完葬礼，家里收尾的时候，发现有几个风扇和一张麻将桌要还回镇上去。我还算强壮，就被安排过去帮忙。也是因为这个原因，我临时换了原来要搭的车，跟着另外一位亲戚一起回去。</p>
+<p>其中两个风扇，刚好要还到那个木具厂。</p>
+<p>那个地方，我已经十多年没有再去过了。</p>
+<p>车驶入木具厂的时候，我一直盯着右边看。可眼前已经完全不是我记忆中的模样：门前杂草丛生，那两个木门还在，只是旧得不成样子，有些地方已经腐朽了。</p>
+<p>我们把两个风扇放在那里，抽了支烟，就离开了。</p>
+<p>第一次见她，是在这里；最后一次送她，也是在这里。老天爷安排事，从来不跟人商量。</p>
+<p>车开出去的时候，我一直回头看着窗外，默默地和这里道了别。将来，是不会再到这里来了。</p>
+<p>别了，阿太。</p>
+<hr>
+<hr>
+<p>这一次回去，没有拍很多照片，因为怕有不能拍的。拍的最满意的就是上一次阿太坐起来那里了</p>
+<p>阿太说她笑得最开心的两次：一是，以为姑姑有些特效药，另一位姑姑问有没有什么药吃了能长高的。<br>二是，我在山上用杆秤来称我的体重，我说我有70斤，称出来没有，我说可能屎拉了有两三斤。</p>
+<p>说点自私的<br>我长这么大以来，家里面也出过几次丧事了，但是因为各种原因，我都躲过去了，第一次就是我的大伯公，他对我很好，我爸也是每隔一段时间就会带我进去看他，他一直念叨着，等我读大学了，政府里面发给他的蚊帐、床铺和电饭煲要给我用。可是在我高二那一年，他身体不好先走了，我在学校读书完全不知情。这一次是我第一次参加葬礼。</p>
+<p>去年，我出国去了，姑爷不在了，我也刚好躲过</p>
+<p>很早之前就知道阿太会走，我心里面一直有这个准备，没想到阿太是在我时间最多的时候走的，9月份学校安排实习，这一个月我都在家里，影响最小的就是我了，阿太最心疼的后生就是我，但是我也没有见到阿太最后一面。</p>
+<p>小孩子才分对错，成年人只看利弊。上午出殡，中午算账。新坟的土还没干，旧账就都翻出来了。</p>
+]]></content>
+      <tags>
+        <tag>碎碎念</tag>
+        <tag>离别</tag>
+        <tag>死亡</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>macOS 安装 ida-pro-mcp接进mcp_router</title>
     <url>/2026/04/11/ida-pro-mcp-macos/</url>
     <content><![CDATA[<p>最近用大模型在玩逆向了，用了 Ghidra、frida-tools、disarm…发现了ida-pro有做mcp插件，与普通的mcp安装的不一样，需要用到pip安装，我macOS的python是使用homebrew安装的，在使用  <code>pip install xxx</code> 都提示要创建虚拟环境，这篇就当我自己的一个安装笔记<span id="more"></span></p>
@@ -1982,259 +2311,6 @@
       </tags>
   </entry>
   <entry>
-    <title>syslog、daemon.log 占用大量空间</title>
-    <url>/2025/03/17/syslog,daemon.log/</url>
-    <content><![CDATA[<p>今天突然发现服务器宕机了，本以为是调试的的脚本有问题<span id="more"></span></p>
-<p>用下面命令查看发现是 &#x2F;var 的占用太大了</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>查看日志大小，后就判断是syslog、daemon.log 的问题</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lh /var/log/</span><br></pre></td></tr></table></figure>
-
-<p>随后发现<a href="https://www.vmx.im/?p=137">这一篇博文</a></p>
-<p>里面告诉了解决方法，但是说的不详细，就去问了大模型</p>
-<p>修改 <code>/etc/rsyslog.conf</code> 的日志级别来减少 <code>syslog</code> 和 <code>daemon.log</code> 的占用空间</p>
-<h1 id="1-调整日志级别"><a href="#1-调整日志级别" class="headerlink" title="1. 调整日志级别"></a><strong>1. 调整日志级别</strong></h1><p><strong>原配置</strong>（Debian 默认）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*.*;auth,authpriv.none          -/var/log/syslog</span><br><span class="line">daemon.*                        -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p><strong>目标</strong>：将日志级别限制为 <code>info</code> 及以上（即不记录更低级别的 <code>debug</code>），从而减少日志量。</p>
-<p><strong>修改方法</strong>：</p>
-<ul>
-<li><p>**对于 <code>syslog</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*.=info;auth,authpriv.none    -/var/log/syslog</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录所有服务的 <code>info</code> 级别日志（<code>*.=info</code>），并排除 <code>auth</code> 和 <code>authpriv</code> 的日志（<code>auth,authpriv.none</code>）。</p>
-</li>
-<li><p>**对于 <code>daemon.log</code>**：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daemon.=info                  -/var/log/daemon.log</span><br></pre></td></tr></table></figure>
-
-<p>此配置表示仅记录 <code>daemon</code> 服务的 <code>info</code> 级别日志。如需记录更多，用下面的形式添加</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">daemon.=info;daemon.err;daemon.warning;daemon.crit;daemon.alert;daemon.emerg   -/var/log/daemon.log</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="2-保存文件后，重启-rsyslog-服务使配置生效："><a href="#2-保存文件后，重启-rsyslog-服务使配置生效：" class="headerlink" title="2.保存文件后，重启 rsyslog 服务使配置生效："></a><strong>2.保存文件后，重启 rsyslog 服务使配置生效：</strong></h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart rsyslog</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-补充优化方法"><a href="#3-补充优化方法" class="headerlink" title="3. 补充优化方法"></a><strong>3. 补充优化方法</strong></h1><p><strong>(1) 日志轮转（Logrotate）</strong></p>
-<p>通过 <code>/etc/logrotate.conf</code> 或 <code>/etc/logrotate.d/rsyslog</code> 配置日志切割策略，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/log/syslog</span><br><span class="line">/var/log/daemon.log &#123;</span><br><span class="line">    daily         <span class="comment"># 每日轮转</span></span><br><span class="line">    rotate 7      <span class="comment"># 保留7份旧日志</span></span><br><span class="line">    compress      <span class="comment"># 压缩旧日志</span></span><br><span class="line">    delaycompress <span class="comment"># 延迟压缩（避免与正在写入的日志冲突）</span></span><br><span class="line">    missingok     <span class="comment"># 文件缺失不报错</span></span><br><span class="line">    notifempty    <span class="comment"># 空文件不轮转</span></span><br><span class="line">    size 100M     <span class="comment"># 文件达到100M时强制轮转</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此配置可避免单个日志文件过大</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>通过限制日志级别（如仅记录 <code>info</code> 及以上）、配置日志轮转策略，可有效减少 <code>syslog</code> 和 <code>daemon.log</code> 的空间占用。若问题依然存在，需进一步排查是否有程序持续输出冗余日志或日志服务异常</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安装Theos和Monkeydev</title>
-    <url>/2025/01/21/theos%E5%92%8Cmonkeydev%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p>认真玩越狱一年了，想学习开发插件，总结一下工具的安装<span id="more"></span></p>
-<h1 id="Theos"><a href="#Theos" class="headerlink" title="Theos"></a>Theos</h1><p><a href="https://theos.dev/docs/installation-macos">macOS官方安装教程</a></p>
-<p>我更推荐用<a href="https://github.com/AloneMonkey/MonkeyDev/wiki/%E5%AE%89%E8%A3%85">MonkeyDev写的安装方法</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> --recursive https://github.com/theos/theos.git /opt/theos</span><br></pre></td></tr></table></figure>
-
-<p>在用户目录下的<code>.zshrc</code>文件内添加如下内容</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> THEOS=/opt/theos</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$THEOS</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-
-<p>在 Terminal 中运行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nic.pl</span><br></pre></td></tr></table></figure>
-
-<p>有如下提示即为成功</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> ~  nic.pl                                                                  ✔</span><br><span class="line">NIC 2.0 - New Instance Creator</span><br><span class="line">------------------------------</span><br><span class="line">  [1.] iphone/activator_event</span><br><span class="line">  [2.] iphone/activator_listener</span><br><span class="line">  [3.] iphone/application</span><br><span class="line">  [4.] iphone/application_swift</span><br><span class="line">  [5.] iphone/application_swiftui</span><br><span class="line">  [6.] iphone/control_center_module-11up</span><br><span class="line">  [7.] iphone/cydget</span><br><span class="line">  [8.] iphone/flipswitch_switch</span><br><span class="line">  [9.] iphone/framework</span><br><span class="line">  [10.] iphone/library</span><br><span class="line">  [11.] iphone/notification_center_widget</span><br><span class="line">  [12.] iphone/notification_center_widget-7up</span><br><span class="line">  [13.] iphone/null</span><br><span class="line">  [14.] iphone/preference_bundle</span><br><span class="line">  [15.] iphone/preference_bundle_swift</span><br><span class="line">  [16.] iphone/theme</span><br><span class="line">  [17.] iphone/tool</span><br><span class="line">  [18.] iphone/tool_swift</span><br><span class="line">  [19.] iphone/tweak</span><br><span class="line">  [20.] iphone/tweak_swift</span><br><span class="line">  [21.] iphone/tweak_with_simple_preferences</span><br><span class="line">  [22.] iphone/xpc_service</span><br><span class="line">  [23.] iphone/xpc_service_modern</span><br><span class="line">Choose a Template (required):</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="MonkeyDev"><a href="#MonkeyDev" class="headerlink" title="MonkeyDev"></a>MonkeyDev</h1><h2 id="下载（原版）"><a href="#下载（原版）" class="headerlink" title="下载（原版）"></a>下载（原版）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> https://github.com/AloneMonkey/MonkeyDev.git /opt/MonkeyDev</span><br></pre></td></tr></table></figure>
-<h2 id="下载（改版支持无根）"><a href="#下载（改版支持无根）" class="headerlink" title="下载（改版支持无根）"></a>下载（<a href="https://github.com/BigCatGit/MonkeyDev">改版支持无根</a>）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> git <span class="built_in">clone</span> https://github.com/BigCatGit/MonkeyDev.git /opt/MonkeyDev</span><br></pre></td></tr></table></figure>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /opt/MonkeyDev/bin/md-install</span><br></pre></td></tr></table></figure>
-
-<h2 id="报错：-File-xxx-IDEiOSSupportCore-ideplugin-xxx-Embedded-Device-xcspec-not-found"><a href="#报错：-File-xxx-IDEiOSSupportCore-ideplugin-xxx-Embedded-Device-xcspec-not-found" class="headerlink" title="报错： File &#x2F;xxx&#x2F;IDEiOSSupportCore.ideplugin&#x2F;xxx&#x2F;Embedded-Device.xcspec not found"></a>报错： File &#x2F;xxx&#x2F;IDEiOSSupportCore.ideplugin&#x2F;xxx&#x2F;Embedded-Device.xcspec not found</h2><p>Xcode16又不能使用下面的解决了，这个仓库有大佬改了安装脚本：<a href="https://github.com/shadow-boy/MonkeyDev/tree/master/bin%EF%BC%8C%E6%88%91%E5%8F%88fork%E6%94%B9%E4%BA%86%E4%B8%80%E4%B8%8B">https://github.com/shadow-boy/MonkeyDev/tree/master/bin，我又fork改了一下</a></p>
-<p>Xcode16直接用</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /bin/sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/tunecc/MonkeyDev/refs/heads/master/bin/md-install_xcode16fix)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>没报错可以不用看后面的了</p>
-<p>想手搓的可以看看这里，下面的都来自这里：<a href="https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html">https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html</a></p>
-<p>macOS 14.5报错如下</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  bin <span class="built_in">sudo</span> ./md-install</span><br><span class="line">...</span><br><span class="line">File /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/Embedded-Device.xcspec not found</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>原因：<code>Xcode 13+</code>之后，部分路径变化了，所以找不到对应路径</li>
-<li>解决办法：从Xcode中搜索到Embedded-Device.xcspec的实际位置，然后拷贝到报错的路径（如果不存在，先创建对应目录）即可</li>
-<li>具体步骤</li>
-</ul>
-<p>（1）找到Embedded-Device.xcspec</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  ~ <span class="built_in">cd</span> /Applications/Xcode.app/Contents</span><br><span class="line">➜  Contents find . -name Embedded-Device.xcspec</span><br><span class="line">./Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec</span><br></pre></td></tr></table></figure>
-
-<p>找到：</p>
-<ul>
-<li><code>/Applications/Xcode.app/Contents/Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec</code></li>
-</ul>
-<p>（2）拷贝到报错目录</p>
-<p>先新建该目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br></pre></td></tr></table></figure>
-
-<p>再去拷贝：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /Applications/Xcode.app/Contents/Developer/Library/Xcode/Plug-ins/XCBSpecifications.ideplugin/Contents/Resources/Embedded-Device.xcspec /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br></pre></td></tr></table></figure>
-
-<p>确认文件的确存在：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">➜  PlugIns ll /Applications/Xcode.app/Contents/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/</span><br><span class="line">total 8</span><br><span class="line">-rw-r--r--@ 1 root  wheel   437B 10 12 15:34 Embedded-Device.xcspec</span><br></pre></td></tr></table></figure>
-
-<p>最后重新去操作：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /opt/MonkeyDev/bin/md-install</span><br></pre></td></tr></table></figure>
-
-<h2 id="报错：File-xxx-Specifications-MacOSX-Package-Types-xcspec-not-found"><a href="#报错：File-xxx-Specifications-MacOSX-Package-Types-xcspec-not-found" class="headerlink" title="报错：File &#x2F;xxx&#x2F;Specifications&#x2F;MacOSX Package Types.xcspec not found"></a>报错：File &#x2F;xxx&#x2F;Specifications&#x2F;MacOSX Package Types.xcspec not found</h2><p>报错如下</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">  bin <span class="built_in">sudo</span> bash md-install</span><br><span class="line">...</span><br><span class="line">File /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Specifications/MacOSX Package Types.xcspec not found</span><br></pre></td></tr></table></figure>
-
-<p>解决办法：</p>
-<ul>
-<li><p>Xcode &lt;13</p>
-<ul>
-<li>背景：存在<code>MacOSX Package Types.xcspec</code>，只是路径不对</li>
-<li>解决办法：改动路径或换用软链接</li>
-</ul>
-</li>
-<li><p>Xcode 13+</p>
-<ul>
-<li><p>背景：不存在<code>MacOSX Package Types.xcspec </code>和<code>MacOSX Product Types.xcspec</code>，所以要去网上下载后，再去：改动路径或换用软链接</p>
-<ul>
-<li><p>下载<code>MacOSX Package Types.xcspec </code>和<code>MacOSX Product Types.xcspec</code></p>
-</li>
-<li><p><a href="https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Package-Types.xcspec">https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Package-Types.xcspec</a></p>
-</li>
-<li><p>保存为：<code>MacOSX Package Types.xcspec</code></p>
-</li>
-<li><p><a href="https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Product-Types.xcspec">https://github.com/qbs/qbs/blob/master/share/qbs/modules/bundle/MacOSX-Product-Types.xcspec</a></p>
-</li>
-<li><p>保存为：<code>MacOSX Product Types.xcspec</code></p>
-</li>
-<li><p>拷贝到（旧版Xcode中对应的）目录：<code>/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources</code></p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>然后继续去操作：</p>
-<ul>
-<li><p>【推荐】方法1：使用软链接</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Specifications</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>方法2：（修改<code>md-install</code>脚本）改动路径</p>
-<p>修改<code>/opt/MonkeyDev/bin/md-install</code></p>
-<p>修改路径，改为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># macosxSDKSpecificationsPath=$macosSdkPlatformPath/Developer/Library/Xcode/Specifications</span></span><br><span class="line"><span class="comment"># packageTypesForMacOSXPath=&quot;$macosxSDKSpecificationsPath/MacOSX Package Types.xcspec&quot;</span></span><br><span class="line"><span class="comment"># productTypesForMacOSXPath=&quot;$macosxSDKSpecificationsPath/MacOSX Product Types.xcspec&quot;</span></span><br><span class="line">macosxSDKSpecificationsPath=<span class="variable">$macosSdkPlatformPath</span>/Developer/Library/Xcode/PrivatePlugIns</span><br><span class="line">packageTypesForMacOSXPath=<span class="string">&quot;<span class="variable">$macosxSDKSpecificationsPath</span>/IDEOSXSupportCore.ideplugin/Contents/Resources/MacOSX Package Types.xcspec&quot;</span></span><br><span class="line">productTypesForMacOSXPath=<span class="string">&quot;<span class="variable">$macosxSDKSpecificationsPath</span>/IDEOSXSupportCore.ideplugin/Contents/Resources/MacOSX Product Types.xcspec&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>最后重新运行：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./md-install</span><br></pre></td></tr></table></figure>
-
-<p>即可</p>
-</li>
-</ul>
-<p>以上两种错误都是来自我遇到的报错，并且解决方法来自于<a href="https://book.crifan.org/books/ios_re_monkeydev_debug/website/env_setup/init_monkeydev/common_issues.html">这里</a>，原文里面还有其他的解决方法，我就不贴了</p>
-<p>有佬 fork 了 MonkeyDev 并且适配了 Rootless，在现在这个环境，推荐使用这个，按照readme的安装就好</p>
-<p><a href="https://github.com/BigCatGit/MonkeyDev">https://github.com/BigCatGit/MonkeyDev</a></p>
-<h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><p>解决 Xcode 报 library not found for -lstdc++ 问题</p>
-<p><a href="https://github.com/devdawei/libstdc-">https://github.com/devdawei/libstdc-</a></p>
-<h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p>视频最后的编译可以试一试，安装还是参考上文</p>
-<p><a href="https://www.bilibili.com/video/BV1ovejeXEUU?t=296">https://www.bilibili.com/video/BV1ovejeXEUU?t=296</a></p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-        <tag>越狱</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Bose QC Ultra 和 Sony XM5</title>
-    <url>/2025/11/21/xm5%E5%92%8Cqc%20ultra/</url>
-    <content><![CDATA[<p>最近体验了两款旗舰消费级耳机，各有优劣，但我选择了优势更少的</p>
-<span id="more"></span>
-
-<p>我的耳朵长时间佩戴入耳式耳机不是很舒服，而且发过炎症（三星 Buds Pro 老用户），准备入一款头戴式玩玩，四个选择</p>
-<ol>
-<li><p>Sony WH 1000-XM5（朋友有一个，能借来用）</p>
-</li>
-<li><p>Bose QC Ultra</p>
-</li>
-<li><p>Sennheiser MOMENTUM 4（木馒头4）（看测评不适合我）</p>
-</li>
-<li><p>Airports Max（不考虑，太重了，舍友有一个，体验过一段时间）</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/1a888c1e2140222ae453245b0d8ecbae.jpeg"></p>
-</li>
-</ol>
-<p>借朋友的XM5、买了一个Bose QC Ultra开始体验，看看留下谁</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/e9eca987d5bd8842075890dfb7a2d4db.jpeg"></p>
-<p>最后留下了Bose，就是因为<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>、<strong>佩戴舒适</strong>，能折叠，个人觉得比XM5好看，就没了，其他全是缺点</p>
-<p>来列一下与XM5对比，Bose的缺点</p>
-<ol>
-<li>EQ不能保存多个，可以调节的少</li>
-<li>不能快速切换降噪和通透，必须通过模式来切换</li>
-<li>没有XM5长按右耳罩，快速减少音量，关闭降噪的功能（Bose的交互比XM5烂很多）</li>
-<li>查询电池电量只能通过蓝牙，或者自定义音量条的“快捷方式”（我用来调节“沉浸式音频”了），但耳机开机的时候会报一下电量</li>
-<li>开机的时候如果连接了多设备，会把设备的名字都念一遍（能关闭）</li>
-<li>充电速度慢，电池没有XM5的大</li>
-<li>蓝牙的音质是比xm5差点（我能听出来），但是有线的情况下不分伯仲（说Bose会更好，我听不出来）</li>
-<li>音频线是2.5mm和3.5mm的，而且送的线比Sony的短</li>
-<li>没有防水，下雨不要戴</li>
-<li>用耳机上的滑块把音量调到最大。每次通过 3.5mm 线连接时，音量都会自动变成 50%，说是为了保护听力。所以你得在两个地方调音量（耳机和设备上）</li>
-<li>Bose 的品控差，售后特别烂，我的暂时还没问题</li>
-<li>折腾Bose的人少，Sony的还可以刷刷固件折玩</li>
-</ol>
-<p>另外朋友的XM5用的挺久了，耳机涂层脱落，手感差，且有油光，看起来变廉价了</p>
-<p><img src="https://85d8ba7.webp.li/2025/12/6f5a141e3dc24de32522f0bc9c895b0f.jpeg"></p>
-]]></content>
-      <tags>
-        <tag>耳机</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用Systemctl运行Rustdesk服务端</title>
-    <url>/2024/04/30/%E4%BD%BF%E7%94%A8Systemctl%E8%BF%90%E8%A1%8CRustdesk%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
-    <content><![CDATA[<h1 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h1><p>首先在<br><a href="https://github.com/rustdesk/rustdesk-server/releases">https://github.com/rustdesk/rustdesk-server/releases</a><span id="more"></span><br>下载最新版的 rustdesk-server-linux-amd64.zip<br>再FTP上传到自己的服务器地址,或者直接使用wget也可以</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用wget下载1.1.12版本</span></span><br><span class="line">wget https://github.com/rustdesk/rustdesk-server/releases/download/1.1.12/rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## unzip解压</span></span><br><span class="line">unzip rustdesk-server-linux-amd64.zip</span><br><span class="line"><span class="comment">## 重命名解压后的文件（可选）</span></span><br><span class="line"><span class="built_in">mv</span> amd64 rustdesk</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p><strong>我把程序文件放在 “&#x2F;rustdesk”下了,注意根据自己的位置修改</strong></p>
-<p>&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;路径下创建自启动service文件<br><code>cd /etc/systemd/system/</code></p>
-<p>在文件中添加以下内容（注意修改脚本文件所在路径），编辑完后保存退出</p>
-<p>运行的两个文件是干嘛的?</p>
-<ul>
-<li>hbbs: RustDesk的ID服务，用于分配和注册ID；</li>
-<li>hbbr: RustDesk的中继服务，如果直连远程不行，会使用hbbr进行流量中继。</li>
-</ul>
-<p><strong>hbbs.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbs</span><br><span class="line">After=network.target syslog.target  <span class="comment">##在网络和系统日志服务可用后，服务才会启动</span></span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure      <span class="comment">##程序崩溃自动重启，服务端会莫名崩溃，加上稳定一些</span></span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk      <span class="comment">##这里修改成你的位置</span></span><br><span class="line">ExecStart=/rustdesk/hbbs -k _     <span class="comment">##-k _ 是强制加密,新版好像改了参数</span></span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>hbbr.service</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=hbbr</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants = network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=root</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">WorkingDirectory=/rustdesk</span><br><span class="line">ExecStart=/rustdesk/hbbr -k _</span><br><span class="line">ExecStop=/bin/kill -TERM <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>使用systemctl命令重载配置<br><code>systemctl daemon-reload</code></p>
-<p>运行程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start hbbr.service</span><br><span class="line">systemctl start hbbs.service</span><br></pre></td></tr></table></figure>
-
-<p>设置开机自动运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> hbbs.service</span><br><span class="line">systemctl <span class="built_in">enable</span> hbbr.service</span><br></pre></td></tr></table></figure>
-
-<p>检验程序是否启动，如果看到进程中有hbbs和hbbr进程则代表启动成功<br><code>ps -ef | grep hbb</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/68ea2a1200dff2804dc2fdbb12433d87.png" width=80% height=80% />
-
-<p>也可用systemctl status查看运行状态<br><code>systemctl status hbbs</code></p>
-<img src="https://85d8ba7.webp.li/2024/12/3acf75d022729c24ed333b25f31d18cd.png" width=80% height=80% />
-
-<p><strong>Systemctl其他命令</strong><br>查看当前系统中所有的服务列表，并找到需要关闭的服务：<br><code>systemctl list-unit-files --type=service</code><br>停止需要关闭的服务：<br><code>systemctl stop [service_name].service</code><br>禁止服务开机自启：<br><code>systemctl disable [service_name].service</code></p>
-<h1 id="关于端口"><a href="#关于端口" class="headerlink" title="关于端口"></a>关于端口</h1><p><a href="https://rustdesk.com/docs/zh-cn/self-host/rustdesk-server-oss/install">官方文档</a></p>
-<p>默认情况下，hbbs 监听21115(tcp), 21116(tcp&#x2F;udp), 21118(tcp)，hbbr 监听21117(tcp), 21119(tcp)。务必在防火墙开启这几个端口， <strong>请注意21116同时要开启TCP和UDP</strong>。其中21115是hbbs用作NAT类型测试，21116&#x2F;UDP是hbbs用作ID注册与心跳服务，21116&#x2F;TCP是hbbs用作TCP打洞与连接服务，21117是hbbr用作中继服务, 21118和21119是为了支持网页客户端。如果您不需要网页客户端（21118，21119）支持，对应端口可以不开。</p>
-<ul>
-<li>TCP(<strong>21115, 21116, 21117, 21118, 21119</strong>)</li>
-<li>UDP(<strong>21116</strong>)</li>
-</ul>
-<h1 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h1><p>在RustDesk设置的网络中,ID和中继服务器都填上服务器的IP,如果开启了加密,key的值在服务端运行后,程序文件夹(&#x2F;rustdesk)下面会有 <strong>.pub</strong> 文件,key就是 <strong>.pub</strong> 文件里面的值</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/">https://www.mintimate.cn/2023/08/27/guideToHostRustDesk/</a><br><a href="https://blog.csdn.net/ZRongZH/article/details/131210221">https://blog.csdn.net/ZRongZH/article/details/131210221</a></p>
-]]></content>
-      <tags>
-        <tag>Systemctl</tag>
-        <tag>Rustdesk</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>哪吒监控v1</title>
     <url>/2025/01/14/%E5%93%AA%E5%90%92%E9%9D%A2%E6%9D%BF/</url>
     <content><![CDATA[<p>开始玩鸡了<span id="more"></span></p>
@@ -2290,6 +2366,32 @@
       </tags>
   </entry>
   <entry>
+    <title>Android 折腾</title>
+    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
+<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
+<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
+<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
+<ul>
+<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
+<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
+<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
+<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
+<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
+<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
+</ul>
+<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
+<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
+<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
+<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
+<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
+]]></content>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac外壳磕了，国内外两次AC送修经历</title>
     <url>/2026/06/18/%E5%9B%BD%E5%86%85%E5%A4%96%E4%B8%A4%E6%AC%A1AppleCare%E7%BB%8F%E5%8E%86/</url>
     <content><![CDATA[<p>一年前，自己的美版16寸MacBook因为自己不不小心，被充电头的插脚顶出了凹痕，刚好买了AppleCare，于是就预约了准备去送修</p>
@@ -2321,32 +2423,6 @@
         <tag>Apple</tag>
         <tag>Mac</tag>
         <tag>Apple Care</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android 折腾</title>
-    <url>/2024/11/12/%E5%AE%89%E5%8D%93%E6%8A%98%E8%85%BE/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这个学期，学校开始使用专门的校园跑软件进行校园跑😡，发现自己上个学期用的 Anygo，模拟不了步频和GPS信号，导致刷不了，自己开始另辟蹊径，在了解到Fake Location 后<span id="more"></span>，发现这是目前流出来的最多人使用的刷跑软件，我马上开始用舍友的电脑装上模拟器开始研究，花了一晚上，没研究出来，真机都没有玩过的我，还想直接上虚拟机，我就决定添设备，第一想到的当然是 Pixel了，发现 Pixel 7A 挺合适，已经在闲鱼上面找好了卖家，但是在V2EX上面看到贴子，说Pixel 6 之后的手机容易刷成砖，当时国内就一个人能救砖，我这从来没有用过Android的看到这里就有点慌了，随后看起了大家力荐的一加，这时候发现国产手机的堆料太猛了，就看好了一加8T ，又发现一加的手机都没有红外传感器，我也想和室友一样，在寝室掌控空调，网上查了一圈后，发现还得是小米，小米10 Pro？不错不错，往上搜了一个档次，闲鱼的价格竟然和小米11 Pro不相上下，那我肯定是选择更高档的了呀，等等，小米11 Pro是888！😧</p>
-<p>在看完极客湾的<a href="https://www.bilibili.com/video/BV1z54y1Z7pr/">这一期视频</a>后发现骁龙888 的能耗比还是比865好的，同时在酷安上面发现有很多佬的训龙教程，尤其是Sutoliu开发的<a href="https://www.coolapk.com/feed/34228100">小米11 Pro的限频模块</a>后，就决定是小米11 Pro了😁</p>
-<h1 id="开始root"><a href="#开始root" class="headerlink" title="开始root"></a>开始root</h1><p>使用 Fake Location 当然先要root了，手机是解好BL锁的，一拿到机器，我就开始刷包、root，</p>
-<p>我用的面具是<a href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a>（狐狸面具），我多使用修补 boot.img 的方式来root，然后就是安装 <a href="https://github.com/JingMatrix/LSPosed">LSPosed</a>，就可以开始安装自己喜欢的模块插件了，下面给两个推荐</p>
-<ul>
-<li><a href="https://github.com/grbnb/xp_module">午夜神GitHub备份</a></li>
-<li><a href="https://t.me/OJBK2333">https://t.me/OJBK2333</a></li>
-<li><a href="https://github.com/lingeringsound/10007">去广告模块</a></li>
-<li><a href="https://github.com/LSPosed/CorePatch">核心破解</a></li>
-<li><a href="https://github.com/Uotan-Dev/UotanToolboxNT">柚坛工具箱</a></li>
-<li><a href="https://www.coolapk.com/feed/57098761?shareKey=YTg3MjEzNGU2NjQ3NjY5MjMxYzM">修改 原生&#x2F;类原生 5G信号格数显示阈值</a></li>
-</ul>
-<h1 id="Fakelocation"><a href="#Fakelocation" class="headerlink" title="Fakelocation"></a>Fakelocation</h1><p>在写这篇文章时，方法已经失效，所以大家自行看下面的文章吧，我懒得写了🥱</p>
-<p><a href="https://www.qcqx.cn/article/c5d354fd">FakeLocation模拟校园跑教程</a></p>
-<p><a href="https://www.treesnote.com/4.html">解除 fakelocation APP屏蔽</a></p>
-<p><a href="https://github.com/BIT-BOBH/FakeLocation-server">FakeLocation破解</a><br><a href="https://github.com/MuWinds/fakelocation_sever_docker">Docker部署破解</a></p>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024-12-04 连续跑了30天，终于把这个校园跑跑完了，身体无肉眼可见的变化😭</p>
-<p>现在手机多用作遥控器，刷了 crDroid 系统准备养老</p>
-]]></content>
-      <tags>
-        <tag>Android</tag>
       </tags>
   </entry>
   <entry>
@@ -2542,6 +2618,28 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
+    <title>百度网盘青龙面板会员签到</title>
+    <url>/2025/03/16/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BC%9A%E5%91%98%E7%AD%BE%E5%88%B0/</url>
+    <content><![CDATA[<p>GitHub地址：<a href="https://github.com/tunecc/DuPan">https://github.com/tunecc/DuPan</a> <span id="more"></span></p>
+<h1 id="为什么要签到答题？"><a href="#为什么要签到答题？" class="headerlink" title="为什么要签到答题？"></a>为什么要签到答题？</h1><p>坚持签到和答题一年17*365&#x3D;6205成长值，相当于开三年会员赠送的成长值，再算上svip每天30（一年10950）的成长值，只要成长值到10w，减去1.5万开通v10，可以实现正常续费无限v10（引用自：<a href="https://hostloc.com/thread-1392878-1-1.html">https://hostloc.com/thread-1392878-1-1.html</a> ）</p>
+<h1 id="为什么有这个项目"><a href="#为什么有这个项目" class="headerlink" title="为什么有这个项目"></a>为什么有这个项目</h1><p>因为上面说的，所以我一直有签到的需求，最开始发现 <a href="https://github.com/qd-today/qd">qd</a> 上面有现成的，用起来觉得不够方便，又在网上搜寻一番找到了</p>
+<p><a href="https://www.blueskyxn.com/202410/7228.html">https://www.blueskyxn.com/202410/7228.html</a> 这一篇博文，里面有现成的代码，能在ql上面使用，就拿过来叫大模型改了改。</p>
+<h1 id="Cookie获取"><a href="#Cookie获取" class="headerlink" title="Cookie获取"></a>Cookie获取</h1><p>打开：<a href="https://pan.baidu.com/">https://pan.baidu.com</a> ，F12，网络，main文档里面把cookie，全部弄到变量里面，我的变量为 <code>XFI=***ndut_fmt=***</code>（只列出了开头和结尾两个变量）</p>
+<p>这个 <a href="https://gist.github.com/RunwangGuo/48d98ff5763c9a3883907e9a593e18fb">fork</a> 的修改应该是只需要 <code> &quot;BDUSS=xxxx; BAIDUID=xxxx;&quot;</code> 但是我找不到 BAIDUID 这个变量</p>
+<h1 id="TG通知示例"><a href="#TG通知示例" class="headerlink" title="TG通知示例"></a>TG通知示例</h1><p>当天第一次成功签到</p>
+<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/first.jpg" alt="image"></p>
+<p>当天重复签到</p>
+<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/repeat.jpg" alt="image"></p>
+<h1 id="注意（引用自原文）"><a href="#注意（引用自原文）" class="headerlink" title="注意（引用自原文）"></a>注意（<a href="https://www.blueskyxn.com/202410/7228.html">引用自原文</a>）</h1><p>基于Python，需要Cookie</p>
+<p>建议在本地或固定登录百度网盘的设备（包括Windows服务器、Alist）使用，避免多IP风控。</p>
+<p>不建议使用云函数，因为动态IP。</p>
+<p>虽然百度的大部分风控不影响签到，但是会影响你下载。</p>
+]]></content>
+      <tags>
+        <tag>青龙面板</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>搭建越狱软件源</title>
     <url>/2024/09/15/%E6%90%AD%E5%BB%BA%E8%B6%8A%E7%8B%B1%E8%BD%AF%E4%BB%B6%E6%BA%90/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一直在折腾越狱，手机移除越狱了几次，发现重新安装插件的过程非常麻烦，所以想搭建一个自己的软件源<span id="more"></span>，里面的插件都是我需要，这样更加省事。</p>
@@ -2617,25 +2715,20 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>百度网盘青龙面板会员签到</title>
-    <url>/2025/03/16/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BC%9A%E5%91%98%E7%AD%BE%E5%88%B0/</url>
-    <content><![CDATA[<p>GitHub地址：<a href="https://github.com/tunecc/DuPan">https://github.com/tunecc/DuPan</a> <span id="more"></span></p>
-<h1 id="为什么要签到答题？"><a href="#为什么要签到答题？" class="headerlink" title="为什么要签到答题？"></a>为什么要签到答题？</h1><p>坚持签到和答题一年17*365&#x3D;6205成长值，相当于开三年会员赠送的成长值，再算上svip每天30（一年10950）的成长值，只要成长值到10w，减去1.5万开通v10，可以实现正常续费无限v10（引用自：<a href="https://hostloc.com/thread-1392878-1-1.html">https://hostloc.com/thread-1392878-1-1.html</a> ）</p>
-<h1 id="为什么有这个项目"><a href="#为什么有这个项目" class="headerlink" title="为什么有这个项目"></a>为什么有这个项目</h1><p>因为上面说的，所以我一直有签到的需求，最开始发现 <a href="https://github.com/qd-today/qd">qd</a> 上面有现成的，用起来觉得不够方便，又在网上搜寻一番找到了</p>
-<p><a href="https://www.blueskyxn.com/202410/7228.html">https://www.blueskyxn.com/202410/7228.html</a> 这一篇博文，里面有现成的代码，能在ql上面使用，就拿过来叫大模型改了改。</p>
-<h1 id="Cookie获取"><a href="#Cookie获取" class="headerlink" title="Cookie获取"></a>Cookie获取</h1><p>打开：<a href="https://pan.baidu.com/">https://pan.baidu.com</a> ，F12，网络，main文档里面把cookie，全部弄到变量里面，我的变量为 <code>XFI=***ndut_fmt=***</code>（只列出了开头和结尾两个变量）</p>
-<p>这个 <a href="https://gist.github.com/RunwangGuo/48d98ff5763c9a3883907e9a593e18fb">fork</a> 的修改应该是只需要 <code> &quot;BDUSS=xxxx; BAIDUID=xxxx;&quot;</code> 但是我找不到 BAIDUID 这个变量</p>
-<h1 id="TG通知示例"><a href="#TG通知示例" class="headerlink" title="TG通知示例"></a>TG通知示例</h1><p>当天第一次成功签到</p>
-<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/first.jpg" alt="image"></p>
-<p>当天重复签到</p>
-<p><img src="https://raw.githubusercontent.com/tunecc/DuPan/refs/heads/main/resources/photo/repeat.jpg" alt="image"></p>
-<h1 id="注意（引用自原文）"><a href="#注意（引用自原文）" class="headerlink" title="注意（引用自原文）"></a>注意（<a href="https://www.blueskyxn.com/202410/7228.html">引用自原文</a>）</h1><p>基于Python，需要Cookie</p>
-<p>建议在本地或固定登录百度网盘的设备（包括Windows服务器、Alist）使用，避免多IP风控。</p>
-<p>不建议使用云函数，因为动态IP。</p>
-<p>虽然百度的大部分风控不影响签到，但是会影响你下载。</p>
+    <title>转换GitHub Raw 链接</title>
+    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
+    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
+<p>sh脚本：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
+
+<p>js脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
 ]]></content>
       <tags>
-        <tag>青龙面板</tag>
+        <tag>GitHub</tag>
+        <tag>小脚本</tag>
       </tags>
   </entry>
   <entry>
@@ -2832,23 +2925,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       </tags>
   </entry>
   <entry>
-    <title>转换GitHub Raw 链接</title>
-    <url>/2024/12/26/%E8%BD%AC%E6%8D%A2GitHub%20Raw%20%E9%93%BE%E6%8E%A5/</url>
-    <content><![CDATA[<p>每次用 GitHub Raw 链接找原仓库链接时，都非常麻烦，在使用 CopyValue 插件时，有示例脚本来转换 Raw 链接的，但是作者的逻辑错误，就叫 GPT 写了一个<span id="more"></span></p>
-<p>sh脚本：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">convert_raw_to_repo_url</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> url=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="built_in">local</span> processedUrl=<span class="string">&quot;<span class="variable">$&#123;url//raw.githubusercontent.com/github.com&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 在 &quot;github.com&quot; 后面的第二个斜杠处插入 &quot;blob&quot;</span></span><br><span class="line">  processedUrl=$(<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span> | sed <span class="string">&#x27;s|\(github\.com/[^/]*/[^/]*\)|\1/blob|&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$processedUrl</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从剪贴板获取内容</span></span><br><span class="line">rawUrl=$(pbpaste)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数处理URL</span></span><br><span class="line">repoUrl=$(convert_raw_to_repo_url <span class="string">&quot;<span class="variable">$rawUrl</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将结果拷贝到剪贴板</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$repoUrl</span>&quot;</span> | pbcopy</span><br></pre></td></tr></table></figure>
-
-<p>js脚本：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params">url</span>) &#123;</span><br><span class="line">  <span class="comment">// 处理字符串，将 &quot;raw.githubusercontent.com&quot; 替换为 &quot;github.com&quot;</span></span><br><span class="line">  <span class="keyword">let</span> processedUrl = url.<span class="title function_">replace</span>(<span class="string">&quot;raw.githubusercontent.com&quot;</span>, <span class="string">&quot;github.com&quot;</span>);</span><br><span class="line">  <span class="comment">// 将第一个 &quot;/refs/heads/&quot; 替换为 &quot;/blob/refs/heads/&quot;</span></span><br><span class="line">  processedUrl = processedUrl.<span class="title function_">replace</span>(<span class="string">&quot;/refs/heads/&quot;</span>, <span class="string">&quot;/blob/refs/heads/&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个字符串数组</span></span><br><span class="line">  <span class="keyword">const</span> urls = [];</span><br><span class="line">  <span class="comment">// 将处理后的字符串添加到数组中</span></span><br><span class="line">  urls.<span class="title function_">push</span>(processedUrl);</span><br><span class="line">  <span class="comment">// 返回字符串数组</span></span><br><span class="line">  <span class="keyword">return</span> urls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Mac 用户可以在 “自动操作” 软件中，把这个 sh 脚本弄成一个 App 这样再配合快捷指令的快捷键使用更方便，其实可以直接用快捷指令写，但是我不会用 🤣</p>
-]]></content>
-      <tags>
-        <tag>GitHub</tag>
-        <tag>小脚本</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>过程就是奖励</title>
     <url>/2026/09/17/%E8%BF%87%E7%A8%8B%E5%B0%B1%E6%98%AF%E5%A5%96%E5%8A%B1/</url>
     <content><![CDATA[<p>很多话，小时候理解不了，长大之后就慢慢理解了。<span id="more"></span></p>
@@ -2978,82 +3054,6 @@ Object.defineProperty(unsafeWindow, &#39;__MIRROR_CONFIG__&#39;, &#123; get() &#
       <tags>
         <tag>青龙面板</tag>
         <tag>Serv00</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>别了，阿太</title>
-    <url>/2026/09/30/%E5%88%AB%E4%BA%86%EF%BC%8C%E9%98%BF%E5%A4%AA/</url>
-    <content><![CDATA[<p>2026年9月24日，我的阿太与世长辞<span id="more"></span>。</p>
-<p>自打我记事起，阿太就住在老家一个亲戚开的木具厂里。每隔一段时间，爸爸就会带我去看她。那时候我还在读幼儿园，从家里骑摩托车过去，五六分钟就到了。</p>
-<p>阿太住在木具厂刚进去右边的房间里。每次去，阿太都会拿很多好吃的给我。那时候我年纪小，又和阿太不是特别熟，去了也不知道干什么，每次都待不了多久，就催着爸爸赶紧回家。</p>
-<p>后来长大了，也就慢慢没有再去过那里。</p>
-<p>葬礼期间，有一位哥哥跟我说，在我这个年龄段里，和阿太最亲的就是我和另一个满满。想想还真是。</p>
-<p>阿太在我小学的时候带过我两年。那两年，她煮给我吃，哄我入睡。那时候我们睡觉的房间，就是我写出这篇文章的房间。</p>
-<p>阿太心口直快，刀子嘴豆腐心，导致在这一家住住，没多久就到另一家住。后来我上初中了，我爸担心阿太没地方住，就买了一张双层床，放在家里唯一的空房间里。到现在八年过去了，那张床没人睡过，已经堆满了杂物。</p>
-<p>阿太很喜欢骂她的子女（去年轮到了我的爷爷奶奶，因为矛盾，来县城过了一次年。孰不知，那是阿太在世的最后一个年），但从来没有骂过我们小辈。</p>
-<p>每一次快放寒暑假了，阿太就叫我放假赶紧回村里去，担心我一个人在县城里没得吃。每次回去，她就杀鸡给我们吃；每次上桌，她都叫我多吃一点，总说：才吃那么一点点，就饱了？</p>
-<p>她知道我们年轻人不爱吃早饭，家里就常年备着一箱方便面； 她知道我们过完年就必须出去上班上学，就总催我们过年过节早点回去； 她知道我们喜欢喝牛奶，别人送的，她都在房里放着。</p>
-<p>她怕我们回去没菜吃，冰箱就总是塞得满满的，可她自己，天天挑着发霉的、馊了的菜吃； 她怕我们嫌弃剩饭，剩饭就都归了她自己； 她怕我们夹不到菜，每顿都把剩菜添上去，再拖着年迈的身子，慢慢地、慢慢地，走到堂屋去吃。</p>
-<p>那箱方便面，房里的牛奶，冰箱里的菜，都在等我们回去。只是等着等着，牛奶过了期，菜馊了，她也跟着，一年一年地老了。可她等的我们，总是回去得太少，待得太短。</p>
-<p>阿太不知道怎么存别人的电话号码，但每一次来电，号码一报出来，她就知道是谁打来的。</p>
-<p>阿太总是和我奶奶念叨，问我什么时候回村里。我说我要在县城里用电脑，她就叫我带着电脑回去。</p>
-<p>每次回去，阿太都在门前弄着农作物。看似在弄农作物，但我更愿意相信，阿太是在期待我们回家，期待着突然有人叫她一声：阿太！&#x2F;阿婆！&#x2F;阿妈！</p>
-<p>在学校的时候，我每隔一个星期就会打电话回去给爷爷奶奶，电话里问起阿太在做什么，大部分时候，答案都是：睡着了。是啊，无聊的话，不去睡觉还能干什么呢。</p>
-<hr>
-<p>现在回想，阿太的这一次离开，早有预兆。</p>
-<p>8月26日，七月半，我还回来过一次。那时候阿太还在门外剥着玉米，有长辈说帮阿太剥，阿太还说：你们剥完了，那我做什么。就是那一天，阿太叫我把电脑带回家里去。因为村里住不习惯，我没带。</p>
-<p>短短半个月，阿太就成了卧床不起、无法自理的样子。</p>
-<p>9月9日晚上，阿太吐了血，整个人的精气神像被抽走了一样，说不出话来。9月10日，全家人开始往回赶，那是我们全家人凑得最齐的一次。我回到家，看着病床上的阿太：她整个人说不出话来，制氧机放在一旁，手上打着氨基酸，维持着生命。这一次，我把电脑带回来了。我拉着阿太的手告诉她，电脑我带回来了。可她还是昏睡着，无法回应。</p>
-<p>9月12日晚上，以为阿太要断气了。堂屋的牌局散了，地拖干净了，板子也准备好了。我透过房间的门看进去，家里的“顶梁柱”们眼里都含着泪花。好在，是虚惊一场。</p>
-<p>9月13日，周天，阿太的情况有所好转。一些长辈见这样，就准备离开，赶回去上第二天的班。我也准备吃了晚饭，搭亲戚的车回去。</p>
-<p>离开之前，因为我下午吃了点东西，不饿，就让一直守着的长辈先去好好吃个饭。我守在床边，手机在一旁充着电，看着眼前睡着的阿太。忽然，阿太的手动了起来，像是想撑起身体，有坐起来的迹象。一位长辈刚好夹着菜走过来，我就跟她说，阿太好像要坐起来了。马上又来了一位长辈，一左一右，把阿太扶着坐了起来。小小的房间里陆陆续续挤满了人。大家看到前两日还卧床不起的阿太坐了起来，脸上都洋溢着笑容。我退到后面，举起手机，拍下了此情此景。照片里，长辈们的目光都在阿太身上，没有人在意我这个突兀举起来的手机。也对啊，眼前的是他们的妈妈、奶奶，有什么能比眼前的人更重要呢。</p>
-<p>长辈问阿太，要不要弄点饭汤、粥喝一下。没力气说话的阿太马上摇了摇头，又躺了回去。长辈们回去继续吃饭了。我把灯关上，想让阿太睡得好一点。看着眼前睡过去的阿太，没想到，这是我与她最后一次独处。</p>
-<p>长辈们吃饱晚饭，我们离开了。车开到镇上，一起回县城的姑姑要回家里拿点东西。我们在楼下等的时候，和她妈妈（我叫她满婆）聊起阿太的状况，说阿太的身体好了些，刚刚还坐起来了。满婆说，可能是回光返照，她以前遇到过类似的状况。我没当回事。</p>
-<p>9月23号8点38分，奶奶电话打来，问我回不回去过中秋，有亲戚开车回去。我说不回了。</p>
-<p>9月24号8点37分，奶奶又打电话来，问我回去过中秋吗。我说不回了。这时候奶奶的声音和平时不一样，很虚。我说不会去，电话就挂了。</p>
-<p>11点11分，爷爷打了个电话来，问我回不回去过中秋。我说不回了，马上电话就挂了。</p>
-<p>11点52分，奶奶打了个电话过来，我接了，什么都听不清，我就挂了。</p>
-<p>11点54分，爷爷打来电话，我想问奶奶怎么了，爷爷抢过话：阿太不在了。</p>
-<p>我愣了一下。怎么会，前几天还说有所好转的，怎么一下子人就没了。我不相信。但这件事开不得玩笑，他们还很忙，我马上联系亲戚，看谁的车方便载我回去。我刚做出来的两道菜也不香了，简单应付几口，就去收拾行李。</p>
-<p>下午五点，上了回村的车。一路上我们还是聊着天，就像正常回老家一样。可是从镇上回村里的时候，天色已黑，车上没有人说话了，一股沉重的氛围笼罩在车上。我们都知道，这一次回去，那个一直守在家门前的人，已经不在了。</p>
-<p>到家，车停在下面，我们拿着行李往上走。我的姑姑——家里最会穿寿衣的那一个——因为各种事情回来晚了。她下了车，没管自己的孩子，赶紧往家里走去。上了坡，我看见家门口已经搭起了棚子。走在我前面的姑姑已经到了家门口，她见到家里的景象，直接放声痛哭。她是从门外跪着进去的，爬到阿太的冰棺旁，诉说自己的遗憾，很久很久。</p>
-<p>我看到灵堂的景象，一时难以置信。阿太的照片放在冰棺前面，照片前面就是放香火和烧纸的地方。我把自己的两个包随便往门外一扔，进去，跪在地上，烧起了纸。</p>
-<p>姑姑在冰棺旁哭了很久。后来，在外面吃饭的奶奶（姑姑的妈妈）进来，叫她起来烧点纸。就连我那调皮捣蛋的6岁弟弟，也难得懂事一次，叫妈妈不要哭了。他也是第一次见到自己的妈妈这样嚎啕大哭吧。他的妈妈，在这位躺在冰棺里的老人面前，也只是一位外孙女，也只是一个孩子。</p>
-<p>第一晚不用守灵，十一点多我就上楼去睡了。</p>
-<p>第二天，在外面无所事事的我，被一位长辈叫去放爆竹，等师公来了马上就放。第一次放，太过着急，不小心被火药冲到了手，左手拇指白了一条。家里人知道了，都来问我手的状况，教我要怎么做。弄来草药后，我一个手挤不出水，大家还帮我想办法，用一个塑料杯装着草药，用石头敲出水来。我了解了方法之后，他们还是要帮我做好第一次。这就是家人的关爱吧，从小独立的我很少体会到。</p>
-<p>第二天也是中秋节。这是我们这一家人聚得最整齐的一个中秋，可预见的，将来也不会再有了。所以这几天我都没玩手机，慢慢体会这一家人最后的团聚时刻。</p>
-<p>2024年初的全家福，成了我们唯一的全家福。</p>
-<p>这一天，我们戴上了白色头巾，跟着师公做法事，持续了两天。</p>
-<hr>
-<p>阿太24号走的，27号就出殡了。整个过程很快，两次回家都正好连着周末，没太耽误大家的工作。</p>
-<p>游本昌走得比阿太早十个小时整，他们同岁。他饰演的济公深入人心。阿太与他，一路走好。</p>
-<p>出殡完，大家就离开了。或是因为四天三夜的劳累，或是因为想快点复工，车一辆一辆地开走，人一个一个地离开。可每个人其实都知道，这一次和以前不一样了。以前大家回来，是因为家里还有一个人。以后再回来，那个等着大家的人已经没有了。</p>
-<p>房子还在，院子还在，什么都在，只是阿太不在了。</p>
-<p>少了一个她，空了一个家。</p>
-<p>再回去的时候，那声阿太、阿婆、阿妈，再也没有人应了。</p>
-<p>阿太一辈子要强，生了十姊妹，又把他们一个个拉扯大。她就像一棵树，身上发出去十条枝。从前枝干散得再远，根都连在同一棵树上；如今主干没有了，十条枝只好各自生根、各自发芽。</p>
-<hr>
-<p>这次参加完葬礼，家里收尾的时候，发现有几个风扇和一张麻将桌要还回镇上去。我还算强壮，就被安排过去帮忙。也是因为这个原因，我临时换了原来要搭的车，跟着另外一位亲戚一起回去。</p>
-<p>其中两个风扇，刚好要还到那个木具厂。</p>
-<p>那个地方，我已经十多年没有再去过了。</p>
-<p>车驶入木具厂的时候，我一直盯着右边看。可眼前已经完全不是我记忆中的模样：门前杂草丛生，那两个木门还在，只是旧得不成样子，有些地方已经腐朽了。</p>
-<p>我们把两个风扇放在那里，抽了支烟，就离开了。</p>
-<p>第一次见她，是在这里；最后一次送她，也是在这里。老天爷安排事，从来不跟人商量。</p>
-<p>车开出去的时候，我一直回头看着窗外，默默地和这里道了别。将来，是不会再到这里来了。</p>
-<p>别了，阿太。</p>
-<hr>
-<hr>
-<p>这一次回去，没有拍很多照片，因为怕有不能拍的。拍的最满意的就是上一次阿太坐起来那里了</p>
-<p>阿太说她笑得最开心的两次：一是，以为姑姑有些特效药，另一位姑姑问有没有什么药吃了能长高的。<br>二是，我在山上用杆秤来称我的体重，我说我有70斤，称出来没有，我说可能屎拉了有两三斤。</p>
-<p>说点自私的<br>我长这么大以来，家里面也出过几次丧事了，但是因为各种原因，我都躲过去了，第一次就是我的大伯公，他对我很好，我爸也是每隔一段时间就会带我进去看他，他一直念叨着，等我读大学了，政府里面发给他的蚊帐、床铺和电饭煲要给我用。可是在我高二那一年，他身体不好先走了，我在学校读书完全不知情。这一次是我第一次参加葬礼。</p>
-<p>去年，我出国去了，姑爷不在了，我也刚好躲过</p>
-<p>很早之前就知道阿太会走，我心里面一直有这个准备，没想到阿太是在我时间最多的时候走的，9月份学校安排实习，这一个月我都在家里，影响最小的就是我了，阿太最心疼的后生就是我，但是我也没有见到阿太最后一面。</p>
-<p>小孩子才分对错，成年人只看利弊。上午出殡，中午算账。新坟的土还没干，旧账就都翻出来了。</p>
-]]></content>
-      <tags>
-        <tag>碎碎念</tag>
-        <tag>离别</tag>
-        <tag>死亡</tag>
       </tags>
   </entry>
 </search>
